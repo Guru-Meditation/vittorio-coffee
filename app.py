@@ -20,8 +20,14 @@ from content import (
     CYPRUS_B2B,
     catalog_pack_label,
 )
+from mailing import send_mail
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
+def _phone_ok(raw):
+    digits = re.sub(r"\D", "", raw or "")
+    return len(digits) >= 8
 ARTICLES_BY_SLUG = {item["slug"]: item for item in ARTICLES}
 
 
@@ -71,6 +77,9 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = os.environ.get("SECRET_KEY", "vittorio-order-session")
     app.jinja_env.globals["catalog_pack_label"] = catalog_pack_label
+
+    def suppress_mail():
+        return bool(app.config.get("TESTING") or app.config.get("MAIL_SUPPRESS_SEND"))
 
     @app.context_processor
     def inject():
@@ -244,7 +253,7 @@ def create_app():
     def order():
         lines, subtotal, missing = cart_lines()
         errors = {}
-        values = {"name": "", "business_name": "", "email": "", "town": "", "notes": ""}
+        values = {"name": "", "business_name": "", "email": "", "phone": "", "town": "", "notes": ""}
         if request.method == "POST":
             values = {key: request.form.get(key, "").strip() for key in values}
             if request.form.get("company_website", "").strip():
@@ -253,10 +262,10 @@ def create_app():
                 errors["cart"] = "Add at least one product before placing the order."
             if len(values["name"]) < 2:
                 errors["name"] = "Enter your name."
-            if len(values["business_name"]) < 2:
-                errors["business_name"] = "Enter the café or bar name."
             if not EMAIL_RE.match(values["email"]):
                 errors["email"] = "Enter a valid email address."
+            if not _phone_ok(values["phone"]):
+                errors["phone"] = "Enter a phone number we can reach you on."
             if len(values["town"]) < 2:
                 errors["town"] = "Enter the town in Cyprus for delivery."
             if errors:
@@ -281,6 +290,28 @@ def create_app():
                 "missing_price": missing,
                 **values,
             }
+            order_lines = [f"Vittorio order {placed['ref']}"]
+            if placed["business_name"]:
+                order_lines.append(placed["business_name"])
+            order_lines.extend(
+                [
+                    f"{placed['town']}, Cyprus",
+                    f"Contact: {placed['name']} <{placed['email']}>, {placed['phone']}",
+                ]
+            )
+            if placed.get("notes"):
+                order_lines.append(f"Notes: {placed['notes']}")
+            for line in placed["lines"]:
+                order_lines.append(f"{line['qty']} × {line['name']} ({line['line_total']})")
+            if placed.get("subtotal"):
+                order_lines.append(f"Priced lines {placed['subtotal']} + VAT")
+            order_lines.append("Payment: cash on delivery only.")
+            placed["email_sent"] = send_mail(
+                f"Vittorio order {placed['ref']}",
+                "\n".join(order_lines),
+                reply_to=placed["email"],
+                suppress=suppress_mail(),
+            )
             session["cart"] = {}
             session["last_order"] = placed
             return redirect(url_for("order_done"))
@@ -300,16 +331,22 @@ def create_app():
         placed = session.get("last_order")
         if not placed:
             return redirect(url_for("order"))
-        summary = [f"Vittorio order {placed['ref']}", placed["business_name"], placed["town"] + ", Cyprus"]
+        summary = [f"Vittorio order {placed['ref']}"]
+        if placed.get("business_name"):
+            summary.append(placed["business_name"])
+        summary.append(placed["town"] + ", Cyprus")
+        if placed.get("phone"):
+            summary.append(f"Phone: {placed['phone']}")
         for line in placed["lines"]:
             summary.append(f"{line['qty']} × {line['name']} ({line['line_total']})")
         if placed.get("subtotal"):
             summary.append(f"Priced lines {placed['subtotal']} + VAT")
+        summary.append("Payment: cash on delivery only.")
         text = quote("\n".join(summary))
         return page(
             "order_done.html",
             "Order received — Vittorio Gourmet Espresso",
-            "Your Cyprus delivery order is ready to send to Vittorio on Viber or email.",
+            "Your Cyprus delivery order is emailed to the depot. Payment is cash on delivery only.",
             placed=placed,
             mail_href=f"mailto:{BUSINESS['email_service']}?subject={quote('Order ' + placed['ref'])}&body={text}",
         )
@@ -369,7 +406,23 @@ def create_app():
                 if errors:
                     status = 400
                 else:
-                    sent = True
+                    mail_body = (
+                        f"Name: {values['name']}\n"
+                        f"Email: {values['email']}\n\n"
+                        f"{values['message']}"
+                    )
+                    if send_mail(
+                        f"Vittorio contact — {values['name']}",
+                        mail_body,
+                        reply_to=values["email"],
+                        suppress=suppress_mail(),
+                    ):
+                        sent = True
+                    else:
+                        errors["send"] = (
+                            "We could not send your message right now. Use Contact on Viber, or try again later."
+                        )
+                        status = 503
         body = page(
             "contact.html",
             "Contact — Vittorio Gourmet Espresso",
@@ -402,7 +455,7 @@ def create_app():
         return page(
             "returns.html",
             "Returns — Vittorio Gourmet Espresso",
-            "Unopened goods can be returned within 30 days. Orders are confirmed on Viber.",
+            "Unopened goods can be returned within 30 days. Orders are cash on delivery.",
         )
 
     @app.get("/sitemap.xml")

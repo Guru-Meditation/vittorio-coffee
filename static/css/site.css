@@ -351,14 +351,59 @@ body.nav-open #site-nav { display: block; }
 .order-list { max-width: none; margin-bottom: 1.5rem; }
 .order-line {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.6rem 0.85rem;
   align-items: center;
   padding: 0.9rem 0;
   border-top: 1px solid var(--line);
+  grid-template-columns: 4.75rem 1fr auto;
+  grid-template-areas:
+    "media details details"
+    "media qty price";
 }
+.order-line-media {
+  grid-area: media;
+  display: block;
+  align-self: start;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.order-line-media img,
+.order-line-media .no-photo {
+  width: 4.75rem;
+  height: 4.75rem;
+  object-fit: contain;
+}
+.order-line-media .no-photo {
+  display: grid;
+  place-items: center;
+  padding: 0.35rem;
+  font-size: 0.62rem;
+  text-align: center;
+  color: var(--muted);
+  aspect-ratio: unset;
+}
+.order-line-details { grid-area: details; min-width: 0; }
+.order-line label { grid-area: qty; margin: 0; }
+.order-line > .price { grid-area: price; margin: 0; text-align: right; white-space: nowrap; }
 .order-line h2 { font-size: 1.35rem; margin: 0; }
 .order-line h2 a { color: inherit; text-decoration: none; }
 .order-line input { width: 5rem; }
+.order-payment-note {
+  max-width: 36rem;
+  margin: 0.5rem 0 1rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+.order-payment-note strong { color: var(--ink); font-weight: 600; }
+.optional {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.88em;
+  letter-spacing: normal;
+  text-transform: none;
+}
 .eyebrow {
   margin: 0;
   color: var(--copper);
@@ -481,7 +526,10 @@ input, textarea {
 @media (min-width: 800px) {
   .b2b-grid { grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
   .offer-row { grid-template-columns: repeat(3, 1fr); }
-  .order-line { grid-template-columns: 1fr auto auto; }
+  .order-line {
+    grid-template-columns: 5.25rem 1fr auto auto;
+    grid-template-areas: "media details qty price";
+  }
   .trust-strip { grid-template-columns: repeat(4, 1fr); width: min(var(--measure), calc(100% - 2.5rem)); margin: 0 auto; border-radius: 0 0 18px 18px; }
 }
 @media (min-width: 1040px) {

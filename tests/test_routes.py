@@ -74,7 +74,8 @@ def test_catalogue_shows_pack_size(client):
     assert page.count("350gr") >= 3
     assert "1000 pcs" in page
     assert "card-pack" in page
-    assert "card-pack" not in page.split("Milkshake Vanillia", 1)[1].split("Add to order", 1)[0]
+    vanillia_card = page.split("Milkshake Vanillia", 1)[1].split("Add to order", 1)[0]
+    assert "350gr" in vanillia_card
 
 
 def test_pack_field_matches_published_quantities():
@@ -82,11 +83,13 @@ def test_pack_field_matches_published_quantities():
 
     by_slug = {item["slug"]: item for item in PRODUCTS}
     assert catalog_pack_label(by_slug["lemon-granita-powder"]) == "0.5 kg"
+    assert catalog_pack_label(by_slug["strawberry-granita"]) == "0.5 kg"
     assert catalog_pack_label(by_slug["granite-straws-x-1000-pcs"]) == "1000 pcs"
-    assert catalog_pack_label(by_slug["milkshake-vanillia"]) is None
-    assert catalog_pack_label(by_slug["smoothies-syrups-peach"]) is None
+    assert catalog_pack_label(by_slug["milkshake-vanillia"]) == "350gr"
+    assert catalog_pack_label(by_slug["smoothies-syrups-peach"]) == "1 ltr"
+    assert catalog_pack_label(by_slug["white-life-chamomile"]) == "50gr"
     with_pack = sum(1 for item in PRODUCTS if catalog_pack_label(item))
-    assert with_pack == 36
+    assert with_pack == 45
 
 
 def test_catalogue_filter_and_search(client):
@@ -143,7 +146,7 @@ def test_menu_alias_and_navigation(client):
     assert menu.headers["Location"].endswith("/products")
     home = client.get("/").get_data(as_text=True)
     assert "Contact" in home
-    assert "Cyprus" in home
+    assert "B2B Services" in home
     cyprus = client.get("/cyprus").get_data(as_text=True)
     assert "Vittorio B2B Services" in cyprus
     assert "across Cyprus" in cyprus
@@ -158,7 +161,11 @@ def test_order_flow_and_cyprus_delivery(client):
     assert added.headers["Location"].endswith("/order")
     page = client.get("/order").get_data(as_text=True)
     assert "Costa Rica" in page
+    assert "order-line-media" in page
+    assert "products/costa-rica" in page
     assert "Cyprus" in page
+    assert "cash on delivery" in page.lower()
+    assert "pantzosantonis@gmail.com" in page
     placed = client.post(
         "/order",
         data={
@@ -175,6 +182,26 @@ def test_order_flow_and_cyprus_delivery(client):
     assert done.status_code == 200
     body = done.get_data(as_text=True)
     assert "Harbour Bar" in body
+    assert "99123456" in body
+    assert "pantzosantonis@gmail.com" in body
+    assert "cash on delivery" in body.lower()
+    retail = client.post("/cart/add", data={"slug": "costa-rica", "qty": "1"})
+    assert retail.status_code == 302
+    placed_retail = client.post(
+        "/order",
+        data={
+            "name": "Koxar",
+            "business_name": "",
+            "phone": "99123456",
+            "email": "koxar@example.com",
+            "town": "Larnaca",
+            "notes": "",
+        },
+    )
+    assert placed_retail.status_code == 302
+    retail_done = client.get("/order/received").get_data(as_text=True)
+    assert "Enter the café or bar name." not in retail_done
+    assert "Larnaca, Cyprus" in retail_done
     assert "viber://chat?number=" in client.get("/").get_data(as_text=True)
     machines = client.get("/machines").get_data(as_text=True)
     assert "Apia Life" in machines

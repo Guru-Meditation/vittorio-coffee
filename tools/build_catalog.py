@@ -184,21 +184,15 @@ def describe(slug, name, group):
     if group == "Smoothies":
         flavour = name.replace("Smoothies Syrups ", "")
         return (
-            f"{flavour} fruit pulp for blending with ice and water or milk.",
-            ["Fruit pulp"],
+            f"1 ltr. {flavour} fruit pulp for blending with ice and water or milk.",
+            ["1 ltr", "Fruit pulp"],
             None,
-        )
-    if slug == "milkshake-chocolate":
-        return (
-            "Chocolate milkshake powder, with 350 g stated on the page. The description says the mix is thick and made with sour cream, pieces of fruit, and powdered yogurt.",
-            ["350 g"],
-            "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
         )
     if group == "Milkshakes":
         flavour = name.replace("Milkshake ", "")
         return (
-            f"{flavour} milkshake powder. The description says the mix is thick and made with sour cream, pieces of fruit, and powdered yogurt. A pack weight is not stated on this record.",
-            [],
+            f"350gr. {flavour} milkshake powder made with sour cream, pieces of fruit, and powdered yogurt.",
+            ["350 g"],
             "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
         )
     if group == "Teas":
@@ -231,6 +225,12 @@ def describe(slug, name, group):
             ["500 g", "For a granita machine"],
             "No preservatives, as stated. Colourings are described as permitted. No fuller dietary panel is published.",
         )
+    if slug == "strawberry-granita":
+        return (
+            "Granita powder for a granita machine, in a strawberry and lemon pair. 500 g is stated on the strawberry listing. The page says the powders use no preservatives and permitted colourings.",
+            ["500 g", "For a granita machine"],
+            "No preservatives, as stated. Colourings are described as permitted. No fuller dietary panel is published.",
+        )
     if group == "Granitas":
         return (
             "Granita powder for a granita machine, in a strawberry and lemon pair. A pack weight is not repeated on the strawberry listing. The page says the powders use no preservatives and permitted colourings.",
@@ -244,7 +244,7 @@ def describe(slug, name, group):
     )
 
 
-_PACK_FACT = re.compile(r"^\d+ (g|kg|ml|pcs)$")
+_PACK_FACT = re.compile(r"^\d+ (g|kg|ml|ltr|pcs)$")
 _NAME_PACK = (
     (re.compile(r"×\s*1000\s*pcs", re.I), "1000 pcs"),
     (re.compile(r"×\s*500\s*pcs", re.I), "500 pcs"),

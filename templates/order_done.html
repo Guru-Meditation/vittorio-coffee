@@ -3,7 +3,8 @@
 <section class="page-intro section prose">
   <p class="eyebrow">Order {{ placed.ref }}</p>
   <h1>Ready for the depot.</h1>
-  <p>{{ placed.business_name }}, {{ placed.town }}, Cyprus. Use Contact and send this list. We confirm the order and the payment there before the car leaves Kalo Xorio.</p>
+  <p>{% if placed.business_name %}{{ placed.business_name }}, {% endif %}{{ placed.town }}, Cyprus{% if placed.phone %} · {{ placed.phone }}{% endif %}.</p>
+  <p>{% if placed.email_sent %}This order was emailed to <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>.{% else %}We could not reach <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a> automatically — use Email the order below or Contact.{% endif %} Payment is <strong>cash on delivery only</strong> when the car arrives. We may confirm details on Contact before delivery leaves Kalo Xorio.</p>
   <ul>
     {% for line in placed.lines %}
     <li>{{ line.qty }} × {{ line.name }} — {{ line.line_total }}</li>

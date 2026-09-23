@@ -5,8 +5,7 @@
   <img class="hero-photo" src="{{ url_for('static', filename='images/' ~ hero.file) }}" alt="{{ hero.alt }}" width="{{ hero.width }}" height="{{ hero.height }}" fetchpriority="high" decoding="async">
   <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-copy">
-    <p class="eyebrow">Wholesale &amp; retail · Cyprus</p>
-    <h1>Coffee distributor for the whole island.</h1>
+    <h1>{{ hero.headline }}</h1>
   </div>
 </section>
 

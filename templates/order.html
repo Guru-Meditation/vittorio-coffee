@@ -3,13 +3,27 @@
 <section class="page-intro section">
   <p class="eyebrow">Order</p>
   <h1>Your delivery list.</h1>
-  <p class="lede-short">Plus VAT · Cyprus only · confirm on Viber</p>
+  <p class="lede-short">Plus VAT · Cyprus only · cash on delivery</p>
   {% if errors.cart %}<p class="error">{{ errors.cart }}</p>{% endif %}
   {% if lines %}
   <form method="post" action="{{ url_for('cart_update') }}" class="order-list">
     {% for line in lines %}
     <div class="order-line">
-      <div>
+      <a class="order-line-media" href="{{ url_for('product', slug=line.product.slug) }}">
+        {% if line.product.image %}
+        <img
+          src="{{ url_for('static', filename='images/' ~ line.product.image.file) }}"
+          alt="{{ line.product.image.alt }}"
+          width="{{ line.product.image.width }}"
+          height="{{ line.product.image.height }}"
+          loading="lazy"
+          decoding="async"
+        >
+        {% else %}
+        <span class="no-photo">No photo</span>
+        {% endif %}
+      </a>
+      <div class="order-line-details">
         <p class="eyebrow">{{ line.product.group }}</p>
         <h2><a href="{{ url_for('product', slug=line.product.slug) }}">{{ line.product.name }}</a></h2>
         <p>{{ line.product.price_label }}</p>
@@ -32,14 +46,18 @@
       <input id="name" name="name" required value="{{ values.name }}">
     </label>
     {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
-    <label for="business_name">Café or bar
-      <input id="business_name" name="business_name" required value="{{ values.business_name }}">
+    <label for="business_name">Café or bar <span class="optional">(optional)</span>
+      <input id="business_name" name="business_name" value="{{ values.business_name }}">
     </label>
     {% if errors.business_name %}<p class="error">{{ errors.business_name }}</p>{% endif %}
     <label for="email">Email
       <input id="email" name="email" type="email" required value="{{ values.email }}">
     </label>
     {% if errors.email %}<p class="error">{{ errors.email }}</p>{% endif %}
+    <label for="phone">Phone
+      <input id="phone" name="phone" type="tel" autocomplete="tel" required value="{{ values.phone }}">
+    </label>
+    {% if errors.phone %}<p class="error">{{ errors.phone }}</p>{% endif %}
     <label for="town">Town in Cyprus
       <input id="town" name="town" required value="{{ values.town }}">
     </label>
@@ -47,6 +65,7 @@
     <label for="notes">Notes
       <textarea id="notes" name="notes" rows="4">{{ values.notes }}</textarea>
     </label>
+    <p class="order-payment-note">Payment is <strong>cash on delivery only</strong>. Placing the order emails the list to the depot at <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>.</p>
     <button class="button" type="submit">Place order</button>
   </form>
   {% else %}

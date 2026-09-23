@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 
-_PACK_FACT = re.compile(r"^\d+ (g|kg|ml|pcs)$")
+_PACK_FACT = re.compile(r"^\d+ (g|kg|ml|ltr|pcs)$")
 
 
 def _format_pack(raw):
@@ -77,9 +77,8 @@ BUSINESS = {
 
 NAV = [
     {"label": "Catalogue", "endpoint": "products"},
-    {"label": "Machines", "endpoint": "machines"},
     {"label": "Order", "endpoint": "order"},
-    {"label": "Cyprus", "endpoint": "cyprus"},
+    {"label": "B2B Services", "endpoint": "cyprus"},
     {"label": "Contact", "endpoint": "contact"},
 ]
 
@@ -171,7 +170,7 @@ FAQ = [
     },
     {
         "question": "How does an order get confirmed?",
-        "answer": "Build the list on this site. We confirm the order and the payment on Viber before the car leaves Kalo Xorio. Card payment is not taken on the page. Prices are plus VAT.",
+        "answer": "Build the list on this site and place the order. It is emailed to the depot. Payment is cash on delivery only — no card on this site. Prices are plus VAT. We may confirm details on Contact before the car leaves Kalo Xorio.",
     },
     {
         "question": "How do returns work?",
@@ -200,4 +199,5 @@ HERO = {
     "width": 1280,
     "height": 720,
     "alt": "Espresso pours into a black Vittorio cup on a white Sanremo machine while a barista in a black Vittorio shirt holds the cup steady.",
+    "headline": "Vittorio Gourmet Espresso Deliveries all over Cyprus",
 }

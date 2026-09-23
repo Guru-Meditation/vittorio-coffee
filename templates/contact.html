@@ -24,6 +24,7 @@
       <textarea id="message" name="message" rows="6" required>{{ values.message }}</textarea>
     </label>
     {% if errors.message %}<p class="error" id="message-error">{{ errors.message }}</p>{% endif %}
+    {% if errors.send %}<p class="error" id="send-error">{{ errors.send }}</p>{% endif %}
     <button class="button" type="submit">Send</button>
   </form>
   {% endif %}

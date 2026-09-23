@@ -63,6 +63,50 @@ def main():
             updated += 1
         else:
             missing.append(slug)
+        if product.get("group") == "Smoothies":
+            if not product["summary"].startswith("1 ltr"):
+                product["summary"] = f"1 ltr. {product['summary']}"
+            product["pack"] = "1 ltr"
+            facts = [f for f in product.get("facts") or [] if f != "1 ltr"]
+            product["facts"] = ["1 ltr", *facts]
+        if product.get("group") == "Milkshakes":
+            summary = product["summary"]
+            for prefix in ("350gr ", "350gr. ", "350 g ", "350g "):
+                if summary.startswith(prefix):
+                    summary = summary[len(prefix) :].lstrip()
+                    break
+            if not summary.startswith("350gr"):
+                product["summary"] = f"350gr. {summary}"
+            else:
+                product["summary"] = summary
+            product["pack"] = "350 g"
+            facts = [f for f in product.get("facts") or [] if f != "350 g"]
+            product["facts"] = ["350 g", *facts]
+        if slug in ("lemon-granita-powder", "strawberry-granita"):
+            summary = product["summary"]
+            for prefix in ("500gr ", "500gr. ", "500 g ", "500g "):
+                if summary.startswith(prefix):
+                    summary = summary[len(prefix) :].lstrip()
+                    break
+            if not summary.startswith("500gr"):
+                product["summary"] = f"500gr {summary}"
+            else:
+                product["summary"] = summary
+            product["pack"] = "500 g"
+            facts = [
+                f
+                for f in product.get("facts") or []
+                if f not in ("500 g", "For a granita machine")
+            ]
+            product["facts"] = ["500 g", "For a granita machine", *facts]
+        if slug == "white-life-chamomile":
+            summary = product["summary"]
+            summary = summary.replace("(Packaging 100g)", "(Packaging 50g)")
+            summary = summary.replace("(Packaging 100 g)", "(Packaging 50g)")
+            product["summary"] = summary
+            product["pack"] = "50 g"
+            facts = [f for f in product.get("facts") or [] if f not in ("100 g", "50 g")]
+            product["facts"] = ["50 g", *facts]
     PRODUCTS_PATH.write_text(json.dumps(products, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"updated {updated} summaries from shop")
     print(f"unchanged {len(missing)}:", ", ".join(missing[:12]), "..." if len(missing) > 12 else "")

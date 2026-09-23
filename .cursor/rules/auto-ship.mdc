@@ -1,0 +1,18 @@
+---
+description: Commit, push, and publish after substantive site changes without asking
+alwaysApply: true
+---
+
+# Auto ship (vittorio-coffee)
+
+After completing substantive changes to this repo (features, copy, catalogue, templates, deploy config):
+
+1. Run `pytest -q` when Python or templates changed; fix failures before shipping.
+2. **Commit and push to `main` without asking the user.** Do not wait for confirmation.
+3. Stage only intentional project files — exclude scratch probes, `candidates/`, and one-off local scripts unless the user added them for the repo.
+4. Write a clear commit message focused on why the change matters.
+5. Push with `git push origin main` (request `network` / `git_write` permissions as needed).
+6. **Publish:** Render is configured with `autoDeployTrigger: commit` in `render.yaml`. Pushing to `main` is the publish step. Do not ask the user to deploy manually unless a push succeeded and the live site still serves an old build (then note Manual Deploy once, and continue auto-pushing on future changes).
+7. Never commit `.env`, credentials, or secrets.
+
+If push fails (auth, hooks), fix and retry; report the blocker only if it cannot be resolved in-session.

@@ -374,8 +374,9 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
+    "summary": "1 ltr. Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
+      "1 ltr",
       "Fruit pulp"
     ],
     "dietary": null,
@@ -385,7 +386,8 @@
       "height": 1080,
       "alt": "Smoothies Syrups Peach"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 ltr"
   },
   {
     "slug": "smoothies-syrups-raspberry",
@@ -398,8 +400,9 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
+    "summary": "1 ltr. Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
+      "1 ltr",
       "Fruit pulp"
     ],
     "dietary": null,
@@ -409,7 +412,8 @@
       "height": 1080,
       "alt": "Smoothies Syrups Raspberry"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 ltr"
   },
   {
     "slug": "smoothies-syrups-mango",
@@ -422,8 +426,9 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
+    "summary": "1 ltr. Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
+      "1 ltr",
       "Fruit pulp"
     ],
     "dietary": null,
@@ -433,7 +438,8 @@
       "height": 1080,
       "alt": "Smoothies Syrups Mango"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 ltr"
   },
   {
     "slug": "smoothies-syrups-banana",
@@ -446,8 +452,9 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
+    "summary": "1 ltr. Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
+      "1 ltr",
       "Fruit pulp"
     ],
     "dietary": null,
@@ -457,7 +464,8 @@
       "height": 1080,
       "alt": "Smoothies Syrups Banana"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 ltr"
   },
   {
     "slug": "smoothies-syrups-pomegranate",
@@ -470,8 +478,9 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
+    "summary": "1 ltr. Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
+      "1 ltr",
       "Fruit pulp"
     ],
     "dietary": null,
@@ -481,7 +490,8 @@
       "height": 1080,
       "alt": "Smoothies Syrups Pomegranate"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 ltr"
   },
   {
     "slug": "smoothies-syrups-strawberry",
@@ -494,8 +504,9 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
+    "summary": "1 ltr. Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
+      "1 ltr",
       "Fruit pulp"
     ],
     "dietary": null,
@@ -505,7 +516,8 @@
       "height": 1080,
       "alt": "Smoothies Syrups Strawberry"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 ltr"
   },
   {
     "slug": "milkshake-vanillia",
@@ -518,8 +530,10 @@
       "Jean Paul Lab Products",
       "Milkshakes Powders"
     ],
-    "summary": "It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
-    "facts": [],
+    "summary": "350gr. It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
+    "facts": [
+      "350 g"
+    ],
     "dietary": "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
     "image": {
       "file": "products/milkshake-vanillia.jpg",
@@ -527,7 +541,8 @@
       "height": 839,
       "alt": "Milkshake Vanillia"
     },
-    "featured": false
+    "featured": false,
+    "pack": "350 g"
   },
   {
     "slug": "milkshake-strawberry",
@@ -540,8 +555,10 @@
       "Jean Paul Lab Products",
       "Milkshakes Powders"
     ],
-    "summary": "It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
-    "facts": [],
+    "summary": "350gr. It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
+    "facts": [
+      "350 g"
+    ],
     "dietary": "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
     "image": {
       "file": "products/milkshake-strawberry.jpg",
@@ -549,7 +566,8 @@
       "height": 839,
       "alt": "Milkshake Strawberry"
     },
-    "featured": false
+    "featured": false,
+    "pack": "350 g"
   },
   {
     "slug": "milkshake-chocolate",
@@ -562,7 +580,7 @@
       "Jean Paul Lab Products",
       "Milkshakes Powders"
     ],
-    "summary": "350gr It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
+    "summary": "350gr. It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
     "facts": [
       "350 g"
     ],
@@ -762,9 +780,9 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
+    "summary": "(Packaging 50g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
-      "100 g"
+      "50 g"
     ],
     "dietary": null,
     "image": {
@@ -774,7 +792,7 @@
       "alt": "White Life &#8211; Chamomile"
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "50 g"
   },
   {
     "slug": "bienneziko-bals",
@@ -961,8 +979,9 @@
       "Granitas",
       "Jean Paul Lab Products"
     ],
-    "summary": "Amazing granita in powder form, which is easily prepared in a granita machine. No preservatives, while the colorings we use are absolutely permissible. It will delight both young and old with 2 wonderful – fruity flavors: Strawberry – Lemon The freshness and the taste of summer in a glass that you won’t want to empty.",
+    "summary": "500gr Amazing granita in powder form, which is easily prepared in a granita machine. No preservatives, while the colorings we use are absolutely permissible. It will delight both young and old with 2 wonderful – fruity flavors: Strawberry – Lemon The freshness and the taste of summer in a glass that you won’t want to empty.",
     "facts": [
+      "500 g",
       "For a granita machine"
     ],
     "dietary": "No preservatives, as stated. Colourings are described as permitted. No fuller dietary panel is published.",
@@ -972,7 +991,8 @@
       "height": 839,
       "alt": "Strawberry Granita Powder"
     },
-    "featured": false
+    "featured": false,
+    "pack": "500 g"
   },
   {
     "slug": "lemon-granita-powder",
