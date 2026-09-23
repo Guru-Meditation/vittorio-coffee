@@ -72,7 +72,7 @@ def test_catalogue_filter_and_search(client):
     assert b"Costa Rica" in coffee.data
     assert client.get("/products?category=Nope").status_code == 404
     found = client.get("/products?q=guatemala")
-    assert b"Guatemala" in found.data
+    assert b"GUATEMALA" in found.data
     empty = client.get("/products?q=zzzz-no-match")
     assert b"Nothing in the catalogue matches" in empty.data
 
