@@ -166,7 +166,7 @@ def create_app():
         return page(
             "product.html",
             f"{item['name']} — Vittorio Gourmet Espresso",
-            item["summary"][:155],
+            f"{item['name']}. {item['price_label']}.",
             item=item,
         )
 

@@ -23,12 +23,6 @@
       <input type="hidden" name="next" value="{{ url_for('order') }}">
       <button class="button button-small" type="submit">Add to order</button>
     </form>
-    {% if not compact %}
-    <p>{{ item.summary }}</p>
-    {% if item.dietary %}
-    <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>
-    {% endif %}
-    {% endif %}
   </div>
 </article>
 {%- endmacro %}
