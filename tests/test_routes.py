@@ -183,10 +183,12 @@ def test_order_flow_and_cyprus_delivery(client):
     body = done.get_data(as_text=True)
     assert "Harbour Bar" in body
     assert "99123456" in body
-    assert "pantzosantonis@gmail.com" in body
     assert "cash on delivery" in body.lower()
     assert "Contact on Viber" in body
-    assert "Email from your device" in body
+    assert "viber://chat" in body
+    assert "Vittorio%20order" in body or "text=Vittorio" in body
+    assert "We could not email" not in body
+    assert "Email from your device" not in body
     retail = client.post("/cart/add", data={"slug": "costa-rica", "qty": "1"})
     assert retail.status_code == 302
     placed_retail = client.post(

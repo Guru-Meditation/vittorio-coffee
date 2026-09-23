@@ -6,11 +6,21 @@ import urllib.error
 import urllib.request
 from email.message import EmailMessage
 
+from urllib.parse import quote
+
 from content import BUSINESS
 
 log = logging.getLogger(__name__)
 
 DEFAULT_TO = BUSINESS["email_service"]
+
+
+def viber_order_href(order_body):
+    """Deep link to the depot Viber chat with the order text prefilled."""
+    base = BUSINESS["viber"].rstrip("/")
+    encoded = quote(order_body, safe="")
+    # Viber clients vary; `text` and `draft` both appear in the wild.
+    return f"{base}&text={encoded}&draft={encoded}"
 
 
 def format_order_mail(placed):

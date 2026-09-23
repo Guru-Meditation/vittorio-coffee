@@ -20,7 +20,7 @@ from content import (
     CYPRUS_B2B,
     catalog_pack_label,
 )
-from mailing import format_order_mail, send_mail
+from mailing import format_order_mail, send_mail, viber_order_href
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
@@ -297,7 +297,6 @@ def create_app():
                 reply_to=placed["email"],
                 suppress=suppress_mail(),
             )
-            placed["email_resent"] = False
             session["cart"] = {}
             session["last_order"] = placed
             return redirect(url_for("order_done"))
@@ -314,10 +313,9 @@ def create_app():
 
     def _order_done_context(placed):
         _, order_body = format_order_mail(placed)
-        subject = f"Vittorio order {placed['ref']}"
         return {
             "placed": placed,
-            "mail_href": f"mailto:{BUSINESS['email_service']}?subject={quote(subject)}&body={quote(order_body)}",
+            "viber_href": viber_order_href(order_body),
         }
 
     @app.get("/order/received")
@@ -331,19 +329,6 @@ def create_app():
             "Your Cyprus delivery order is emailed to the depot. Payment is cash on delivery only.",
             **_order_done_context(placed),
         )
-
-    @app.post("/order/email-depot")
-    def order_email_depot():
-        placed = session.get("last_order")
-        if not placed:
-            return redirect(url_for("order"))
-        subject, order_body = format_order_mail(placed)
-        ok = send_mail(subject, order_body, reply_to=placed.get("email"), suppress=suppress_mail())
-        if ok:
-            placed["email_sent"] = True
-            placed["email_resent"] = True
-        session["last_order"] = placed
-        return redirect(url_for("order_done"))
 
     @app.get("/visit")
     def visit():
