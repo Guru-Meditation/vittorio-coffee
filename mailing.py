@@ -92,24 +92,26 @@ def _read_smtp_password():
 
 def mail_transport_status():
     """Non-secret snapshot for /health/mail (debug Render env injection)."""
-    user = os.environ.get("SMTP_USER", "").strip()
     password = _read_smtp_password()
     web3 = bool(os.environ.get("WEB3FORMS_ACCESS_KEY", "").strip())
+    cfg = _smtp_settings()
     return {
-        "smtp_user_set": bool(user),
+        "smtp_user_env_set": bool(os.environ.get("SMTP_USER", "").strip()),
+        "smtp_user_effective": cfg["user"],
         "smtp_password_chars": len(password),
         "web3forms_configured": web3,
-        "mail_to": (os.environ.get("MAIL_TO", DEFAULT_TO).strip() or DEFAULT_TO),
+        "mail_to": cfg["to"],
     }
 
 
 def _smtp_settings():
+    user = os.environ.get("SMTP_USER", "").strip() or DEFAULT_TO
     return {
-        "host": os.environ.get("SMTP_HOST", "smtp.gmail.com").strip(),
+        "host": os.environ.get("SMTP_HOST", "smtp.gmail.com").strip() or "smtp.gmail.com",
         "port": int(os.environ.get("SMTP_PORT", "587")),
-        "user": os.environ.get("SMTP_USER", "").strip(),
+        "user": user,
         "password": _read_smtp_password(),
-        "from_addr": os.environ.get("MAIL_FROM", os.environ.get("SMTP_USER", DEFAULT_TO)).strip(),
+        "from_addr": (os.environ.get("MAIL_FROM", "").strip() or user or DEFAULT_TO),
         "to": os.environ.get("MAIL_TO", DEFAULT_TO).strip() or DEFAULT_TO,
     }
 
@@ -129,9 +131,6 @@ def _send_smtp_ssl(cfg, msg):
 
 def _send_smtp(subject, body, *, reply_to=None, to=None):
     cfg = _smtp_settings()
-    if not cfg["user"]:
-        log.warning("SMTP_USER is unset; skipping SMTP")
-        return False
     if not cfg["password"]:
         log.warning(
             "SMTP password missing (set SMTP_PASSWORD on the web service, or upload "
@@ -221,7 +220,7 @@ def send_mail(subject, body, *, reply_to=None, to=None, suppress=False):
         return True
     status = mail_transport_status()
     attempts = []
-    if status["smtp_password_chars"] and status["smtp_user_set"]:
+    if status["smtp_password_chars"]:
         attempts.append(("smtp", lambda: _send_smtp(subject, body, reply_to=reply_to, to=to)))
     if status["web3forms_configured"]:
         attempts.append(("web3forms", lambda: _send_web3forms(subject, body, reply_to=reply_to)))
@@ -238,9 +237,8 @@ def send_mail(subject, body, *, reply_to=None, to=None, suppress=False):
         except (OSError, urllib.error.URLError, smtplib.SMTPException, ValueError) as err:
             log.warning("Depot mail via %s failed: %s", name, err)
     log.error(
-        "Depot mail not sent; smtp_password_chars=%s smtp_user_set=%s web3forms=%s",
+        "Depot mail not sent; smtp_password_chars=%s web3forms=%s",
         status["smtp_password_chars"],
-        status["smtp_user_set"],
         status["web3forms_configured"],
     )
     return False
