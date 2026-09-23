@@ -181,9 +181,9 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "Sanremo" in machines
     assert "Expobar" in machines
     assert "no charge" in machines
-    assert "machines/apia-life.png" in machines
-    assert "machines/sanremo.png" in machines
-    assert "machines/expobar.png" in machines
+    assert "machines/apia-vittoria-ii.jpg" in machines
+    assert "machines/sanremo-opera.jpg" in machines
+    assert "machines/expobar-elegance.jpg" in machines
     machines_main = machines.split("<main", 1)[1].split("</main>", 1)[0]
     assert 'href="/contact"' not in machines_main
     assert ">Viber</a>" not in machines_main

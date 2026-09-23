@@ -326,7 +326,9 @@ body.nav-open #site-nav { display: block; }
 .machine-brand-photo img {
   display: block;
   width: 100%;
+  max-width: 56rem;
   height: auto;
+  margin-inline: auto;
   vertical-align: middle;
 }
 .machine-list {

@@ -120,19 +120,19 @@ CYPRUS_B2B = {
 MACHINE_PROGRAMMES = [
     {
         "brand": "Apia Life",
-        "image": "machines/apia-life.png",
+        "image": "machines/apia-vittoria-ii.jpg",
         "alt": "Apia Life three-group commercial espresso machine in black and stainless steel.",
         "models": ["Vittoria II", "Compact", "Bar"],
     },
     {
         "brand": "Sanremo",
-        "image": "machines/sanremo.png",
+        "image": "machines/sanremo-opera.jpg",
         "alt": "Sanremo Café Racer three-group espresso machine in black and stainless steel.",
         "models": ["Opera", "Cube", "You"],
     },
     {
         "brand": "Expobar",
-        "image": "machines/expobar.png",
+        "image": "machines/expobar-elegance.jpg",
         "alt": "Expobar two-group commercial espresso machine in polished stainless steel with black accents.",
         "models": ["Brewtus IV", "Elegance", "Office"],
     },
