@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="page-intro section">
-  <p class="eyebrow">Order</p>
-  <h1>Your delivery list.</h1>
-  <p class="lede-short">Plus VAT · Cyprus only · cash on delivery</p>
+<section class="section order-page">
+  <header class="order-page-head">
+    <p class="eyebrow">Order</p>
+    <h1>Delivery order</h1>
+    <p class="lede-short">Cyprus trade delivery · catalogue prices plus VAT · payment on delivery</p>
+  </header>
+
   {% if errors.cart %}<p class="error">{{ errors.cart }}</p>{% endif %}
+
   {% if lines %}
-  <form method="post" action="{{ url_for('cart_update') }}" class="order-list">
+  <form method="post" action="{{ url_for('cart_update') }}" class="order-list order-sheet">
+    <h2 class="order-sheet-title">Order summary</h2>
     {% for line in lines %}
     <div class="order-line">
       <a class="order-line-media" href="{{ url_for('product', slug=line.product.slug) }}">
@@ -25,52 +30,67 @@
       </a>
       <div class="order-line-details">
         <p class="eyebrow">{{ line.product.group }}</p>
-        <h2><a href="{{ url_for('product', slug=line.product.slug) }}">{{ line.product.name }}</a></h2>
-        <p>{{ line.product.price_label }}</p>
+        <h3><a href="{{ url_for('product', slug=line.product.slug) }}">{{ line.product.name }}</a></h3>
+        <p class="muted">{{ line.product.price_label }}</p>
       </div>
-      <label>Qty
+      <label class="qty-label">Qty
         <input name="qty-{{ line.product.slug }}" type="number" min="0" max="99" value="{{ line.qty }}">
       </label>
       <p class="price">{{ line.line_total }}</p>
     </div>
     {% endfor %}
-    <p>{% if subtotal %}Priced lines {{ subtotal }} + VAT.{% endif %}{% if missing_price %} Lines without a published price are confirmed before delivery.{% endif %}</p>
-    <button class="button button-ghost" type="submit">Update quantities</button>
+    <p class="order-list-total">
+      {% if subtotal %}Priced lines {{ subtotal }} plus VAT.{% endif %}
+      {% if missing_price %} Unpublished prices are confirmed before delivery.{% endif %}
+    </p>
+    <button class="button button-ghost button-small" type="submit">Update quantities</button>
   </form>
-  <form method="post" action="{{ url_for('order') }}">
+
+  <form method="post" action="{{ url_for('order') }}" class="order-checkout order-sheet">
     <div class="hp" aria-hidden="true">
       <label for="company_website">Website</label>
       <input id="company_website" name="company_website" tabindex="-1" autocomplete="off">
     </div>
-    <label for="name">Your name
-      <input id="name" name="name" required value="{{ values.name }}">
-    </label>
-    {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
-    <label for="business_name">Café or bar <span class="optional">(optional)</span>
-      <input id="business_name" name="business_name" value="{{ values.business_name }}">
-    </label>
-    {% if errors.business_name %}<p class="error">{{ errors.business_name }}</p>{% endif %}
-    <label for="email">Email
-      <input id="email" name="email" type="email" required value="{{ values.email }}">
-    </label>
-    {% if errors.email %}<p class="error">{{ errors.email }}</p>{% endif %}
-    <label for="phone">Phone
-      <input id="phone" name="phone" type="tel" autocomplete="tel" required value="{{ values.phone }}">
-    </label>
-    {% if errors.phone %}<p class="error">{{ errors.phone }}</p>{% endif %}
-    <label for="town">Town in Cyprus
-      <input id="town" name="town" required value="{{ values.town }}">
-    </label>
-    {% if errors.town %}<p class="error">{{ errors.town }}</p>{% endif %}
-    <label for="notes">Notes
-      <textarea id="notes" name="notes" rows="4">{{ values.notes }}</textarea>
-    </label>
-    <p class="order-payment-note">Payment is <strong>cash on delivery only</strong>. Placing the order emails the list to the depot at <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>.</p>
-    <button class="button" type="submit">Place order</button>
+
+    <h2 class="order-sheet-title">Delivery details</h2>
+    <div class="form-grid">
+      <label for="name">Contact name
+        <input id="name" name="name" type="text" autocomplete="name" required value="{{ values.name }}">
+      </label>
+      {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
+
+      <label for="business_name">Business name <span class="optional">(optional)</span>
+        <input id="business_name" name="business_name" type="text" autocomplete="organization" value="{{ values.business_name }}">
+      </label>
+
+      <label for="email">Email
+        <input id="email" name="email" type="email" autocomplete="email" required value="{{ values.email }}">
+      </label>
+      {% if errors.email %}<p class="error">{{ errors.email }}</p>{% endif %}
+
+      <label for="phone">Phone
+        <input id="phone" name="phone" type="tel" autocomplete="tel" required value="{{ values.phone }}">
+      </label>
+      {% if errors.phone %}<p class="error">{{ errors.phone }}</p>{% endif %}
+
+      <label for="town" class="span-2">Delivery town (Cyprus)
+        <input id="town" name="town" type="text" autocomplete="address-level2" required value="{{ values.town }}">
+      </label>
+      {% if errors.town %}<p class="error span-2">{{ errors.town }}</p>{% endif %}
+
+      <label for="notes" class="span-2">Notes for the depot
+        <textarea id="notes" name="notes" rows="3">{{ values.notes }}</textarea>
+      </label>
+    </div>
+
+    <p class="order-terms">Submitting sends this order to {{ business.name }} for confirmation. Payment is collected on delivery.</p>
+    <button class="button" type="submit">Submit order</button>
   </form>
   {% else %}
-  <p>The list is empty. Start with coffee, or anything else the bar is running low on.</p>
-  <p><a class="button" href="{{ url_for('products') }}">Browse the catalogue</a></p>
+  <div class="order-sheet order-empty">
+    <p>Your order list is empty.</p>
+    <p><a class="button" href="{{ url_for('products') }}">Browse the catalogue</a></p>
+  </div>
   {% endif %}
 </section>
 {% endblock %}
