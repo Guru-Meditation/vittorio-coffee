@@ -20,7 +20,7 @@ from content import (
     CYPRUS_B2B,
     catalog_pack_label,
 )
-from mailing import format_order_mail, send_mail, viber_order_href
+from mailing import format_order_mail, mail_transport_status, send_mail, viber_order_href
 from order_pricing import compute_order_totals, totals_for_session
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
@@ -492,6 +492,10 @@ def create_app():
         xml += [f"<url><loc>{loc}</loc></url>" for loc in urls]
         xml.append("</urlset>")
         return "\n".join(xml), 200, {"Content-Type": "application/xml; charset=utf-8"}
+
+    @app.get("/health/mail")
+    def health_mail():
+        return mail_transport_status(), 200, {"Content-Type": "application/json"}
 
     @app.get("/robots.txt")
     def robots():

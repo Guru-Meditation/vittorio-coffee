@@ -22,6 +22,7 @@ PAGES = [
     "/returns",
     "/sitemap.xml",
     "/robots.txt",
+    "/health/mail",
 ]
 
 
