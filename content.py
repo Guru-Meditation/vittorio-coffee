@@ -56,6 +56,13 @@ for item in PRODUCTS:
     if item["group"] not in GROUPS:
         GROUPS.append(item["group"])
 
+ORDER = {
+    "vat_rate": "0.05",
+    "vat_label": "5%",
+    "free_delivery_min": "40",
+    "delivery_fee": "5.00",
+}
+
 BUSINESS = {
     "name": "Vittorio Gourmet Espresso",
     "short_name": "Vittorio",

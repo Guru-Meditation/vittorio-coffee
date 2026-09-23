@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros.html" import order_delivery_banner, order_totals_table %}
 {% block content %}
 <section class="section order-confirm">
   <header class="order-confirm-head">
@@ -6,6 +7,8 @@
     <h1>Thank you, {{ placed.name }}</h1>
     <p class="order-ref">Reference <span>{{ placed.ref }}</span></p>
   </header>
+
+  {% if placed.totals %}{{ order_delivery_banner(placed.totals) }}{% endif %}
 
   <div class="order-sheet">
     <div class="order-sheet-cols">
@@ -48,15 +51,9 @@
         </tr>
         {% endfor %}
       </tbody>
-      {% if placed.subtotal %}
-      <tfoot>
-        <tr>
-          <td colspan="3">Priced lines (plus VAT)</td>
-          <td class="num">{{ placed.subtotal }}</td>
-        </tr>
-      </tfoot>
-      {% endif %}
     </table>
+
+    {{ order_totals_table(placed.totals) }}
 
     {% if placed.notes %}
     <h2 class="order-sheet-title">Notes</h2>
@@ -65,8 +62,14 @@
 
     <div class="order-sheet-foot">
       <p>Payment on delivery (cash). Vittorio confirms the order before the car leaves Kalo Xorio.</p>
-      <p class="order-next">Need to follow up? <a href="{{ viber_href }}">Open Viber with this order</a>.</p>
     </div>
+  </div>
+
+  <div class="order-done-actions card-actions">
+    <form method="post" action="{{ url_for('order_email_depot') }}" class="order-resend-form">
+      <button class="button" type="submit">Email order</button>
+    </form>
+    <a class="button button-ghost" href="{{ viber_href }}">Contact on Viber</a>
   </div>
 
   <p class="order-confirm-back"><a class="text-link" href="{{ url_for('products') }}">Return to catalogue</a></p>

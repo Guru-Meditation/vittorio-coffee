@@ -167,6 +167,9 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "Cyprus" in page
     assert "payment on delivery" in page.lower()
     assert "Submit order" in page
+    assert "VAT (5%)" in page
+    assert "Total to pay on delivery" in page
+    assert "Free delivery on orders over €40" in page
     placed = client.post(
         "/order",
         data={
@@ -188,10 +191,11 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "Order confirmation" in body
     assert "Reference" in body
     assert "0.5 kg" in body
-    assert "Open Viber with this order" in body
+    assert "Contact on Viber" in body
+    assert "Email order" in body
     assert "viber://chat" in body
-    assert "Ready for the depot" not in body
-    assert "Email order" not in body
+    assert "Total to pay on delivery" in body
+    assert "€35.66" in body
     retail = client.post("/cart/add", data={"slug": "costa-rica", "qty": "1"})
     assert retail.status_code == 302
     placed_retail = client.post(

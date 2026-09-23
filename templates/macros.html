@@ -59,3 +59,26 @@
   </p>
 </article>
 {%- endmacro %}
+
+{% macro order_delivery_banner(totals) -%}
+{% if totals and totals.free_delivery %}
+<p class="order-banner order-banner-success">Free Cyprus delivery — this order is over €40 (ex VAT).</p>
+{% elif totals and totals.amount_to_free_delivery %}
+<p class="order-banner">Free delivery on orders over €40 (ex VAT). Add {{ totals.amount_to_free_delivery }} more to qualify.</p>
+{% else %}
+<p class="order-banner">Free delivery on orders over €40 (ex VAT).</p>
+{% endif %}
+{%- endmacro %}
+
+{% macro order_totals_table(totals) -%}
+{% if totals %}
+<table class="order-totals">
+  <tbody>
+    <tr><th scope="row">Subtotal (ex VAT)</th><td class="num">{{ totals.subtotal }}</td></tr>
+    <tr><th scope="row">VAT ({{ totals.vat_label }})</th><td class="num">{{ totals.vat }}</td></tr>
+    <tr><th scope="row">Delivery</th><td class="num">{{ totals.delivery }}</td></tr>
+    <tr class="order-total-row"><th scope="row">Total to pay on delivery</th><td class="num">{{ totals.total }}</td></tr>
+  </tbody>
+</table>
+{% endif %}
+{%- endmacro %}

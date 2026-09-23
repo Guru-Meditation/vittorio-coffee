@@ -42,8 +42,19 @@ def format_order_mail(placed):
     for line in placed.get("lines") or []:
         pack = (line.get("pack") or "").strip() or "—"
         lines.append(f"{line['qty']}\t{pack}\t{line['name']}\t{line['line_total']}")
-    if placed.get("subtotal"):
-        lines.append(f"Priced lines {placed['subtotal']} + VAT")
+    totals = placed.get("totals")
+    if totals:
+        lines.extend(
+            [
+                "",
+                f"Subtotal (ex VAT): {totals['subtotal']}",
+                f"VAT ({totals['vat_label']}): {totals['vat']}",
+                f"Delivery: {totals['delivery']}",
+                f"Total to pay on delivery: {totals['total']}",
+            ]
+        )
+    elif placed.get("subtotal"):
+        lines.append(f"Subtotal (ex VAT): {placed['subtotal']}")
     lines.append("Payment: cash on delivery only.")
     subject = f"Vittorio order {placed['ref']}"
     return subject, "\n".join(lines)

@@ -410,6 +410,45 @@ body.nav-open #site-nav { display: block; }
 .order-line h2 a { color: inherit; text-decoration: none; }
 .order-line input { width: 5rem; }
 .muted { color: var(--muted); font-size: 0.95rem; }
+.order-banner {
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.order-banner-success {
+  border-color: rgba(36, 63, 52, 0.35);
+  background: rgba(36, 63, 52, 0.08);
+  color: var(--green);
+}
+.order-totals {
+  width: 100%;
+  max-width: 22rem;
+  margin: 1rem 0 1.25rem auto;
+  border-collapse: collapse;
+  font-size: 0.96rem;
+}
+.order-totals th,
+.order-totals td {
+  padding: 0.45rem 0.25rem;
+  border-top: 1px solid var(--line);
+  font-weight: 400;
+  text-align: left;
+}
+.order-totals th { color: var(--muted); }
+.order-totals .num { text-align: right; white-space: nowrap; }
+.order-total-row th,
+.order-total-row td {
+  font-weight: 600;
+  color: var(--ink);
+  border-top: 2px solid var(--line);
+  padding-top: 0.65rem;
+}
+.order-done-actions { margin-top: 1.5rem; }
+.order-resend-form { margin: 0; }
 .order-page-head { max-width: 40rem; margin-bottom: 1.5rem; }
 .order-sheet {
   background: var(--paper);

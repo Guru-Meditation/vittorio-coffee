@@ -1,11 +1,14 @@
 {% extends "base.html" %}
+{% from "macros.html" import order_delivery_banner, order_totals_table %}
 {% block content %}
 <section class="section order-page">
   <header class="order-page-head">
     <p class="eyebrow">Order</p>
     <h1>Delivery order</h1>
-    <p class="lede-short">Cyprus trade delivery · catalogue prices plus VAT · payment on delivery</p>
+    <p class="lede-short">Cyprus trade delivery · catalogue prices ex VAT · payment on delivery</p>
   </header>
+
+  {{ order_delivery_banner(totals) }}
 
   {% if errors.cart %}<p class="error">{{ errors.cart }}</p>{% endif %}
 
@@ -47,10 +50,8 @@
       <p class="price">{{ line.line_total }}</p>
     </div>
     {% endfor %}
-    <p class="order-list-total">
-      {% if subtotal %}Priced lines {{ subtotal }} plus VAT.{% endif %}
-      {% if missing_price %} Unpublished prices are confirmed before delivery.{% endif %}
-    </p>
+    {{ order_totals_table(totals) }}
+    {% if missing_price %}<p class="order-list-total">Lines without a published price are confirmed before delivery.</p>{% endif %}
     <button class="button button-ghost button-small" type="submit">Update quantities</button>
   </form>
 
@@ -91,6 +92,7 @@
       </label>
     </div>
 
+    {{ order_totals_table(totals) }}
     <p class="order-terms">Submitting sends this order to {{ business.name }} for confirmation. Payment is collected on delivery.</p>
     <button class="button" type="submit">Submit order</button>
   </form>

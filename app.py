@@ -21,6 +21,7 @@ from content import (
     catalog_pack_label,
 )
 from mailing import format_order_mail, send_mail, viber_order_href
+from order_pricing import compute_order_totals, totals_for_session
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
@@ -71,10 +72,16 @@ def cart_lines():
                 "product": product,
                 "qty": quantity,
                 "pack": pack,
+                "line_amount": line_total,
                 "line_total": f"€{line_total:.2f}" if line_total is not None else "Price on request",
             }
         )
     return lines, (f"€{priced:.2f}" if lines else None), missing
+
+
+def order_checkout_context(lines, missing):
+    totals = compute_order_totals(lines, missing)
+    return {"lines": lines, "subtotal": totals["subtotal"] if totals else None, "missing_price": missing, "totals": totals}
 
 
 def create_app():
@@ -255,7 +262,8 @@ def create_app():
 
     @app.route("/order", methods=["GET", "POST"])
     def order():
-        lines, subtotal, missing = cart_lines()
+        lines, _subtotal, missing = cart_lines()
+        checkout = order_checkout_context(lines, missing)
         errors = {}
         values = {"name": "", "business_name": "", "email": "", "phone": "", "town": "", "notes": ""}
         if request.method == "POST":
@@ -277,11 +285,9 @@ def create_app():
                     "order.html",
                     "Your order — Vittorio Gourmet Espresso",
                     "Place a coffee and café-supply order for delivery by car in Cyprus.",
-                    lines=lines,
-                    subtotal=subtotal,
-                    missing_price=missing,
                     errors=errors,
                     values=values,
+                    **checkout,
                 )
                 return body, 400
             placed = {
@@ -295,10 +301,12 @@ def create_app():
                     }
                     for line in lines
                 ],
-                "subtotal": subtotal,
                 "missing_price": missing,
+                "totals": totals_for_session(checkout["totals"]),
                 **values,
             }
+            if checkout["totals"]:
+                placed["subtotal"] = checkout["totals"]["subtotal"]
             placed["email_sent"] = deliver_order_to_depot(placed)
             session["cart"] = {}
             session["last_order"] = placed
@@ -307,11 +315,9 @@ def create_app():
             "order.html",
             "Your order — Vittorio Gourmet Espresso",
             "Place a coffee and café-supply order for delivery by car in Cyprus.",
-            lines=lines,
-            subtotal=subtotal,
-            missing_price=missing,
             errors=errors,
             values=values,
+            **checkout,
         )
 
     def deliver_order_to_depot(placed):
