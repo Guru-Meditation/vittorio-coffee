@@ -121,8 +121,9 @@ address { font-style: normal; }
   gap: 1rem;
   min-height: var(--header);
   padding: 0.75rem 1.25rem;
-  background: rgba(251, 247, 241, 0.82);
-  border-bottom: 1px solid rgba(196, 154, 92, 0.45);
+  background: rgba(251, 247, 241, 0.97);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 rgba(26, 16, 12, 0.04);
   backdrop-filter: blur(16px);
 }
 .brand { display: flex; align-items: center; text-decoration: none; }
@@ -157,9 +158,20 @@ address { font-style: normal; }
 }
 body.nav-open #site-nav { display: block; }
 #site-nav ul { list-style: none; margin: 0 0 1rem; padding: 0; }
-#site-nav a { text-decoration: none; color: var(--ink); }
+#site-nav a:not(.button) { text-decoration: none; color: var(--espresso); font-weight: 500; }
 #site-nav li a { display: block; padding: 0.7rem 0; border-bottom: 1px solid var(--line); font-size: 1.15rem; }
-#site-nav a[aria-current="page"] { color: var(--copper); }
+#site-nav a:not(.button)[aria-current="page"] { color: var(--copper); }
+#site-nav .button {
+  color: var(--cream);
+  background: var(--espresso);
+  border-color: var(--espresso);
+  font-weight: 600;
+}
+#site-nav .button:hover {
+  color: var(--cream);
+  background: var(--green);
+  border-color: var(--green);
+}
 
 .button, button.button {
   display: inline-block;
@@ -429,7 +441,8 @@ input, textarea {
     padding: 0;
   }
   #site-nav ul { display: flex; gap: 0.7rem; margin: 0; }
-  #site-nav li a { border: 0; padding: 0; font-size: 0.84rem; white-space: nowrap; }
+  #site-nav li a { border: 0; padding: 0; font-size: 0.88rem; white-space: nowrap; }
+  #site-nav .button { flex-shrink: 0; }
   .card-grid.three, .footer-grid { grid-template-columns: repeat(4, 1fr); }
   .card-grid.three { grid-template-columns: repeat(3, 1fr); }
   .site-header, .site-footer { padding-left: 2rem; padding-right: 2rem; }
