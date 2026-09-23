@@ -185,6 +185,8 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "99123456" in body
     assert "pantzosantonis@gmail.com" in body
     assert "cash on delivery" in body.lower()
+    assert "Contact on Viber" in body
+    assert "Email from your device" in body
     retail = client.post("/cart/add", data={"slug": "costa-rica", "qty": "1"})
     assert retail.status_code == 302
     placed_retail = client.post(

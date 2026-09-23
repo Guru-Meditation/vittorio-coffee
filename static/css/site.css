@@ -477,7 +477,9 @@ body.nav-open #site-nav { display: block; }
 .location-card dl { margin: 1rem 0; }
 .location-card div { display: grid; grid-template-columns: 6rem 1fr; gap: 0.5rem; padding: 0.35rem 0; border-top: 1px solid var(--line); }
 .location-card dt { color: var(--muted); }
-.card-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.card-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+.order-done-actions { margin-top: 1.25rem; }
+.order-resend-form { margin: 0; }
 
 .prose { max-width: 42rem; }
 .prose ul { padding-left: 1.1rem; }

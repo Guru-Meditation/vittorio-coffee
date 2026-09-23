@@ -4,13 +4,28 @@
   <p class="eyebrow">Order {{ placed.ref }}</p>
   <h1>Ready for the depot.</h1>
   <p>{% if placed.business_name %}{{ placed.business_name }}, {% endif %}{{ placed.town }}, Cyprus{% if placed.phone %} · {{ placed.phone }}{% endif %}.</p>
-  <p>{% if placed.email_sent %}This order was emailed to <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>.{% else %}We could not reach <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a> automatically — use Email the order below or Contact.{% endif %} Payment is <strong>cash on delivery only</strong> when the car arrives. We may confirm details on Contact before delivery leaves Kalo Xorio.</p>
+  {% if placed.email_sent and not placed.email_resent %}
+  <p role="status">This order was emailed automatically to <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>.</p>
+  {% elif placed.email_sent %}
+  <p role="status">Email sent to <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>.</p>
+  {% else %}
+  <p class="error">We could not email <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a> automatically yet. Use <strong>Send email to depot</strong> below, or open Viber.</p>
+  {% endif %}
+  <p>Payment is <strong>cash on delivery only</strong> when the car arrives. We may confirm details on Viber before delivery leaves Kalo Xorio.</p>
   <ul>
     {% for line in placed.lines %}
     <li>{{ line.qty }} × {{ line.name }} — {{ line.line_total }}</li>
     {% endfor %}
   </ul>
   {% if placed.subtotal %}<p>Priced lines {{ placed.subtotal }} + VAT.</p>{% endif %}
-  <p><a class="button" href="{{ business.viber }}">Contact</a> <a class="button button-ghost" href="{{ mail_href }}">Email the order</a></p>
+  <div class="order-done-actions card-actions">
+    <a class="button" href="{{ business.viber }}">Contact on Viber</a>
+    {% if not placed.email_sent %}
+    <form method="post" action="{{ url_for('order_email_depot') }}" class="order-resend-form">
+      <button class="button button-ghost" type="submit">Send email to depot</button>
+    </form>
+    {% endif %}
+    <a class="button button-ghost" href="{{ mail_href }}">Email from your device</a>
+  </div>
 </section>
 {% endblock %}
