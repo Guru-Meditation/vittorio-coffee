@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% from "macros.html" import product_card, location_card %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Kiti, Larnaca</p>
+    <h1>Coffee and café supplies, kept straightforward.</h1>
+    <p>Vittorio Gourmet Espresso sells coffee, chocolate, teas, syrups, and mixes from Synergasias 17. The counter is listed open every day from 08:00 to 20:00.</p>
+    <div class="hero-actions">
+      <a class="button" href="{{ url_for('products') }}">View catalogue</a>
+      <a class="button button-ghost" href="{{ url_for('visit') }}">Visit us</a>
+    </div>
+  </div>
+  <figure>
+    <img src="{{ url_for('static', filename='images/' ~ hero.file) }}" alt="{{ hero.alt }}" width="{{ hero.width }}" height="{{ hero.height }}" fetchpriority="high" decoding="async">
+  </figure>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">Coffee</p>
+    <h2>What the shop actually lists.</h2>
+    <p>Seven coffees are in the public catalogue, from single-origin Arabica to Greek coffee and a decaffeinated espresso.</p>
+  </div>
+  <div class="card-grid three">
+    {% for item in featured %}
+      {{ product_card(item) }}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section band">
+  <div class="split">
+    <div>
+      <p class="eyebrow">Philosophy</p>
+      <h2>Specialty coffee, as they describe it.</h2>
+      <p>The current site calls specialty coffee a shared craft: enthusiasts, baristas, roasters, and farmers. This preview stays with that idea and with the coffees on the shelf.</p>
+      <a class="button" href="{{ url_for('philosophy') }}">Read the philosophy</a>
+    </div>
+    <div class="note">
+      <p class="eyebrow">Notes from the homepage</p>
+      <h3>Reviews are not repeated here.</h3>
+      <p>The live homepage shows three customer notes. They name blends and machines that do not appear in the shop catalogue, so they are left off until they can be checked.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">Visit</p>
+    <h2>One published address.</h2>
+  </div>
+  {{ location_card(business) }}
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">Journal</p>
+    <h2>Two notes from 2019.</h2>
+  </div>
+  <div class="card-grid">
+    {% for article in articles %}
+    <article class="note">
+      <p class="eyebrow">{{ article.date_label }}</p>
+      <h3><a href="{{ url_for('article', slug=article.slug) }}">{{ article.title }}</a></h3>
+      <p>{{ article.summary }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

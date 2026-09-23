@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-intro section">
+  <p class="eyebrow">Journal</p>
+  <h1>Articles still on the site.</h1>
+  <p>The live journal has two posts, both about HO.RE.CA. 2019. Empty template pages for a menu, chefs, and a gallery are not repeated here.</p>
+  <div class="card-grid">
+    {% for article in articles %}
+    <article class="note">
+      <p class="eyebrow">{{ article.date_label }}</p>
+      <h2><a href="{{ url_for('article', slug=article.slug) }}">{{ article.title }}</a></h2>
+      <p>{{ article.summary }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

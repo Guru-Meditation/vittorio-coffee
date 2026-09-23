@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-intro section">
+  <p class="eyebrow">Contact</p>
+  <h1>Write, or call the counter.</h1>
+  <p>Phone <a href="tel:{{ business.phone_tel }}">{{ business.phone_display }}</a>. Public email <a href="mailto:{{ business.email_public }}">{{ business.email_public }}</a>. Order questions go to <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>.</p>
+  {% if sent %}
+  <p role="status">Thank you. This preview does not store or forward the message. Please call or email if you need a reply.</p>
+  {% else %}
+  <form method="post" action="{{ url_for('contact') }}" novalidate>
+    <div class="hp" aria-hidden="true">
+      <label for="company_website">Website</label>
+      <input id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+    </div>
+    <label for="name">Name
+      <input id="name" name="name" type="text" autocomplete="name" required value="{{ values.name }}">
+    </label>
+    {% if errors.name %}<p class="error" id="name-error">{{ errors.name }}</p>{% endif %}
+    <label for="email">Email
+      <input id="email" name="email" type="email" autocomplete="email" required value="{{ values.email }}">
+    </label>
+    {% if errors.email %}<p class="error" id="email-error">{{ errors.email }}</p>{% endif %}
+    <label for="message">Message
+      <textarea id="message" name="message" rows="6" required>{{ values.message }}</textarea>
+    </label>
+    {% if errors.message %}<p class="error" id="message-error">{{ errors.message }}</p>{% endif %}
+    <button class="button" type="submit">Send message</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

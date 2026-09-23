@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-intro section">
+  <p class="eyebrow">Questions</p>
+  <h1>Practical answers from the published site.</h1>
+  <div class="card-grid">
+    {% for item in faq %}
+    <article class="faq-item">
+      <h2>{{ item.question }}</h2>
+      <p>{{ item.answer }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

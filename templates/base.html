@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ seo.title }}</title>
+  <meta name="description" content="{{ seo.description }}">
+  <link rel="canonical" href="{{ seo.canonical }}">
+  <meta property="og:title" content="{{ seo.title }}">
+  <meta property="og:description" content="{{ seo.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ seo.canonical }}">
+  <meta property="og:image" content="{{ seo.image }}">
+  <meta property="og:locale" content="en_CY">
+  <meta name="theme-color" content="#1A100C">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+  {% if seo.json_ld %}
+  <script type="application/ld+json">{{ seo.json_ld | safe }}</script>
+  {% endif %}
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('home') }}">
+      <span class="brand-mark">V</span>
+      <span>
+        <strong>Vittorio</strong>
+        <small>Gourmet Espresso</small>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle-lines" aria-hidden="true"></span>
+      Menu
+    </button>
+    <nav id="site-nav" aria-label="Primary">
+      <ul>
+        {% for item in nav %}
+        <li><a href="{{ url_for(item.endpoint) }}" {% if request.endpoint == item.endpoint %}aria-current="page"{% endif %}>{{ item.label }}</a></li>
+        {% endfor %}
+      </ul>
+      <a class="button button-small" href="{{ url_for('visit') }}">Visit us</a>
+    </nav>
+  </header>
+  <main id="content">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <p class="brand-lockup">Vittorio Gourmet Espresso</p>
+        <p>Coffee, chocolate, teas, and café mixes from Kiti, Larnaca.</p>
+      </div>
+      <nav aria-label="Footer">
+        <p class="footer-label">Explore</p>
+        <ul>
+          {% for item in nav %}
+          <li><a href="{{ url_for(item.endpoint) }}">{{ item.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+      <div>
+        <p class="footer-label">Visit</p>
+        <address>
+          {{ business.street }}<br>
+          {{ business.locality }} {{ business.postal_code }}, {{ business.region }}<br>
+          {{ business.country }}
+        </address>
+        <p><a href="tel:{{ business.phone_tel }}">{{ business.phone_display }}</a></p>
+        <p><a href="mailto:{{ business.email_public }}">{{ business.email_public }}</a></p>
+        <p>{{ business.hours }}</p>
+      </div>
+      <div>
+        <p class="footer-label">Social</p>
+        <ul>
+          {% for link in business.social %}
+          <li><a href="{{ link.href }}">{{ link.label }}</a></li>
+          {% endfor %}
+        </ul>
+        <p class="footer-label">Legal</p>
+        <ul>
+          <li><a href="{{ url_for('privacy') }}">Privacy</a></li>
+          <li><a href="{{ url_for('returns') }}">Returns</a></li>
+          <li><a href="{{ url_for('faq') }}">Questions</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal-note">Catalogue facts are taken from the public Vittorio shop. This preview does not take payment.</p>
+  </footer>
+  <script src="{{ url_for('static', filename='js/site.js') }}" defer></script>
+</body>
+</html>

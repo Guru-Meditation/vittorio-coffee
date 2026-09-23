@@ -1,0 +1,57 @@
+{% macro product_card(item) -%}
+<article class="card">
+  <a class="card-media" href="{{ url_for('product', slug=item.slug) }}">
+    <img
+      src="{{ url_for('static', filename='images/' ~ item.image.file) }}"
+      alt="{{ item.image.alt }}"
+      width="{{ item.image.width }}"
+      height="{{ item.image.height }}"
+      loading="lazy"
+      decoding="async"
+    >
+  </a>
+  <div class="card-body">
+    <p class="eyebrow">{{ item.group }}</p>
+    <h3><a href="{{ url_for('product', slug=item.slug) }}">{{ item.name }}</a></h3>
+    <p class="price">{{ item.price_label }}</p>
+    <p>{{ item.summary }}</p>
+    {% if item.dietary %}
+    <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>
+    {% endif %}
+  </div>
+</article>
+{%- endmacro %}
+
+{% macro location_card(business) -%}
+<article class="location-card">
+  <p class="eyebrow">Larnaca district</p>
+  <h2>{{ business.name }}</h2>
+  <address>
+    {{ business.street }}<br>
+    {{ business.locality }} {{ business.postal_code }}<br>
+    {{ business.region }}, {{ business.country }}
+  </address>
+  <dl>
+    <div>
+      <dt>Hours</dt>
+      <dd>{{ business.hours }}</dd>
+    </div>
+    <div>
+      <dt>Phone</dt>
+      <dd><a href="tel:{{ business.phone_tel }}">{{ business.phone_display }}</a></dd>
+    </div>
+    <div>
+      <dt>Email</dt>
+      <dd><a href="mailto:{{ business.email_public }}">{{ business.email_public }}</a></dd>
+    </div>
+    <div>
+      <dt>Orders</dt>
+      <dd><a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a></dd>
+    </div>
+  </dl>
+  <p class="card-actions">
+    <a class="button" href="{{ business.maps }}">Directions</a>
+    <a class="button button-ghost" href="{{ business.maps }}">Open map</a>
+  </p>
+</article>
+{%- endmacro %}

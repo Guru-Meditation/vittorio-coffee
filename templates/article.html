@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="page-intro section prose">
+  <p class="eyebrow">{{ article.date_label }}</p>
+  <h1>{{ article.title }}</h1>
+  {% for paragraph in article.body %}
+  <p>{{ paragraph }}</p>
+  {% endfor %}
+  <p><a href="{{ url_for('journal') }}">All notes</a></p>
+</article>
+{% endblock %}

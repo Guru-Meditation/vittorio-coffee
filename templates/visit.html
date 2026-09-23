@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "macros.html" import location_card %}
+{% block content %}
+<section class="page-intro section">
+  <p class="eyebrow">Visit</p>
+  <h1>Come to the Kiti counter.</h1>
+  <p>Hours on the site are Monday to Sunday, 08:00–20:00. The page does not say whether that is a café service, a trade counter, or both.</p>
+  {{ location_card(business) }}
+</section>
+{% endblock %}

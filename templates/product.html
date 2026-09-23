@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="section split">
+  <img
+    src="{{ url_for('static', filename='images/' ~ item.image.file) }}"
+    alt="{{ item.image.alt }}"
+    width="{{ item.image.width }}"
+    height="{{ item.image.height }}"
+    decoding="async"
+  >
+  <div class="prose">
+    <p class="eyebrow">{{ item.group }}</p>
+    <h1>{{ item.name }}</h1>
+    <p class="price">{{ item.price_label }}</p>
+    <p>{{ item.summary }}</p>
+    {% if item.facts %}
+    <ul>
+      {% for fact in item.facts %}<li>{{ fact }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if item.dietary %}
+    <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>
+    {% else %}
+    <p class="dietary"><span>Dietary note</span> Not stated on the current product page.</p>
+    {% endif %}
+    <p><a class="button" href="{{ url_for('contact') }}">Ask about this item</a></p>
+    <p><a href="{{ url_for('products', category=item.group) }}">Back to {{ item.group }}</a></p>
+  </div>
+</article>
+{% endblock %}
