@@ -3,6 +3,20 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 PRODUCTS = json.loads((ROOT / "data" / "products.json").read_text(encoding="utf-8"))
+GROUP_ORDER = [
+    "Coffee",
+    "Aromatic chocolates",
+    "Chocolate powders",
+    "Soft ice cream",
+    "Coffee syrups",
+    "Smoothies",
+    "Milkshakes",
+    "Teas",
+    "Café mixes",
+    "Granitas",
+    "Serviceware",
+]
+PRODUCTS.sort(key=lambda item: GROUP_ORDER.index(item["group"]) if item["group"] in GROUP_ORDER else len(GROUP_ORDER))
 PRODUCTS_BY_SLUG = {item["slug"]: item for item in PRODUCTS}
 
 GROUPS = []

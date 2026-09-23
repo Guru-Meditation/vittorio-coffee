@@ -1,162 +1,159 @@
 [
   {
-    "slug": "granite-straws-x-1000-pcs",
-    "name": "Granite Straws × 1000 pcs",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Granite Straws × 1000 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "frappe-straws-x-500",
-    "name": "Frappé Straws × 500 pcs",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Frappé Straws × 500 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "fredo-straws-x-1000",
-    "name": "Fredo Straws × 1000 pcs",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Fredo Straws × 1000 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "quadruple-paper-bases",
-    "name": "Quadruple Paper Bases",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Quadruple Paper Bases. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "double-paper-bases",
-    "name": "Double Paper Bases",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Double Paper Bases. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "transparent-lids-x-50",
-    "name": "Transparent Lids × 50",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Transparent Lids × 50. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "black-lids-12-16oz",
-    "name": "Black Lids 12 – 16oz",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Black Lids 12 – 16oz. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "glasses-4-oz-8-oz-12-oz-16-oz",
-    "name": "Glasses 4 oz, 8 oz, 12 oz, 16 oz",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Glasses 4 oz, 8 oz, 12 oz, 16 oz. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "plastic-glasses-300ml-400ml",
-    "name": "Plastic Glasses 300ml & 400ml",
-    "price": null,
-    "price_label": "Price not published",
-    "group": "Serviceware",
-    "categories": [
-      "Uncategorized"
-    ],
-    "summary": "Plastic Glasses 300ml & 400ml. Café serviceware listed in the shop. No description or price is published on the record.",
-    "facts": [],
-    "dietary": null,
-    "image": null,
-    "featured": false
-  },
-  {
-    "slug": "soft-ice-cream-1kg",
-    "name": "Soft Ice-Cream 1kg – In 4 delicious flavours",
-    "price": "7.50",
-    "price_label": "€7.50 + VAT",
-    "group": "Soft ice cream",
-    "categories": [
-      "Jean Paul Lab Products",
-      "Soft Ice Cream"
-    ],
-    "summary": "A 1 kg mix for a soft-serve machine. The title says four flavours; the description names Vanilla, Chocolate, and Strawberry Bueno.",
+    "slug": "costa-rica",
+    "name": "Costa Rica – SINGLE VARIETIES",
+    "price": "14.60",
+    "price_label": "€14.60 + VAT",
+    "group": "Coffee",
+    "categories": [],
+    "summary": "Washed Arabica from Costa Rica. The shop lists Caturra and Catuai varieties, farms between 1,200 and 1,800 metres, about 2,400 mm of yearly rain, high acidity, a rich body, apricot and nectarine aroma, a chocolate note, and a clean sweet finish.",
     "facts": [
-      "1 kg",
-      "For a soft-serve machine"
+      "Single-origin Arabica",
+      "Washed process"
     ],
     "dietary": null,
     "image": {
-      "file": "products/soft-ice-cream-1kg.png",
-      "width": 335,
-      "height": 487,
-      "alt": "Soft Ice-Cream 1kg &#8211; In 4 delicious flavours"
+      "file": "products/costa-rica.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Costa Rica &#8211; SINGLE VARIETIES"
     },
-    "featured": false
+    "featured": true
+  },
+  {
+    "slug": "filter",
+    "name": "FILTER",
+    "price": "10.50",
+    "price_label": "€10.50 + VAT",
+    "group": "Coffee",
+    "categories": [
+      "Uncategorized"
+    ],
+    "summary": "500 g of coffee ground for filter brewing. The shop describes a strong aroma at the first sip.",
+    "facts": [
+      "500 g",
+      "Ground coffee"
+    ],
+    "dietary": null,
+    "image": {
+      "file": "products/filter.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "FILTER"
+    },
+    "featured": true
+  },
+  {
+    "slug": "espresso-decafeine",
+    "name": "ESPRESSO DECAFEINE 100% ARABICA",
+    "price": "14.60",
+    "price_label": "€14.60 + VAT",
+    "group": "Coffee",
+    "categories": [
+      "Uncategorized"
+    ],
+    "summary": "500 g of 100% Arabica espresso with the caffeine removed. The shop says the decaffeination uses a modern process and is meant for people who still want the taste of coffee.",
+    "facts": [
+      "500 g",
+      "100% Arabica"
+    ],
+    "dietary": "Caffeine removed, as stated on the product page.",
+    "image": {
+      "file": "products/espresso-decafeine.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "ESPRESSO DECAFEINE 100% ARABICA"
+    },
+    "featured": true
+  },
+  {
+    "slug": "espresso-grande",
+    "name": "ESPRESSO GRANDE",
+    "price": "25.60",
+    "price_label": "€25.60 + VAT",
+    "group": "Coffee",
+    "categories": [
+      "Uncategorized"
+    ],
+    "summary": "A 1 kg espresso blend of Arabica and Robusta. No further origin or tasting notes are published.",
+    "facts": [
+      "1 kg",
+      "Arabica and Robusta"
+    ],
+    "dietary": null,
+    "image": {
+      "file": "products/espresso-grande.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "ESPRESSO GRANDE"
+    },
+    "featured": true
+  },
+  {
+    "slug": "greek",
+    "name": "GREEK",
+    "price": "10.50",
+    "price_label": "€10.50 + VAT",
+    "group": "Coffee",
+    "categories": [
+      "Uncategorized"
+    ],
+    "summary": "500 g of Greek coffee. The shop credits the cup to bean selection and the roast, and describes a full body and rich flavour.",
+    "facts": [
+      "500 g",
+      "Greek coffee"
+    ],
+    "dietary": null,
+    "image": {
+      "file": "products/greek.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "GREEK"
+    },
+    "featured": true
+  },
+  {
+    "slug": "espresso-100-arabica",
+    "name": "ESPRESSO 100% ARABICA",
+    "price": "26.60",
+    "price_label": "€26.60 + VAT",
+    "group": "Coffee",
+    "categories": [
+      "Uncategorized"
+    ],
+    "summary": "A 1 kg espresso of 100% Arabica. The shop calls it a gourmet blend of specialty coffees.",
+    "facts": [
+      "1 kg",
+      "100% Arabica"
+    ],
+    "dietary": null,
+    "image": {
+      "file": "products/espresso-100-arabica.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "ESPRESSO 100% ARABICA"
+    },
+    "featured": true
+  },
+  {
+    "slug": "single-origin-guatemala",
+    "name": "SINGLE ORIGIN GUATEMALA – SINGLE VARIETIES",
+    "price": "14.60",
+    "price_label": "€14.60 + VAT",
+    "group": "Coffee",
+    "categories": [],
+    "summary": "Single-origin Arabica from Guatemala. The published note stops at a distinct aroma and does not list altitude, process, or pack size.",
+    "facts": [
+      "Single-origin Arabica"
+    ],
+    "dietary": null,
+    "image": {
+      "file": "products/single-origin-guatemala.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "SINGLE ORIGIN GUATEMALA &#8211; SINGLE VARIETIES"
+    },
+    "featured": true
   },
   {
     "slug": "chocolate-with-black-forest-passion-fruit-no-2",
@@ -298,6 +295,30 @@
       "width": 1080,
       "height": 1080,
       "alt": "Freddoccino"
+    },
+    "featured": false
+  },
+  {
+    "slug": "soft-ice-cream-1kg",
+    "name": "Soft Ice-Cream 1kg – In 4 delicious flavours",
+    "price": "7.50",
+    "price_label": "€7.50 + VAT",
+    "group": "Soft ice cream",
+    "categories": [
+      "Jean Paul Lab Products",
+      "Soft Ice Cream"
+    ],
+    "summary": "A 1 kg mix for a soft-serve machine. The title says four flavours; the description names Vanilla, Chocolate, and Strawberry Bueno.",
+    "facts": [
+      "1 kg",
+      "For a soft-serve machine"
+    ],
+    "dietary": null,
+    "image": {
+      "file": "products/soft-ice-cream-1kg.png",
+      "width": 335,
+      "height": 487,
+      "alt": "Soft Ice-Cream 1kg &#8211; In 4 delicious flavours"
     },
     "featured": false
   },
@@ -944,159 +965,183 @@
     "featured": false
   },
   {
-    "slug": "costa-rica",
-    "name": "Costa Rica – SINGLE VARIETIES",
-    "price": "14.60",
-    "price_label": "€14.60 + VAT",
-    "group": "Coffee",
-    "categories": [],
-    "summary": "Washed Arabica from Costa Rica. The shop lists Caturra and Catuai varieties, farms between 1,200 and 1,800 metres, about 2,400 mm of yearly rain, high acidity, a rich body, apricot and nectarine aroma, a chocolate note, and a clean sweet finish.",
-    "facts": [
-      "Single-origin Arabica",
-      "Washed process"
-    ],
-    "dietary": null,
-    "image": {
-      "file": "products/costa-rica.jpg",
-      "width": 830,
-      "height": 839,
-      "alt": "Costa Rica &#8211; SINGLE VARIETIES"
-    },
-    "featured": true
-  },
-  {
-    "slug": "filter",
-    "name": "FILTER",
-    "price": "10.50",
-    "price_label": "€10.50 + VAT",
-    "group": "Coffee",
+    "slug": "granite-straws-x-1000-pcs",
+    "name": "Granite Straws × 1000 pcs",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
     "categories": [
       "Uncategorized"
     ],
-    "summary": "500 g of coffee ground for filter brewing. The shop describes a strong aroma at the first sip.",
-    "facts": [
-      "500 g",
-      "Ground coffee"
-    ],
+    "summary": "Granite Straws × 1000 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
     "dietary": null,
     "image": {
-      "file": "products/filter.jpg",
-      "width": 1080,
-      "height": 1080,
-      "alt": "FILTER"
+      "file": "products/granite-straws-x-1000-pcs.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Granite Straws × 1000 pcs. Studio photograph made for this site, with the Vittorio logo."
     },
-    "featured": true
+    "featured": false
   },
   {
-    "slug": "espresso-decafeine",
-    "name": "ESPRESSO DECAFEINE 100% ARABICA",
-    "price": "14.60",
-    "price_label": "€14.60 + VAT",
-    "group": "Coffee",
+    "slug": "frappe-straws-x-500",
+    "name": "Frappé Straws × 500 pcs",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
     "categories": [
       "Uncategorized"
     ],
-    "summary": "500 g of 100% Arabica espresso with the caffeine removed. The shop says the decaffeination uses a modern process and is meant for people who still want the taste of coffee.",
-    "facts": [
-      "500 g",
-      "100% Arabica"
-    ],
-    "dietary": "Caffeine removed, as stated on the product page.",
+    "summary": "Frappé Straws × 500 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
+    "dietary": null,
     "image": {
-      "file": "products/espresso-decafeine.jpg",
-      "width": 1080,
-      "height": 1080,
-      "alt": "ESPRESSO DECAFEINE 100% ARABICA"
+      "file": "products/frappe-straws-x-500.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Frappé Straws × 500 pcs. Studio photograph made for this site, with the Vittorio logo."
     },
-    "featured": true
+    "featured": false
   },
   {
-    "slug": "espresso-grande",
-    "name": "ESPRESSO GRANDE",
-    "price": "25.60",
-    "price_label": "€25.60 + VAT",
-    "group": "Coffee",
+    "slug": "fredo-straws-x-1000",
+    "name": "Fredo Straws × 1000 pcs",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
     "categories": [
       "Uncategorized"
     ],
-    "summary": "A 1 kg espresso blend of Arabica and Robusta. No further origin or tasting notes are published.",
-    "facts": [
-      "1 kg",
-      "Arabica and Robusta"
-    ],
+    "summary": "Fredo Straws × 1000 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
     "dietary": null,
     "image": {
-      "file": "products/espresso-grande.jpg",
-      "width": 1080,
-      "height": 1080,
-      "alt": "ESPRESSO GRANDE"
+      "file": "products/fredo-straws-x-1000.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Fredo Straws × 1000 pcs. Studio photograph made for this site, with the Vittorio logo."
     },
-    "featured": true
+    "featured": false
   },
   {
-    "slug": "greek",
-    "name": "GREEK",
-    "price": "10.50",
-    "price_label": "€10.50 + VAT",
-    "group": "Coffee",
+    "slug": "quadruple-paper-bases",
+    "name": "Quadruple Paper Bases",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
     "categories": [
       "Uncategorized"
     ],
-    "summary": "500 g of Greek coffee. The shop credits the cup to bean selection and the roast, and describes a full body and rich flavour.",
-    "facts": [
-      "500 g",
-      "Greek coffee"
-    ],
+    "summary": "Quadruple Paper Bases. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
     "dietary": null,
     "image": {
-      "file": "products/greek.jpg",
-      "width": 1080,
-      "height": 1080,
-      "alt": "GREEK"
+      "file": "products/quadruple-paper-bases.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Quadruple Paper Bases. Studio photograph made for this site, with the Vittorio logo."
     },
-    "featured": true
+    "featured": false
   },
   {
-    "slug": "espresso-100-arabica",
-    "name": "ESPRESSO 100% ARABICA",
-    "price": "26.60",
-    "price_label": "€26.60 + VAT",
-    "group": "Coffee",
+    "slug": "double-paper-bases",
+    "name": "Double Paper Bases",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
     "categories": [
       "Uncategorized"
     ],
-    "summary": "A 1 kg espresso of 100% Arabica. The shop calls it a gourmet blend of specialty coffees.",
-    "facts": [
-      "1 kg",
-      "100% Arabica"
-    ],
+    "summary": "Double Paper Bases. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
     "dietary": null,
     "image": {
-      "file": "products/espresso-100-arabica.jpg",
-      "width": 1080,
-      "height": 1080,
-      "alt": "ESPRESSO 100% ARABICA"
+      "file": "products/double-paper-bases.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Double Paper Bases. Studio photograph made for this site, with the Vittorio logo."
     },
-    "featured": true
+    "featured": false
   },
   {
-    "slug": "single-origin-guatemala",
-    "name": "SINGLE ORIGIN GUATEMALA – SINGLE VARIETIES",
-    "price": "14.60",
-    "price_label": "€14.60 + VAT",
-    "group": "Coffee",
-    "categories": [],
-    "summary": "Single-origin Arabica from Guatemala. The published note stops at a distinct aroma and does not list altitude, process, or pack size.",
-    "facts": [
-      "Single-origin Arabica"
+    "slug": "transparent-lids-x-50",
+    "name": "Transparent Lids × 50",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
+    "categories": [
+      "Uncategorized"
     ],
+    "summary": "Transparent Lids × 50. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
     "dietary": null,
     "image": {
-      "file": "products/single-origin-guatemala.jpg",
-      "width": 1080,
-      "height": 1080,
-      "alt": "SINGLE ORIGIN GUATEMALA &#8211; SINGLE VARIETIES"
+      "file": "products/transparent-lids-x-50.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Transparent Lids × 50. Studio photograph made for this site, with the Vittorio logo."
     },
-    "featured": true
+    "featured": false
+  },
+  {
+    "slug": "black-lids-12-16oz",
+    "name": "Black Lids 12 – 16oz",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
+    "categories": [
+      "Uncategorized"
+    ],
+    "summary": "Black Lids 12 – 16oz. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/black-lids-12-16oz.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Black Lids 12 – 16oz. Studio photograph made for this site, with the Vittorio logo."
+    },
+    "featured": false
+  },
+  {
+    "slug": "glasses-4-oz-8-oz-12-oz-16-oz",
+    "name": "Glasses 4 oz, 8 oz, 12 oz, 16 oz",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
+    "categories": [
+      "Uncategorized"
+    ],
+    "summary": "Glasses 4 oz, 8 oz, 12 oz, 16 oz. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/glasses-4-oz-8-oz-12-oz-16-oz.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Glasses 4 oz, 8 oz, 12 oz, 16 oz. Studio photograph made for this site, with the Vittorio logo."
+    },
+    "featured": false
+  },
+  {
+    "slug": "plastic-glasses-300ml-400ml",
+    "name": "Plastic Glasses 300ml & 400ml",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serviceware",
+    "categories": [
+      "Uncategorized"
+    ],
+    "summary": "Plastic Glasses 300ml & 400ml. Café serviceware listed in the shop. No description or price is published on the record.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/plastic-glasses-300ml-400ml.png",
+      "width": 1024,
+      "height": 1024,
+      "alt": "Plastic Glasses 300ml & 400ml. Studio photograph made for this site, with the Vittorio logo."
+    },
+    "featured": false
   }
 ]

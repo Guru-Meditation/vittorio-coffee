@@ -54,6 +54,15 @@ def test_unknown_pages(client):
     assert client.get("/missing").status_code == 404
 
 
+def test_catalogue_puts_coffee_before_serviceware(client):
+    page = client.get("/products").get_data(as_text=True)
+    assert page.index("Costa Rica") < page.index("Chocolate with Black Forest")
+    assert page.index("Chocolate with Black Forest") < page.index("Granite Straws")
+    assert page.index(">Coffee<") < page.index(">Serviceware<")
+    straw = client.get("/products/granite-straws-x-1000-pcs").get_data(as_text=True)
+    assert "products/granite-straws-x-1000-pcs.png" in straw
+
+
 def test_catalogue_filter_and_search(client):
     coffee = client.get("/products?category=Coffee")
     assert coffee.status_code == 200
