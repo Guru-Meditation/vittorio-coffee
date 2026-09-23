@@ -17,12 +17,20 @@
   <div class="card-body">
     <p class="eyebrow">{{ item.group }}</p>
     <h3><a href="{{ url_for('product', slug=item.slug) }}">{{ item.name }}</a></h3>
+    {% set pack = catalog_pack_label(item) %}
+    {% if pack %}<p class="card-pack">{{ pack }}</p>{% endif %}
     <p class="price">{{ item.price_label }}</p>
     <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
       <input type="hidden" name="slug" value="{{ item.slug }}">
       <input type="hidden" name="next" value="{{ url_for('order') }}">
       <button class="button button-small" type="submit">Add to order</button>
     </form>
+    {% if not compact %}
+    <p>{{ item.summary }}</p>
+    {% if item.dietary %}
+    <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>
+    {% endif %}
+    {% endif %}
   </div>
 </article>
 {%- endmacro %}
@@ -32,22 +40,13 @@
   <p class="eyebrow">Larnaca district</p>
   <h2>{{ business.name }}</h2>
   <address>
-    {{ business.street }}<br>
-    {{ business.locality }} {{ business.postal_code }}<br>
-    {{ business.region }}, {{ business.country }}
+    {{ business.locality }}, {{ business.region }}<br>
+    {{ business.country }}
   </address>
   <dl>
     <div>
-      <dt>Hours</dt>
-      <dd>{{ business.hours }}</dd>
-    </div>
-    <div>
-      <dt>Viber</dt>
-      <dd><a href="{{ business.viber }}">Open Viber</a></dd>
-    </div>
-    <div>
-      <dt>Email</dt>
-      <dd><a href="mailto:{{ business.email_public }}">{{ business.email_public }}</a></dd>
+      <dt>Contact</dt>
+      <dd><a href="{{ business.viber }}">Contact</a></dd>
     </div>
     <div>
       <dt>Orders</dt>
@@ -55,7 +54,7 @@
     </div>
   </dl>
   <p class="card-actions">
-    <a class="button" href="{{ business.viber }}">Open Viber</a>
+    <a class="button" href="{{ business.viber }}">Contact</a>
     <a class="button button-ghost" href="{{ business.maps }}">Directions</a>
   </p>
 </article>

@@ -106,13 +106,13 @@ def describe(slug, name, group):
     if slug == "costa-rica":
         return (
             "Washed Arabica from Costa Rica. The shop lists Caturra and Catuai varieties, farms between 1,200 and 1,800 metres, about 2,400 mm of yearly rain, high acidity, a rich body, apricot and nectarine aroma, a chocolate note, and a clean sweet finish.",
-            ["Single-origin Arabica", "Washed process"],
+            ["500 g", "Single-origin Arabica", "Washed process"],
             None,
         )
     if slug == "single-origin-guatemala":
         return (
             "Single-origin Arabica from Guatemala. The published note stops at a distinct aroma and does not list altitude, process, or pack size.",
-            ["Single-origin Arabica"],
+            ["500 g", "Single-origin Arabica"],
             None,
         )
     if slug == "filter":
@@ -225,10 +225,15 @@ def describe(slug, name, group):
             ["3 kg"],
             None,
         )
-    if group == "Granitas":
-        weight = "500 g is stated on the lemon listing." if slug == "lemon-granita-powder" else "A pack weight is not repeated on the strawberry listing."
+    if slug == "lemon-granita-powder":
         return (
-            f"Granita powder for a granita machine, in a strawberry and lemon pair. {weight} The page says the powders use no preservatives and permitted colourings.",
+            "Granita powder for a granita machine, in a strawberry and lemon pair. 500 g is stated on the lemon listing. The page says the powders use no preservatives and permitted colourings.",
+            ["500 g", "For a granita machine"],
+            "No preservatives, as stated. Colourings are described as permitted. No fuller dietary panel is published.",
+        )
+    if group == "Granitas":
+        return (
+            "Granita powder for a granita machine, in a strawberry and lemon pair. A pack weight is not repeated on the strawberry listing. The page says the powders use no preservatives and permitted colourings.",
             ["For a granita machine"],
             "No preservatives, as stated. Colourings are described as permitted. No fuller dietary panel is published.",
         )
@@ -237,6 +242,25 @@ def describe(slug, name, group):
         [],
         None,
     )
+
+
+_PACK_FACT = re.compile(r"^\d+ (g|kg|ml|pcs)$")
+_NAME_PACK = (
+    (re.compile(r"×\s*1000\s*pcs", re.I), "1000 pcs"),
+    (re.compile(r"×\s*500\s*pcs", re.I), "500 pcs"),
+    (re.compile(r"×\s*50\b"), "50 pcs"),
+)
+
+
+def pack_for(slug, name, summary, facts):
+    for fact in facts:
+        if _PACK_FACT.match(fact):
+            return fact
+    text = f"{name} {summary}"
+    for pattern, value in _NAME_PACK:
+        if pattern.search(text):
+            return value
+    return None
 
 
 def main():
@@ -249,21 +273,23 @@ def main():
         group = group_for(slug, categories)
         summary, facts, dietary = describe(slug, name, group)
         price = money(item)
-        products.append(
-            {
-                "slug": slug,
-                "name": name,
-                "price": price,
-                "price_label": f"€{price} + VAT" if price else "Price not published",
-                "group": group,
-                "categories": categories,
-                "summary": summary,
-                "facts": facts,
-                "dietary": dietary,
-                "image": image_for(group),
-                "featured": slug in COFFEE,
-            }
-        )
+        row = {
+            "slug": slug,
+            "name": name,
+            "price": price,
+            "price_label": f"€{price} + VAT" if price else "Price not published",
+            "group": group,
+            "categories": categories,
+            "summary": summary,
+            "facts": facts,
+            "dietary": dietary,
+            "image": image_for(group),
+            "featured": slug in COFFEE,
+        }
+        pack = pack_for(slug, name, summary, facts)
+        if pack:
+            row["pack"] = pack
+        products.append(row)
     DEST.write_text(json.dumps(products, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"wrote {len(products)} -> {DEST}")
 

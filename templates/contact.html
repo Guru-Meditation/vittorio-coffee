@@ -2,10 +2,10 @@
 {% block content %}
 <section class="page-intro section">
   <p class="eyebrow">Contact</p>
-  <h1>Viber or email.</h1>
-  <p class="lede-short"><a href="{{ business.viber }}">Open Viber</a> · <a href="mailto:{{ business.email_public }}">{{ business.email_public }}</a></p>
+  <h1>Contact.</h1>
+  <p class="lede-short"><a href="{{ business.viber }}">Contact</a></p>
   {% if sent %}
-  <p role="status">Thank you. Open Viber if you need a reply today.</p>
+  <p role="status">Thank you. Use Contact if you need a reply today.</p>
   {% else %}
   <form method="post" action="{{ url_for('contact') }}" novalidate>
     <div class="hp" aria-hidden="true">

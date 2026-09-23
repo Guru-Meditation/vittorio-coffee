@@ -13,6 +13,7 @@ PAGES = [
     "/visit",
     "/journal",
     "/supply",
+    "/cyprus",
     "/machines",
     "/order",
     "/contact",
@@ -66,6 +67,28 @@ def test_catalogue_puts_coffee_before_serviceware(client):
     assert "products/granite-straws-x-1000-pcs.png" in straw
 
 
+def test_catalogue_shows_pack_size(client):
+    page = client.get("/products").get_data(as_text=True)
+    assert page.count("0.5 kg") >= 5
+    assert page.count("1 kg") >= 2
+    assert page.count("350gr") >= 3
+    assert "1000 pcs" in page
+    assert "card-pack" in page
+    assert "card-pack" not in page.split("Milkshake Vanillia", 1)[1].split("Add to order", 1)[0]
+
+
+def test_pack_field_matches_published_quantities():
+    from content import PRODUCTS, catalog_pack_label
+
+    by_slug = {item["slug"]: item for item in PRODUCTS}
+    assert catalog_pack_label(by_slug["lemon-granita-powder"]) == "0.5 kg"
+    assert catalog_pack_label(by_slug["granite-straws-x-1000-pcs"]) == "1000 pcs"
+    assert catalog_pack_label(by_slug["milkshake-vanillia"]) is None
+    assert catalog_pack_label(by_slug["smoothies-syrups-peach"]) is None
+    with_pack = sum(1 for item in PRODUCTS if catalog_pack_label(item))
+    assert with_pack == 36
+
+
 def test_catalogue_filter_and_search(client):
     coffee = client.get("/products?category=Coffee")
     assert coffee.status_code == 200
@@ -103,7 +126,10 @@ def test_seo_and_store_schema(client):
     assert 'property="og:description"' in html
     assert '"@type": "Store"' in html
     assert "Restaurant" not in html
-    assert "Synergasias 17" in html
+    assert "Kalo Xorio, Larnaca" in html
+    assert "Synergasias 17" not in html
+    assert "Monday–Sunday" not in html
+    assert "info@vittoriocaffee.com" not in html
     sitemap = client.get("/sitemap.xml").get_data(as_text=True)
     assert "/products/costa-rica" in sitemap
     assert "/visit" in sitemap
@@ -117,6 +143,11 @@ def test_menu_alias_and_navigation(client):
     assert menu.headers["Location"].endswith("/products")
     home = client.get("/").get_data(as_text=True)
     assert "Contact" in home
+    assert "Cyprus" in home
+    cyprus = client.get("/cyprus").get_data(as_text=True)
+    assert "Vittorio B2B Services" in cyprus
+    assert "across Cyprus" in cyprus
+    assert "Greece" not in cyprus
     assert 'aria-controls="site-nav"' in home
     assert "prefers-reduced-motion" in client.get("/static/css/site.css").get_data(as_text=True)
 
@@ -150,7 +181,9 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "Sanremo" in machines
     assert "Expobar" in machines
     assert "no charge" in machines
-    assert "machines/sanremo-opera.jpg" in machines
+    assert "machines/apia-life.png" in machines
+    assert "machines/sanremo.png" in machines
+    assert "machines/expobar.png" in machines
     machines_main = machines.split("<main", 1)[1].split("</main>", 1)[0]
     assert 'href="/contact"' not in machines_main
     assert ">Viber</a>" not in machines_main

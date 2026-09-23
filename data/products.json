@@ -6,8 +6,9 @@
     "price_label": "€14.60 + VAT",
     "group": "Coffee",
     "categories": [],
-    "summary": "Washed Arabica from Costa Rica. The shop lists Caturra and Catuai varieties, farms between 1,200 and 1,800 metres, about 2,400 mm of yearly rain, high acidity, a rich body, apricot and nectarine aroma, a chocolate note, and a clean sweet finish.",
+    "summary": "Unique taste and distinct aroma of freshly roasted Arabica coffee from Costa Rica. Characteristics: Altitude: 1200 to 1800 meters above sea level. Precipitation: 2400 mm per year. Variety: Caturra, Catuai. Processing: Washed. Acidity: High and intense. Body: Rich and full. Aroma: Apricot and nectarine. Taste: Fine chocolate with a particularly complex. Very clean, sweet finish.",
     "facts": [
+      "500 g",
       "Single-origin Arabica",
       "Washed process"
     ],
@@ -18,7 +19,8 @@
       "height": 839,
       "alt": "Costa Rica &#8211; SINGLE VARIETIES"
     },
-    "featured": true
+    "featured": true,
+    "pack": "500 g"
   },
   {
     "slug": "filter",
@@ -29,7 +31,7 @@
     "categories": [
       "Uncategorized"
     ],
-    "summary": "500 g of coffee ground for filter brewing. The shop describes a strong aroma at the first sip.",
+    "summary": "500gr Fresh grinded granules by beans, ideally to twirl in your glass perfumes and intense flavor at the first sip.",
     "facts": [
       "500 g",
       "Ground coffee"
@@ -41,7 +43,8 @@
       "height": 1080,
       "alt": "FILTER"
     },
-    "featured": true
+    "featured": true,
+    "pack": "500 g"
   },
   {
     "slug": "espresso-decafeine",
@@ -52,7 +55,7 @@
     "categories": [
       "Uncategorized"
     ],
-    "summary": "500 g of 100% Arabica espresso with the caffeine removed. The shop says the decaffeination uses a modern process and is meant for people who still want the taste of coffee.",
+    "summary": "500gr A blend of 100% arabica beans that has had the caffeine removed with the most modern techniques. For those who want to avoid the caffeine but without depriving the pleasant taste of coffee.",
     "facts": [
       "500 g",
       "100% Arabica"
@@ -64,7 +67,8 @@
       "height": 1080,
       "alt": "ESPRESSO DECAFEINE 100% ARABICA"
     },
-    "featured": true
+    "featured": true,
+    "pack": "500 g"
   },
   {
     "slug": "espresso-grande",
@@ -75,7 +79,7 @@
     "categories": [
       "Uncategorized"
     ],
-    "summary": "A 1 kg espresso blend of Arabica and Robusta. No further origin or tasting notes are published.",
+    "summary": "Arabica and Robusta beans. Packing: 1kg",
     "facts": [
       "1 kg",
       "Arabica and Robusta"
@@ -87,7 +91,8 @@
       "height": 1080,
       "alt": "ESPRESSO GRANDE"
     },
-    "featured": true
+    "featured": true,
+    "pack": "1 kg"
   },
   {
     "slug": "greek",
@@ -98,7 +103,7 @@
     "categories": [
       "Uncategorized"
     ],
-    "summary": "500 g of Greek coffee. The shop credits the cup to bean selection and the roast, and describes a full body and rich flavour.",
+    "summary": "500gr By carefully selecting our blend of high-quality grain and an emphasis on correct roasting, we have the result of a full-body, rich flavor, Greek coffee.",
     "facts": [
       "500 g",
       "Greek coffee"
@@ -110,7 +115,8 @@
       "height": 1080,
       "alt": "GREEK"
     },
-    "featured": true
+    "featured": true,
+    "pack": "500 g"
   },
   {
     "slug": "espresso-100-arabica",
@@ -121,7 +127,7 @@
     "categories": [
       "Uncategorized"
     ],
-    "summary": "A 1 kg espresso of 100% Arabica. The shop calls it a gourmet blend of specialty coffees.",
+    "summary": "100% Arabica beans. Blend from speciality coffees, known as Gourmet coffee. Packing: 1kg",
     "facts": [
       "1 kg",
       "100% Arabica"
@@ -133,7 +139,8 @@
       "height": 1080,
       "alt": "ESPRESSO 100% ARABICA"
     },
-    "featured": true
+    "featured": true,
+    "pack": "1 kg"
   },
   {
     "slug": "single-origin-guatemala",
@@ -142,8 +149,9 @@
     "price_label": "€14.60 + VAT",
     "group": "Coffee",
     "categories": [],
-    "summary": "Single-origin Arabica from Guatemala. The published note stops at a distinct aroma and does not list altitude, process, or pack size.",
+    "summary": "Unique taste and distinct aroma of Guatemala Arabica coffee.",
     "facts": [
+      "500 g",
       "Single-origin Arabica"
     ],
     "dietary": null,
@@ -153,7 +161,8 @@
       "height": 1080,
       "alt": "SINGLE ORIGIN GUATEMALA &#8211; SINGLE VARIETIES"
     },
-    "featured": true
+    "featured": true,
+    "pack": "500 g"
   },
   {
     "slug": "chocolate-with-black-forest-passion-fruit-no-2",
@@ -166,7 +175,7 @@
       "Chocolates Powders",
       "Jean Paul Lab Products"
     ],
-    "summary": "350 g aromatic chocolate powder. This listing is Chocolate with Black Forest & Passion Fruit No.2. The same product text also names a nine-part range: Chocolate with Banoffee No.1, Chocolate with Black Forest & Passion Fruit No.2, Chocolate with Bueno & Biscuit No.3, Chocolate with Caramel & Mocha No.4, Chocolate with Lemon & Biscuit No.5, White with Strawberry No.6, White with Mastiha & Rose No.7, Chocolate with Orange & Ceylon Cinnamon No.8, Chocolate with Salted Caramel No.9. Only the separately priced shop records are sold as individual items here.",
+    "summary": "Aromatic combinations full of delight, in a 350g package. Chocolate with Black Forest & Passion Fruit No.2",
     "facts": [
       "350 g"
     ],
@@ -177,7 +186,8 @@
       "height": 1575,
       "alt": "Chocolate with Black Forest &#038; Passion Fruit No.2"
     },
-    "featured": false
+    "featured": false,
+    "pack": "350 g"
   },
   {
     "slug": "chocolate-with-bueno-biscuit-no-3",
@@ -190,7 +200,7 @@
       "Chocolates Powders",
       "Jean Paul Lab Products"
     ],
-    "summary": "350 g aromatic chocolate powder. This listing is Chocolate with Bueno & Biscuit No.3. The same product text also names a nine-part range: Chocolate with Banoffee No.1, Chocolate with Black Forest & Passion Fruit No.2, Chocolate with Bueno & Biscuit No.3, Chocolate with Caramel & Mocha No.4, Chocolate with Lemon & Biscuit No.5, White with Strawberry No.6, White with Mastiha & Rose No.7, Chocolate with Orange & Ceylon Cinnamon No.8, Chocolate with Salted Caramel No.9. Only the separately priced shop records are sold as individual items here.",
+    "summary": "Aromatic combinations full of delight, in a 350g package. Chocolate with Bueno & Biscuit No.3",
     "facts": [
       "350 g"
     ],
@@ -201,7 +211,8 @@
       "height": 1575,
       "alt": "Chocolate with Bueno &#038; Biscuit No.3"
     },
-    "featured": false
+    "featured": false,
+    "pack": "350 g"
   },
   {
     "slug": "chocolate-with-lemon-biscuit-no-5",
@@ -214,7 +225,7 @@
       "Chocolates Powders",
       "Jean Paul Lab Products"
     ],
-    "summary": "350 g aromatic chocolate powder. This listing is Chocolate with Lemon & Biscuit No.5. The same product text also names a nine-part range: Chocolate with Banoffee No.1, Chocolate with Black Forest & Passion Fruit No.2, Chocolate with Bueno & Biscuit No.3, Chocolate with Caramel & Mocha No.4, Chocolate with Lemon & Biscuit No.5, White with Strawberry No.6, White with Mastiha & Rose No.7, Chocolate with Orange & Ceylon Cinnamon No.8, Chocolate with Salted Caramel No.9. Only the separately priced shop records are sold as individual items here.",
+    "summary": "Aromatic combinations full of delight, in a 350g package. Chocolate with Lemon & Biscuit No.5",
     "facts": [
       "350 g"
     ],
@@ -225,7 +236,8 @@
       "height": 1575,
       "alt": "Chocolate with Lemon &#038; Biscuit No.5"
     },
-    "featured": false
+    "featured": false,
+    "pack": "350 g"
   },
   {
     "slug": "chocolate-powder-la-vittoria-classic",
@@ -237,7 +249,7 @@
       "Chocolates Powders",
       "La Vittoria Chocolaterie"
     ],
-    "summary": "La Vittoria Classic chocolate powder in a 1 kg pack.",
+    "summary": "Chocolate Powder Delicious chocolates, in a 1kg package. White White Chocolate. Velvety texture, amazing taste. All the advantages of chocolate, dressed in white. Served hot or cold. Aromatic For those who enjoy a full-bodied flavor, the undeniable tastiness of exceptional cocoa. A chocolate that evokes aromas that transport us to magical places. Served hot or cold. Freddoccino Classic thick chocolate. Unforgettable is the taste of traditional classic chocolate when one tries it. For discerning palates that appreciate the rich aroma of cocoa. Served hot or cold.",
     "facts": [
       "1 kg",
       "La Vittoria"
@@ -249,7 +261,8 @@
       "height": 839,
       "alt": "Chocolate Powder &#8211; La Vittoria Classic"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 kg"
   },
   {
     "slug": "chocolate-powder-paolo-chocolate",
@@ -261,7 +274,7 @@
       "Chocolates Powders",
       "La Vittoria Chocolaterie"
     ],
-    "summary": "Paolo chocolate powder in a 1 kg pack.",
+    "summary": "Chocolate Powder Delicious chocolates, in a 1kg package. White White Chocolate. Velvety texture, amazing taste. All the advantages of chocolate, dressed in white. Served hot or cold. Aromatic For those who enjoy a full-bodied flavor, the undeniable tastiness of exceptional cocoa. A chocolate that evokes aromas that transport us to magical places. Served hot or cold. Freddoccino Classic thick chocolate. Unforgettable is the taste of traditional classic chocolate when one tries it. For discerning palates that appreciate the rich aroma of cocoa. Served hot or cold.",
     "facts": [
       "1 kg",
       "La Vittoria"
@@ -273,7 +286,8 @@
       "height": 839,
       "alt": "Chocolate Powder &#8211; Paolo Chocolate"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 kg"
   },
   {
     "slug": "freddoccino",
@@ -284,7 +298,7 @@
     "categories": [
       "La Vittoria Chocolaterie"
     ],
-    "summary": "A 1 kg chocolate powder for hot or cold drinks. The product text describes a thick classic cocoa profile and also mentions a white chocolate with a soft texture.",
+    "summary": "Chocolate Powder Delicious chocolates, in a 1kg package. White White Chocolate. Velvety texture, amazing taste. All the advantages of chocolate, dressed in white. Served hot or cold. Aromatic For those who enjoy a full-bodied flavor, the undeniable tastiness of exceptional cocoa. A chocolate that evokes aromas that transport us to magical places. Served hot or cold. Freddoccino Classic thick chocolate. Unforgettable is the taste of traditional classic chocolate when one tries it. For discerning palates that appreciate the rich aroma of cocoa. Served hot or cold.",
     "facts": [
       "1 kg",
       "Hot or cold"
@@ -296,7 +310,8 @@
       "height": 1080,
       "alt": "Freddoccino"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 kg"
   },
   {
     "slug": "soft-ice-cream-1kg",
@@ -308,7 +323,7 @@
       "Jean Paul Lab Products",
       "Soft Ice Cream"
     ],
-    "summary": "A 1 kg mix for a soft-serve machine. The title says four flavours; the description names Vanilla, Chocolate, and Strawberry Bueno.",
+    "summary": "Mixture for preparing, in an ice cream machine, velvety and creamy soft ice cream. 1kg In 4 delicious flavours: Vanilla, Chocolate, Strawberry Bueno.",
     "facts": [
       "1 kg",
       "For a soft-serve machine"
@@ -320,7 +335,8 @@
       "height": 487,
       "alt": "Soft Ice-Cream 1kg &#8211; In 4 delicious flavours"
     },
-    "featured": false
+    "featured": false,
+    "pack": "1 kg"
   },
   {
     "slug": "coffee-syrup-vanillia",
@@ -333,7 +349,7 @@
       "Jean Paul Lab Products",
       "Syrups"
     ],
-    "summary": "Coffee syrup in an 800 ml bottle. The page says there are seven flavours and names caramel, hazelnut, and vanilla. The other four names are not published.",
+    "summary": "800ml In seven flavors: Caramel, Hazelnut, Vanilla.",
     "facts": [
       "800 ml"
     ],
@@ -344,7 +360,8 @@
       "height": 839,
       "alt": "Coffee Syrups"
     },
-    "featured": false
+    "featured": false,
+    "pack": "800 ml"
   },
   {
     "slug": "smoothies-syrups-peach",
@@ -357,7 +374,7 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Peach fruit pulp for blending with ice and water or milk.",
+    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
       "Fruit pulp"
     ],
@@ -381,7 +398,7 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Raspberry fruit pulp for blending with ice and water or milk.",
+    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
       "Fruit pulp"
     ],
@@ -405,7 +422,7 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Mango fruit pulp for blending with ice and water or milk.",
+    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
       "Fruit pulp"
     ],
@@ -429,7 +446,7 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Banana fruit pulp for blending with ice and water or milk.",
+    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
       "Fruit pulp"
     ],
@@ -453,7 +470,7 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Pomegranate fruit pulp for blending with ice and water or milk.",
+    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
       "Fruit pulp"
     ],
@@ -477,7 +494,7 @@
       "Smoothies & Syrups",
       "Syrups"
     ],
-    "summary": "Strawberry fruit pulp for blending with ice and water or milk.",
+    "summary": "Natural fruit pulp knocked in blender with ice and water or milk. The new velvet delight full of energy and vitamins. In six delicious flavors: Strawberry, Pomegranate, Peach, Banana, Mango, Raspberry.",
     "facts": [
       "Fruit pulp"
     ],
@@ -501,7 +518,7 @@
       "Jean Paul Lab Products",
       "Milkshakes Powders"
     ],
-    "summary": "Vanillia milkshake powder. The description says the mix is thick and made with sour cream, pieces of fruit, and powdered yogurt. A pack weight is not stated on this record.",
+    "summary": "It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
     "facts": [],
     "dietary": "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
     "image": {
@@ -523,7 +540,7 @@
       "Jean Paul Lab Products",
       "Milkshakes Powders"
     ],
-    "summary": "Strawberry milkshake powder. The description says the mix is thick and made with sour cream, pieces of fruit, and powdered yogurt. A pack weight is not stated on this record.",
+    "summary": "It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
     "facts": [],
     "dietary": "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
     "image": {
@@ -545,7 +562,7 @@
       "Jean Paul Lab Products",
       "Milkshakes Powders"
     ],
-    "summary": "Chocolate milkshake powder, with 350 g stated on the page. The description says the mix is thick and made with sour cream, pieces of fruit, and powdered yogurt.",
+    "summary": "350gr It is made from sour cream and contains pieces of fruit and real powdered yogurt. In three wonderful flavors: chocolate, vanilla, strawberry",
     "facts": [
       "350 g"
     ],
@@ -556,7 +573,8 @@
       "height": 839,
       "alt": "Milkshake Chocolate"
     },
-    "featured": false
+    "featured": false,
+    "pack": "350 g"
   },
   {
     "slug": "mon-cheri-ginger-and-citrus",
@@ -569,7 +587,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Mon Cheri – Ginger and Citrus from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -580,7 +598,8 @@
       "height": 839,
       "alt": "Mon Cheri &#8211; Ginger and Citrus"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "ginger-and-lemon",
@@ -593,7 +612,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Ginger and Lemon from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -604,7 +623,8 @@
       "height": 839,
       "alt": "Ginger and Lemon"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "fit-slim-hibiscus",
@@ -617,7 +637,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Fit & Slim – Hibiscus from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -628,7 +648,8 @@
       "height": 839,
       "alt": "Fit &#038; Slim &#8211; Hibiscus"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "english-breakfast-black-tea",
@@ -641,7 +662,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "English Breakfast – Black Tea from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -652,7 +673,8 @@
       "height": 839,
       "alt": "English Breakfast &#8211; Black Tea"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "blue-night",
@@ -665,7 +687,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Blue Night from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -676,7 +698,8 @@
       "height": 839,
       "alt": "Blue Night"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "red-passion-square-fruit-tea-with-cranberry",
@@ -689,7 +712,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Red Passion Square Fruit Tea with Cranberry from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -700,7 +723,8 @@
       "height": 839,
       "alt": "Red Passion Square Fruit Tea with Cranberry"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "purple-diamond-fruits",
@@ -713,7 +737,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Purple Diamond Fruits from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -724,7 +748,8 @@
       "height": 839,
       "alt": "Purple Diamond Fruits"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "white-life-chamomile",
@@ -737,7 +762,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "White Life – Chamomile from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -748,7 +773,8 @@
       "height": 839,
       "alt": "White Life &#8211; Chamomile"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "bienneziko-bals",
@@ -761,7 +787,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Bienneziko Bals from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -772,7 +798,8 @@
       "height": 839,
       "alt": "Bienneziko Bals"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "9th-symphony-herbal-tea",
@@ -785,7 +812,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "9th Symphony – Herbal Tea from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -796,7 +823,8 @@
       "height": 839,
       "alt": "9th Symphony &#8211; Herbal Tea"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "matcha-mix",
@@ -809,7 +837,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Matcha Mix from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -820,7 +848,8 @@
       "height": 839,
       "alt": "Matcha Mix"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "green-tea",
@@ -833,7 +862,7 @@
       "Jean Paul Lab Products",
       "Teas"
     ],
-    "summary": "Green Tea from the Jean Paul Lab tea range. Pack size on these listings is 100 g. The shared shop text names ten teas in the line; this page is only the one in the title.",
+    "summary": "(Packaging 100g) Αuthentic flavors, unique beverages.Available in ten enchanting flavors: Green Tea, Ginger and Lemon, White Life – Chamomile, Red Square Fruit Tea with Cranberry, Viennese Waltz – Coffee and Almond, Fit & Slim – Hibiscus, Matcha Mix, 9th Symphony – Herbal Tea, English Breakfast – Black Tea, Mon Cheri – Ginger and Citrus.",
     "facts": [
       "100 g"
     ],
@@ -844,7 +873,8 @@
       "height": 839,
       "alt": "Green Tea"
     },
-    "featured": false
+    "featured": false,
+    "pack": "100 g"
   },
   {
     "slug": "waffle-mix",
@@ -857,7 +887,7 @@
       "Jean Paul Lab Products",
       "Mixtures Powders"
     ],
-    "summary": "A 3 kg waffle mix. The shop describes a fluffy, crisp waffle.",
+    "summary": "Mixtures Powders Mixtures, in 3kg packaging. Mixture for making Crepes Delicious and fragrant Crepe. A mix perfectly balanced for sweet or savory enjoyment. Mixture for making waffles. With one mix we achieved two pleasures! For chocolate lovers, an explosive combination of Pan Cake or Waffles with a real chocolate flavor.",
     "facts": [
       "3 kg"
     ],
@@ -868,7 +898,8 @@
       "height": 837,
       "alt": "Waffle Mix"
     },
-    "featured": false
+    "featured": false,
+    "pack": "3 kg"
   },
   {
     "slug": "pancake-mix",
@@ -881,7 +912,7 @@
       "Jean Paul Lab Products",
       "Mixtures Powders"
     ],
-    "summary": "A 3 kg pancake mix from the same powder line as the crêpe and waffle mixes.",
+    "summary": "Mixtures Powders Mixtures, in 3kg packaging. Mixture for making Pan Cake. Delicious Pan Cake served in countless combinations. With one mix we achieved two pleasures! For chocolate lovers, an explosive combination of Pan Cake or Waffles with a real chocolate flavor.",
     "facts": [
       "3 kg"
     ],
@@ -892,7 +923,8 @@
       "height": 837,
       "alt": "Pancake Mix"
     },
-    "featured": false
+    "featured": false,
+    "pack": "3 kg"
   },
   {
     "slug": "crepe-mix",
@@ -905,7 +937,7 @@
       "Jean Paul Lab Products",
       "Mixtures Powders"
     ],
-    "summary": "A 3 kg crêpe mix. The shop describes it as a balanced batter for sweet or savoury crêpes.",
+    "summary": "Mixtures Powders Mixtures, in 3kg packaging. Mixture for making Crepes Delicious and fragrant Crepe. A mix perfectly balanced for sweet or savory enjoyment. With one mix we achieved two pleasures! For chocolate lovers, an explosive combination of Pan Cake or Waffles with a real chocolate flavor.",
     "facts": [
       "3 kg"
     ],
@@ -916,7 +948,8 @@
       "height": 837,
       "alt": "Crepe Mix"
     },
-    "featured": false
+    "featured": false,
+    "pack": "3 kg"
   },
   {
     "slug": "strawberry-granita",
@@ -928,7 +961,7 @@
       "Granitas",
       "Jean Paul Lab Products"
     ],
-    "summary": "Granita powder for a granita machine, in a strawberry and lemon pair. A pack weight is not repeated on the strawberry listing. The page says the powders use no preservatives and permitted colourings.",
+    "summary": "Amazing granita in powder form, which is easily prepared in a granita machine. No preservatives, while the colorings we use are absolutely permissible. It will delight both young and old with 2 wonderful – fruity flavors: Strawberry – Lemon The freshness and the taste of summer in a glass that you won’t want to empty.",
     "facts": [
       "For a granita machine"
     ],
@@ -951,7 +984,7 @@
       "Granitas",
       "Jean Paul Lab Products"
     ],
-    "summary": "Granita powder for a granita machine, in a strawberry and lemon pair. 500 g is stated on the lemon listing. The page says the powders use no preservatives and permitted colourings.",
+    "summary": "500gr Amazing granita in powder form, which is easily prepared in a granita machine. No preservatives, while the colorings we use are absolutely permissible. It will delight both young and old with 2 wonderful – fruity flavors: Strawberry – Lemon The freshness and the taste of summer in a glass that you won’t want to empty.",
     "facts": [
       "For a granita machine"
     ],
@@ -962,7 +995,8 @@
       "height": 839,
       "alt": "Lemon Granita Powder"
     },
-    "featured": false
+    "featured": false,
+    "pack": "500 g"
   },
   {
     "slug": "granite-straws-x-1000-pcs",
@@ -982,7 +1016,8 @@
       "height": 1024,
       "alt": "Studio photograph of granita straws."
     },
-    "featured": false
+    "featured": false,
+    "pack": "1000 pcs"
   },
   {
     "slug": "frappe-straws-x-500",
@@ -1002,7 +1037,8 @@
       "height": 1024,
       "alt": "Studio photograph of frappe straws."
     },
-    "featured": false
+    "featured": false,
+    "pack": "500 pcs"
   },
   {
     "slug": "fredo-straws-x-1000",
@@ -1022,7 +1058,8 @@
       "height": 1024,
       "alt": "Studio photograph of freddo straws."
     },
-    "featured": false
+    "featured": false,
+    "pack": "1000 pcs"
   },
   {
     "slug": "quadruple-paper-bases",
@@ -1082,7 +1119,8 @@
       "height": 1024,
       "alt": "Studio photograph of transparent cup lids."
     },
-    "featured": false
+    "featured": false,
+    "pack": "50 pcs"
   },
   {
     "slug": "black-lids-12-16oz",

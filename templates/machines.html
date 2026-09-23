@@ -10,26 +10,23 @@
   <div class="section-head section-head-tight">
     <h2>{{ programme.brand }}</h2>
   </div>
-  <div class="card-grid three">
+  {% if programme.image %}
+  <figure class="machine-brand-photo">
+    <img
+      src="{{ url_for('static', filename='images/' ~ programme.image) }}"
+      alt="{{ programme.alt }}"
+      width="1200"
+      height="900"
+      loading="lazy"
+      decoding="async"
+    >
+  </figure>
+  {% endif %}
+  <ul class="machine-list">
     {% for model in programme.models %}
-    <article class="card compact">
-      <div class="card-media">
-        <img
-          src="{{ url_for('static', filename='images/' ~ model.image) }}"
-          alt="{{ model.alt }}"
-          width="{{ model.width }}"
-          height="{{ model.height }}"
-          loading="lazy"
-          decoding="async"
-        >
-      </div>
-      <div class="card-body">
-        <p class="eyebrow">{{ programme.brand }}</p>
-        <h3>{{ model.name }}</h3>
-      </div>
-    </article>
+    <li>{{ model }}</li>
     {% endfor %}
-  </div>
+  </ul>
 </section>
 {% endfor %}
 {% endblock %}

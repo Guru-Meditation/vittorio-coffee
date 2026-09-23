@@ -1,7 +1,39 @@
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+
+_PACK_FACT = re.compile(r"^\d+ (g|kg|ml|pcs)$")
+
+
+def _format_pack(raw):
+    if not raw:
+        return None
+    if raw == "500 g":
+        return "0.5 kg"
+    if raw.endswith(" g"):
+        return raw.replace(" g", "gr")
+    return raw
+
+
+def _pack_from_facts(facts):
+    for fact in facts or []:
+        if _PACK_FACT.match(fact):
+            return fact
+    return None
+
+
+def catalog_pack_label(item):
+    """Short pack size for catalogue cards; uses product pack field or weight in facts."""
+    raw = None
+    if isinstance(item, dict):
+        raw = item.get("pack") or _pack_from_facts(item.get("facts"))
+    else:
+        raw = _pack_from_facts(item)
+    return _format_pack(raw)
+
+
 PRODUCTS = json.loads((ROOT / "data" / "products.json").read_text(encoding="utf-8"))
 GROUP_ORDER = [
     "Coffee",
@@ -27,15 +59,12 @@ for item in PRODUCTS:
 BUSINESS = {
     "name": "Vittorio Gourmet Espresso",
     "short_name": "Vittorio",
-    "email_public": "info@vittoriocaffee.com",
     "email_service": "pantzosantonis@gmail.com",
-    "street": "Synergasias 17",
     "locality": "Kalo Xorio",
     "postal_code": "7550",
     "region": "Larnaca",
     "country": "Cyprus",
-    "hours": "Monday–Sunday, 08:00–20:00",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Synergasias+17%2C+Kalo+Xorio+7550%2C+Larnaca%2C+Cyprus",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Kalo+Xorio%2C+Larnaca%2C+Cyprus",
     "viber": "viber://chat?number=%2B35799766848",
     "delivery": "Car delivery to cafés and bars across Cyprus. Nothing leaves the island.",
     "machines": ["Apia Life", "Sanremo", "Expobar"],
@@ -50,87 +79,62 @@ NAV = [
     {"label": "Catalogue", "endpoint": "products"},
     {"label": "Machines", "endpoint": "machines"},
     {"label": "Order", "endpoint": "order"},
+    {"label": "Cyprus", "endpoint": "cyprus"},
     {"label": "Contact", "endpoint": "contact"},
 ]
+
+CYPRUS_B2B = {
+    "eyebrow": "B2B Services",
+    "title": "Vittorio B2B Services",
+    "lede": "Your trusted partner in premium coffee and hospitality solutions.",
+    "cards": [
+        {
+            "title": "Wholesale & Supply",
+            "body": "Coffee, chocolate powders, and ingredients delivered to professionals across Cyprus. Reliable supply for high-volume partners.",
+        },
+        {
+            "title": "Machines for Business",
+            "body": "Espresso equipment placement for cafés, hotels, and restaurants. Setup guidance once a partnership starts.",
+        },
+        {
+            "title": "Coffee for the Bar",
+            "body": "Espresso and hospitality supply for cafés, bars, and hotels across the island.",
+        },
+        {
+            "title": "Sourcing & Private Label",
+            "body": "Custom blends and branded products for your business.",
+        },
+        {
+            "title": "Training & Support",
+            "body": "Barista training and coffee education for professional teams.",
+        },
+        {
+            "title": "Become a Vittorio Partner",
+            "body": "Join our network of cafés and bars supplied from Kalo Xorio.",
+            "cta_label": "Contact us",
+            "cta_endpoint": "contact",
+        },
+    ],
+}
 
 MACHINE_PROGRAMMES = [
     {
         "brand": "Apia Life",
-        "models": [
-            {
-                "name": "Vittoria II",
-                "image": "machines/apia-vittoria-ii.jpg",
-                "alt": "Apia Life Vittoria II two-group espresso machine in stainless steel on a café counter.",
-                "width": 800,
-                "height": 600,
-            },
-            {
-                "name": "Compact",
-                "image": "machines/apia-compact.jpg",
-                "alt": "Apia Life Compact single-group espresso machine for smaller bars.",
-                "width": 800,
-                "height": 600,
-            },
-            {
-                "name": "Bar",
-                "image": "machines/apia-bar.jpg",
-                "alt": "Apia Life Bar three-group espresso machine for high-volume service.",
-                "width": 800,
-                "height": 600,
-            },
-        ],
+        "image": "machines/apia-life.png",
+        "alt": "Apia Life three-group commercial espresso machine in black and stainless steel.",
+        "models": ["Vittoria II", "Compact", "Bar"],
     },
     {
         "brand": "Sanremo",
-        "models": [
-            {
-                "name": "Opera",
-                "image": "machines/sanremo-opera.jpg",
-                "alt": "Sanremo Opera multi-boiler espresso machine with polished chrome groups.",
-                "width": 800,
-                "height": 600,
-            },
-            {
-                "name": "Cube",
-                "image": "machines/sanremo-cube.jpg",
-                "alt": "Sanremo Cube compact espresso machine with a modern square silhouette.",
-                "width": 800,
-                "height": 600,
-            },
-            {
-                "name": "You",
-                "image": "machines/sanremo-you.jpg",
-                "alt": "Sanremo You single-group espresso machine in a contemporary finish.",
-                "width": 800,
-                "height": 600,
-            },
-        ],
+        "image": "machines/sanremo.png",
+        "alt": "Sanremo Café Racer three-group espresso machine in black and stainless steel.",
+        "models": ["Opera", "Cube", "You"],
     },
     {
         "brand": "Expobar",
-        "models": [
-            {
-                "name": "Brewtus IV",
-                "image": "machines/expobar-brewtus.jpg",
-                "alt": "Expobar Brewtus IV dual-boiler espresso machine with E61 groups.",
-                "width": 800,
-                "height": 600,
-            },
-            {
-                "name": "Elegance",
-                "image": "machines/expobar-elegance.jpg",
-                "alt": "Expobar Elegance two-group commercial espresso machine.",
-                "width": 800,
-                "height": 600,
-            },
-            {
-                "name": "Office",
-                "image": "machines/expobar-office.jpg",
-                "alt": "Expobar Office compact heat-exchanger espresso machine.",
-                "width": 800,
-                "height": 600,
-            },
-        ],
+        "image": "machines/expobar.png",
+        "alt": "Expobar two-group commercial espresso machine in polished stainless steel with black accents.",
+        "models": ["Brewtus IV", "Elegance", "Office"],
     },
 ]
 
@@ -163,11 +167,7 @@ ARTICLES = [
 FAQ = [
     {
         "question": "Where do you deliver from?",
-        "answer": "From the depot at Synergasias 17, Kalo Xorio 7550, Larnaca. A car takes orders to cafés and bars anywhere in Cyprus. We do not ship abroad.",
-    },
-    {
-        "question": "When is the depot open?",
-        "answer": "Every day, 08:00–20:00.",
+        "answer": "From the depot in Kalo Xorio, Larnaca. A car takes orders to cafés and bars anywhere in Cyprus. We do not ship abroad.",
     },
     {
         "question": "How does an order get confirmed?",

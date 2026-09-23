@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="b2b-intro section">
+  <p class="eyebrow">{{ b2b.eyebrow }}</p>
+  <h1>{{ b2b.title }}</h1>
+  <p class="lede-short">{{ b2b.lede }}</p>
+</section>
+<section class="section section-tight">
+  <div class="b2b-grid">
+    {% for card in b2b.cards %}
+    <article class="b2b-card">
+      <h2>{{ card.title }}</h2>
+      <p>{{ card.body }}</p>
+      {% if card.cta_endpoint %}
+      <p class="b2b-card-actions">
+        <a class="button button-ghost" href="{{ url_for(card.cta_endpoint) }}">{{ card.cta_label }}</a>
+      </p>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

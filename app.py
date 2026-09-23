@@ -7,7 +7,19 @@ from urllib.parse import quote, urljoin
 
 from flask import Flask, abort, redirect, render_template, request, session, url_for
 
-from content import ARTICLES, BUSINESS, FAQ, GROUPS, HERO, MACHINE_PROGRAMMES, NAV, PRODUCTS, PRODUCTS_BY_SLUG
+from content import (
+    ARTICLES,
+    BUSINESS,
+    FAQ,
+    GROUPS,
+    HERO,
+    MACHINE_PROGRAMMES,
+    NAV,
+    PRODUCTS,
+    PRODUCTS_BY_SLUG,
+    CYPRUS_B2B,
+    catalog_pack_label,
+)
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 ARTICLES_BY_SLUG = {item["slug"]: item for item in ARTICLES}
@@ -58,6 +70,7 @@ def cart_lines():
 def create_app():
     app = Flask(__name__)
     app.secret_key = os.environ.get("SECRET_KEY", "vittorio-order-session")
+    app.jinja_env.globals["catalog_pack_label"] = catalog_pack_label
 
     @app.context_processor
     def inject():
@@ -89,28 +102,11 @@ def create_app():
             "@context": "https://schema.org",
             "@type": "Store",
             "name": BUSINESS["name"],
-            "email": BUSINESS["email_public"],
             "address": {
                 "@type": "PostalAddress",
-                "streetAddress": BUSINESS["street"],
                 "addressLocality": BUSINESS["locality"],
-                "postalCode": BUSINESS["postal_code"],
                 "addressRegion": BUSINESS["region"],
                 "addressCountry": "CY",
-            },
-            "openingHoursSpecification": {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                    "Sunday",
-                ],
-                "opens": "08:00",
-                "closes": "20:00",
             },
             "url": urljoin(request.url_root, "visit"),
             "areaServed": {"@type": "Country", "name": "Cyprus"},
@@ -193,6 +189,15 @@ def create_app():
             "supply.html",
             "Coffee supply — Vittorio Gourmet Espresso",
             "Depot in Kalo Xorio. Car delivery of coffee and café supplies to cafés and bars across Cyprus.",
+        )
+
+    @app.get("/cyprus")
+    def cyprus():
+        return page(
+            "cyprus.html",
+            "B2B Services — Vittorio Gourmet Espresso Cyprus",
+            "Wholesale coffee, machines, training, and partner supply for cafés and bars across Cyprus.",
+            b2b=CYPRUS_B2B,
         )
 
     @app.get("/machines")
@@ -314,7 +319,7 @@ def create_app():
         return page(
             "visit.html",
             "Visit us — Vittorio Gourmet Espresso, Kalo Xorio",
-            "The Vittorio depot at Synergasias 17, Kalo Xorio 7550, Larnaca. Open every day, 08:00–20:00.",
+            "The Vittorio depot in Kalo Xorio, Larnaca, Cyprus.",
             json_ld=store_json(),
         )
 
@@ -368,7 +373,7 @@ def create_app():
         body = page(
             "contact.html",
             "Contact — Vittorio Gourmet Espresso",
-            "Reach the Vittorio depot in Kalo Xorio on Viber or by email. Open every day, 08:00–20:00.",
+            "Reach the Vittorio depot in Kalo Xorio on Viber.",
             errors=errors,
             values=values,
             sent=sent,
@@ -380,7 +385,7 @@ def create_app():
         return page(
             "faq.html",
             "Questions — Vittorio Gourmet Espresso",
-            "Delivery, hours, machines, returns, and how an order is confirmed.",
+            "Delivery, machines, returns, and how an order is confirmed.",
             faq=FAQ,
         )
 
@@ -406,6 +411,7 @@ def create_app():
             "/",
             "/products",
             "/supply",
+            "/cyprus",
             "/machines",
             "/order",
             "/philosophy",

@@ -3,13 +3,13 @@
 <section class="page-intro section prose">
   <p class="eyebrow">Order {{ placed.ref }}</p>
   <h1>Ready for the depot.</h1>
-  <p>{{ placed.business_name }}, {{ placed.town }}, Cyprus. Open Viber and send this list. We confirm the order and the payment there before the car leaves Kalo Xorio.</p>
+  <p>{{ placed.business_name }}, {{ placed.town }}, Cyprus. Use Contact and send this list. We confirm the order and the payment there before the car leaves Kalo Xorio.</p>
   <ul>
     {% for line in placed.lines %}
     <li>{{ line.qty }} × {{ line.name }} — {{ line.line_total }}</li>
     {% endfor %}
   </ul>
   {% if placed.subtotal %}<p>Priced lines {{ placed.subtotal }} + VAT.</p>{% endif %}
-  <p><a class="button" href="{{ business.viber }}">Open Viber</a> <a class="button button-ghost" href="{{ mail_href }}">Email the order</a></p>
+  <p><a class="button" href="{{ business.viber }}">Contact</a> <a class="button button-ghost" href="{{ mail_href }}">Email the order</a></p>
 </section>
 {% endblock %}
