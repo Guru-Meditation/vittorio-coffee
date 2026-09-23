@@ -80,7 +80,7 @@ def test_contact_validation_and_success(client):
     assert b"Enter your name." in bad.data
     ok = client.post(
         "/contact",
-        data={"name": "Koxar", "email": "koxar@example.com", "message": "Please confirm the Kiti hours."},
+        data={"name": "Koxar", "email": "koxar@example.com", "message": "Please confirm the Kalo Xorio hours."},
     )
     assert ok.status_code == 200
     assert b"Thank you" in ok.data

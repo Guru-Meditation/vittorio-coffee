@@ -70,7 +70,7 @@ def create_app():
         return page(
             "home.html",
             "Vittorio Gourmet Espresso — coffee supplies in Larnaca",
-            "Gourmet espresso, chocolate, teas, and café mixes from Synergasias 17, Kiti. Prices and hours as published by Vittorio Gourmet Espresso.",
+            "Gourmet espresso, chocolate, teas, and café mixes from Synergasias 17, Kalo Xorio. Prices and hours as published by Vittorio Gourmet Espresso.",
             featured=featured,
             articles=ARTICLES,
             json_ld=store_json(),
@@ -138,8 +138,8 @@ def create_app():
     def visit():
         return page(
             "visit.html",
-            "Visit us — Vittorio Gourmet Espresso, Kiti",
-            "Synergasias 17, Kiti 7550, Larnaca. Open Monday to Sunday, 08:00–20:00. Call +357 99 766 848.",
+            "Visit us — Vittorio Gourmet Espresso, Kalo Xorio",
+            "Synergasias 17, Kalo Xorio 7550, Larnaca. Open Monday to Sunday, 08:00–20:00. Call +357 99 766 848.",
             json_ld=store_json(),
         )
 
@@ -193,7 +193,7 @@ def create_app():
         body = page(
             "contact.html",
             "Contact — Vittorio Gourmet Espresso",
-            "Write to Vittorio Gourmet Espresso in Kiti, or call +357 99 766 848. Monday to Sunday, 08:00–20:00.",
+            "Write to Vittorio Gourmet Espresso in Kalo Xorio, or call +357 99 766 848. Monday to Sunday, 08:00–20:00.",
             errors=errors,
             values=values,
             sent=sent,
@@ -205,7 +205,7 @@ def create_app():
         return page(
             "faq.html",
             "Questions — Vittorio Gourmet Espresso",
-            "Hours, the Kiti address, returns, VAT, and what this catalogue does not invent.",
+            "Hours, the Kalo Xorio address, returns, VAT, and what this catalogue does not invent.",
             faq=FAQ,
         )
 

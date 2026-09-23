@@ -32,12 +32,12 @@ BUSINESS = {
     "email_public": "info@vittoriocaffee.com",
     "email_service": "pantzosantonis@gmail.com",
     "street": "Synergasias 17",
-    "locality": "Kiti",
+    "locality": "Kalo Xorio",
     "postal_code": "7550",
     "region": "Larnaca",
     "country": "Cyprus",
     "hours": "Monday–Sunday, 08:00–20:00",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Synergasias+17%2C+Kiti+7550%2C+Larnaca%2C+Cyprus",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Synergasias+17%2C+Kalo+Xorio+7550%2C+Larnaca%2C+Cyprus",
     "social": [
         {"label": "Facebook", "href": "https://www.facebook.com/profile.php?id=100095007198368"},
         {"label": "Instagram", "href": "https://www.instagram.com/vittoriogourmetespresso.cy/"},
@@ -84,7 +84,7 @@ ARTICLES = [
 FAQ = [
     {
         "question": "Where is the counter?",
-        "answer": "Synergasias 17, Kiti 7550, in the Larnaca district of Cyprus. That is the only address published on the current website.",
+        "answer": "Synergasias 17, Kalo Xorio 7550, in the Larnaca district of Cyprus.",
     },
     {
         "question": "When is it open?",
@@ -109,8 +109,8 @@ FAQ = [
 ]
 
 HERO = {
-    "file": "brand/hero.jpg",
-    "width": 650,
-    "height": 650,
-    "alt": "Person drinking from a Vittorio Gourmet Espresso cup, the photograph used on the current homepage.",
+    "file": "brand/hero-bar.jpg",
+    "width": 1280,
+    "height": 720,
+    "alt": "A barista in a black Vittorio shirt pulls an espresso shot on a white Sanremo Brasil machine into a black Vittorio cup.",
 }
