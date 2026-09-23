@@ -41,6 +41,8 @@ def test_every_product_and_article(client):
         page = response.get_data(as_text=True)
         assert html.escape(item["name"]) in page
         assert item["price_label"] in page
+        if item["image"]:
+            assert item["image"]["file"] in page
     for item in ARTICLES:
         response = client.get(f"/journal/{item['slug']}")
         assert response.status_code == 200

@@ -1,6 +1,7 @@
 {% macro product_card(item) -%}
 <article class="card">
   <a class="card-media" href="{{ url_for('product', slug=item.slug) }}">
+    {% if item.image %}
     <img
       src="{{ url_for('static', filename='images/' ~ item.image.file) }}"
       alt="{{ item.image.alt }}"
@@ -9,6 +10,9 @@
       loading="lazy"
       decoding="async"
     >
+    {% else %}
+    <span class="no-photo">No photograph on the shop listing.</span>
+    {% endif %}
   </a>
   <div class="card-body">
     <p class="eyebrow">{{ item.group }}</p>

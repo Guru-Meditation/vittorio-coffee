@@ -110,29 +110,10 @@ address { font-style: normal; }
   background: rgba(243, 235, 221, 0.94);
   border-bottom: 1px solid var(--line);
 }
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  color: var(--espresso);
-  text-decoration: none;
-}
-.brand strong, .brand small { display: block; }
-.brand small {
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.brand-mark {
-  width: 2.2rem;
-  height: 2.2rem;
-  display: grid;
-  place-items: center;
-  background: var(--espresso);
-  color: var(--cream);
-  font-family: "Fraunces", Georgia, serif;
-}
+.brand { display: flex; align-items: center; text-decoration: none; }
+.brand img { height: 3.1rem; width: auto; }
+.footer-logo { height: 4.5rem; width: auto; margin-bottom: 0.8rem; }
+.partner-logo { height: 3.2rem; width: auto; margin-top: 0.6rem; background: #fff; padding: 0.35rem; }
 
 .nav-toggle {
   display: inline-flex;
@@ -213,7 +194,20 @@ body.nav-open #site-nav { display: block; }
 }
 .band .note { background: transparent; border-color: rgba(243, 235, 221, 0.25); }
 .card-media { display: block; margin: -1rem -1rem 1rem; }
-.card-media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.card-media img, .no-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #fff;
+}
+.no-photo {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  color: var(--muted);
+}
 .price { font-weight: 600; }
 .dietary { font-size: 0.95rem; }
 .dietary span {

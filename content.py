@@ -95,8 +95,8 @@ FAQ = [
 ]
 
 HERO = {
-    "file": "hero-espresso.jpg",
-    "width": 1280,
-    "height": 720,
-    "alt": "Espresso in a speckled cup on linen, with a copper spoon and a sage sprig.",
+    "file": "brand/hero.jpg",
+    "width": 650,
+    "height": 650,
+    "alt": "Person drinking from a Vittorio Gourmet Espresso cup, the photograph used on the current homepage.",
 }

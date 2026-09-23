@@ -13,7 +13,7 @@
   <meta property="og:image" content="{{ seo.image }}">
   <meta property="og:locale" content="en_CY">
   <meta name="theme-color" content="#1A100C">
-  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/brand/mark.png') }}" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
   {% if seo.json_ld %}
   <script type="application/ld+json">{{ seo.json_ld | safe }}</script>
@@ -23,11 +23,7 @@
   <a class="skip" href="#content">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="{{ url_for('home') }}">
-      <span class="brand-mark">V</span>
-      <span>
-        <strong>Vittorio</strong>
-        <small>Gourmet Espresso</small>
-      </span>
+      <img src="{{ url_for('static', filename='images/brand/logo.png') }}" alt="Vittorio Gourmet Espresso" width="1029" height="447">
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
       <span class="nav-toggle-lines" aria-hidden="true"></span>
@@ -48,8 +44,9 @@
   <footer class="site-footer">
     <div class="footer-grid">
       <div>
-        <p class="brand-lockup">Vittorio Gourmet Espresso</p>
+        <img class="footer-logo" src="{{ url_for('static', filename='images/brand/logo-footer.png') }}" alt="Vittorio Gourmet Espresso" width="678" height="275">
         <p>Coffee, chocolate, teas, and café mixes from Kiti, Larnaca.</p>
+        <a href="https://www.jeanpaul.gr/index.php/en"><img class="partner-logo" src="{{ url_for('static', filename='images/brand/jean-paul.png') }}" alt="Jean Paul Lab" width="294" height="156"></a>
       </div>
       <nav aria-label="Footer">
         <p class="footer-label">Explore</p>

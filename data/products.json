@@ -11,12 +11,7 @@
     "summary": "Granite Straws × 1000 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -31,12 +26,7 @@
     "summary": "Frappé Straws × 500 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -51,12 +41,7 @@
     "summary": "Fredo Straws × 1000 pcs. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -71,12 +56,7 @@
     "summary": "Quadruple Paper Bases. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -91,12 +71,7 @@
     "summary": "Double Paper Bases. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -111,12 +86,7 @@
     "summary": "Transparent Lids × 50. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -131,12 +101,7 @@
     "summary": "Black Lids 12 – 16oz. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -151,12 +116,7 @@
     "summary": "Glasses 4 oz, 8 oz, 12 oz, 16 oz. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -171,12 +131,7 @@
     "summary": "Plastic Glasses 300ml & 400ml. Café serviceware listed in the shop. No description or price is published on the record.",
     "facts": [],
     "dietary": null,
-    "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
-    },
+    "image": null,
     "featured": false
   },
   {
@@ -196,10 +151,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "cocoa-still.jpg",
-      "width": 1024,
-      "height": 1024,
-      "alt": "Cocoa and dark chocolate on cream paper, an illustrative photo rather than product packaging."
+      "file": "products/soft-ice-cream-1kg.png",
+      "width": 335,
+      "height": 487,
+      "alt": "Soft Ice-Cream 1kg &#8211; In 4 delicious flavours"
     },
     "featured": false
   },
@@ -220,10 +175,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "cocoa-still.jpg",
-      "width": 1024,
-      "height": 1024,
-      "alt": "Cocoa and dark chocolate on cream paper, an illustrative photo rather than product packaging."
+      "file": "products/chocolate-with-black-forest-passion-fruit-no-2.png",
+      "width": 1575,
+      "height": 1575,
+      "alt": "Chocolate with Black Forest &#038; Passion Fruit No.2"
     },
     "featured": false
   },
@@ -244,10 +199,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "cocoa-still.jpg",
-      "width": 1024,
-      "height": 1024,
-      "alt": "Cocoa and dark chocolate on cream paper, an illustrative photo rather than product packaging."
+      "file": "products/chocolate-with-bueno-biscuit-no-3.png",
+      "width": 1575,
+      "height": 1575,
+      "alt": "Chocolate with Bueno &#038; Biscuit No.3"
     },
     "featured": false
   },
@@ -268,10 +223,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "cocoa-still.jpg",
-      "width": 1024,
-      "height": 1024,
-      "alt": "Cocoa and dark chocolate on cream paper, an illustrative photo rather than product packaging."
+      "file": "products/chocolate-with-lemon-biscuit-no-5.png",
+      "width": 1575,
+      "height": 1575,
+      "alt": "Chocolate with Lemon &#038; Biscuit No.5"
     },
     "featured": false
   },
@@ -292,10 +247,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "cocoa-still.jpg",
-      "width": 1024,
-      "height": 1024,
-      "alt": "Cocoa and dark chocolate on cream paper, an illustrative photo rather than product packaging."
+      "file": "products/chocolate-powder-la-vittoria-classic.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Chocolate Powder &#8211; La Vittoria Classic"
     },
     "featured": false
   },
@@ -316,10 +271,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "cocoa-still.jpg",
-      "width": 1024,
-      "height": 1024,
-      "alt": "Cocoa and dark chocolate on cream paper, an illustrative photo rather than product packaging."
+      "file": "products/chocolate-powder-paolo-chocolate.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Chocolate Powder &#8211; Paolo Chocolate"
     },
     "featured": false
   },
@@ -339,10 +294,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "cocoa-still.jpg",
-      "width": 1024,
-      "height": 1024,
-      "alt": "Cocoa and dark chocolate on cream paper, an illustrative photo rather than product packaging."
+      "file": "products/freddoccino.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Freddoccino"
     },
     "featured": false
   },
@@ -363,10 +318,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/coffee-syrup-vanillia.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Coffee Syrups"
     },
     "featured": false
   },
@@ -387,10 +342,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/smoothies-syrups-peach.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Smoothies Syrups Peach"
     },
     "featured": false
   },
@@ -411,10 +366,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/smoothies-syrups-raspberry.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Smoothies Syrups Raspberry"
     },
     "featured": false
   },
@@ -435,10 +390,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/smoothies-syrups-mango.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Smoothies Syrups Mango"
     },
     "featured": false
   },
@@ -459,10 +414,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/smoothies-syrups-banana.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Smoothies Syrups Banana"
     },
     "featured": false
   },
@@ -483,10 +438,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/smoothies-syrups-pomegranate.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Smoothies Syrups Pomegranate"
     },
     "featured": false
   },
@@ -507,10 +462,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/smoothies-syrups-strawberry.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Smoothies Syrups Strawberry"
     },
     "featured": false
   },
@@ -529,10 +484,10 @@
     "facts": [],
     "dietary": "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/milkshake-vanillia.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Milkshake Vanillia"
     },
     "featured": false
   },
@@ -551,10 +506,10 @@
     "facts": [],
     "dietary": "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/milkshake-strawberry.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Milkshake Strawberry"
     },
     "featured": false
   },
@@ -575,10 +530,10 @@
     ],
     "dietary": "Contains sour cream, fruit, and powdered yogurt, as stated. No allergen panel is published.",
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/milkshake-chocolate.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Milkshake Chocolate"
     },
     "featured": false
   },
@@ -599,10 +554,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/mon-cheri-ginger-and-citrus.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Mon Cheri &#8211; Ginger and Citrus"
     },
     "featured": false
   },
@@ -623,10 +578,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/ginger-and-lemon.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Ginger and Lemon"
     },
     "featured": false
   },
@@ -647,10 +602,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/fit-slim-hibiscus.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Fit &#038; Slim &#8211; Hibiscus"
     },
     "featured": false
   },
@@ -671,10 +626,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/english-breakfast-black-tea.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "English Breakfast &#8211; Black Tea"
     },
     "featured": false
   },
@@ -695,10 +650,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/blue-night.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Blue Night"
     },
     "featured": false
   },
@@ -719,10 +674,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/red-passion-square-fruit-tea-with-cranberry.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Red Passion Square Fruit Tea with Cranberry"
     },
     "featured": false
   },
@@ -743,10 +698,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/purple-diamond-fruits.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Purple Diamond Fruits"
     },
     "featured": false
   },
@@ -767,10 +722,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/white-life-chamomile.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "White Life &#8211; Chamomile"
     },
     "featured": false
   },
@@ -791,10 +746,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/bienneziko-bals.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Bienneziko Bals"
     },
     "featured": false
   },
@@ -815,10 +770,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/9th-symphony-herbal-tea.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "9th Symphony &#8211; Herbal Tea"
     },
     "featured": false
   },
@@ -839,10 +794,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/matcha-mix.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Matcha Mix"
     },
     "featured": false
   },
@@ -863,10 +818,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/green-tea.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Green Tea"
     },
     "featured": false
   },
@@ -887,10 +842,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/waffle-mix.jpg",
+      "width": 1085,
+      "height": 837,
+      "alt": "Waffle Mix"
     },
     "featured": false
   },
@@ -911,10 +866,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/pancake-mix.jpg",
+      "width": 1085,
+      "height": 837,
+      "alt": "Pancake Mix"
     },
     "featured": false
   },
@@ -935,10 +890,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/crepe-mix.jpg",
+      "width": 1085,
+      "height": 837,
+      "alt": "Crepe Mix"
     },
     "featured": false
   },
@@ -958,10 +913,10 @@
     ],
     "dietary": "No preservatives, as stated. Colourings are described as permitted. No fuller dietary panel is published.",
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/strawberry-granita.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Strawberry Granita Powder"
     },
     "featured": false
   },
@@ -981,10 +936,10 @@
     ],
     "dietary": "No preservatives, as stated. Colourings are described as permitted. No fuller dietary panel is published.",
     "image": {
-      "file": "counter-room.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "A quiet supply counter in warm light, an illustrative photo rather than a shop interior."
+      "file": "products/lemon-granita-powder.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Lemon Granita Powder"
     },
     "featured": false
   },
@@ -1002,10 +957,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "beans-still.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "Roasted coffee beans in a dark bowl, an illustrative photo rather than product packaging."
+      "file": "products/costa-rica.jpg",
+      "width": 830,
+      "height": 839,
+      "alt": "Costa Rica &#8211; SINGLE VARIETIES"
     },
     "featured": true
   },
@@ -1025,10 +980,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "beans-still.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "Roasted coffee beans in a dark bowl, an illustrative photo rather than product packaging."
+      "file": "products/filter.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "FILTER"
     },
     "featured": true
   },
@@ -1048,10 +1003,10 @@
     ],
     "dietary": "Caffeine removed, as stated on the product page.",
     "image": {
-      "file": "beans-still.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "Roasted coffee beans in a dark bowl, an illustrative photo rather than product packaging."
+      "file": "products/espresso-decafeine.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "ESPRESSO DECAFEINE 100% ARABICA"
     },
     "featured": true
   },
@@ -1071,10 +1026,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "beans-still.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "Roasted coffee beans in a dark bowl, an illustrative photo rather than product packaging."
+      "file": "products/espresso-grande.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "ESPRESSO GRANDE"
     },
     "featured": true
   },
@@ -1094,10 +1049,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "beans-still.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "Roasted coffee beans in a dark bowl, an illustrative photo rather than product packaging."
+      "file": "products/greek.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "GREEK"
     },
     "featured": true
   },
@@ -1117,10 +1072,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "beans-still.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "Roasted coffee beans in a dark bowl, an illustrative photo rather than product packaging."
+      "file": "products/espresso-100-arabica.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "ESPRESSO 100% ARABICA"
     },
     "featured": true
   },
@@ -1137,10 +1092,10 @@
     ],
     "dietary": null,
     "image": {
-      "file": "beans-still.jpg",
-      "width": 1152,
-      "height": 864,
-      "alt": "Roasted coffee beans in a dark bowl, an illustrative photo rather than product packaging."
+      "file": "products/single-origin-guatemala.jpg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "SINGLE ORIGIN GUATEMALA &#8211; SINGLE VARIETIES"
     },
     "featured": true
   }
