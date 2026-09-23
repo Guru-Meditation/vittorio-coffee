@@ -2,9 +2,9 @@
 {% block content %}
 <section class="page-intro section prose">
   <p class="eyebrow">Privacy</p>
-  <h1>What this preview keeps.</h1>
-  <p>The contact form checks that a name, email, and message are present. It then shows a thank-you note. It does not write the message to a database, and it does not email it on.</p>
-  <p>The live Vittorio shop still has the default WordPress privacy text, including a staging web address. That page should be rewritten on the live site before it is treated as policy. This preview does not copy that template.</p>
-  <p>Shop pages for an account, cart, and checkout are not part of this preview.</p>
+  <h1>What we keep.</h1>
+  <p>An order list stays in your browser until you place it. The confirmation page shows that list so you can send it on Viber or by email. We do not take card details on this site.</p>
+  <p>The contact form asks for a name, an email, and a message. Use it for a note, and open Viber when you need the depot the same day.</p>
+  <p>Questions about an order go to <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a> or <a href="{{ business.viber }}">Viber</a>.</p>
 </section>
 {% endblock %}

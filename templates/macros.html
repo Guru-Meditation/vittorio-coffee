@@ -1,5 +1,5 @@
-{% macro product_card(item) -%}
-<article class="card">
+{% macro product_card(item, compact=false) -%}
+<article class="card{% if compact %} compact{% endif %}">
   <a class="card-media" href="{{ url_for('product', slug=item.slug) }}">
     {% if item.image %}
     <img
@@ -11,7 +11,7 @@
       decoding="async"
     >
     {% else %}
-    <span class="no-photo">No photograph on the shop listing.</span>
+    <span class="no-photo">Photograph to follow.</span>
     {% endif %}
   </a>
   <div class="card-body">
@@ -23,9 +23,11 @@
       <input type="hidden" name="next" value="{{ url_for('order') }}">
       <button class="button button-small" type="submit">Add to order</button>
     </form>
+    {% if not compact %}
     <p>{{ item.summary }}</p>
     {% if item.dietary %}
     <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>
+    {% endif %}
     {% endif %}
   </div>
 </article>
@@ -46,8 +48,8 @@
       <dd>{{ business.hours }}</dd>
     </div>
     <div>
-      <dt>Phone</dt>
-      <dd><a href="tel:{{ business.phone_tel }}">{{ business.phone_display }}</a></dd>
+      <dt>Viber</dt>
+      <dd><a href="{{ business.viber }}">Open Viber</a></dd>
     </div>
     <div>
       <dt>Email</dt>
@@ -59,8 +61,8 @@
     </div>
   </dl>
   <p class="card-actions">
-    <a class="button" href="{{ business.maps }}">Directions</a>
-    <a class="button button-ghost" href="{{ business.maps }}">Open map</a>
+    <a class="button" href="{{ business.viber }}">Open Viber</a>
+    <a class="button button-ghost" href="{{ business.maps }}">Directions</a>
   </p>
 </article>
 {%- endmacro %}

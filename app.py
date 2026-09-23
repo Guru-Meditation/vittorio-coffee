@@ -89,7 +89,6 @@ def create_app():
             "@context": "https://schema.org",
             "@type": "Store",
             "name": BUSINESS["name"],
-            "telephone": BUSINESS["phone_tel"],
             "email": BUSINESS["email_public"],
             "address": {
                 "@type": "PostalAddress",
@@ -123,8 +122,8 @@ def create_app():
         featured = [item for item in PRODUCTS if item["featured"]]
         return page(
             "home.html",
-            "Vittorio Gourmet Espresso — coffee supply in Cyprus",
-            "Coffee, chocolate, and café supplies from the Kalo Xorio depot, delivered by car to cafés and bars across Cyprus.",
+            "Vittorio Gourmet Espresso — wholesale & retail coffee in Cyprus",
+            "Wholesale and retail coffee, ingredients, and espresso equipment for Cyprus. Apia Life, Sanremo, and Expobar partnerships.",
             featured=featured,
             articles=ARTICLES,
             json_ld=store_json(),
@@ -176,7 +175,7 @@ def create_app():
         return page(
             "philosophy.html",
             "Coffee philosophy — Vittorio Gourmet Espresso",
-            "How Vittorio Gourmet Espresso describes specialty coffee, and the coffees actually listed in the Cyprus shop.",
+            "How Vittorio thinks about coffee for the bar, and the coffees in the Cyprus catalogue.",
             coffees=[item for item in PRODUCTS if item["group"] == "Coffee"],
         )
 
@@ -185,7 +184,7 @@ def create_app():
         return page(
             "story.html",
             "Our story — Vittorio Gourmet Espresso",
-            "The service mission published by Vittorio Gourmet Espresso, and its 2019 appearance at HO.RE.CA.",
+            "Vittorio supplies the Cypriot bar from a depot in Kalo Xorio, and met the trade at HO.RE.CA. 2019.",
         )
 
     @app.get("/supply")
@@ -239,7 +238,7 @@ def create_app():
     def order():
         lines, subtotal, missing = cart_lines()
         errors = {}
-        values = {"name": "", "business_name": "", "phone": "", "email": "", "town": "", "notes": ""}
+        values = {"name": "", "business_name": "", "email": "", "town": "", "notes": ""}
         if request.method == "POST":
             values = {key: request.form.get(key, "").strip() for key in values}
             if request.form.get("company_website", "").strip():
@@ -250,8 +249,6 @@ def create_app():
                 errors["name"] = "Enter your name."
             if len(values["business_name"]) < 2:
                 errors["business_name"] = "Enter the café or bar name."
-            if len(values["phone"]) < 6:
-                errors["phone"] = "Enter a phone number."
             if not EMAIL_RE.match(values["email"]):
                 errors["email"] = "Enter a valid email address."
             if len(values["town"]) < 2:
@@ -316,7 +313,7 @@ def create_app():
         return page(
             "visit.html",
             "Visit us — Vittorio Gourmet Espresso, Kalo Xorio",
-            "Synergasias 17, Kalo Xorio 7550, Larnaca. Open Monday to Sunday, 08:00–20:00. Call +357 99 766 848.",
+            "The Vittorio depot at Synergasias 17, Kalo Xorio 7550, Larnaca. Open every day, 08:00–20:00.",
             json_ld=store_json(),
         )
 
@@ -325,7 +322,7 @@ def create_app():
         return page(
             "journal.html",
             "Journal — Vittorio Gourmet Espresso",
-            "Two notes from 2019 about Vittorio Gourmet Espresso at HO.RE.CA. No newer articles are published.",
+            "Notes from Vittorio at HO.RE.CA. 2019 in Athens.",
             articles=ARTICLES,
         )
 
@@ -370,7 +367,7 @@ def create_app():
         body = page(
             "contact.html",
             "Contact — Vittorio Gourmet Espresso",
-            "Write to Vittorio Gourmet Espresso in Kalo Xorio, or call +357 99 766 848. Monday to Sunday, 08:00–20:00.",
+            "Reach the Vittorio depot in Kalo Xorio on Viber or by email. Open every day, 08:00–20:00.",
             errors=errors,
             values=values,
             sent=sent,
@@ -382,7 +379,7 @@ def create_app():
         return page(
             "faq.html",
             "Questions — Vittorio Gourmet Espresso",
-            "Hours, the Kalo Xorio address, returns, VAT, and what this catalogue does not invent.",
+            "Delivery, hours, machines, returns, and how an order is confirmed.",
             faq=FAQ,
         )
 
@@ -391,7 +388,7 @@ def create_app():
         return page(
             "privacy.html",
             "Privacy — Vittorio Gourmet Espresso",
-            "How this preview handles the contact form, and what the live shop’s privacy page currently contains.",
+            "What Vittorio keeps from an order or a message on this site.",
         )
 
     @app.get("/returns")
@@ -399,7 +396,7 @@ def create_app():
         return page(
             "returns.html",
             "Returns — Vittorio Gourmet Espresso",
-            "Unopened goods can be returned within 30 days. Orders are placed on this site and confirmed by phone or Viber.",
+            "Unopened goods can be returned within 30 days. Orders are confirmed on Viber.",
         )
 
     @app.get("/sitemap.xml")
@@ -446,7 +443,7 @@ def create_app():
             page(
                 "404.html",
                 "Page not found — Vittorio Gourmet Espresso",
-                "That page is not on this Vittorio Gourmet Espresso preview.",
+                "That page is not part of Vittorio Gourmet Espresso.",
             ),
             404,
         )

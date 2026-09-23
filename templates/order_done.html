@@ -2,8 +2,8 @@
 {% block content %}
 <section class="page-intro section prose">
   <p class="eyebrow">Order {{ placed.ref }}</p>
-  <h1>Send this list to the depot.</h1>
-  <p>{{ placed.business_name }} in {{ placed.town }}, Cyprus. We confirm the order and the payment by phone or Viber before the car leaves Kalo Xorio.</p>
+  <h1>Ready for the depot.</h1>
+  <p>{{ placed.business_name }}, {{ placed.town }}, Cyprus. Open Viber and send this list. We confirm the order and the payment there before the car leaves Kalo Xorio.</p>
   <ul>
     {% for line in placed.lines %}
     <li>{{ line.qty }} × {{ line.name }} — {{ line.line_total }}</li>

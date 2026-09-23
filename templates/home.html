@@ -1,61 +1,54 @@
 {% extends "base.html" %}
-{% from "macros.html" import product_card, location_card %}
+{% from "macros.html" import product_card %}
 {% block content %}
-<section class="hero">
+<section class="hero-stage">
+  <img class="hero-photo" src="{{ url_for('static', filename='images/' ~ hero.file) }}" alt="{{ hero.alt }}" width="{{ hero.width }}" height="{{ hero.height }}" fetchpriority="high" decoding="async">
+  <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-copy">
-    <p class="eyebrow">Depot in Kalo Xorio</p>
-    <h1>Coffee for the bar, delivered across Cyprus.</h1>
-    <p>Vittorio supplies coffee, chocolate, teas, syrups, and mixes to cafés and bars. The depot is in Kalo Xorio. A car brings the order anywhere in Cyprus, and not abroad.</p>
+    <p class="eyebrow">Wholesale &amp; retail · Cyprus</p>
+    <h1>Coffee distributor for the whole island.</h1>
     <div class="hero-actions">
-      <a class="button" href="{{ url_for('products') }}">Order from the catalogue</a>
-      <a class="button button-ghost" href="{{ url_for('machines') }}">Machines and setup</a>
-      <a class="button button-ghost" href="{{ url_for('visit') }}">Visit us</a>
+      <a class="button" href="{{ url_for('products') }}">Catalogue</a>
+      <a class="button button-ghost light" href="{{ url_for('machines') }}">Machines</a>
+      <a class="button button-ghost light" href="{{ business.viber }}">Viber</a>
     </div>
   </div>
-  <figure>
-    <img src="{{ url_for('static', filename='images/' ~ hero.file) }}" alt="{{ hero.alt }}" width="{{ hero.width }}" height="{{ hero.height }}" fetchpriority="high" decoding="async">
-  </figure>
 </section>
 
-<section class="section offer-row">
+<ul class="trust-strip" aria-label="Highlights">
+  <li>Wholesale &amp; retail</li>
+  <li>Cyprus delivery</li>
+  <li>Apia Life · Sanremo · Expobar</li>
+  <li>Free setup guidance</li>
+</ul>
+
+<section class="section offer-row offer-row-tight">
   <article>
-    <p class="eyebrow">Supply</p>
-    <h2>The counter and the road.</h2>
-    <p>Stock leaves the Kalo Xorio depot by car. Cafés and bars anywhere in Cyprus can order. Deliveries stop at the border: nothing is sent abroad.</p>
-    <a class="text-link" href="{{ url_for('supply') }}">How supply works</a>
+    <p class="eyebrow">Products</p>
+    <h2>Catalogue</h2>
+    <a class="text-link" href="{{ url_for('products') }}">Browse</a>
   </article>
   <article>
-    <p class="eyebrow">Partnership</p>
-    <h2>Machines, with no charge.</h2>
-    <p>Apia Life, Sanremo, and Expobar machines are offered at no charge for as long as the partnership continues. Setup guidance and advice are free once we start working together.</p>
-    <a class="text-link" href="{{ url_for('machines') }}">See the machines</a>
+    <p class="eyebrow">Equipment</p>
+    <h2>Machines</h2>
+    <a class="text-link" href="{{ url_for('machines') }}">Programmes</a>
   </article>
   <article>
     <p class="eyebrow">Order</p>
-    <h2>Place it on this site.</h2>
-    <p>Add products, name the café, and the town in Cyprus. We confirm the order and the payment by phone or Viber. Card payment is not taken here.</p>
-    <a class="text-link" href="{{ url_for('order') }}">Open the order</a>
+    <h2>Online list</h2>
+    <a class="text-link" href="{{ url_for('order') }}">Order</a>
   </article>
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <p class="eyebrow">Coffee</p>
-    <h2>Start with what is on the shelf.</h2>
-    <p>Seven coffees are in the public catalogue, from single-origin Arabica to Greek coffee and a decaffeinated espresso. Prices are plus VAT.</p>
+<section class="section section-tight">
+  <div class="section-head section-head-tight">
+    <h2>Featured coffees</h2>
   </div>
   <div class="card-grid three">
     {% for item in featured %}
-      {{ product_card(item) }}
+      {{ product_card(item, compact=true) }}
     {% endfor %}
   </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <p class="eyebrow">Visit</p>
-    <h2>The depot.</h2>
-  </div>
-  {{ location_card(business) }}
+  <p class="section-cta"><a class="button" href="{{ url_for('order') }}">Order</a> <a class="button button-ghost" href="{{ url_for('visit') }}">Visit us</a></p>
 </section>
 {% endblock %}

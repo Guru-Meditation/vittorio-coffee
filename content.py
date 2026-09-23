@@ -27,8 +27,6 @@ for item in PRODUCTS:
 BUSINESS = {
     "name": "Vittorio Gourmet Espresso",
     "short_name": "Vittorio",
-    "phone_display": "+357 99 766 848",
-    "phone_tel": "+35799766848",
     "email_public": "info@vittoriocaffee.com",
     "email_service": "pantzosantonis@gmail.com",
     "street": "Synergasias 17",
@@ -39,7 +37,7 @@ BUSINESS = {
     "hours": "Monday–Sunday, 08:00–20:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=Synergasias+17%2C+Kalo+Xorio+7550%2C+Larnaca%2C+Cyprus",
     "viber": "viber://chat?number=%2B35799766848",
-    "delivery": "Car delivery to cafés and bars, everywhere in Cyprus. Nothing is sent abroad.",
+    "delivery": "Car delivery to cafés and bars across Cyprus. Nothing leaves the island.",
     "machines": ["Apia Life", "Sanremo", "Expobar"],
     "social": [
         {"label": "Facebook", "href": "https://www.facebook.com/profile.php?id=100095007198368"},
@@ -63,11 +61,11 @@ ARTICLES = [
         "title": "A stand at HO.RE.CA. 2019",
         "date": "2019-02-08",
         "date_label": "8–11 February 2019",
-        "summary": "The company posted an invitation to meet the team at HO.RE.CA. 2019 in Athens.",
+        "summary": "Vittorio met the trade at HO.RE.CA. 2019, Metropolitan Expo, Athens.",
         "body": [
-            "Vittorio Gourmet Espresso published a short invitation to HO.RE.CA., the hospitality exhibition, in 2019.",
-            "The post names Metropolitan Expo, Hall 1, stand C12/D11, and the dates 8–11 February 2019.",
-            "It asks visitors to come and hear about the products. It does not describe a prize, a talk, or a product launch.",
+            "In February 2019 Vittorio took a stand at HO.RE.CA., the hospitality exhibition in Athens.",
+            "The invitation named Metropolitan Expo, Hall 1, stand C12/D11, and the dates 8–11 February.",
+            "The team was there to talk through the range with people who run bars, cafés, and hotels.",
         ],
     },
     {
@@ -75,47 +73,46 @@ ARTICLES = [
         "title": "After the 14th HORECA",
         "date": "2019-02-11",
         "date_label": "February 2019",
-        "summary": "A follow-up post, written in Greek, thanks people who visited the stand.",
+        "summary": "A note of thanks after the 14th HORECA, written first in Greek.",
         "body": [
-            "A second post says the 14th HORECA 2019 had ended. The original text is in Greek.",
-            "It thanks visitors for coming and for their interest, and says the team hoped to meet them again the following year.",
-            "The post does not publish attendance figures or name a product that debuted there.",
+            "When the 14th HORECA closed, Vittorio posted a thank-you. The original note is in Greek.",
+            "It thanks everyone who came to the stand, and looks ahead to meeting them again the following year.",
         ],
     },
 ]
 
 FAQ = [
     {
-        "question": "Where is the counter?",
-        "answer": "The depot is at Synergasias 17, Kalo Xorio 7550, in the Larnaca district. Deliveries go out by car to cafés and bars across Cyprus, and not abroad.",
+        "question": "Where do you deliver from?",
+        "answer": "From the depot at Synergasias 17, Kalo Xorio 7550, Larnaca. A car takes orders to cafés and bars anywhere in Cyprus. We do not ship abroad.",
     },
     {
-        "question": "When is it open?",
-        "answer": "The site lists Monday to Sunday, 08:00–20:00. It does not say whether those hours are for a café, a trade counter, or both.",
+        "question": "When is the depot open?",
+        "answer": "Every day, 08:00–20:00.",
     },
     {
-        "question": "Can I pay on this preview?",
-        "answer": "You can place a product order on this site. Payment is confirmed with the team by phone or Viber. Card payment is not taken on the page. Delivery is by car, in Cyprus only.",
+        "question": "How does an order get confirmed?",
+        "answer": "Build the list on this site. We confirm the order and the payment on Viber before the car leaves Kalo Xorio. Card payment is not taken on the page. Prices are plus VAT.",
     },
     {
         "question": "How do returns work?",
-        "answer": "Unopened, unused goods can be returned within 30 days of purchase for a refund. The customer pays return shipping unless the company made the error. Write to pantzosantonis@gmail.com or call +357 99 766 848 with the order number.",
+        "answer": "Unopened, unused goods can be returned within 30 days for a refund. You pay return shipping unless the error was ours. Send the order number by email to pantzosantonis@gmail.com, or open Viber.",
     },
     {
         "question": "Are the prices final?",
-        "answer": "Catalogue prices are copied from the public shop and are shown plus VAT. Records with no price are marked “Price not published” rather than shown as zero.",
+        "answer": "Catalogue prices are the published trade prices, shown plus VAT. A line marked “Price not published” is confirmed before delivery.",
     },
     {
-        "question": "Do you deliver?",
-        "answer": "Yes. The depot is in Kalo Xorio and the van delivers to cafés and bars anywhere in Cyprus. Orders are not sent outside Cyprus.",
+        "question": "Who do you supply?",
+        "answer": "Cafés and bars across Cyprus. The delivery is by car, from the Kalo Xorio depot, and it stays on the island.",
     },
     {
-        "question": "Which coffee machines do you place?",
-        "answer": "Apia Life, Sanremo, and Expobar. A machine is offered with no charge for as long as the partnership continues. Setup guidance and advice are free once cooperation starts.",
+        "question": "Which machines do you place?",
+        "answer": "Apia Life, Sanremo, and Expobar. The machine is offered with no charge for as long as the partnership continues. Setup guidance is free once we start working together.",
     },
     {
-        "question": "Do you publish dietary labels?",
-        "answer": "Only when the product page states them. There is no allergen grid on the current shop, so this site does not add vegan, gluten-free, or similar marks.",
+        "question": "Do you mark dietary claims?",
+        "answer": "Only when the product itself states them. We do not add vegan, gluten-free, or similar marks that the listing does not carry.",
     },
 ]
 
@@ -123,5 +120,5 @@ HERO = {
     "file": "brand/hero-bar.jpg",
     "width": 1280,
     "height": 720,
-    "alt": "A barista in a black Vittorio shirt pulls an espresso shot on a white Sanremo Brasil machine into a black Vittorio cup.",
+    "alt": "Espresso pours into a black Vittorio cup on a white Sanremo machine while a barista in a black Vittorio shirt holds the cup steady.",
 }

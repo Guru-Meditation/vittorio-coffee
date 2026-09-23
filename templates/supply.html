@@ -2,14 +2,13 @@
 {% block content %}
 <section class="page-intro section prose">
   <p class="eyebrow">Supply</p>
-  <h1>A depot in Kalo Xorio, and a car for the rest of Cyprus.</h1>
-  <p>Vittorio supplies coffee, chocolate, teas, syrups, mixes, and serviceware to cafés and bars. Orders are packed at Synergasias 17, Kalo Xorio, and delivered by car.</p>
-  <ul>
-    <li>Delivery covers all of Cyprus.</li>
-    <li>Nothing is sent abroad.</li>
-    <li>The counter is open every day from 08:00 to 20:00.</li>
-    <li>Published prices are plus VAT. A line with no published price is confirmed before delivery.</li>
+  <h1>Cyprus-wide delivery.</h1>
+  <p class="lede-short">Wholesale and retail · by car · island only</p>
+  <ul class="list-tight">
+    <li>Coffee, chocolate, teas, syrups, mixes, serviceware</li>
+    <li>Cafés, bars, and retail customers</li>
+    <li>Prices plus VAT</li>
   </ul>
-  <p><a class="button" href="{{ url_for('products') }}">Build an order</a></p>
+  <p><a class="button" href="{{ url_for('products') }}">Catalogue</a> <a class="button button-ghost" href="{{ business.viber }}">Viber</a></p>
 </section>
 {% endblock %}

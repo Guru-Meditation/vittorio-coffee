@@ -10,7 +10,7 @@
     decoding="async"
   >
   {% else %}
-  <p class="no-photo">No photograph is published for this item on the current shop.</p>
+  <p class="no-photo">Photograph to follow.</p>
   {% endif %}
   <div class="prose">
     <p class="eyebrow">{{ item.group }}</p>
@@ -25,7 +25,7 @@
     {% if item.dietary %}
     <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>
     {% else %}
-    <p class="dietary"><span>Dietary note</span> Not stated on the current product page.</p>
+    <p class="dietary"><span>Dietary note</span> None stated for this product.</p>
     {% endif %}
     <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
       <input type="hidden" name="slug" value="{{ item.slug }}">

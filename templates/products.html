@@ -3,8 +3,8 @@
 {% block content %}
 <section class="page-intro section">
   <p class="eyebrow">Catalogue</p>
-  <h1>Goods from the public shop.</h1>
-  <p>Prices are plus VAT. Coffee and chocolate come first, serviceware last. Add a product to an order for car delivery anywhere in Cyprus.</p>
+  <h1>Wholesale &amp; retail range.</h1>
+  <p class="lede-short">Prices plus VAT · Cyprus delivery</p>
   <form class="search" method="get" action="{{ url_for('products') }}" role="search">
     {% if active_group %}<input type="hidden" name="category" value="{{ active_group }}">{% endif %}
     <label class="sr" for="q">Search the catalogue</label>

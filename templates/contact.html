@@ -2,10 +2,10 @@
 {% block content %}
 <section class="page-intro section">
   <p class="eyebrow">Contact</p>
-  <h1>Call, or open Viber.</h1>
-  <p>Phone <a href="tel:{{ business.phone_tel }}">{{ business.phone_display }}</a>. <a href="{{ business.viber }}">Viber {{ business.phone_display }}</a>. Public email <a href="mailto:{{ business.email_public }}">{{ business.email_public }}</a>. Orders go to <a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>.</p>
+  <h1>Viber or email.</h1>
+  <p class="lede-short"><a href="{{ business.viber }}">Open Viber</a> · <a href="mailto:{{ business.email_public }}">{{ business.email_public }}</a></p>
   {% if sent %}
-  <p role="status">Thank you. Call or open Viber if you need a reply today. The form does not email the message on its own.</p>
+  <p role="status">Thank you. Open Viber if you need a reply today.</p>
   {% else %}
   <form method="post" action="{{ url_for('contact') }}" novalidate>
     <div class="hp" aria-hidden="true">
@@ -24,7 +24,7 @@
       <textarea id="message" name="message" rows="6" required>{{ values.message }}</textarea>
     </label>
     {% if errors.message %}<p class="error" id="message-error">{{ errors.message }}</p>{% endif %}
-    <button class="button" type="submit">Send message</button>
+    <button class="button" type="submit">Send</button>
   </form>
   {% endif %}
 </section>
