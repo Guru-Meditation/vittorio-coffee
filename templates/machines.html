@@ -4,11 +4,32 @@
   <p class="eyebrow">Equipment</p>
   <h1>Espresso machine programmes.</h1>
   <p class="lede-short">No charge for the machine while the partnership continues · free setup guidance</p>
-  <ul class="machine-list">
-    {% for name in business.machines %}
-    <li>{{ name }}</li>
-    {% endfor %}
-  </ul>
-  <p><a class="button" href="{{ business.viber }}">Viber</a> <a class="button button-ghost" href="{{ url_for('contact') }}">Contact</a></p>
 </section>
+{% for programme in machine_programmes %}
+<section class="section section-tight">
+  <div class="section-head section-head-tight">
+    <h2>{{ programme.brand }}</h2>
+  </div>
+  <div class="card-grid three">
+    {% for model in programme.models %}
+    <article class="card compact">
+      <div class="card-media">
+        <img
+          src="{{ url_for('static', filename='images/' ~ model.image) }}"
+          alt="{{ model.alt }}"
+          width="{{ model.width }}"
+          height="{{ model.height }}"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+      <div class="card-body">
+        <p class="eyebrow">{{ programme.brand }}</p>
+        <h3>{{ model.name }}</h3>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}
 {% endblock %}

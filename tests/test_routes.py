@@ -116,7 +116,7 @@ def test_menu_alias_and_navigation(client):
     assert menu.status_code == 302
     assert menu.headers["Location"].endswith("/products")
     home = client.get("/").get_data(as_text=True)
-    assert "Visit us" in home
+    assert "Contact" in home
     assert 'aria-controls="site-nav"' in home
     assert "prefers-reduced-motion" in client.get("/static/css/site.css").get_data(as_text=True)
 
@@ -150,6 +150,10 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "Sanremo" in machines
     assert "Expobar" in machines
     assert "no charge" in machines
+    assert "machines/sanremo-opera.jpg" in machines
+    machines_main = machines.split("<main", 1)[1].split("</main>", 1)[0]
+    assert 'href="/contact"' not in machines_main
+    assert ">Viber</a>" not in machines_main
 
 
 def test_does_not_invent_claims(client):

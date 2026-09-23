@@ -48,11 +48,90 @@ BUSINESS = {
 
 NAV = [
     {"label": "Catalogue", "endpoint": "products"},
-    {"label": "Supply", "endpoint": "supply"},
     {"label": "Machines", "endpoint": "machines"},
     {"label": "Order", "endpoint": "order"},
-    {"label": "Visit", "endpoint": "visit"},
     {"label": "Contact", "endpoint": "contact"},
+]
+
+MACHINE_PROGRAMMES = [
+    {
+        "brand": "Apia Life",
+        "models": [
+            {
+                "name": "Vittoria II",
+                "image": "machines/apia-vittoria-ii.jpg",
+                "alt": "Apia Life Vittoria II two-group espresso machine in stainless steel on a café counter.",
+                "width": 800,
+                "height": 600,
+            },
+            {
+                "name": "Compact",
+                "image": "machines/apia-compact.jpg",
+                "alt": "Apia Life Compact single-group espresso machine for smaller bars.",
+                "width": 800,
+                "height": 600,
+            },
+            {
+                "name": "Bar",
+                "image": "machines/apia-bar.jpg",
+                "alt": "Apia Life Bar three-group espresso machine for high-volume service.",
+                "width": 800,
+                "height": 600,
+            },
+        ],
+    },
+    {
+        "brand": "Sanremo",
+        "models": [
+            {
+                "name": "Opera",
+                "image": "machines/sanremo-opera.jpg",
+                "alt": "Sanremo Opera multi-boiler espresso machine with polished chrome groups.",
+                "width": 800,
+                "height": 600,
+            },
+            {
+                "name": "Cube",
+                "image": "machines/sanremo-cube.jpg",
+                "alt": "Sanremo Cube compact espresso machine with a modern square silhouette.",
+                "width": 800,
+                "height": 600,
+            },
+            {
+                "name": "You",
+                "image": "machines/sanremo-you.jpg",
+                "alt": "Sanremo You single-group espresso machine in a contemporary finish.",
+                "width": 800,
+                "height": 600,
+            },
+        ],
+    },
+    {
+        "brand": "Expobar",
+        "models": [
+            {
+                "name": "Brewtus IV",
+                "image": "machines/expobar-brewtus.jpg",
+                "alt": "Expobar Brewtus IV dual-boiler espresso machine with E61 groups.",
+                "width": 800,
+                "height": 600,
+            },
+            {
+                "name": "Elegance",
+                "image": "machines/expobar-elegance.jpg",
+                "alt": "Expobar Elegance two-group commercial espresso machine.",
+                "width": 800,
+                "height": 600,
+            },
+            {
+                "name": "Office",
+                "image": "machines/expobar-office.jpg",
+                "alt": "Expobar Office compact heat-exchanger espresso machine.",
+                "width": 800,
+                "height": 600,
+            },
+        ],
+    },
 ]
 
 ARTICLES = [

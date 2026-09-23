@@ -7,7 +7,7 @@ from urllib.parse import quote, urljoin
 
 from flask import Flask, abort, redirect, render_template, request, session, url_for
 
-from content import ARTICLES, BUSINESS, FAQ, GROUPS, HERO, NAV, PRODUCTS, PRODUCTS_BY_SLUG
+from content import ARTICLES, BUSINESS, FAQ, GROUPS, HERO, MACHINE_PROGRAMMES, NAV, PRODUCTS, PRODUCTS_BY_SLUG
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 ARTICLES_BY_SLUG = {item["slug"]: item for item in ARTICLES}
@@ -201,6 +201,7 @@ def create_app():
             "machines.html",
             "Coffee machines — Vittorio Gourmet Espresso",
             "Apia Life, Sanremo, and Expobar machines are offered with no charge during a partnership. Setup guidance is free once cooperation starts.",
+            machine_programmes=MACHINE_PROGRAMMES,
         )
 
     @app.post("/cart/add")
