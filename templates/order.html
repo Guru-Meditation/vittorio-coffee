@@ -12,6 +12,13 @@
   {% if lines %}
   <form method="post" action="{{ url_for('cart_update') }}" class="order-list order-sheet">
     <h2 class="order-sheet-title">Order summary</h2>
+    <div class="order-line order-line-head" aria-hidden="true">
+      <span></span>
+      <span>Product</span>
+      <span class="order-line-pack">Pack</span>
+      <span>Qty</span>
+      <span class="num">Line</span>
+    </div>
     {% for line in lines %}
     <div class="order-line">
       <a class="order-line-media" href="{{ url_for('product', slug=line.product.slug) }}">
@@ -33,6 +40,7 @@
         <h3><a href="{{ url_for('product', slug=line.product.slug) }}">{{ line.product.name }}</a></h3>
         <p class="muted">{{ line.product.price_label }}</p>
       </div>
+      <p class="order-line-pack">{% if line.pack %}{{ line.pack }}{% else %}—{% endif %}</p>
       <label class="qty-label">Qty
         <input name="qty-{{ line.product.slug }}" type="number" min="0" max="99" value="{{ line.qty }}">
       </label>

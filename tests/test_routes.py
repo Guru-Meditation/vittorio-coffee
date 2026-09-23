@@ -161,6 +161,7 @@ def test_order_flow_and_cyprus_delivery(client):
     assert added.headers["Location"].endswith("/order")
     page = client.get("/order").get_data(as_text=True)
     assert "Costa Rica" in page
+    assert "0.5 kg" in page
     assert "order-line-media" in page
     assert "products/costa-rica" in page
     assert "Cyprus" in page
@@ -186,6 +187,7 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "payment on delivery" in body.lower()
     assert "Order confirmation" in body
     assert "Reference" in body
+    assert "0.5 kg" in body
     assert "Open Viber with this order" in body
     assert "viber://chat" in body
     assert "Ready for the depot" not in body

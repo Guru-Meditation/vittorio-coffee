@@ -16,6 +16,8 @@
     <p class="eyebrow">{{ item.group }}</p>
     <h1>{{ item.name }}</h1>
     <p class="price">{{ item.price_label }}</p>
+    {% set pack = catalog_pack_label(item) %}
+    {% if pack %}<p class="card-pack">Pack {{ pack }}</p>{% endif %}
     <p>{{ item.summary }}</p>
     {% if item.facts %}
     <ul>

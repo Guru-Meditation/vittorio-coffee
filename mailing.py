@@ -25,15 +25,23 @@ def viber_order_href(order_body):
 
 def format_order_mail(placed):
     """Build subject and plain-text body for a placed order."""
-    lines = [f"Vittorio order {placed['ref']}"]
+    lines = [
+        f"Vittorio order {placed['ref']}",
+        "",
+        "Customer details",
+        f"Name: {placed.get('name', '')}",
+        f"Email: {placed.get('email', '')}",
+        f"Phone: {placed.get('phone', '')}",
+        f"Town: {placed.get('town', '')}, Cyprus",
+    ]
     if placed.get("business_name"):
-        lines.append(placed["business_name"])
-    lines.append(f"{placed['town']}, Cyprus")
-    lines.append(f"Contact: {placed['name']} <{placed['email']}>, {placed.get('phone', '')}")
+        lines.append(f"Café or bar: {placed['business_name']}")
     if placed.get("notes"):
         lines.append(f"Notes: {placed['notes']}")
+    lines.extend(["", "Order", "Qty\tPack\tProduct\tLine"])
     for line in placed.get("lines") or []:
-        lines.append(f"{line['qty']} × {line['name']} ({line['line_total']})")
+        pack = (line.get("pack") or "").strip() or "—"
+        lines.append(f"{line['qty']}\t{pack}\t{line['name']}\t{line['line_total']}")
     if placed.get("subtotal"):
         lines.append(f"Priced lines {placed['subtotal']} + VAT")
     lines.append("Payment: cash on delivery only.")

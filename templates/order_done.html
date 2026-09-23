@@ -33,6 +33,7 @@
       <thead>
         <tr>
           <th scope="col">Product</th>
+          <th scope="col">Pack</th>
           <th scope="col">Qty</th>
           <th scope="col" class="num">Line</th>
         </tr>
@@ -41,6 +42,7 @@
         {% for line in placed.lines %}
         <tr>
           <td>{{ line.name }}</td>
+          <td>{% if line.pack %}{{ line.pack }}{% else %}—{% endif %}</td>
           <td>{{ line.qty }}</td>
           <td class="num">{{ line.line_total }}</td>
         </tr>
@@ -49,7 +51,7 @@
       {% if placed.subtotal %}
       <tfoot>
         <tr>
-          <td colspan="2">Priced lines (plus VAT)</td>
+          <td colspan="3">Priced lines (plus VAT)</td>
           <td class="num">{{ placed.subtotal }}</td>
         </tr>
       </tfoot>

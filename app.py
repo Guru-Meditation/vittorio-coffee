@@ -28,6 +28,8 @@ EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 def _phone_ok(raw):
     digits = re.sub(r"\D", "", raw or "")
     return len(digits) >= 8
+
+
 ARTICLES_BY_SLUG = {item["slug"]: item for item in ARTICLES}
 
 
@@ -63,10 +65,12 @@ def cart_lines():
             missing = True
         else:
             priced += line_total
+        pack = catalog_pack_label(product)
         lines.append(
             {
                 "product": product,
                 "qty": quantity,
+                "pack": pack,
                 "line_total": f"€{line_total:.2f}" if line_total is not None else "Price on request",
             }
         )
@@ -283,20 +287,19 @@ def create_app():
             placed = {
                 "ref": secrets.token_hex(3).upper(),
                 "lines": [
-                    {"name": line["product"]["name"], "qty": line["qty"], "line_total": line["line_total"]}
+                    {
+                        "name": line["product"]["name"],
+                        "qty": line["qty"],
+                        "pack": line.get("pack") or catalog_pack_label(line["product"]),
+                        "line_total": line["line_total"],
+                    }
                     for line in lines
                 ],
                 "subtotal": subtotal,
                 "missing_price": missing,
                 **values,
             }
-            subject, order_body = format_order_mail(placed)
-            placed["email_sent"] = send_mail(
-                subject,
-                order_body,
-                reply_to=placed["email"],
-                suppress=suppress_mail(),
-            )
+            placed["email_sent"] = deliver_order_to_depot(placed)
             session["cart"] = {}
             session["last_order"] = placed
             return redirect(url_for("order_done"))
@@ -311,6 +314,15 @@ def create_app():
             values=values,
         )
 
+    def deliver_order_to_depot(placed):
+        subject, order_body = format_order_mail(placed)
+        return send_mail(
+            subject,
+            order_body,
+            reply_to=placed.get("email"),
+            suppress=suppress_mail(),
+        )
+
     def _order_done_context(placed):
         _, order_body = format_order_mail(placed)
         return {
@@ -323,12 +335,24 @@ def create_app():
         placed = session.get("last_order")
         if not placed:
             return redirect(url_for("order"))
+        if not placed.get("email_sent"):
+            placed["email_sent"] = deliver_order_to_depot(placed)
+            session["last_order"] = placed
         return page(
             "order_done.html",
             "Order received — Vittorio Gourmet Espresso",
             "Your Cyprus delivery order is emailed to the depot. Payment is cash on delivery only.",
             **_order_done_context(placed),
         )
+
+    @app.post("/order/email-depot")
+    def order_email_depot():
+        placed = session.get("last_order")
+        if not placed:
+            return redirect(url_for("order"))
+        placed["email_sent"] = deliver_order_to_depot(placed)
+        session["last_order"] = placed
+        return redirect(url_for("order_done"))
 
     @app.get("/visit")
     def visit():
