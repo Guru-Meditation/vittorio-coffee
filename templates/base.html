@@ -35,7 +35,7 @@
         <li><a href="{{ url_for(item.endpoint) }}" {% if request.endpoint == item.endpoint %}aria-current="page"{% endif %}>{{ item.label }}</a></li>
         {% endfor %}
       </ul>
-      <a class="button button-small" href="{{ url_for('visit') }}">Visit us</a>
+      <a class="button button-small" href="{{ url_for('order') }}">Order{% if cart_count %} ({{ cart_count }}){% endif %}</a>
     </nav>
   </header>
   <main id="content">
@@ -45,7 +45,7 @@
     <div class="footer-grid">
       <div>
         <img class="footer-logo" src="{{ url_for('static', filename='images/brand/logo-footer.png') }}" alt="Vittorio Gourmet Espresso" width="678" height="275">
-        <p>Coffee, chocolate, teas, and café mixes from Kalo Xorio, Larnaca.</p>
+        <p>Depot in Kalo Xorio. Car delivery to cafés and bars across Cyprus.</p>
         <a href="https://www.jeanpaul.gr/index.php/en"><img class="partner-logo" src="{{ url_for('static', filename='images/brand/jean-paul.png') }}" alt="Jean Paul Lab" width="294" height="156"></a>
       </div>
       <nav aria-label="Footer">
@@ -64,6 +64,7 @@
           {{ business.country }}
         </address>
         <p><a href="tel:{{ business.phone_tel }}">{{ business.phone_display }}</a></p>
+        <p><a href="{{ business.viber }}">Viber</a></p>
         <p><a href="mailto:{{ business.email_public }}">{{ business.email_public }}</a></p>
         <p>{{ business.hours }}</p>
       </div>
@@ -82,7 +83,7 @@
         </ul>
       </div>
     </div>
-    <p class="legal-note">Catalogue facts are taken from the public Vittorio shop. This preview does not take payment.</p>
+    <p class="legal-note">Product facts and prices come from the Vittorio catalogue and are shown plus VAT. Orders are confirmed by phone or Viber. Card payment is not taken on this site.</p>
   </footer>
   <script src="{{ url_for('static', filename='js/site.js') }}" defer></script>
 </body>

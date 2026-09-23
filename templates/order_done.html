@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-intro section prose">
+  <p class="eyebrow">Order {{ placed.ref }}</p>
+  <h1>Send this list to the depot.</h1>
+  <p>{{ placed.business_name }} in {{ placed.town }}, Cyprus. We confirm the order and the payment by phone or Viber before the car leaves Kalo Xorio.</p>
+  <ul>
+    {% for line in placed.lines %}
+    <li>{{ line.qty }} × {{ line.name }} — {{ line.line_total }}</li>
+    {% endfor %}
+  </ul>
+  {% if placed.subtotal %}<p>Priced lines {{ placed.subtotal }} + VAT.</p>{% endif %}
+  <p><a class="button" href="{{ business.viber }}">Open Viber</a> <a class="button button-ghost" href="{{ mail_href }}">Email the order</a></p>
+</section>
+{% endblock %}

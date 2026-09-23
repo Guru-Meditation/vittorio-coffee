@@ -38,6 +38,9 @@ BUSINESS = {
     "country": "Cyprus",
     "hours": "Monday–Sunday, 08:00–20:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=Synergasias+17%2C+Kalo+Xorio+7550%2C+Larnaca%2C+Cyprus",
+    "viber": "viber://chat?number=%2B35799766848",
+    "delivery": "Car delivery to cafés and bars, everywhere in Cyprus. Nothing is sent abroad.",
+    "machines": ["Apia Life", "Sanremo", "Expobar"],
     "social": [
         {"label": "Facebook", "href": "https://www.facebook.com/profile.php?id=100095007198368"},
         {"label": "Instagram", "href": "https://www.instagram.com/vittoriogourmetespresso.cy/"},
@@ -47,10 +50,10 @@ BUSINESS = {
 
 NAV = [
     {"label": "Catalogue", "endpoint": "products"},
-    {"label": "Philosophy", "endpoint": "philosophy"},
-    {"label": "Story", "endpoint": "story"},
+    {"label": "Supply", "endpoint": "supply"},
+    {"label": "Machines", "endpoint": "machines"},
+    {"label": "Order", "endpoint": "order"},
     {"label": "Visit", "endpoint": "visit"},
-    {"label": "Journal", "endpoint": "journal"},
     {"label": "Contact", "endpoint": "contact"},
 ]
 
@@ -84,7 +87,7 @@ ARTICLES = [
 FAQ = [
     {
         "question": "Where is the counter?",
-        "answer": "Synergasias 17, Kalo Xorio 7550, in the Larnaca district of Cyprus.",
+        "answer": "The depot is at Synergasias 17, Kalo Xorio 7550, in the Larnaca district. Deliveries go out by car to cafés and bars across Cyprus, and not abroad.",
     },
     {
         "question": "When is it open?",
@@ -92,7 +95,7 @@ FAQ = [
     },
     {
         "question": "Can I pay on this preview?",
-        "answer": "No. The live shop’s returns page says the website does not currently take payment. Use the contact form, phone, or email to ask about an order.",
+        "answer": "You can place a product order on this site. Payment is confirmed with the team by phone or Viber. Card payment is not taken on the page. Delivery is by car, in Cyprus only.",
     },
     {
         "question": "How do returns work?",
@@ -101,6 +104,14 @@ FAQ = [
     {
         "question": "Are the prices final?",
         "answer": "Catalogue prices are copied from the public shop and are shown plus VAT. Records with no price are marked “Price not published” rather than shown as zero.",
+    },
+    {
+        "question": "Do you deliver?",
+        "answer": "Yes. The depot is in Kalo Xorio and the van delivers to cafés and bars anywhere in Cyprus. Orders are not sent outside Cyprus.",
+    },
+    {
+        "question": "Which coffee machines do you place?",
+        "answer": "Apia Life, Sanremo, and Expobar. A machine is offered with no charge for as long as the partnership continues. Setup guidance and advice are free once cooperation starts.",
     },
     {
         "question": "Do you publish dietary labels?",

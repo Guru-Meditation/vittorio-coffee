@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-intro section">
+  <p class="eyebrow">Machines</p>
+  <h1>The machine stays with the partnership.</h1>
+  <p>Apia Life, Sanremo, and Expobar machines are offered with no charge for as long as the partnership continues. Once we start cooperating, guidance and advice on how to set the machine up are free.</p>
+  <ul class="machine-list">
+    {% for name in business.machines %}
+    <li>{{ name }}</li>
+    {% endfor %}
+  </ul>
+  <p>Training covers handling the machine you are given. It begins when the partnership starts, not as a separate paid course.</p>
+  <p><a class="button" href="{{ business.viber }}">Ask on Viber</a> <a class="button button-ghost" href="{{ url_for('contact') }}">Write to us</a></p>
+</section>
+{% endblock %}

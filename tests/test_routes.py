@@ -12,6 +12,9 @@ PAGES = [
     "/story",
     "/visit",
     "/journal",
+    "/supply",
+    "/machines",
+    "/order",
     "/contact",
     "/faq",
     "/privacy",
@@ -116,6 +119,37 @@ def test_menu_alias_and_navigation(client):
     assert "Visit us" in home
     assert 'aria-controls="site-nav"' in home
     assert "prefers-reduced-motion" in client.get("/static/css/site.css").get_data(as_text=True)
+
+
+def test_order_flow_and_cyprus_delivery(client):
+    added = client.post("/cart/add", data={"slug": "costa-rica", "qty": "2"})
+    assert added.status_code == 302
+    assert added.headers["Location"].endswith("/order")
+    page = client.get("/order").get_data(as_text=True)
+    assert "Costa Rica" in page
+    assert "Cyprus" in page
+    placed = client.post(
+        "/order",
+        data={
+            "name": "Koxar",
+            "business_name": "Harbour Bar",
+            "phone": "99123456",
+            "email": "koxar@example.com",
+            "town": "Larnaca",
+            "notes": "",
+        },
+    )
+    assert placed.status_code == 302
+    done = client.get("/order/received")
+    assert done.status_code == 200
+    body = done.get_data(as_text=True)
+    assert "Harbour Bar" in body
+    assert "viber://chat?number=" in client.get("/").get_data(as_text=True)
+    machines = client.get("/machines").get_data(as_text=True)
+    assert "Apia Life" in machines
+    assert "Sanremo" in machines
+    assert "Expobar" in machines
+    assert "no charge" in machines
 
 
 def test_does_not_invent_claims(client):

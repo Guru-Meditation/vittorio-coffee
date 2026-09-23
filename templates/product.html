@@ -27,7 +27,13 @@
     {% else %}
     <p class="dietary"><span>Dietary note</span> Not stated on the current product page.</p>
     {% endif %}
-    <p><a class="button" href="{{ url_for('contact') }}">Ask about this item</a></p>
+    <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
+      <input type="hidden" name="slug" value="{{ item.slug }}">
+      <label class="qty-label">Qty
+        <input name="qty" type="number" min="1" max="99" value="1">
+      </label>
+      <button class="button" type="submit">Add to order</button>
+    </form>
     <p><a href="{{ url_for('products', category=item.group) }}">Back to {{ item.group }}</a></p>
   </div>
 </article>

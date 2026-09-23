@@ -18,6 +18,11 @@
     <p class="eyebrow">{{ item.group }}</p>
     <h3><a href="{{ url_for('product', slug=item.slug) }}">{{ item.name }}</a></h3>
     <p class="price">{{ item.price_label }}</p>
+    <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
+      <input type="hidden" name="slug" value="{{ item.slug }}">
+      <input type="hidden" name="next" value="{{ url_for('order') }}">
+      <button class="button button-small" type="submit">Add to order</button>
+    </form>
     <p>{{ item.summary }}</p>
     {% if item.dietary %}
     <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>

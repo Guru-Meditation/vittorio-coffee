@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-intro section">
+  <p class="eyebrow">Order</p>
+  <h1>Your delivery list.</h1>
+  <p>Prices shown are plus VAT. Delivery is by car, in Cyprus only. We confirm the order and the payment on Viber or by phone. Card payment is not taken on this page.</p>
+  {% if errors.cart %}<p class="error">{{ errors.cart }}</p>{% endif %}
+  {% if lines %}
+  <form method="post" action="{{ url_for('cart_update') }}" class="order-list">
+    {% for line in lines %}
+    <div class="order-line">
+      <div>
+        <p class="eyebrow">{{ line.product.group }}</p>
+        <h2><a href="{{ url_for('product', slug=line.product.slug) }}">{{ line.product.name }}</a></h2>
+        <p>{{ line.product.price_label }}</p>
+      </div>
+      <label>Qty
+        <input name="qty-{{ line.product.slug }}" type="number" min="0" max="99" value="{{ line.qty }}">
+      </label>
+      <p class="price">{{ line.line_total }}</p>
+    </div>
+    {% endfor %}
+    <p>{% if subtotal %}Priced lines {{ subtotal }} + VAT.{% endif %}{% if missing_price %} Some lines have no published price and will be confirmed before delivery.{% endif %}</p>
+    <button class="button button-ghost" type="submit">Update quantities</button>
+  </form>
+  <form method="post" action="{{ url_for('order') }}">
+    <div class="hp" aria-hidden="true">
+      <label for="company_website">Website</label>
+      <input id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+    </div>
+    <label for="name">Your name
+      <input id="name" name="name" required value="{{ values.name }}">
+    </label>
+    {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
+    <label for="business_name">Café or bar
+      <input id="business_name" name="business_name" required value="{{ values.business_name }}">
+    </label>
+    {% if errors.business_name %}<p class="error">{{ errors.business_name }}</p>{% endif %}
+    <label for="phone">Phone
+      <input id="phone" name="phone" type="tel" required value="{{ values.phone }}">
+    </label>
+    {% if errors.phone %}<p class="error">{{ errors.phone }}</p>{% endif %}
+    <label for="email">Email
+      <input id="email" name="email" type="email" required value="{{ values.email }}">
+    </label>
+    {% if errors.email %}<p class="error">{{ errors.email }}</p>{% endif %}
+    <label for="town">Town in Cyprus
+      <input id="town" name="town" required value="{{ values.town }}">
+    </label>
+    {% if errors.town %}<p class="error">{{ errors.town }}</p>{% endif %}
+    <label for="notes">Notes
+      <textarea id="notes" name="notes" rows="4">{{ values.notes }}</textarea>
+    </label>
+    <button class="button" type="submit">Place order</button>
+  </form>
+  {% else %}
+  <p>The list is empty. Add coffee or another product from the catalogue.</p>
+  <p><a class="button" href="{{ url_for('products') }}">Browse the catalogue</a></p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -3,11 +3,12 @@
 {% block content %}
 <section class="hero">
   <div class="hero-copy">
-    <p class="eyebrow">Kalo Xorio, Larnaca</p>
-    <h1>Coffee and café supplies, kept straightforward.</h1>
-    <p>Vittorio Gourmet Espresso sells coffee, chocolate, teas, syrups, and mixes. Product photographs and the logo are the ones published on the current shop. Our service is available every day from 08:00 to 20:00.</p>
+    <p class="eyebrow">Depot in Kalo Xorio</p>
+    <h1>Coffee for the bar, delivered across Cyprus.</h1>
+    <p>Vittorio supplies coffee, chocolate, teas, syrups, and mixes to cafés and bars. The depot is in Kalo Xorio. A car brings the order anywhere in Cyprus, and not abroad.</p>
     <div class="hero-actions">
-      <a class="button" href="{{ url_for('products') }}">View catalogue</a>
+      <a class="button" href="{{ url_for('products') }}">Order from the catalogue</a>
+      <a class="button button-ghost" href="{{ url_for('machines') }}">Machines and setup</a>
       <a class="button button-ghost" href="{{ url_for('visit') }}">Visit us</a>
     </div>
   </div>
@@ -16,11 +17,32 @@
   </figure>
 </section>
 
+<section class="section offer-row">
+  <article>
+    <p class="eyebrow">Supply</p>
+    <h2>The counter and the road.</h2>
+    <p>Stock leaves the Kalo Xorio depot by car. Cafés and bars anywhere in Cyprus can order. Deliveries stop at the border: nothing is sent abroad.</p>
+    <a class="text-link" href="{{ url_for('supply') }}">How supply works</a>
+  </article>
+  <article>
+    <p class="eyebrow">Partnership</p>
+    <h2>Machines, with no charge.</h2>
+    <p>Apia Life, Sanremo, and Expobar machines are offered at no charge for as long as the partnership continues. Setup guidance and advice are free once we start working together.</p>
+    <a class="text-link" href="{{ url_for('machines') }}">See the machines</a>
+  </article>
+  <article>
+    <p class="eyebrow">Order</p>
+    <h2>Place it on this site.</h2>
+    <p>Add products, name the café, and the town in Cyprus. We confirm the order and the payment by phone or Viber. Card payment is not taken here.</p>
+    <a class="text-link" href="{{ url_for('order') }}">Open the order</a>
+  </article>
+</section>
+
 <section class="section">
   <div class="section-head">
     <p class="eyebrow">Coffee</p>
-    <h2>What the shop actually lists.</h2>
-    <p>Seven coffees are in the public catalogue, from single-origin Arabica to Greek coffee and a decaffeinated espresso.</p>
+    <h2>Start with what is on the shelf.</h2>
+    <p>Seven coffees are in the public catalogue, from single-origin Arabica to Greek coffee and a decaffeinated espresso. Prices are plus VAT.</p>
   </div>
   <div class="card-grid three">
     {% for item in featured %}
@@ -29,43 +51,11 @@
   </div>
 </section>
 
-<section class="section band">
-  <div class="split">
-    <div>
-      <p class="eyebrow">Philosophy</p>
-      <h2>Specialty coffee, as they describe it.</h2>
-      <p>The current site calls specialty coffee a shared craft: enthusiasts, baristas, roasters, and farmers. This preview stays with that idea and with the coffees on the shelf.</p>
-      <a class="button" href="{{ url_for('philosophy') }}">Read the philosophy</a>
-    </div>
-    <div class="note">
-      <p class="eyebrow">Notes from the homepage</p>
-      <h3>Reviews are not repeated here.</h3>
-      <p>The live homepage shows three customer notes. They name blends and machines that do not appear in the shop catalogue, so they are left off until they can be checked.</p>
-    </div>
-  </div>
-</section>
-
 <section class="section">
   <div class="section-head">
     <p class="eyebrow">Visit</p>
-    <h2>One published address.</h2>
+    <h2>The depot.</h2>
   </div>
   {{ location_card(business) }}
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <p class="eyebrow">Journal</p>
-    <h2>Two notes from 2019.</h2>
-  </div>
-  <div class="card-grid">
-    {% for article in articles %}
-    <article class="note">
-      <p class="eyebrow">{{ article.date_label }}</p>
-      <h3><a href="{{ url_for('article', slug=article.slug) }}">{{ article.title }}</a></h3>
-      <p>{{ article.summary }}</p>
-    </article>
-    {% endfor %}
-  </div>
 </section>
 {% endblock %}
