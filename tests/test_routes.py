@@ -178,7 +178,7 @@ def test_order_flow_and_cyprus_delivery(client):
             "business_name": "Harbour Bar",
             "phone": "99123456",
             "email": "koxar@example.com",
-            "town": "Larnaca",
+            "address": "Makariou 12, 1st floor", "town": "Larnaca",
             "notes": "",
         },
     )
@@ -206,7 +206,7 @@ def test_order_flow_and_cyprus_delivery(client):
             "business_name": "",
             "phone": "99123456",
             "email": "koxar@example.com",
-            "town": "Larnaca",
+            "address": "Makariou 12, 1st floor", "town": "Larnaca",
             "notes": "",
         },
     )
@@ -244,7 +244,7 @@ def test_order_confirmation_warns_when_depot_email_fails(monkeypatch):
     client.post("/cart/add", data={"slug": "costa-rica", "qty": "1"})
     placed = client.post(
         "/order",
-        data={"name": "Koxar", "phone": "99123456", "email": "koxar@example.com", "town": "Larnaca"},
+        data={"name": "Koxar", "phone": "99123456", "email": "koxar@example.com", "address": "Makariou 12, 1st floor", "town": "Larnaca"},
     )
     assert placed.status_code == 302
     body = client.get("/order/received").get_data(as_text=True)
@@ -276,7 +276,7 @@ def test_repeat_customer_sees_last_order_and_saved_details(client):
             "business_name": "Harbour Bar",
             "phone": "99123456",
             "email": "koxar@example.com",
-            "town": "Larnaca",
+            "address": "Makariou 12, 1st floor", "town": "Larnaca",
         },
     )
     done = client.get("/order/received").get_data(as_text=True)
@@ -367,7 +367,7 @@ def test_refer_page_validation_and_success(client):
 def test_customer_copy_carries_referral_link():
     from mailing import format_customer_copy
 
-    placed = {"ref": "V1", "name": "K", "town": "Larnaca", "lines": []}
+    placed = {"ref": "V1", "name": "K", "address": "Makariou 12, 1st floor", "town": "Larnaca", "lines": []}
     _subject, body = format_customer_copy(placed, "https://x/order/again", refer_url="https://x/refer")
     assert "https://x/refer" in body
     assert "g.page/r/" in body
@@ -398,3 +398,18 @@ def test_old_render_address_redirects_to_own_domain(client):
     assert response.headers["Location"] == "https://vittoriocyprus.com/el/products?q=espresso"
     assert client.get("/health/mail", headers={"Host": "vittorio-coffee.onrender.com"}).status_code == 200
     assert client.get("/", headers={"Host": "vittoriocyprus.com"}).status_code == 200
+
+
+def test_order_requires_full_delivery_address(client):
+    client.post("/cart/add", data={"slug": "costa-rica", "qty": "1", "next": "/order"})
+    missing = client.post(
+        "/order", data={"name": "Koxar", "email": "k@example.com", "phone": "99123456", "address": "", "town": "Larnaca"}
+    )
+    assert missing.status_code == 400
+    assert b"Enter the full delivery address" in missing.data
+    from mailing import format_order_mail
+
+    _subject, depot = format_order_mail(
+        {"ref": "X", "address": "Makariou 12, 1st floor", "town": "Larnaca", "lines": []}
+    )
+    assert "Address: Makariou 12, 1st floor" in depot

@@ -137,6 +137,11 @@ EL = {
     "Email": "Email",
     "Phone": "Τηλέφωνο",
     "Delivery town (Cyprus)": "Πόλη παράδοσης (Κύπρος)",
+    "Delivery address": "Διεύθυνση παράδοσης",
+    "Address": "Διεύθυνση",
+    "Street, number, building, floor": "Οδός, αριθμός, κτίριο, όροφος",
+    "Enter the full delivery address: street, number and building.":
+        "Συμπληρώστε την πλήρη διεύθυνση παράδοσης: οδό, αριθμό και κτίριο.",
     "Notes for the depot": "Σημειώσεις παραγγελίας",
     "Submitting sends this order to {name} for confirmation. Payment is collected on delivery.":
         "Η παραγγελία αποστέλλεται στη {name} για επιβεβαίωση. Η πληρωμή γίνεται κατά την παράδοση.",
@@ -405,7 +410,7 @@ EL = {
     "Thank you for your order with {business}. We will confirm it before delivery.":
         "Σας ευχαριστούμε για την παραγγελία σας στη {business}. Θα την επιβεβαιώσουμε πριν από την παράδοση.",
     "Order reference: {ref}": "Κωδικός παραγγελίας: {ref}",
-    "Delivery to: {town}, Cyprus": "Παράδοση: {town}, Κύπρος",
+    "Delivery to: {address}, {town}, Cyprus": "Παράδοση: {address}, {town}, Κύπρος",
     "Business: {name}": "Επιχείρηση: {name}",
     "Payment: cash on delivery only.": "Πληρωμή: μόνο με μετρητά κατά την παράδοση.",
     "Order the same again:": "Ίδια παραγγελία ξανά:",

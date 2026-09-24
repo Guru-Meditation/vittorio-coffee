@@ -47,6 +47,7 @@ def format_order_mail(placed):
         f"Name: {placed.get('name', '')}",
         f"Email: {placed.get('email', '')}",
         f"Phone: {placed.get('phone', '')}",
+        f"Address: {placed.get('address', '')}",
         f"Town: {placed.get('town', '')}, Cyprus",
     ]
     if placed.get("business_name"):
@@ -98,7 +99,7 @@ def format_customer_copy(placed, reorder_url, lang="en", refer_url=None):
         t("Thank you for your order with {business}. We will confirm it before delivery.", business=BUSINESS["name"]),
         "",
         t("Order reference: {ref}", ref=placed["ref"]),
-        t("Delivery to: {town}, Cyprus", town=placed.get("town", "")),
+        t("Delivery to: {address}, {town}, Cyprus", address=placed.get("address", ""), town=placed.get("town", "")),
     ]
     if placed.get("business_name"):
         lines.append(t("Business: {name}", name=placed["business_name"]))

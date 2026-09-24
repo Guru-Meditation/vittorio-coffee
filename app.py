@@ -44,7 +44,7 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(messag
 
 OLD_HOST = "vittorio-coffee.onrender.com"
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
-CUSTOMER_FIELDS = ("name", "business_name", "email", "phone", "town")
+CUSTOMER_FIELDS = ("name", "business_name", "email", "phone", "address", "town")
 
 
 def reorder_param(lines):
@@ -415,7 +415,7 @@ def create_app():
         lines, _subtotal, missing = cart_lines()
         checkout = order_checkout_context(lines, missing)
         errors = {}
-        values = {"name": "", "business_name": "", "email": "", "phone": "", "town": "", "notes": ""}
+        values = {"name": "", "business_name": "", "email": "", "phone": "", "address": "", "town": "", "notes": ""}
         saved = session.get("customer") or {}
         values.update({key: saved.get(key, "") for key in CUSTOMER_FIELDS})
         if request.method == "POST":
@@ -430,6 +430,9 @@ def create_app():
                 errors["email"] = tr("Enter a valid email address.")
             if not _phone_ok(values["phone"]):
                 errors["phone"] = tr("Enter a phone number we can reach you on.")
+            # Cash on delivery: the driver needs the street, number and building, not just the town.
+            if len(values["address"]) < 5:
+                errors["address"] = tr("Enter the full delivery address: street, number and building.")
             if len(values["town"]) < 2:
                 errors["town"] = tr("Enter the town in Cyprus for delivery.")
             if errors:

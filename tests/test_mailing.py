@@ -70,7 +70,7 @@ def test_customer_copy_lists_items_totals_and_reorder_link():
     placed = {
         "ref": "ABC123",
         "name": "Koxar",
-        "town": "Larnaca",
+        "address": "Makariou 12, 1st floor", "town": "Larnaca",
         "business_name": "Harbour Bar",
         "lines": [{"slug": "costa-rica", "name": "Costa Rica", "qty": 2, "pack": "0.5 kg", "line_total": "€29.20"}],
         "totals": {"subtotal": "€29.20", "vat_label": "5%", "vat": "€1.46", "delivery": "€5.00", "total": "€35.66"},

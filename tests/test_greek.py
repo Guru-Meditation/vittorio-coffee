@@ -157,7 +157,7 @@ def test_greek_order_flow_and_customer_copy(monkeypatch):
 
     placed = client.post(
         "/el/order",
-        data={"name": "Κώστας", "email": "k@example.com", "phone": "99123456", "town": "Λάρνακα"},
+        data={"name": "Κώστας", "email": "k@example.com", "phone": "99123456", "address": "Μακαρίου 12", "town": "Λάρνακα"},
     )
     assert placed.headers["Location"].endswith("/el/order/received")
     done = client.get("/el/order/received").get_data(as_text=True)

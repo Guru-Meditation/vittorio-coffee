@@ -82,6 +82,11 @@
       </label>
       {% if errors.phone %}<p class="error">{{ errors.phone }}</p>{% endif %}
 
+      <label for="address" class="span-2">{{ _("Delivery address") }}
+        <input id="address" name="address" type="text" autocomplete="street-address" required placeholder="{{ _('Street, number, building, floor') }}" value="{{ values.address }}">
+      </label>
+      {% if errors.address %}<p class="error span-2">{{ errors.address }}</p>{% endif %}
+
       <label for="town" class="span-2">{{ _("Delivery town (Cyprus)") }}
         <input id="town" name="town" type="text" autocomplete="address-level2" required value="{{ values.town }}">
       </label>

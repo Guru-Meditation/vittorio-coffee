@@ -21,6 +21,9 @@
       <div>
         <h2 class="order-sheet-title">{{ _("Delivery") }}</h2>
         <dl class="meta-list">
+          {% if placed.address %}
+          <div><dt>{{ _("Address") }}</dt><dd>{{ placed.address }}</dd></div>
+          {% endif %}
           <div><dt>{{ _("Town") }}</dt><dd>{{ placed.town }}, {{ _("Cyprus") }}</dd></div>
           {% if placed.business_name %}
           <div><dt>{{ _("Business") }}</dt><dd>{{ placed.business_name }}</dd></div>
