@@ -178,6 +178,7 @@ address { font-style: normal; }
 body.nav-open #site-nav { display: block; }
 #site-nav ul { list-style: none; margin: 0 0 1rem; padding: 0; }
 #site-nav a:not(.button) { text-decoration: none; color: var(--espresso); font-weight: 500; }
+#site-nav a.nav-home { font-weight: 700; }
 #site-nav li a { display: block; padding: 0.7rem 0; border-bottom: 1px solid var(--line); font-size: 1.15rem; }
 #site-nav a:not(.button)[aria-current="page"] { color: var(--copper); }
 #site-nav .button {

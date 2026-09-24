@@ -50,7 +50,7 @@
     <nav id="site-nav" aria-label="{{ _('Primary') }}">
       <ul>
         {% for item in nav %}
-        <li><a href="{{ url_for(item.endpoint) }}" {% if request.endpoint == item.endpoint %}aria-current="page"{% endif %}>{{ _(item.label) }}</a></li>
+        <li><a href="{{ url_for(item.endpoint) }}"{% if item.endpoint == "home" %} class="nav-home"{% endif %} {% if request.endpoint == item.endpoint %}aria-current="page"{% endif %}>{{ _(item.label) }}</a></li>
         {% endfor %}
       </ul>
       <a class="button button-small" href="{{ url_for('order') }}" data-cart-link data-label="{{ _('Order') }}">{{ _("Order") }}{% if cart_count %} ({{ cart_count }}){% endif %}</a>

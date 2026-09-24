@@ -438,7 +438,7 @@ def test_add_to_order_stays_on_the_page(client):
 
 def test_menu_has_a_home_link(client):
     page = client.get("/products").get_data(as_text=True)
-    assert '<a href="/" >Home</a>' in page or '<a href="/">Home</a>' in page
+    assert '<a href="/" class="nav-home" >Home</a>' in page
     home = client.get("/").get_data(as_text=True)
-    assert 'href="/" aria-current="page"' in home
-    assert '<a href="/el/" >Αρχική</a>' in client.get("/el/products").get_data(as_text=True)
+    assert 'href="/" class="nav-home" aria-current="page"' in home
+    assert '<a href="/el/" class="nav-home" >Αρχική</a>' in client.get("/el/products").get_data(as_text=True)
