@@ -82,9 +82,12 @@
       </label>
       {% if errors.phone %}<p class="error">{{ errors.phone }}</p>{% endif %}
 
-      <label for="address" class="span-2">{{ _("Delivery address") }}
-        <input id="address" name="address" type="text" autocomplete="street-address" required placeholder="{{ _('Street, number, building, floor') }}" value="{{ values.address }}">
-      </label>
+      <div class="address-field span-2">
+        <label for="address">{{ _("Delivery address") }}
+          <input id="address" name="address" type="text" autocomplete="street-address" required placeholder="{{ _('Street, number, building, floor') }}" value="{{ values.address }}">
+        </label>
+        <ul id="address-suggest" class="address-suggest" role="listbox" aria-label="{{ _('Address suggestions') }}" hidden></ul>
+      </div>
       {% if errors.address %}<p class="error span-2">{{ errors.address }}</p>{% endif %}
 
       <label for="town" class="span-2">{{ _("Delivery town (Cyprus)") }}
@@ -101,6 +104,7 @@
     <p class="order-terms">{{ _("Submitting sends this order to {name} for confirmation. Payment is collected on delivery.", name=business.name) }}</p>
     <button class="button" type="submit">{{ _("Submit order") }}</button>
   </form>
+  {% if maps_key %}<script src="{{ url_for('static', filename='js/address.js') }}" data-key="{{ maps_key }}" data-lang="{{ lang }}" defer></script>{% endif %}
   {% else %}
   {% if reorder_items %}
   <div class="order-sheet order-again">

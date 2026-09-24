@@ -43,6 +43,9 @@ from order_pricing import compute_order_totals, totals_for_session
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
 OLD_HOST = "vittorio-coffee.onrender.com"
+# Browser key for Google Places address suggestions on the order form. It is public in the page by
+# design; restrict it to vittoriocyprus.com and the Places API in Google Cloud. Empty = plain field.
+MAPS_KEY = os.environ.get("GOOGLE_MAPS_KEY", "").strip()
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 CUSTOMER_FIELDS = ("name", "business_name", "email", "phone", "address", "town")
 
@@ -442,6 +445,7 @@ def create_app():
                     tr("Place a coffee and café-supply order for delivery in Cyprus."),
                     errors=errors,
                     values=values,
+                    maps_key=MAPS_KEY,
                     **checkout,
                 )
                 return body, 400
@@ -485,6 +489,7 @@ def create_app():
             errors=errors,
             values=values,
             reorder_items=reorder_items,
+            maps_key=MAPS_KEY,
             **checkout,
         )
 

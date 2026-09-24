@@ -627,6 +627,22 @@ input, textarea {
   border: 1px solid var(--line);
   padding: 0.7rem 0.8rem;
 }
+.address-field { position: relative; }
+.address-suggest {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  right: 0;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 20px rgba(26, 16, 12, 0.12);
+}
+.address-suggest [role="option"] { padding: 0.6rem 0.8rem; cursor: pointer; border-bottom: 1px solid var(--line); }
+.address-suggest [aria-selected="true"], .address-suggest [role="option"]:hover { background: var(--cream); }
+.address-credit { padding: 0.35rem 0.8rem; font-size: 0.75rem; color: var(--muted); text-align: right; }
 .error { color: #7a2418; margin: 0; font-size: 0.92rem; }
 .hp {
   position: absolute;

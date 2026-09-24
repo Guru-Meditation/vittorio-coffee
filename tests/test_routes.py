@@ -413,3 +413,14 @@ def test_order_requires_full_delivery_address(client):
         {"ref": "X", "address": "Makariou 12, 1st floor", "town": "Larnaca", "lines": []}
     )
     assert "Address: Makariou 12, 1st floor" in depot
+
+
+def test_address_suggestions_load_only_with_a_maps_key(client, monkeypatch):
+    import app as app_module
+
+    client.post("/cart/add", data={"slug": "costa-rica", "qty": "1", "next": "/order"})
+    assert b"js/address.js" not in client.get("/order").data
+    monkeypatch.setattr(app_module, "MAPS_KEY", "test-key")
+    page = client.get("/el/order").get_data(as_text=True)
+    assert 'data-key="test-key"' in page and 'data-lang="el"' in page
+    assert 'id="address-suggest"' in page
