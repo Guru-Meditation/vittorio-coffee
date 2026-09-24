@@ -43,7 +43,7 @@
         <h3><a href="{{ url_for('product', slug=line.product.slug) }}">{{ line.product.name }}</a></h3>
         <p class="muted">{{ line.product.price_label }}</p>
       </div>
-      <p class="order-line-pack">{% if line.pack %}{{ line.pack }}{% else %}—{% endif %}</p>
+      <p class="order-line-pack">{% if line.pack %}<span class="pack-chip">{{ line.pack }}</span>{% else %}—{% endif %}</p>
       <label class="qty-label">Qty
         <input name="qty-{{ line.product.slug }}" type="number" min="0" max="99" value="{{ line.qty }}">
       </label>
@@ -103,7 +103,7 @@
     <ul class="order-again-list">
       {% for item in reorder_items %}
       {% set pack = catalog_pack_label(item.product) %}
-      <li><span class="order-again-qty">{{ item.qty }} ×</span> {{ item.product.name }}{% if pack %} <span class="muted">· {{ pack }}</span>{% endif %}</li>
+      <li><span class="order-again-qty">{{ item.qty }} ×</span> {{ item.product.name }}{% if pack %} <span class="pack-chip">{{ pack }}</span>{% endif %}</li>
       {% endfor %}
     </ul>
     <a class="button" href="{{ url_for('order_again') }}">Order the same again</a>

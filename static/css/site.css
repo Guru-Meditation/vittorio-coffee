@@ -1022,7 +1022,26 @@ input, textarea {
   padding-top: 0.5rem;
 }
 .card-foot .price { margin: 0.1rem 0 0; }
-.card-foot .card-pack { margin: 0; font-size: 0.88rem; }
+.card-foot .card-pack { margin: 0 0 0.35rem; }
+
+/* Pack size as a clear badge wherever a product is shown. */
+.pack-chip {
+  display: inline-block;
+  padding: 0.22rem 0.62rem;
+  border: 1px solid #dcbc98;
+  border-radius: 999px;
+  background: #f4e4cf;
+  color: #6e3a18;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.pack-chip-lg { padding: 0.32rem 0.85rem; font-size: 1rem; }
+.product-buy .card-pack { margin: 0.5rem 0 0.2rem; }
+.pack-card-price .pack-chip { margin-right: 0.3rem; font-size: 0.8rem; }
+.order-line-pack .pack-chip { font-size: 0.82rem; }
 .card-foot .add-row { margin: 0; }
 .card:hover { box-shadow: var(--shadow-lift); }
 .brand-badge {

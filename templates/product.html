@@ -12,7 +12,7 @@
     <div class="product-buy">
       <p class="price">{{ item.price_label }}</p>
       {% set pack = catalog_pack_label(item) %}
-      {% if pack %}<p class="card-pack">Pack {{ pack }}</p>{% endif %}
+      {% if pack %}<p class="card-pack"><span class="pack-chip pack-chip-lg" title="Pack size">{{ pack }}</span></p>{% endif %}
       <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
         <input type="hidden" name="slug" value="{{ item.slug }}">
         <label class="qty-label">Qty
