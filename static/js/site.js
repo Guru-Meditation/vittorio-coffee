@@ -28,6 +28,45 @@
 })();
 
 (function () {
+  // B2B page: each chapter scrolled into view adds its pieces to the counter scene.
+  var story = document.querySelector(".story");
+  if (!story) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var parts = story.querySelectorAll(".scene [data-step]");
+  var rail = story.querySelectorAll(".story-rail a");
+  var chapters = story.querySelectorAll(".chapter");
+
+  function show(step) {
+    parts.forEach(function (part) { part.classList.toggle("on", Number(part.dataset.step) <= step); });
+    rail.forEach(function (link) {
+      var s = Number(link.dataset.step);
+      link.classList.toggle("is-active", s === step);
+      link.classList.toggle("is-done", s < step);
+    });
+    chapters.forEach(function (chapter) { chapter.classList.toggle("is-active", Number(chapter.dataset.step) === step); });
+  }
+
+  // The active chapter is the last one whose top has passed the middle of the screen.
+  var current = -1;
+  function update() {
+    var line = window.innerHeight * 0.55;
+    var step = 0;
+    chapters.forEach(function (chapter) {
+      if (chapter.getBoundingClientRect().top <= line) step = Number(chapter.dataset.step);
+    });
+    if (step !== current) {
+      current = step;
+      show(step);
+    }
+  }
+
+  story.classList.add("story-live");
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+})();
+
+(function () {
   // Touch screens cannot hover: the first tap on a hero pack opens its card, the second follows the link.
   var wraps = document.querySelectorAll(".pack-wrap");
   if (!wraps.length) return;

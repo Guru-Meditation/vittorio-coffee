@@ -5,19 +5,59 @@
   <h1>{{ b2b.title }}</h1>
   <p class="lede-short">{{ b2b.lede }}</p>
 </section>
-<section class="section section-tight">
-  <div class="b2b-grid">
-    {% for card in b2b.cards %}
-    <article class="b2b-card">
-      <h2>{{ card.title }}</h2>
-      <p>{{ card.body }}</p>
-      {% if card.cta_endpoint %}
-      <p class="b2b-card-actions">
-        <a class="button button-ghost" href="{{ url_for(card.cta_endpoint) }}">{{ card.cta_label }}</a>
-      </p>
-      {% endif %}
+
+<section class="story" aria-label="What a partnership includes">
+  <div class="story-stage">
+    <div class="scene" data-step="{{ b2b.chapters | length - 1 }}">
+      <div class="scene-wall" aria-hidden="true"></div>
+      <div class="scene-counter" aria-hidden="true"></div>
+      {% for piece in b2b.scene %}
+      <img class="scene-item" src="{{ url_for('static', filename='images/' ~ piece.src) }}" alt="{{ piece.alt }}" width="{{ piece.w }}" height="{{ piece.h }}" loading="lazy" decoding="async" data-step="{{ piece.step }}" style="--x: {{ piece.x }}%; --b: {{ piece.b }}%; --size: {{ piece.size }}%; --z: {{ piece.z }}">
+      {% endfor %}
+      <p class="scene-chip scene-chip-setup" data-step="1">Free setup &amp; training</p>
+      <p class="scene-chip scene-chip-service" data-step="6">Machine service</p>
+      <figure class="scene-map" data-step="5">
+        <svg viewBox="0 0 380 240" role="img" aria-label="Deliveries from Kalo Xorio to Nicosia, Limassol, Paphos, Larnaca and Ayia Napa">
+          <path class="island" d="{{ b2b.island }}"/>
+          {% for town in b2b.towns %}
+          <path class="route" d="M{{ b2b.base.x }} {{ b2b.base.y }} Q{{ (b2b.base.x + town.x) / 2 }} {{ [b2b.base.y, town.y] | min - 30 }} {{ town.x }} {{ town.y }}" pathLength="1" style="--d: {{ loop.index0 }}"/>
+          <circle class="town" cx="{{ town.x }}" cy="{{ town.y }}" r="3.4"/>
+          <text class="town-name" x="{{ town.x }}" y="{{ town.y + 15 }}">{{ town.name }}</text>
+          {% endfor %}
+          <circle class="base-ring" cx="{{ b2b.base.x }}" cy="{{ b2b.base.y }}" r="9"/>
+          <circle class="base" cx="{{ b2b.base.x }}" cy="{{ b2b.base.y }}" r="4.6"/>
+        </svg>
+        <figcaption>From Kalo Xorio, across Cyprus</figcaption>
+      </figure>
+    </div>
+    <ol class="story-rail" aria-label="Chapters">
+      {% for chapter in b2b.chapters %}
+      <li><a href="#chapter-{{ chapter.key }}" data-step="{{ loop.index0 }}">{{ chapter.label }}</a></li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="story-chapters">
+    {% for chapter in b2b.chapters %}
+    <article class="chapter" id="chapter-{{ chapter.key }}" data-step="{{ loop.index0 }}">
+      <p class="eyebrow">{{ chapter.label }}</p>
+      <h2>{{ chapter.title }}</h2>
+      <p>{{ chapter.body }}</p>
     </article>
     {% endfor %}
+  </div>
+</section>
+
+<section class="partner-band" aria-labelledby="partner-title">
+  <div class="partner-inner">
+    <div>
+      <p class="eyebrow">Become a partner</p>
+      <h2 id="partner-title">Tell us about your café.</h2>
+    </div>
+    <p class="partner-actions">
+      <a class="button button-light" href="{{ business.viber }}">Contact on Viber</a>
+      <a class="button button-ghost light" href="{{ url_for('contact') }}">Send a message</a>
+    </p>
   </div>
 </section>
 {% endblock %}

@@ -79,18 +79,20 @@ HERO_PRODUCTS = [
 ]
 
 
-def cutout(path):
-    """Make the white studio background transparent, keeping white inside the product."""
+def cutout(path, tolerance=26):
+    """Make the studio background transparent, keeping matching colours inside the product.
+
+    The background colour is sampled from the corners, so white and cream sweeps both work.
+    """
     source = Image.open(path)
     if source.mode == "RGBA" and source.getchannel("A").getextrema()[0] < 255:
         return source.crop(source.getchannel("A").getbbox())
     image = source.convert("RGB")
-    near_white = ImageChops.darker(
-        ImageChops.darker(image.getchannel("R").point(lambda v: 255 if v > 229 else 0),
-                          image.getchannel("G").point(lambda v: 255 if v > 229 else 0)),
-        image.getchannel("B").point(lambda v: 255 if v > 229 else 0),
-    )
-    mask = near_white.copy()
+    corners = [image.getpixel(point) for point in ((2, 2), (image.width - 3, 2), (2, image.height - 3), (image.width - 3, image.height - 3))]
+    key = tuple(sum(channel) // len(corners) for channel in zip(*corners))
+    distance = ImageChops.difference(image, Image.new("RGB", image.size, key))
+    near_key = ImageChops.lighter(ImageChops.lighter(distance.getchannel("R"), distance.getchannel("G")), distance.getchannel("B"))
+    mask = near_key.point(lambda value: 255 if value < tolerance else 0)
     width, height = mask.size
     edges = [(x, y) for x in range(0, width, 6) for y in (0, height - 1)]
     edges += [(x, y) for y in range(0, height, 6) for x in (0, width - 1)]
@@ -113,6 +115,29 @@ def build_hero():
         piece.thumbnail((900, 900), Image.LANCZOS)
         piece.save(target / f"{slug}.webp", "WEBP", quality=88, method=6)
     build_share_image(target)
+
+
+# Pieces for the B2B "build your counter" scene: (output name, source image, tolerance).
+SCENE_PIECES = [
+    ("machine", "machines/sanremo-cube.jpg", 72),
+    ("waffle-mix", "products/waffle-mix.jpg", 26),
+    ("soft-ice-cream", "products/soft-ice-cream-1kg.png", 26),
+    ("cups", "products/glasses-4-oz-8-oz-12-oz-16-oz.png", 22),
+    ("lids", "products/black-lids-12-16oz.png", 55),
+    ("straws", "products/frappe-straws-x-500.png", 34),
+]
+
+
+def build_scene():
+    target = IMAGES / "scene"
+    target.mkdir(parents=True, exist_ok=True)
+    sizes = {}
+    for name, source, tolerance in SCENE_PIECES:
+        piece = cutout(IMAGES / source, tolerance)
+        piece.thumbnail((900, 900), Image.LANCZOS)
+        piece.save(target / f"{name}.webp", "WEBP", quality=88, method=6)
+        sizes[name] = piece.size
+    return sizes
 
 
 def build_share_image(folder):
@@ -149,4 +174,5 @@ def build_share_image(folder):
 if __name__ == "__main__":
     count = build_products()
     build_hero()
-    print(f"optimised {count} product photos and the hero packshots")
+    scene = build_scene()
+    print(f"optimised {count} product photos, the hero packshots and the B2B scene: {scene}")
