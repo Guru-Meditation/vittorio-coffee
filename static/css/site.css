@@ -1211,14 +1211,25 @@ input, textarea {
   box-shadow: 0 10px 24px rgba(26, 16, 12, 0.3);
 }
 /* Brand machines share one spot; only the current one shows, crossfading as they cycle. */
-.scene .scene-item.scene-machine { transition: opacity 0.9s var(--ease), translate 0.9s var(--ease); }
+.scene .scene-item.scene-machine { transition: opacity 0.45s ease, translate 0.6s var(--ease); }
+.scene .scene-item.scene-machine.is-current { transition-delay: 0.45s; }
 .scene .scene-item.scene-machine:not(.is-current) { opacity: 0; translate: 0 10px; }
+/* A camera layer: close on the machine for the first chapters, then out to the full counter. */
+.scene-camera {
+  position: absolute;
+  inset: 0;
+  transform-origin: 49% 57%;
+  transition: transform 1.4s var(--ease);
+}
+.story-live .scene[data-zoom="near"] .scene-camera { transform: scale(1.85); }
 .scene-machine-tag {
   position: absolute;
-  z-index: 5;
-  left: 33.5%;
-  bottom: 23%;
-  margin: 0;
+  z-index: 8;
+  left: 0;
+  right: 0;
+  top: 5%;
+  width: max-content;
+  margin: 0 auto;
   padding: 0.22rem 0.6rem;
   border-radius: 999px;
   background: rgba(251, 247, 241, 0.94);

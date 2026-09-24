@@ -79,10 +79,12 @@ HERO_PRODUCTS = [
 ]
 
 
-def cutout(path, tolerance=26):
+def cutout(path, tolerance=26, floor=0.0, floor_tolerance=None):
     """Make the studio background transparent, keeping matching colours inside the product.
 
     The background colour is sampled from the corners, so white and cream sweeps both work.
+    `floor` (a fraction of the height) uses a looser tolerance at the bottom to drop soft
+    floor shadows under machines without eating their white bodies higher up.
     """
     source = Image.open(path)
     if source.mode in ("P", "LA") or (source.mode == "RGB" and "transparency" in source.info):
@@ -96,6 +98,10 @@ def cutout(path, tolerance=26):
     near_key = ImageChops.lighter(ImageChops.lighter(distance.getchannel("R"), distance.getchannel("G")), distance.getchannel("B"))
     mask = near_key.point(lambda value: 255 if value < tolerance else 0)
     width, height = mask.size
+    if floor:
+        top = int(height * (1 - floor))
+        loose = near_key.point(lambda value: 255 if value < floor_tolerance else 0)
+        mask.paste(loose.crop((0, top, width, height)), (0, top))
     edges = [(x, y) for x in range(0, width, 6) for y in (0, height - 1)]
     edges += [(x, y) for y in range(0, height, 6) for x in (0, width - 1)]
     for point in edges:
@@ -119,29 +125,77 @@ def build_hero():
     build_share_image(target)
 
 
-# Pieces for the B2B "build your counter" scene: (output name, source image, tolerance).
+# Pieces for the B2B "build your counter" scene. Coordinates are in the saved (thumbnailed) image.
+# Machines are official manufacturer photos (downloaded with the owner's OK on 2026-09-24); each
+# carries a Vittorio decal on its side panel, as on the machines placed with partner cafés.
 SCENE_PIECES = [
-    # Official manufacturer photos (downloaded with the owner's OK on 2026-09-24), cycled on the counter.
-    ("machine-appia-life", "machines/brand/appia-life.png", 26),
-    ("machine-sanremo", "machines/brand/sanremo-cafe-racer.png", 12),
-    ("machine-expobar", "machines/brand/expobar-onyx-pro.jpg", 30),
-    ("waffle-mix", "products/waffle-mix.jpg", 26),
-    ("soft-ice-cream", "products/soft-ice-cream-1kg.png", 26),
-    ("cups", "products/glasses-4-oz-8-oz-12-oz-16-oz.png", 22),
-    ("lids", "products/black-lids-12-16oz.png", 55),
-    ("straws", "products/frappe-straws-x-500.png", 34),
+    {"name": "machine-appia-life", "source": "machines/brand/appia-life.png",
+     "logo": [(708, 196), (820, 188), (820, 234), (708, 244)]},
+    {"name": "machine-sanremo", "source": "machines/brand/sanremo-cafe-racer.png", "tolerance": 12,
+     "erase": [(0, 292), (470, 388), (532, 392), (532, 418), (774, 358), (774, 512), (0, 512)],
+     "logo": [(614, 99), (698, 96), (698, 126), (614, 131)]},
+    {"name": "machine-expobar", "source": "machines/brand/expobar-onyx-pro.jpg", "tolerance": 30,
+     "floor": 0.16, "floor_tolerance": 60,
+     "logo": [(352, 186), (454, 173), (454, 212), (352, 228)]},
+    {"name": "waffle-mix", "source": "products/waffle-mix.jpg"},
+    {"name": "soft-ice-cream", "source": "products/soft-ice-cream-1kg.png"},
+    {"name": "cups", "source": "products/glasses-4-oz-8-oz-12-oz-16-oz.png", "tolerance": 22},
+    {"name": "lids", "source": "products/black-lids-12-16oz.png", "tolerance": 55},
+    {"name": "straws", "source": "products/frappe-straws-x-500.png", "tolerance": 34},
 ]
+
+
+def erase_pale(piece, polygon, tolerance=72):
+    """Clear leftover pale floor shadow inside `polygon`; dark parts such as feet survive."""
+    region = Image.new("L", piece.size, 0)
+    ImageDraw.Draw(region).polygon(polygon, fill=255)
+    rgb = piece.convert("RGB")
+    distance = ImageChops.difference(rgb, Image.new("RGB", rgb.size, (255, 255, 255)))
+    darkest = ImageChops.lighter(ImageChops.lighter(distance.getchannel("R"), distance.getchannel("G")), distance.getchannel("B"))
+    pale = darkest.point(lambda value: 255 if value < tolerance else 0)
+    clear = ImageChops.multiply(region, pale)
+    alpha = ImageChops.subtract(piece.getchannel("A"), clear)
+    piece.putalpha(alpha.filter(ImageFilter.GaussianBlur(0.6)))
+    return piece
+
+
+def perspective_coeffs(target, source):
+    """Coefficients mapping points in `target` (output) back to `source` (input) for Image.transform."""
+    import numpy
+
+    rows = []
+    for (x, y), (u, v) in zip(target, source):
+        rows.append([x, y, 1, 0, 0, 0, -u * x, -u * y])
+        rows.append([0, 0, 0, x, y, 1, -v * x, -v * y])
+    matrix = numpy.array(rows, dtype=float)
+    vector = numpy.array(source, dtype=float).reshape(8)
+    return numpy.linalg.solve(matrix, vector).tolist()
+
+
+def add_decal(piece, quad, opacity=0.9):
+    """Print the light Vittorio logo onto a side panel, warped to the panel's perspective."""
+    logo = Image.open(IMAGES / "brand" / "logo-footer.png").convert("RGBA")
+    logo = logo.crop(logo.getchannel("A").getbbox())
+    corners = [(0, 0), (logo.width, 0), (logo.width, logo.height), (0, logo.height)]
+    warped = logo.transform(piece.size, Image.PERSPECTIVE, perspective_coeffs(quad, corners), Image.BICUBIC)
+    warped.putalpha(warped.getchannel("A").point(lambda value: int(value * opacity)))
+    return Image.alpha_composite(piece, warped)
 
 
 def build_scene():
     target = IMAGES / "scene"
     target.mkdir(parents=True, exist_ok=True)
     sizes = {}
-    for name, source, tolerance in SCENE_PIECES:
-        piece = cutout(IMAGES / source, tolerance)
+    for spec in SCENE_PIECES:
+        piece = cutout(IMAGES / spec["source"], spec.get("tolerance", 26), spec.get("floor", 0.0), spec.get("floor_tolerance"))
         piece.thumbnail((900, 900), Image.LANCZOS)
-        piece.save(target / f"{name}.webp", "WEBP", quality=88, method=6)
-        sizes[name] = piece.size
+        piece = piece.convert("RGBA")
+        if "erase" in spec:
+            piece = erase_pale(piece, spec["erase"])
+        if "logo" in spec:
+            piece = add_decal(piece, spec["logo"])
+        piece.save(target / f"{spec['name']}.webp", "WEBP", quality=88, method=6)
+        sizes[spec["name"]] = piece.size
     return sizes
 
 

@@ -9,16 +9,18 @@
 <section class="story" aria-label="What a partnership includes">
   <div class="story-stage">
     <div class="scene" data-step="{{ b2b.chapters | length - 1 }}">
+      <div class="scene-camera">
       <div class="scene-wall" aria-hidden="true"></div>
       <div class="scene-counter" aria-hidden="true"></div>
       {% set slot = b2b.machine_slot %}
       {% for machine in b2b.machines %}
       <img class="scene-item scene-machine{% if loop.first %} is-current{% endif %}" src="{{ url_for('static', filename='images/' ~ machine.src) }}" alt="{{ machine.name }}" width="{{ machine.w }}" height="{{ machine.h }}" decoding="async" data-step="0" data-name="{{ machine.name }}" style="--x: {{ slot.x }}%; --b: {{ slot.b }}%; --size: {{ slot.size }}%; --z: 2">
       {% endfor %}
-      <p class="scene-machine-tag" data-step="0" aria-live="polite">{{ b2b.machines[0].name }}</p>
       {% for piece in b2b.scene %}
       <img class="scene-item" src="{{ url_for('static', filename='images/' ~ piece.src) }}" alt="{{ piece.alt }}" width="{{ piece.w }}" height="{{ piece.h }}" loading="lazy" decoding="async" data-step="{{ piece.step }}" style="--x: {{ piece.x }}%; --b: {{ piece.b }}%; --size: {{ piece.size }}%; --z: {{ piece.z }}">
       {% endfor %}
+      </div>
+      <p class="scene-machine-tag" data-step="0" aria-live="polite">{{ b2b.machines[0].name }}</p>
       <p class="scene-chip scene-chip-setup" data-step="1">Free setup &amp; training</p>
       <p class="scene-chip scene-chip-service" data-step="6">Machine service</p>
       <figure class="scene-map" data-step="5">

@@ -53,7 +53,11 @@
   var rail = story.querySelectorAll(".story-rail a");
   var chapters = story.querySelectorAll(".chapter");
 
+  var sceneBox = story.querySelector(".scene");
+
   function show(step) {
+    // Close on the machine for the first two chapters, then out to the whole counter.
+    sceneBox.dataset.zoom = step <= 1 ? "near" : "far";
     parts.forEach(function (part) { part.classList.toggle("on", Number(part.dataset.step) <= step); });
     rail.forEach(function (link) {
       var s = Number(link.dataset.step);
@@ -81,6 +85,10 @@
   update();
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
+  window.addEventListener("load", function () {
+    current = -1;
+    update();
+  });
 })();
 
 (function () {
