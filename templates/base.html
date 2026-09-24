@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ seo.title }}</title>
   <meta name="description" content="{{ seo.description }}">
-  {% if business.search_console %}<meta name="google-site-verification" content="{{ business.search_console }}">{% endif %}
+  {% for code in business.search_console %}<meta name="google-site-verification" content="{{ code }}">{% endfor %}
   <link rel="canonical" href="{{ seo.canonical }}">
   {% if seo.alternates %}
   {% for code, href in seo.alternates.items() %}

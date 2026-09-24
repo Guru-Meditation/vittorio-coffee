@@ -113,8 +113,11 @@ BUSINESS = {
     # Google Business Profile "Ask for reviews" link; the footer shows it once set.
     "reviews": "https://g.page/r/CRkhDH0foV3FEBM/review",
     "trustpilot": "",
-    # Google Search Console "HTML tag" verification code (the content="..." value only).
-    "search_console": "WmBAxmaZormtC7pr3mufzgV5-ozEobNwUEvtuKtnXAI",
+    # Google Search Console "HTML tag" verification codes (the content="..." values), one per property.
+    "search_console": [
+        "WmBAxmaZormtC7pr3mufzgV5-ozEobNwUEvtuKtnXAI",  # vittorio-coffee.onrender.com
+        "MPQErzrMwgPCQpFPoQi6eGpg-k3ub2vmR3FZBdH916g",  # vittoriocyprus.com
+    ],
     "delivery": "Delivery to cafés, bars and hotels across Cyprus.",
     "machines": ["Appia Life", "Sanremo", "Expobar"],
     "social": [

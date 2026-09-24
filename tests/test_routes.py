@@ -376,14 +376,14 @@ def test_customer_copy_carries_referral_link():
 def test_review_and_verification_slots_render_only_when_set(client, monkeypatch):
     from content import BUSINESS
 
-    monkeypatch.setitem(BUSINESS, "search_console", "")
+    monkeypatch.setitem(BUSINESS, "search_console", [])
     monkeypatch.setitem(BUSINESS, "trustpilot", "")
     page = client.get("/").get_data(as_text=True)
     assert "google-site-verification" not in page
     assert "Trustpilot" not in page
     monkeypatch.setitem(BUSINESS, "reviews", "")
     assert "Review us on Google" not in client.get("/").get_data(as_text=True)
-    monkeypatch.setitem(BUSINESS, "search_console", "abc123")
+    monkeypatch.setitem(BUSINESS, "search_console", ["abc123"])
     monkeypatch.setitem(BUSINESS, "trustpilot", "https://www.trustpilot.com/review/example")
     monkeypatch.setitem(BUSINESS, "reviews", "https://g.page/r/example/review")
     page = client.get("/").get_data(as_text=True)
