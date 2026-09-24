@@ -1438,11 +1438,24 @@ input, textarea {
   bottom: 1.2rem;
   transform: translateX(-50%);
   margin: 0;
+  width: max-content;
   max-width: calc(100% - 2rem);
-  padding: 0.75rem 1.1rem;
+  padding: 1.1rem 1.6rem;
+  border-radius: 14px;
   background: var(--espresso);
   color: var(--cream);
-  box-shadow: 0 10px 28px rgba(26, 16, 12, 0.25);
-  font-size: 0.95rem;
+  box-shadow: 0 14px 36px rgba(26, 16, 12, 0.35);
+  font-size: 1.15rem;
+  font-weight: 500;
+  text-align: center;
 }
-.cart-toast a { color: var(--cream); font-weight: 600; }
+.cart-toast a {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--espresso);
+  font-weight: 600;
+  text-decoration: none;
+}

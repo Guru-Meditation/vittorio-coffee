@@ -157,14 +157,14 @@
     if (link) link.textContent = link.dataset.label + " (" + data.count + ")";
     if (!toast) return;
     toast.innerHTML = "";
-    toast.appendChild(document.createTextNode(toast.dataset.added + " · "));
+    toast.appendChild(document.createTextNode(toast.dataset.added + " "));
     var view = document.createElement("a");
     view.href = data.order_url;
     view.textContent = toast.dataset.view + " (" + data.count + ")";
     toast.appendChild(view);
     toast.hidden = false;
     clearTimeout(timer);
-    timer = setTimeout(function () { toast.hidden = true; }, 4000);
+    timer = setTimeout(function () { toast.hidden = true; }, 8000);
   }
 
   document.addEventListener("submit", function (event) {
