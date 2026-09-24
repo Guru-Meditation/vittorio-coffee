@@ -114,7 +114,7 @@ BUSINESS = {
     "reviews": "https://g.page/r/CRkhDH0foV3FEBM/review",
     "trustpilot": "",
     # Google Search Console "HTML tag" verification code (the content="..." value only).
-    "search_console": "",
+    "search_console": "WmBAxmaZormtC7pr3mufzgV5-ozEobNwUEvtuKtnXAI",
     "delivery": "Delivery to cafés, bars and hotels across Cyprus.",
     "machines": ["Appia Life", "Sanremo", "Expobar"],
     "social": [
