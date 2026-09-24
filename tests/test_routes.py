@@ -47,7 +47,7 @@ def test_every_product_and_article(client):
         assert html.escape(item["name"]) in page
         assert item["price_label"] in page
         if item["image"]:
-            assert item["image"]["file"] in page
+            assert item["image"]["web"]["lg"]["file"] in page
     for item in ARTICLES:
         response = client.get(f"/journal/{item['slug']}")
         assert response.status_code == 200
@@ -61,11 +61,11 @@ def test_unknown_pages(client):
 
 def test_catalogue_puts_coffee_before_serviceware(client):
     page = client.get("/products").get_data(as_text=True)
-    assert page.index("Costa Rica") < page.index("Chocolate with Black Forest")
-    assert page.index("Chocolate with Black Forest") < page.index("Granite Straws")
+    assert page.index("Costa Rica") < page.index("Aromatic Chocolate No.2")
+    assert page.index("Aromatic Chocolate No.2") < page.index("Granite Straws")
     assert page.index(">Coffee<") < page.index(">Serviceware<")
     straw = client.get("/products/granite-straws-x-1000-pcs").get_data(as_text=True)
-    assert "products/granite-straws-x-1000-pcs.png" in straw
+    assert "products/web/granite-straws-x-1000-pcs-lg.webp" in straw
 
 
 def test_catalogue_shows_pack_size(client):
@@ -75,7 +75,7 @@ def test_catalogue_shows_pack_size(client):
     assert page.count("350gr") >= 3
     assert "1000 pcs" in page
     assert "card-pack" in page
-    vanillia_card = page.split("Milkshake Vanillia", 1)[1].split("Add to order", 1)[0]
+    vanillia_card = page.split("Milkshake Vanilla", 1)[1].split("Add to order", 1)[0]
     assert "350gr" in vanillia_card
 
 
@@ -99,7 +99,7 @@ def test_catalogue_filter_and_search(client):
     assert b"Costa Rica" in coffee.data
     assert client.get("/products?category=Nope").status_code == 404
     found = client.get("/products?q=guatemala")
-    assert b"GUATEMALA" in found.data
+    assert b"Guatemala" in found.data
     empty = client.get("/products?q=zzzz-no-match")
     assert b"Nothing in the catalogue matches" in empty.data
 
@@ -289,3 +289,24 @@ def test_repeat_customer_sees_last_order_and_saved_details(client):
     refilled = client.get("/order").get_data(as_text=True)
     assert 'name="qty-costa-rica" type="number" min="0" max="99" value="3"' in refilled
     assert 'value="99123456"' in refilled
+
+
+def test_home_presents_both_brands(client):
+    home = client.get("/").get_data(as_text=True)
+    assert "Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab" in home
+    assert "brand/jean-paul.png" in home
+    assert "Browse Jean Paul Lab" in home
+    assert "/products?brand=jean-paul-lab" in home
+    assert "depot" not in home.lower()
+
+
+def test_catalogue_brand_filter(client):
+    jp = client.get("/products?brand=jean-paul-lab").get_data(as_text=True)
+    assert "Fruit Smoothies – Mango" in jp
+    assert "Espresso Grande" not in jp
+    assert "31 products" in jp
+    vittorio = client.get("/products?brand=vittorio").get_data(as_text=True)
+    assert "Espresso Grande" in vittorio
+    assert "Fruit Smoothies" not in vittorio
+    assert client.get("/products?brand=nope").status_code == 404
+    assert b"Blue Night" in client.get("/products?q=jean+paul").data

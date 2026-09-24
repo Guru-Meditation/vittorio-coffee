@@ -10,13 +10,19 @@ from urllib.parse import quote, urljoin
 from flask import Flask, abort, redirect, render_template, request, session, url_for
 
 from content import (
+    ANNOUNCEMENT,
     ARTICLES,
+    BRAND_FILTERS,
+    BRAND_LABELS,
+    BRANDS,
+    BRANDS_BY_SLUG,
     BUSINESS,
     FAQ,
     GROUPS,
     HERO,
     MACHINE_PROGRAMMES,
     NAV,
+    ORDER_STEPS,
     PRODUCTS,
     PRODUCTS_BY_SLUG,
     CYPRUS_B2B,
@@ -66,6 +72,19 @@ def _phone_ok(raw):
 
 
 ARTICLES_BY_SLUG = {item["slug"]: item for item in ARTICLES}
+HOME_JEAN_PAUL = [
+    "smoothies-syrups-mango",
+    "milkshake-chocolate",
+    "chocolate-with-bueno-biscuit-no-3",
+    "strawberry-granita",
+    "waffle-mix",
+    "english-breakfast-black-tea",
+]
+
+
+def _search_text(item):
+    parts = (item["name"], item["summary"], item.get("description", ""), BRAND_LABELS.get(item.get("brand"), ""))
+    return " ".join(parts).casefold()
 
 
 def _price(product):
@@ -124,6 +143,7 @@ def create_app():
     # Regular cafés reorder weekly; remember their details and last order for a year.
     app.permanent_session_lifetime = timedelta(days=365)
     app.jinja_env.globals["catalog_pack_label"] = catalog_pack_label
+    app.jinja_env.globals["brand_labels"] = BRAND_LABELS
 
     def suppress_mail():
         return bool(app.config.get("TESTING") or app.config.get("MAIL_SUPPRESS_SEND"))
@@ -137,7 +157,15 @@ def create_app():
                 count += max(int(qty), 0)
             except (TypeError, ValueError):
                 continue
-        return {"business": BUSINESS, "nav": NAV, "hero": HERO, "cart_count": count}
+        return {
+            "business": BUSINESS,
+            "nav": NAV,
+            "hero": HERO,
+            "cart_count": count,
+            "announcement": ANNOUNCEMENT,
+            "brands": BRANDS,
+            "brand_labels": BRAND_LABELS,
+        }
 
     def page(template, title, description, **context):
         canonical = urljoin(request.url_root, request.path.lstrip("/"))
@@ -172,11 +200,14 @@ def create_app():
     @app.get("/")
     def home():
         featured = [item for item in PRODUCTS if item["featured"]]
+        jean_paul = [PRODUCTS_BY_SLUG[slug] for slug in HOME_JEAN_PAUL]
         return page(
             "home.html",
             "Vittorio Gourmet Espresso — wholesale & retail coffee in Cyprus",
-            "Wholesale and retail coffee, ingredients, and espresso equipment for Cyprus. Apia Life, Sanremo, and Expobar partnerships.",
+            "Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes with published trade prices, delivered across Cyprus.",
             featured=featured,
+            jean_paul=jean_paul,
+            order_steps=ORDER_STEPS,
             articles=ARTICLES,
             json_ld=store_json(),
         )
@@ -184,8 +215,14 @@ def create_app():
     @app.get("/products")
     def products():
         group = request.args.get("category", "").strip()
+        brand = request.args.get("brand", "").strip()
         query = request.args.get("q", "").strip()
         items = PRODUCTS
+        if brand:
+            if brand not in BRAND_LABELS:
+                abort(404)
+            items = [item for item in items if item.get("brand") == brand]
+        groups = [name for name in GROUPS if any(item["group"] == name for item in items)]
         if group:
             if group not in GROUPS:
                 abort(404)
@@ -195,18 +232,22 @@ def create_app():
             items = [
                 item
                 for item in items
-                if needle in item["name"].casefold() or needle in item["summary"].casefold()
+                if needle in _search_text(item)
             ]
         title = "Catalogue — Vittorio Gourmet Espresso"
         if group:
             title = f"{group} — Vittorio Gourmet Espresso"
+        elif brand:
+            title = f"{BRAND_LABELS[brand]} — Vittorio Gourmet Espresso"
         return page(
             "products.html",
             title,
-            "Coffee, chocolate, teas, syrups, mixes, and serviceware from the Vittorio Gourmet Espresso shop, with published prices plus VAT.",
+            "Vittorio coffee and Jean Paul Lab beverages, teas, mixes and café supplies, with published trade prices plus VAT and delivery across Cyprus.",
             items=items,
-            groups=GROUPS,
+            groups=groups,
             active_group=group,
+            active_brand=brand,
+            brand_filters=BRAND_FILTERS,
             query=query,
         )
 
@@ -218,8 +259,9 @@ def create_app():
         return page(
             "product.html",
             f"{item['name']} — Vittorio Gourmet Espresso",
-            f"{item['name']}. {item['price_label']}.",
+            f"{item['name']}. {item.get('description') or item['price_label']}",
             item=item,
+            brand=BRANDS_BY_SLUG.get(item.get("brand")),
         )
 
     @app.get("/philosophy")

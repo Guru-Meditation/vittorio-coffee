@@ -1,36 +1,54 @@
+{% macro product_image(item, sizes="(min-width: 1040px) 22rem, (min-width: 720px) 45vw, 90vw", eager=false) -%}
+{% set web = item.image.web %}
+{% if web %}
+<img
+  src="{{ url_for('static', filename='images/' ~ web.sm.file) }}"
+  srcset="{{ url_for('static', filename='images/' ~ web.sm.file) }} {{ web.sm.width }}w, {{ url_for('static', filename='images/' ~ web.lg.file) }} {{ web.lg.width }}w"
+  sizes="{{ sizes }}"
+  alt="{{ item.image.alt }}"
+  width="{{ web.lg.width }}"
+  height="{{ web.lg.width }}"
+  {% if eager %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+  decoding="async"
+>
+{% else %}
+<img
+  src="{{ url_for('static', filename='images/' ~ item.image.file) }}"
+  alt="{{ item.image.alt }}"
+  width="{{ item.image.width }}"
+  height="{{ item.image.height }}"
+  {% if not eager %}loading="lazy"{% endif %}
+  decoding="async"
+>
+{% endif %}
+{%- endmacro %}
+
+{% macro brand_badge(item) -%}
+{% if item.brand and item.brand != "essentials" %}<span class="brand-badge brand-badge-{{ item.brand }}">{{ brand_labels[item.brand] }}</span>{% endif %}
+{%- endmacro %}
+
 {% macro product_card(item, compact=false) -%}
-<article class="card{% if compact %} compact{% endif %}">
+<article class="card{% if compact %} compact{% endif %}" data-reveal>
   <a class="card-media" href="{{ url_for('product', slug=item.slug) }}">
-    {% if item.image %}
-    <img
-      src="{{ url_for('static', filename='images/' ~ item.image.file) }}"
-      alt="{{ item.image.alt }}"
-      width="{{ item.image.width }}"
-      height="{{ item.image.height }}"
-      loading="lazy"
-      decoding="async"
-    >
-    {% else %}
-    <span class="no-photo">Photograph to follow.</span>
-    {% endif %}
+    {{ product_image(item) }}
+    {{ brand_badge(item) }}
   </a>
   <div class="card-body">
     <p class="eyebrow">{{ item.group }}</p>
     <h3><a href="{{ url_for('product', slug=item.slug) }}">{{ item.name }}</a></h3>
-    {% set pack = catalog_pack_label(item) %}
-    {% if pack %}<p class="card-pack">{{ pack }}</p>{% endif %}
-    <p class="price">{{ item.price_label }}</p>
-    <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
-      <input type="hidden" name="slug" value="{{ item.slug }}">
-      <input type="hidden" name="next" value="{{ url_for('order') }}">
-      <button class="button button-small" type="submit">Add to order</button>
-    </form>
-    {% if not compact %}
-    <p>{{ item.summary }}</p>
-    {% if item.dietary %}
-    <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>
-    {% endif %}
-    {% endif %}
+    {% if not compact and item.description %}<p class="card-desc">{{ item.description }}</p>{% endif %}
+    <div class="card-foot">
+      <div>
+        {% set pack = catalog_pack_label(item) %}
+        {% if pack %}<p class="card-pack">{{ pack }}</p>{% endif %}
+        <p class="price">{{ item.price_label }}</p>
+      </div>
+      <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
+        <input type="hidden" name="slug" value="{{ item.slug }}">
+        <input type="hidden" name="next" value="{{ url_for('order') }}">
+        <button class="button button-small" type="submit">Add to order</button>
+      </form>
+    </div>
   </div>
 </article>
 {%- endmacro %}

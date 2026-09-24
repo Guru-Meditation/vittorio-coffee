@@ -1,48 +1,103 @@
 {% extends "base.html" %}
-{% from "macros.html" import product_card %}
+{% from "macros.html" import product_card, product_image %}
 {% block content %}
 <section class="hero-stage">
-  <img class="hero-photo" src="{{ url_for('static', filename='images/' ~ hero.file) }}" alt="{{ hero.alt }}" width="{{ hero.width }}" height="{{ hero.height }}" fetchpriority="high" decoding="async">
+  <picture>
+    <source type="image/webp" srcset="{{ url_for('static', filename='images/brand/hero-bar-960.webp') }} 960w, {{ url_for('static', filename='images/brand/hero-bar-1280.webp') }} 1280w" sizes="100vw">
+    <img class="hero-photo" src="{{ url_for('static', filename='images/' ~ hero.file) }}" alt="{{ hero.alt }}" width="{{ hero.width }}" height="{{ hero.height }}" fetchpriority="high" decoding="async">
+  </picture>
   <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-copy">
     <h1>{{ hero.headline }}</h1>
+    <p class="hero-sub">Official representative in Cyprus of <strong>Vittorio Gourmet Espresso</strong> and <strong>Jean Paul Lab</strong>.</p>
   </div>
 </section>
 
-<ul class="trust-strip" aria-label="Highlights">
-  <li>Wholesale &amp; retail</li>
-  <li>Cyprus delivery</li>
-  <li>Apia Life · Sanremo · Expobar</li>
-  <li>Free setup guidance</li>
+<ul class="trust-strip" aria-label="How we work">
+  <li>Trade prices shown</li>
+  <li>Order online or on Viber</li>
+  <li>Car delivery across Cyprus</li>
+  <li>Cash on delivery</li>
 </ul>
 
-<section class="section offer-row offer-row-tight">
-  <article>
-    <p class="eyebrow">Products</p>
-    <h2>Catalogue</h2>
-    <a class="text-link" href="{{ url_for('products') }}">Browse</a>
-  </article>
-  <article>
-    <p class="eyebrow">Equipment</p>
-    <h2>Machines</h2>
-    <a class="text-link" href="{{ url_for('machines') }}">Programmes</a>
-  </article>
-  <article>
-    <p class="eyebrow">Order</p>
-    <h2>Online list</h2>
-    <a class="text-link" href="{{ url_for('order') }}">Order</a>
-  </article>
-</section>
-
-<section class="section section-tight">
-  <div class="section-head section-head-tight">
-    <h2>Featured coffees</h2>
-  </div>
-  <div class="card-grid three">
-    {% for item in featured %}
-      {{ product_card(item, compact=true) }}
+<section class="section brands" aria-labelledby="brands-title">
+  <header class="section-head" data-reveal>
+    <p class="eyebrow">Our brands</p>
+    <h2 id="brands-title">Two houses. One supplier.</h2>
+  </header>
+  <div class="brand-panels">
+    {% for brand in brands %}
+    <article class="brand-panel brand-panel-{{ brand.slug }}" data-reveal>
+      <div class="brand-panel-copy">
+        <img class="brand-panel-logo" src="{{ url_for('static', filename='images/' ~ brand.logo.file) }}" alt="{{ brand.name }}" width="{{ brand.logo.width }}" height="{{ brand.logo.height }}" loading="lazy">
+        <p class="brand-panel-line">{{ brand.line }}</p>
+        <p>{{ brand.body }}</p>
+        <a class="button button-light" href="{{ url_for('products', brand=brand.slug) }}">Browse {{ brand.short }} <span class="count">{{ brand.count }}</span></a>
+      </div>
+      <div class="brand-panel-stage" aria-hidden="true">
+        {% for item in brand.products %}
+        <div class="float float-{{ loop.index }}">{{ product_image(item, sizes="(min-width: 1040px) 12rem, 30vw") }}</div>
+        {% endfor %}
+      </div>
+    </article>
     {% endfor %}
   </div>
-  <p class="section-cta"><a class="button" href="{{ url_for('order') }}">Order</a> <a class="button button-ghost" href="{{ url_for('contact') }}">Contact</a></p>
+</section>
+
+<section class="section steps-band" aria-labelledby="steps-title">
+  <header class="section-head" data-reveal>
+    <p class="eyebrow">Ordering</p>
+    <h2 id="steps-title">Simple, and honest about price.</h2>
+  </header>
+  <ol class="steps">
+    {% for step in order_steps %}
+    <li data-reveal>
+      <span class="step-num" aria-hidden="true">{{ loop.index }}</span>
+      <h3>{{ step.title }}</h3>
+      <p>{{ step.body }}</p>
+    </li>
+    {% endfor %}
+  </ol>
+  <p class="steps-note" data-reveal>Free delivery on orders over €40 (ex VAT). Regular customers can repeat their last order in one tap.</p>
+</section>
+
+<section class="section shelf" aria-labelledby="coffee-title">
+  <header class="shelf-head" data-reveal>
+    <div>
+      <p class="eyebrow">Vittorio Gourmet Espresso</p>
+      <h2 id="coffee-title">Coffee</h2>
+    </div>
+    <a class="text-link" href="{{ url_for('products', brand='vittorio') }}">All Vittorio products</a>
+  </header>
+  <div class="shelf-row">
+    {% for item in featured %}{{ product_card(item, compact=true) }}{% endfor %}
+  </div>
+</section>
+
+<section class="section shelf" aria-labelledby="jp-title">
+  <header class="shelf-head" data-reveal>
+    <div>
+      <p class="eyebrow">Jean Paul Lab</p>
+      <h2 id="jp-title">Beverages and mixes</h2>
+    </div>
+    <a class="text-link" href="{{ url_for('products', brand='jean-paul-lab') }}">All Jean Paul Lab products</a>
+  </header>
+  <div class="shelf-row">
+    {% for item in jean_paul %}{{ product_card(item, compact=true) }}{% endfor %}
+  </div>
+</section>
+
+<section class="partner-band" aria-labelledby="partner-title">
+  <div class="partner-inner" data-reveal>
+    <div>
+      <p class="eyebrow">For cafés, bars and hotels</p>
+      <h2 id="partner-title">A machine on loan, and help to run it.</h2>
+      <p>Apia Life, Sanremo and Expobar machines are offered at no charge for as long as we work together. Setup guidance and machine training are free.</p>
+    </div>
+    <p class="partner-actions">
+      <a class="button button-light" href="{{ url_for('cyprus') }}">B2B Services</a>
+      <a class="button button-ghost light" href="{{ business.viber }}">Contact on Viber</a>
+    </p>
+  </div>
 </section>
 {% endblock %}

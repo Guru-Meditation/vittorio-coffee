@@ -1,7 +1,7 @@
 [
   {
     "slug": "costa-rica",
-    "name": "Costa Rica – SINGLE VARIETIES",
+    "name": "Costa Rica – Single Variety",
     "price": "14.60",
     "price_label": "€14.60 + VAT",
     "group": "Coffee",
@@ -17,14 +17,56 @@
       "file": "products/costa-rica.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Costa Rica &#8211; SINGLE VARIETIES"
+      "alt": "Costa Rica – Single Variety",
+      "web": {
+        "sm": {
+          "file": "products/web/costa-rica-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/costa-rica-lg.webp",
+          "width": 803
+        }
+      }
     },
     "featured": true,
-    "pack": "500 g"
+    "pack": "500 g",
+    "brand": "vittorio",
+    "description": "Freshly roasted single-origin Arabica from Costa Rica, with a very clean, sweet finish.",
+    "profile": [
+      [
+        "Altitude",
+        "1,200–1,800 m"
+      ],
+      [
+        "Variety",
+        "Caturra, Catuai"
+      ],
+      [
+        "Process",
+        "Washed"
+      ],
+      [
+        "Acidity",
+        "High and intense"
+      ],
+      [
+        "Body",
+        "Rich and full"
+      ],
+      [
+        "Aroma",
+        "Apricot and nectarine"
+      ],
+      [
+        "Taste",
+        "Fine chocolate, complex"
+      ]
+    ]
   },
   {
     "slug": "filter",
-    "name": "FILTER",
+    "name": "Filter Coffee",
     "price": "12.50",
     "price_label": "€12.50 + VAT",
     "group": "Coffee",
@@ -41,14 +83,26 @@
       "file": "products/filter.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "FILTER"
+      "alt": "Filter Coffee",
+      "web": {
+        "sm": {
+          "file": "products/web/filter-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/filter-lg.webp",
+          "width": 1026
+        }
+      }
     },
     "featured": true,
-    "pack": "500 g"
+    "pack": "500 g",
+    "brand": "vittorio",
+    "description": "Freshly ground coffee for filter brewing, with an intense aroma and full flavour from the first sip."
   },
   {
     "slug": "espresso-decafeine",
-    "name": "ESPRESSO DECAFEINE 100% ARABICA",
+    "name": "Espresso Decaffeinato 100% Arabica",
     "price": "14.60",
     "price_label": "€14.60 + VAT",
     "group": "Coffee",
@@ -65,14 +119,26 @@
       "file": "products/espresso-decafeine.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "ESPRESSO DECAFEINE 100% ARABICA"
+      "alt": "Espresso Decaffeinato 100% Arabica",
+      "web": {
+        "sm": {
+          "file": "products/web/espresso-decafeine-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/espresso-decafeine-lg.webp",
+          "width": 1083
+        }
+      }
     },
     "featured": true,
-    "pack": "500 g"
+    "pack": "500 g",
+    "brand": "vittorio",
+    "description": "A 100% Arabica blend, decaffeinated with modern methods. All the taste of coffee, without the caffeine."
   },
   {
     "slug": "espresso-grande",
-    "name": "ESPRESSO GRANDE",
+    "name": "Espresso Grande",
     "price": "25.60",
     "price_label": "€25.60 + VAT",
     "group": "Coffee",
@@ -89,14 +155,26 @@
       "file": "products/espresso-grande.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "ESPRESSO GRANDE"
+      "alt": "Espresso Grande",
+      "web": {
+        "sm": {
+          "file": "products/web/espresso-grande-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/espresso-grande-lg.webp",
+          "width": 1160
+        }
+      }
     },
     "featured": true,
-    "pack": "1 kg"
+    "pack": "1 kg",
+    "brand": "vittorio",
+    "description": "Vittorio espresso blend of Arabica and Robusta beans."
   },
   {
     "slug": "greek",
-    "name": "GREEK",
+    "name": "Greek Coffee",
     "price": "10.50",
     "price_label": "€10.50 + VAT",
     "group": "Coffee",
@@ -113,14 +191,26 @@
       "file": "products/greek.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "GREEK"
+      "alt": "Greek Coffee",
+      "web": {
+        "sm": {
+          "file": "products/web/greek-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/greek-lg.webp",
+          "width": 1065
+        }
+      }
     },
     "featured": true,
-    "pack": "500 g"
+    "pack": "500 g",
+    "brand": "vittorio",
+    "description": "A carefully selected, correctly roasted blend for a full-bodied, rich Greek coffee."
   },
   {
     "slug": "espresso-100-arabica",
-    "name": "ESPRESSO 100% ARABICA",
+    "name": "Espresso 100% Arabica",
     "price": "26.60",
     "price_label": "€26.60 + VAT",
     "group": "Coffee",
@@ -137,14 +227,26 @@
       "file": "products/espresso-100-arabica.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "ESPRESSO 100% ARABICA"
+      "alt": "Espresso 100% Arabica",
+      "web": {
+        "sm": {
+          "file": "products/web/espresso-100-arabica-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/espresso-100-arabica-lg.webp",
+          "width": 1163
+        }
+      }
     },
     "featured": true,
-    "pack": "1 kg"
+    "pack": "1 kg",
+    "brand": "vittorio",
+    "description": "A blend of 100% Arabica speciality beans, known as gourmet coffee."
   },
   {
     "slug": "single-origin-guatemala",
-    "name": "SINGLE ORIGIN GUATEMALA – SINGLE VARIETIES",
+    "name": "Guatemala – Single Variety",
     "price": "14.60",
     "price_label": "€14.60 + VAT",
     "group": "Coffee",
@@ -159,14 +261,26 @@
       "file": "products/single-origin-guatemala.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "SINGLE ORIGIN GUATEMALA &#8211; SINGLE VARIETIES"
+      "alt": "Guatemala – Single Variety",
+      "web": {
+        "sm": {
+          "file": "products/web/single-origin-guatemala-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/single-origin-guatemala-lg.webp",
+          "width": 1055
+        }
+      }
     },
     "featured": true,
-    "pack": "500 g"
+    "pack": "500 g",
+    "brand": "vittorio",
+    "description": "Single-origin Arabica from Guatemala, with its own distinct taste and aroma."
   },
   {
     "slug": "chocolate-with-black-forest-passion-fruit-no-2",
-    "name": "Chocolate with Black Forest & Passion Fruit No.2",
+    "name": "Aromatic Chocolate No.2 – Black Forest & Passion Fruit",
     "price": "5.90",
     "price_label": "€5.90 + VAT",
     "group": "Aromatic chocolates",
@@ -184,14 +298,26 @@
       "file": "products/chocolate-with-black-forest-passion-fruit-no-2.png",
       "width": 1575,
       "height": 1575,
-      "alt": "Chocolate with Black Forest &#038; Passion Fruit No.2"
+      "alt": "Aromatic Chocolate No.2 – Black Forest & Passion Fruit",
+      "web": {
+        "sm": {
+          "file": "products/web/chocolate-with-black-forest-passion-fruit-no-2-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/chocolate-with-black-forest-passion-fruit-no-2-lg.webp",
+          "width": 1200
+        }
+      }
     },
     "featured": false,
-    "pack": "350 g"
+    "pack": "350 g",
+    "brand": "jean-paul-lab",
+    "description": "Aromatic chocolate drink: black forest with passion fruit."
   },
   {
     "slug": "chocolate-with-bueno-biscuit-no-3",
-    "name": "Chocolate with Bueno & Biscuit No.3",
+    "name": "Aromatic Chocolate No.3 – Bueno & Biscuit",
     "price": "5.90",
     "price_label": "€5.90 + VAT",
     "group": "Aromatic chocolates",
@@ -209,14 +335,26 @@
       "file": "products/chocolate-with-bueno-biscuit-no-3.png",
       "width": 1575,
       "height": 1575,
-      "alt": "Chocolate with Bueno &#038; Biscuit No.3"
+      "alt": "Aromatic Chocolate No.3 – Bueno & Biscuit",
+      "web": {
+        "sm": {
+          "file": "products/web/chocolate-with-bueno-biscuit-no-3-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/chocolate-with-bueno-biscuit-no-3-lg.webp",
+          "width": 1200
+        }
+      }
     },
     "featured": false,
-    "pack": "350 g"
+    "pack": "350 g",
+    "brand": "jean-paul-lab",
+    "description": "Aromatic chocolate drink: bueno with biscuit."
   },
   {
     "slug": "chocolate-with-lemon-biscuit-no-5",
-    "name": "Chocolate with Lemon & Biscuit No.5",
+    "name": "Aromatic Chocolate No.5 – Lemon & Biscuit",
     "price": "5.90",
     "price_label": "€5.90 + VAT",
     "group": "Aromatic chocolates",
@@ -234,10 +372,22 @@
       "file": "products/chocolate-with-lemon-biscuit-no-5.png",
       "width": 1575,
       "height": 1575,
-      "alt": "Chocolate with Lemon &#038; Biscuit No.5"
+      "alt": "Aromatic Chocolate No.5 – Lemon & Biscuit",
+      "web": {
+        "sm": {
+          "file": "products/web/chocolate-with-lemon-biscuit-no-5-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/chocolate-with-lemon-biscuit-no-5-lg.webp",
+          "width": 1200
+        }
+      }
     },
     "featured": false,
-    "pack": "350 g"
+    "pack": "350 g",
+    "brand": "jean-paul-lab",
+    "description": "Aromatic chocolate drink: lemon with biscuit."
   },
   {
     "slug": "chocolate-powder-la-vittoria-classic",
@@ -259,14 +409,26 @@
       "file": "products/chocolate-powder-la-vittoria-classic.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Chocolate Powder &#8211; La Vittoria Classic"
+      "alt": "Chocolate Powder – La Vittoria Classic",
+      "web": {
+        "sm": {
+          "file": "products/web/chocolate-powder-la-vittoria-classic-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/chocolate-powder-la-vittoria-classic-lg.webp",
+          "width": 836
+        }
+      }
     },
     "featured": false,
-    "pack": "1 kg"
+    "pack": "1 kg",
+    "brand": "vittorio",
+    "description": "La Vittoria chocolate powder with a velvety texture. Serve hot or cold."
   },
   {
     "slug": "chocolate-powder-paolo-chocolate",
-    "name": "Chocolate Powder – Paolo Chocolate",
+    "name": "Chocolate Powder – Paolo",
     "price": "10.40",
     "price_label": "€10.40 + VAT",
     "group": "Chocolate powders",
@@ -284,10 +446,22 @@
       "file": "products/chocolate-powder-paolo-chocolate.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Chocolate Powder &#8211; Paolo Chocolate"
+      "alt": "Chocolate Powder – Paolo",
+      "web": {
+        "sm": {
+          "file": "products/web/chocolate-powder-paolo-chocolate-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/chocolate-powder-paolo-chocolate-lg.webp",
+          "width": 836
+        }
+      }
     },
     "featured": false,
-    "pack": "1 kg"
+    "pack": "1 kg",
+    "brand": "vittorio",
+    "description": "Paolo chocolate powder by La Vittoria, for a full-bodied chocolate. Serve hot or cold."
   },
   {
     "slug": "freddoccino",
@@ -308,14 +482,26 @@
       "file": "products/freddoccino.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "Freddoccino"
+      "alt": "Freddoccino",
+      "web": {
+        "sm": {
+          "file": "products/web/freddoccino-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/freddoccino-lg.webp",
+          "width": 1068
+        }
+      }
     },
     "featured": false,
-    "pack": "1 kg"
+    "pack": "1 kg",
+    "brand": "vittorio",
+    "description": "Freddoccino chocolate powder by La Vittoria. Serve cold or hot."
   },
   {
     "slug": "soft-ice-cream-1kg",
-    "name": "Soft Ice-Cream 1kg – In 4 delicious flavours",
+    "name": "Soft Ice Cream Mix – 4 Flavours",
     "price": "7.50",
     "price_label": "€7.50 + VAT",
     "group": "Soft ice cream",
@@ -333,10 +519,22 @@
       "file": "products/soft-ice-cream-1kg.png",
       "width": 335,
       "height": 487,
-      "alt": "Soft Ice-Cream 1kg &#8211; In 4 delicious flavours"
+      "alt": "Soft Ice Cream Mix – 4 Flavours",
+      "web": {
+        "sm": {
+          "file": "products/web/soft-ice-cream-1kg-sm.webp",
+          "width": 527
+        },
+        "lg": {
+          "file": "products/web/soft-ice-cream-1kg-lg.webp",
+          "width": 527
+        }
+      }
     },
     "featured": false,
-    "pack": "1 kg"
+    "pack": "1 kg",
+    "brand": "jean-paul-lab",
+    "description": "Mix for velvety, creamy soft ice cream in a soft-serve machine. Vanilla, chocolate, strawberry and Bueno."
   },
   {
     "slug": "coffee-syrup-vanillia",
@@ -358,14 +556,26 @@
       "file": "products/coffee-syrup-vanillia.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Coffee Syrups"
+      "alt": "Coffee Syrups",
+      "web": {
+        "sm": {
+          "file": "products/web/coffee-syrup-vanillia-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/coffee-syrup-vanillia-lg.webp",
+          "width": 729
+        }
+      }
     },
     "featured": false,
-    "pack": "800 ml"
+    "pack": "800 ml",
+    "brand": "jean-paul-lab",
+    "description": "Concentrated syrups for hot or cold coffee drinks. Seven flavours, including caramel, hazelnut and vanilla."
   },
   {
     "slug": "smoothies-syrups-peach",
-    "name": "Smoothies Syrups Peach",
+    "name": "Fruit Smoothies – Peach",
     "price": "9.90",
     "price_label": "€9.90 + VAT",
     "group": "Smoothies",
@@ -384,14 +594,26 @@
       "file": "products/smoothies-syrups-peach.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "Smoothies Syrups Peach"
+      "alt": "Fruit Smoothies – Peach",
+      "web": {
+        "sm": {
+          "file": "products/web/smoothies-syrups-peach-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/smoothies-syrups-peach-lg.webp",
+          "width": 888
+        }
+      }
     },
     "featured": false,
-    "pack": "1 ltr"
+    "pack": "1 ltr",
+    "brand": "jean-paul-lab",
+    "description": "Fruit pulp for smoothies. Blend with ice and water or milk."
   },
   {
     "slug": "smoothies-syrups-raspberry",
-    "name": "Smoothies Syrups Raspberry",
+    "name": "Fruit Smoothies – Raspberry",
     "price": "9.90",
     "price_label": "€9.90 + VAT",
     "group": "Smoothies",
@@ -410,14 +632,26 @@
       "file": "products/smoothies-syrups-raspberry.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "Smoothies Syrups Raspberry"
+      "alt": "Fruit Smoothies – Raspberry",
+      "web": {
+        "sm": {
+          "file": "products/web/smoothies-syrups-raspberry-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/smoothies-syrups-raspberry-lg.webp",
+          "width": 883
+        }
+      }
     },
     "featured": false,
-    "pack": "1 ltr"
+    "pack": "1 ltr",
+    "brand": "jean-paul-lab",
+    "description": "Fruit pulp for smoothies. Blend with ice and water or milk."
   },
   {
     "slug": "smoothies-syrups-mango",
-    "name": "Smoothies Syrups Mango",
+    "name": "Fruit Smoothies – Mango",
     "price": "9.90",
     "price_label": "€9.90 + VAT",
     "group": "Smoothies",
@@ -436,14 +670,26 @@
       "file": "products/smoothies-syrups-mango.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "Smoothies Syrups Mango"
+      "alt": "Fruit Smoothies – Mango",
+      "web": {
+        "sm": {
+          "file": "products/web/smoothies-syrups-mango-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/smoothies-syrups-mango-lg.webp",
+          "width": 918
+        }
+      }
     },
     "featured": false,
-    "pack": "1 ltr"
+    "pack": "1 ltr",
+    "brand": "jean-paul-lab",
+    "description": "Fruit pulp for smoothies. Blend with ice and water or milk."
   },
   {
     "slug": "smoothies-syrups-banana",
-    "name": "Smoothies Syrups Banana",
+    "name": "Fruit Smoothies – Banana",
     "price": "9.90",
     "price_label": "€9.90 + VAT",
     "group": "Smoothies",
@@ -462,14 +708,26 @@
       "file": "products/smoothies-syrups-banana.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "Smoothies Syrups Banana"
+      "alt": "Fruit Smoothies – Banana",
+      "web": {
+        "sm": {
+          "file": "products/web/smoothies-syrups-banana-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/smoothies-syrups-banana-lg.webp",
+          "width": 907
+        }
+      }
     },
     "featured": false,
-    "pack": "1 ltr"
+    "pack": "1 ltr",
+    "brand": "jean-paul-lab",
+    "description": "Fruit pulp for smoothies. Blend with ice and water or milk."
   },
   {
     "slug": "smoothies-syrups-pomegranate",
-    "name": "Smoothies Syrups Pomegranate",
+    "name": "Fruit Smoothies – Pomegranate",
     "price": "9.90",
     "price_label": "€9.90 + VAT",
     "group": "Smoothies",
@@ -488,14 +746,26 @@
       "file": "products/smoothies-syrups-pomegranate.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "Smoothies Syrups Pomegranate"
+      "alt": "Fruit Smoothies – Pomegranate",
+      "web": {
+        "sm": {
+          "file": "products/web/smoothies-syrups-pomegranate-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/smoothies-syrups-pomegranate-lg.webp",
+          "width": 873
+        }
+      }
     },
     "featured": false,
-    "pack": "1 ltr"
+    "pack": "1 ltr",
+    "brand": "jean-paul-lab",
+    "description": "Fruit pulp for smoothies. Blend with ice and water or milk."
   },
   {
     "slug": "smoothies-syrups-strawberry",
-    "name": "Smoothies Syrups Strawberry",
+    "name": "Fruit Smoothies – Strawberry",
     "price": "9.90",
     "price_label": "€9.90 + VAT",
     "group": "Smoothies",
@@ -514,14 +784,26 @@
       "file": "products/smoothies-syrups-strawberry.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "Smoothies Syrups Strawberry"
+      "alt": "Fruit Smoothies – Strawberry",
+      "web": {
+        "sm": {
+          "file": "products/web/smoothies-syrups-strawberry-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/smoothies-syrups-strawberry-lg.webp",
+          "width": 888
+        }
+      }
     },
     "featured": false,
-    "pack": "1 ltr"
+    "pack": "1 ltr",
+    "brand": "jean-paul-lab",
+    "description": "Fruit pulp for smoothies. Blend with ice and water or milk."
   },
   {
     "slug": "milkshake-vanillia",
-    "name": "Milkshake Vanillia",
+    "name": "Milkshake Vanilla",
     "price": "5.70",
     "price_label": "€5.70 + VAT",
     "group": "Milkshakes",
@@ -539,10 +821,22 @@
       "file": "products/milkshake-vanillia.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Milkshake Vanillia"
+      "alt": "Milkshake Vanilla",
+      "web": {
+        "sm": {
+          "file": "products/web/milkshake-vanillia-sm.webp",
+          "width": 558
+        },
+        "lg": {
+          "file": "products/web/milkshake-vanillia-lg.webp",
+          "width": 558
+        }
+      }
     },
     "featured": false,
-    "pack": "350 g"
+    "pack": "350 g",
+    "brand": "jean-paul-lab",
+    "description": "Vanilla milkshake powder, made with real yogurt powder."
   },
   {
     "slug": "milkshake-strawberry",
@@ -564,10 +858,22 @@
       "file": "products/milkshake-strawberry.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Milkshake Strawberry"
+      "alt": "Milkshake Strawberry",
+      "web": {
+        "sm": {
+          "file": "products/web/milkshake-strawberry-sm.webp",
+          "width": 549
+        },
+        "lg": {
+          "file": "products/web/milkshake-strawberry-lg.webp",
+          "width": 549
+        }
+      }
     },
     "featured": false,
-    "pack": "350 g"
+    "pack": "350 g",
+    "brand": "jean-paul-lab",
+    "description": "Strawberry milkshake powder, made with real yogurt powder."
   },
   {
     "slug": "milkshake-chocolate",
@@ -589,10 +895,22 @@
       "file": "products/milkshake-chocolate.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Milkshake Chocolate"
+      "alt": "Milkshake Chocolate",
+      "web": {
+        "sm": {
+          "file": "products/web/milkshake-chocolate-sm.webp",
+          "width": 533
+        },
+        "lg": {
+          "file": "products/web/milkshake-chocolate-lg.webp",
+          "width": 533
+        }
+      }
     },
     "featured": false,
-    "pack": "350 g"
+    "pack": "350 g",
+    "brand": "jean-paul-lab",
+    "description": "Chocolate milkshake powder, made with real yogurt powder."
   },
   {
     "slug": "mon-cheri-ginger-and-citrus",
@@ -614,10 +932,22 @@
       "file": "products/mon-cheri-ginger-and-citrus.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Mon Cheri &#8211; Ginger and Citrus"
+      "alt": "Mon Cheri – Ginger and Citrus",
+      "web": {
+        "sm": {
+          "file": "products/web/mon-cheri-ginger-and-citrus-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/mon-cheri-ginger-and-citrus-lg.webp",
+          "width": 611
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: ginger and citrus."
   },
   {
     "slug": "ginger-and-lemon",
@@ -639,10 +969,22 @@
       "file": "products/ginger-and-lemon.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Ginger and Lemon"
+      "alt": "Ginger and Lemon",
+      "web": {
+        "sm": {
+          "file": "products/web/ginger-and-lemon-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/ginger-and-lemon-lg.webp",
+          "width": 616
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: ginger and lemon."
   },
   {
     "slug": "fit-slim-hibiscus",
@@ -664,10 +1006,22 @@
       "file": "products/fit-slim-hibiscus.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Fit &#038; Slim &#8211; Hibiscus"
+      "alt": "Fit & Slim – Hibiscus",
+      "web": {
+        "sm": {
+          "file": "products/web/fit-slim-hibiscus-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/fit-slim-hibiscus-lg.webp",
+          "width": 612
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: hibiscus."
   },
   {
     "slug": "english-breakfast-black-tea",
@@ -689,10 +1043,22 @@
       "file": "products/english-breakfast-black-tea.jpg",
       "width": 830,
       "height": 839,
-      "alt": "English Breakfast &#8211; Black Tea"
+      "alt": "English Breakfast – Black Tea",
+      "web": {
+        "sm": {
+          "file": "products/web/english-breakfast-black-tea-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/english-breakfast-black-tea-lg.webp",
+          "width": 605
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: English breakfast black tea."
   },
   {
     "slug": "blue-night",
@@ -714,10 +1080,22 @@
       "file": "products/blue-night.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Blue Night"
+      "alt": "Blue Night",
+      "web": {
+        "sm": {
+          "file": "products/web/blue-night-sm.webp",
+          "width": 589
+        },
+        "lg": {
+          "file": "products/web/blue-night-lg.webp",
+          "width": 589
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: Blue Night fruit tea."
   },
   {
     "slug": "red-passion-square-fruit-tea-with-cranberry",
@@ -739,10 +1117,22 @@
       "file": "products/red-passion-square-fruit-tea-with-cranberry.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Red Passion Square Fruit Tea with Cranberry"
+      "alt": "Red Passion Square Fruit Tea with Cranberry",
+      "web": {
+        "sm": {
+          "file": "products/web/red-passion-square-fruit-tea-with-cranberry-sm.webp",
+          "width": 579
+        },
+        "lg": {
+          "file": "products/web/red-passion-square-fruit-tea-with-cranberry-lg.webp",
+          "width": 579
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: fruit tea with cranberry."
   },
   {
     "slug": "purple-diamond-fruits",
@@ -764,10 +1154,22 @@
       "file": "products/purple-diamond-fruits.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Purple Diamond Fruits"
+      "alt": "Purple Diamond Fruits",
+      "web": {
+        "sm": {
+          "file": "products/web/purple-diamond-fruits-sm.webp",
+          "width": 584
+        },
+        "lg": {
+          "file": "products/web/purple-diamond-fruits-lg.webp",
+          "width": 584
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: Purple Diamond fruit tea."
   },
   {
     "slug": "white-life-chamomile",
@@ -789,14 +1191,26 @@
       "file": "products/white-life-chamomile.jpg",
       "width": 830,
       "height": 839,
-      "alt": "White Life &#8211; Chamomile"
+      "alt": "White Life – Chamomile",
+      "web": {
+        "sm": {
+          "file": "products/web/white-life-chamomile-sm.webp",
+          "width": 567
+        },
+        "lg": {
+          "file": "products/web/white-life-chamomile-lg.webp",
+          "width": 567
+        }
+      }
     },
     "featured": false,
-    "pack": "50 g"
+    "pack": "50 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: chamomile."
   },
   {
     "slug": "bienneziko-bals",
-    "name": "Bienneziko Bals",
+    "name": "Viennese Waltz – Coffee and Almond",
     "price": "5.70",
     "price_label": "€5.70 + VAT",
     "group": "Teas",
@@ -814,10 +1228,22 @@
       "file": "products/bienneziko-bals.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Bienneziko Bals"
+      "alt": "Viennese Waltz – Coffee and Almond",
+      "web": {
+        "sm": {
+          "file": "products/web/bienneziko-bals-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/bienneziko-bals-lg.webp",
+          "width": 605
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: coffee and almond."
   },
   {
     "slug": "9th-symphony-herbal-tea",
@@ -839,10 +1265,22 @@
       "file": "products/9th-symphony-herbal-tea.jpg",
       "width": 830,
       "height": 839,
-      "alt": "9th Symphony &#8211; Herbal Tea"
+      "alt": "9th Symphony – Herbal Tea",
+      "web": {
+        "sm": {
+          "file": "products/web/9th-symphony-herbal-tea-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/9th-symphony-herbal-tea-lg.webp",
+          "width": 607
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: herbal blend."
   },
   {
     "slug": "matcha-mix",
@@ -864,10 +1302,22 @@
       "file": "products/matcha-mix.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Matcha Mix"
+      "alt": "Matcha Mix",
+      "web": {
+        "sm": {
+          "file": "products/web/matcha-mix-sm.webp",
+          "width": 574
+        },
+        "lg": {
+          "file": "products/web/matcha-mix-lg.webp",
+          "width": 574
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: matcha mix."
   },
   {
     "slug": "green-tea",
@@ -889,10 +1339,22 @@
       "file": "products/green-tea.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Green Tea"
+      "alt": "Green Tea",
+      "web": {
+        "sm": {
+          "file": "products/web/green-tea-sm.webp",
+          "width": 591
+        },
+        "lg": {
+          "file": "products/web/green-tea-lg.webp",
+          "width": 591
+        }
+      }
     },
     "featured": false,
-    "pack": "100 g"
+    "pack": "100 g",
+    "brand": "jean-paul-lab",
+    "description": "Jean Paul Lab tea: green tea."
   },
   {
     "slug": "waffle-mix",
@@ -914,10 +1376,22 @@
       "file": "products/waffle-mix.jpg",
       "width": 1085,
       "height": 837,
-      "alt": "Waffle Mix"
+      "alt": "Waffle Mix",
+      "web": {
+        "sm": {
+          "file": "products/web/waffle-mix-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/waffle-mix-lg.webp",
+          "width": 836
+        }
+      }
     },
     "featured": false,
-    "pack": "3 kg"
+    "pack": "3 kg",
+    "brand": "jean-paul-lab",
+    "description": "Waffle mix for the café kitchen."
   },
   {
     "slug": "pancake-mix",
@@ -939,10 +1413,22 @@
       "file": "products/pancake-mix.jpg",
       "width": 1085,
       "height": 837,
-      "alt": "Pancake Mix"
+      "alt": "Pancake Mix",
+      "web": {
+        "sm": {
+          "file": "products/web/pancake-mix-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/pancake-mix-lg.webp",
+          "width": 837
+        }
+      }
     },
     "featured": false,
-    "pack": "3 kg"
+    "pack": "3 kg",
+    "brand": "jean-paul-lab",
+    "description": "Pancake mix, served in countless combinations."
   },
   {
     "slug": "crepe-mix",
@@ -964,10 +1450,22 @@
       "file": "products/crepe-mix.jpg",
       "width": 1085,
       "height": 837,
-      "alt": "Crepe Mix"
+      "alt": "Crepe Mix",
+      "web": {
+        "sm": {
+          "file": "products/web/crepe-mix-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/crepe-mix-lg.webp",
+          "width": 837
+        }
+      }
     },
     "featured": false,
-    "pack": "3 kg"
+    "pack": "3 kg",
+    "brand": "jean-paul-lab",
+    "description": "Crepe mix, balanced for sweet or savoury crepes."
   },
   {
     "slug": "strawberry-granita",
@@ -989,10 +1487,22 @@
       "file": "products/strawberry-granita.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Strawberry Granita Powder"
+      "alt": "Strawberry Granita Powder",
+      "web": {
+        "sm": {
+          "file": "products/web/strawberry-granita-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/strawberry-granita-lg.webp",
+          "width": 750
+        }
+      }
     },
     "featured": false,
-    "pack": "500 g"
+    "pack": "500 g",
+    "brand": "jean-paul-lab",
+    "description": "Granita powder, easily prepared in a granita machine. Strawberry flavour, no preservatives."
   },
   {
     "slug": "lemon-granita-powder",
@@ -1013,10 +1523,22 @@
       "file": "products/lemon-granita-powder.jpg",
       "width": 830,
       "height": 839,
-      "alt": "Lemon Granita Powder"
+      "alt": "Lemon Granita Powder",
+      "web": {
+        "sm": {
+          "file": "products/web/lemon-granita-powder-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/lemon-granita-powder-lg.webp",
+          "width": 778
+        }
+      }
     },
     "featured": false,
-    "pack": "500 g"
+    "pack": "500 g",
+    "brand": "jean-paul-lab",
+    "description": "Granita powder, easily prepared in a granita machine. Lemon flavour, no preservatives."
   },
   {
     "slug": "granite-straws-x-1000-pcs",
@@ -1034,10 +1556,22 @@
       "file": "products/granite-straws-x-1000-pcs.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Studio photograph of granita straws."
+      "alt": "Granite Straws × 1000 pcs",
+      "web": {
+        "sm": {
+          "file": "products/web/granite-straws-x-1000-pcs-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/granite-straws-x-1000-pcs-lg.webp",
+          "width": 1167
+        }
+      }
     },
     "featured": false,
-    "pack": "1000 pcs"
+    "pack": "1000 pcs",
+    "brand": "essentials",
+    "description": "Granita straws, pack of 1000. Price on request."
   },
   {
     "slug": "frappe-straws-x-500",
@@ -1055,10 +1589,22 @@
       "file": "products/frappe-straws-x-500.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Studio photograph of frappe straws."
+      "alt": "Frappé Straws × 500 pcs",
+      "web": {
+        "sm": {
+          "file": "products/web/frappe-straws-x-500-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/frappe-straws-x-500-lg.webp",
+          "width": 1167
+        }
+      }
     },
     "featured": false,
-    "pack": "500 pcs"
+    "pack": "500 pcs",
+    "brand": "essentials",
+    "description": "Frappé straws, pack of 500. Price on request."
   },
   {
     "slug": "fredo-straws-x-1000",
@@ -1076,10 +1622,22 @@
       "file": "products/fredo-straws-x-1000.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Studio photograph of freddo straws."
+      "alt": "Fredo Straws × 1000 pcs",
+      "web": {
+        "sm": {
+          "file": "products/web/fredo-straws-x-1000-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/fredo-straws-x-1000-lg.webp",
+          "width": 1167
+        }
+      }
     },
     "featured": false,
-    "pack": "1000 pcs"
+    "pack": "1000 pcs",
+    "brand": "essentials",
+    "description": "Freddo straws, pack of 1000. Price on request."
   },
   {
     "slug": "quadruple-paper-bases",
@@ -1097,9 +1655,21 @@
       "file": "products/quadruple-paper-bases.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Four cups in a carrier, with the Vittorio name printed on the cups."
+      "alt": "Quadruple Paper Bases",
+      "web": {
+        "sm": {
+          "file": "products/web/quadruple-paper-bases-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/quadruple-paper-bases-lg.webp",
+          "width": 1167
+        }
+      }
     },
-    "featured": false
+    "featured": false,
+    "brand": "essentials",
+    "description": "Paper cup carriers for four drinks. Price on request."
   },
   {
     "slug": "double-paper-bases",
@@ -1117,9 +1687,21 @@
       "file": "products/double-paper-bases.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Two cups in a carrier, with the Vittorio name printed on the cups."
+      "alt": "Double Paper Bases",
+      "web": {
+        "sm": {
+          "file": "products/web/double-paper-bases-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/double-paper-bases-lg.webp",
+          "width": 1167
+        }
+      }
     },
-    "featured": false
+    "featured": false,
+    "brand": "essentials",
+    "description": "Paper cup carriers for two drinks. Price on request."
   },
   {
     "slug": "transparent-lids-x-50",
@@ -1137,10 +1719,22 @@
       "file": "products/transparent-lids-x-50.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Studio photograph of transparent cup lids."
+      "alt": "Transparent Lids × 50",
+      "web": {
+        "sm": {
+          "file": "products/web/transparent-lids-x-50-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/transparent-lids-x-50-lg.webp",
+          "width": 1167
+        }
+      }
     },
     "featured": false,
-    "pack": "50 pcs"
+    "pack": "50 pcs",
+    "brand": "essentials",
+    "description": "Transparent lids, pack of 50. Price on request."
   },
   {
     "slug": "black-lids-12-16oz",
@@ -1158,9 +1752,21 @@
       "file": "products/black-lids-12-16oz.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Studio photograph of black cup lids."
+      "alt": "Black Lids 12 – 16oz",
+      "web": {
+        "sm": {
+          "file": "products/web/black-lids-12-16oz-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/black-lids-12-16oz-lg.webp",
+          "width": 1167
+        }
+      }
     },
-    "featured": false
+    "featured": false,
+    "brand": "essentials",
+    "description": "Black lids for 12–16 oz cups. Price on request."
   },
   {
     "slug": "glasses-4-oz-8-oz-12-oz-16-oz",
@@ -1178,9 +1784,21 @@
       "file": "products/glasses-4-oz-8-oz-12-oz-16-oz.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Four glasses with the Vittorio name printed on each glass."
+      "alt": "Glasses 4 oz, 8 oz, 12 oz, 16 oz",
+      "web": {
+        "sm": {
+          "file": "products/web/glasses-4-oz-8-oz-12-oz-16-oz-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/glasses-4-oz-8-oz-12-oz-16-oz-lg.webp",
+          "width": 1167
+        }
+      }
     },
-    "featured": false
+    "featured": false,
+    "brand": "essentials",
+    "description": "Cups in 4, 8, 12 and 16 oz. Price on request."
   },
   {
     "slug": "plastic-glasses-300ml-400ml",
@@ -1198,8 +1816,20 @@
       "file": "products/plastic-glasses-300ml-400ml.png",
       "width": 1024,
       "height": 1024,
-      "alt": "Two plastic glasses with the Vittorio name printed on each glass."
+      "alt": "Plastic Glasses 300ml & 400ml",
+      "web": {
+        "sm": {
+          "file": "products/web/plastic-glasses-300ml-400ml-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/plastic-glasses-300ml-400ml-lg.webp",
+          "width": 1167
+        }
+      }
     },
-    "featured": false
+    "featured": false,
+    "brand": "essentials",
+    "description": "Plastic cups, 300 ml and 400 ml. Price on request."
   }
 ]

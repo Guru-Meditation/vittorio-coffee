@@ -56,6 +56,48 @@ for item in PRODUCTS:
     if item["group"] not in GROUPS:
         GROUPS.append(item["group"])
 
+# The two houses this Cyprus representative carries. Facts come from vittorio.gr and jeanpaul.gr.
+BRANDS = [
+    {
+        "slug": "vittorio",
+        "name": "Vittorio Gourmet Espresso",
+        "short": "Vittorio",
+        "logo": {"file": "brand/logo-footer.png", "width": 678, "height": 275},
+        "line": "Italian-style espresso since 2000",
+        "body": "Espresso blends, single origins, Greek and filter coffee, and La Vittoria chocolate, roasted in Athens from Arabica and Robusta beans sourced worldwide.",
+        "site": "https://www.vittorio.gr/",
+        "showcase": ["espresso-grande", "costa-rica", "chocolate-powder-la-vittoria-classic"],
+    },
+    {
+        "slug": "jean-paul-lab",
+        "name": "Jean Paul Lab",
+        "short": "Jean Paul Lab",
+        "logo": {"file": "brand/jean-paul.png", "width": 294, "height": 156},
+        "line": "Premium beverages and dessert mixes",
+        "body": "Teas, smoothies, milkshakes, granitas, syrups, aromatic chocolates, soft ice cream and waffle, pancake and crepe mixes, made in Athens under ISO 22000.",
+        "site": "https://www.jeanpaul.gr/index.php/en",
+        "showcase": ["smoothies-syrups-mango", "blue-night", "chocolate-with-bueno-biscuit-no-3"],
+    },
+]
+BRANDS_BY_SLUG = {brand["slug"]: brand for brand in BRANDS}
+BRAND_FILTERS = [
+    {"slug": "vittorio", "label": "Vittorio"},
+    {"slug": "jean-paul-lab", "label": "Jean Paul Lab"},
+    {"slug": "essentials", "label": "Café essentials"},
+]
+BRAND_LABELS = {entry["slug"]: entry["label"] for entry in BRAND_FILTERS}
+for brand in BRANDS:
+    brand["count"] = sum(1 for item in PRODUCTS if item.get("brand") == brand["slug"])
+    brand["products"] = [PRODUCTS_BY_SLUG[slug] for slug in brand["showcase"]]
+
+ANNOUNCEMENT = "Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab"
+
+ORDER_STEPS = [
+    {"title": "Choose", "body": "Every product shows its trade price plus VAT."},
+    {"title": "Order", "body": "Place the order online, or send it on Viber."},
+    {"title": "Receive", "body": "Delivered by car anywhere in Cyprus. Pay cash on delivery."},
+]
+
 ORDER = {
     "vat_rate": "0.05",
     "vat_label": "5%",
