@@ -97,6 +97,18 @@
     <button class="button" type="submit">Submit order</button>
   </form>
   {% else %}
+  {% if reorder_items %}
+  <div class="order-sheet order-again">
+    <h2 class="order-sheet-title">Your last order</h2>
+    <ul class="order-again-list">
+      {% for item in reorder_items %}
+      {% set pack = catalog_pack_label(item.product) %}
+      <li><span class="order-again-qty">{{ item.qty }} ×</span> {{ item.product.name }}{% if pack %} <span class="muted">· {{ pack }}</span>{% endif %}</li>
+      {% endfor %}
+    </ul>
+    <a class="button" href="{{ url_for('order_again') }}">Order the same again</a>
+  </div>
+  {% endif %}
   <div class="order-sheet order-empty">
     <p>Your order list is empty.</p>
     <p><a class="button" href="{{ url_for('products') }}">Browse the catalogue</a></p>

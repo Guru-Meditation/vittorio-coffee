@@ -64,3 +64,40 @@ def test_formsubmit_string_true_is_a_success(monkeypatch):
         lambda request, timeout: _FakeResponse('{"success":"true","message":"The form was submitted successfully."}'),
     )
     assert mailing._send_formsubmit("Vittorio order X", "body") is True
+
+
+def test_customer_copy_lists_items_totals_and_reorder_link():
+    placed = {
+        "ref": "ABC123",
+        "name": "Koxar",
+        "town": "Larnaca",
+        "business_name": "Harbour Bar",
+        "lines": [{"slug": "costa-rica", "name": "Costa Rica", "qty": 2, "pack": "0.5 kg", "line_total": "€29.20"}],
+        "totals": {"subtotal": "€29.20", "vat_label": "5%", "vat": "€1.46", "delivery": "€5.00", "total": "€35.66"},
+    }
+    subject, body = mailing.format_customer_copy(placed, "https://example.test/order/again?items=costa-rica:2")
+    assert subject == "Your Vittorio order ABC123"
+    assert "2 x Costa Rica (0.5 kg): €29.20" in body
+    assert "Total to pay on delivery: €35.66" in body
+    assert "https://example.test/order/again?items=costa-rica:2" in body
+
+
+def test_customer_copy_goes_to_customer_via_smtp(monkeypatch):
+    calls = {}
+    monkeypatch.setenv("SMTP_PASSWORD", "abcdefghijklmnop")
+
+    def fake_send_smtp(subject, body, *, reply_to=None, to=None):
+        calls.update(subject=subject, reply_to=reply_to, to=to)
+        return True
+
+    monkeypatch.setattr(mailing, "_send_smtp", fake_send_smtp)
+    assert mailing.send_customer_copy("Your Vittorio order X", "body", "cafe@example.com") is True
+    assert calls["to"] == "cafe@example.com"
+    assert calls["reply_to"] == mailing.DEFAULT_TO
+
+
+def test_customer_copy_skipped_without_smtp(monkeypatch):
+    monkeypatch.delenv("SMTP_PASSWORD", raising=False)
+    monkeypatch.delenv("GMAIL_APP_PASSWORD", raising=False)
+    monkeypatch.setattr(mailing, "_read_smtp_password", lambda: "")
+    assert mailing.send_customer_copy("Your Vittorio order X", "body", "cafe@example.com") is False

@@ -1,7 +1,9 @@
 import json
+import logging
 import os
 import re
 import secrets
+from datetime import timedelta
 from decimal import Decimal, InvalidOperation
 from urllib.parse import quote, urljoin
 
@@ -20,10 +22,42 @@ from content import (
     CYPRUS_B2B,
     catalog_pack_label,
 )
-from mailing import format_order_mail, mail_transport_status, send_mail, viber_order_href
+from mailing import (
+    SITE_URL,
+    format_customer_copy,
+    format_order_mail,
+    mail_transport_status,
+    send_customer_copy,
+    send_mail,
+    viber_order_href,
+)
 from order_pricing import compute_order_totals, totals_for_session
 
+# INFO so the Render logs show which route delivered each email.
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
+
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+CUSTOMER_FIELDS = ("name", "business_name", "email", "phone", "town")
+
+
+def reorder_param(lines):
+    """Compact 'slug:qty,slug:qty' list; carries no personal data, so it is safe in a link."""
+    return ",".join(f"{line['slug']}:{line['qty']}" for line in lines if line.get("slug"))
+
+
+def parse_reorder(raw):
+    items = {}
+    for part in (raw or "").split(","):
+        slug, _, qty = part.strip().partition(":")
+        if slug not in PRODUCTS_BY_SLUG:
+            continue
+        try:
+            quantity = int(qty)
+        except ValueError:
+            continue
+        if quantity > 0:
+            items[slug] = min(quantity, 99)
+    return items
 
 
 def _phone_ok(raw):
@@ -87,6 +121,8 @@ def order_checkout_context(lines, missing):
 def create_app():
     app = Flask(__name__)
     app.secret_key = os.environ.get("SECRET_KEY", "vittorio-order-session")
+    # Regular cafés reorder weekly; remember their details and last order for a year.
+    app.permanent_session_lifetime = timedelta(days=365)
     app.jinja_env.globals["catalog_pack_label"] = catalog_pack_label
 
     def suppress_mail():
@@ -266,6 +302,8 @@ def create_app():
         checkout = order_checkout_context(lines, missing)
         errors = {}
         values = {"name": "", "business_name": "", "email": "", "phone": "", "town": "", "notes": ""}
+        saved = session.get("customer") or {}
+        values.update({key: saved.get(key, "") for key in CUSTOMER_FIELDS})
         if request.method == "POST":
             values = {key: request.form.get(key, "").strip() for key in values}
             if request.form.get("company_website", "").strip():
@@ -294,6 +332,7 @@ def create_app():
                 "ref": secrets.token_hex(3).upper(),
                 "lines": [
                     {
+                        "slug": line["product"]["slug"],
                         "name": line["product"]["name"],
                         "qty": line["qty"],
                         "pack": line.get("pack") or catalog_pack_label(line["product"]),
@@ -308,17 +347,42 @@ def create_app():
             if checkout["totals"]:
                 placed["subtotal"] = checkout["totals"]["subtotal"]
             placed["email_sent"] = deliver_order_to_depot(placed)
+            placed["customer_copy_sent"] = email_customer_copy(placed)
+            session.permanent = True
+            session["customer"] = {key: values[key] for key in CUSTOMER_FIELDS}
+            session["reorder"] = reorder_param(placed["lines"])
             session["cart"] = {}
             session["last_order"] = placed
             return redirect(url_for("order_done"))
+        reorder_items = []
+        if not lines:
+            reorder_items = [
+                {"product": PRODUCTS_BY_SLUG[slug], "qty": qty}
+                for slug, qty in parse_reorder(session.get("reorder")).items()
+            ]
         return page(
             "order.html",
             "Your order — Vittorio Gourmet Espresso",
             "Place a coffee and café-supply order for delivery by car in Cyprus.",
             errors=errors,
             values=values,
+            reorder_items=reorder_items,
             **checkout,
         )
+
+    @app.get("/order/again")
+    def order_again():
+        """Refill the order list from an emailed link, or from this browser's last order."""
+        items = parse_reorder(request.args.get("items") or session.get("reorder"))
+        if not items:
+            return redirect(url_for("products"))
+        session["cart"] = items
+        return redirect(url_for("order"))
+
+    def email_customer_copy(placed):
+        reorder_url = SITE_URL + url_for("order_again", items=reorder_param(placed["lines"]))
+        subject, body = format_customer_copy(placed, reorder_url)
+        return send_customer_copy(subject, body, placed["email"], suppress=suppress_mail())
 
     def deliver_order_to_depot(placed):
         subject, order_body = format_order_mail(placed)

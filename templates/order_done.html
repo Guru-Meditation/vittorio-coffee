@@ -9,7 +9,7 @@
   </header>
 
   {% if placed.email_sent %}
-  <p class="order-banner order-banner-success">Your order has been sent to Vittorio.</p>
+  <p class="order-banner order-banner-success">Your order has been sent to Vittorio.{% if placed.customer_copy_sent %} A copy is on its way to {{ placed.email }}.{% endif %}</p>
   {% else %}
   <p class="order-banner order-banner-warning">Your order has not reached Vittorio yet. Tap Contact on Viber below and send the message. It already contains your order.</p>
   {% endif %}

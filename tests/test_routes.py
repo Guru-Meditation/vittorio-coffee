@@ -250,3 +250,42 @@ def test_order_confirmation_warns_when_depot_email_fails(monkeypatch):
     body = client.get("/order/received").get_data(as_text=True)
     assert "has not reached Vittorio yet" in body
     assert "viber://chat" in body
+
+
+def test_order_again_link_refills_cart_with_valid_items(client):
+    response = client.get("/order/again?items=costa-rica:2,not-a-product:1,filter:0")
+    assert response.status_code == 302
+    assert response.headers["Location"].endswith("/order")
+    page = client.get("/order").get_data(as_text=True)
+    assert 'name="qty-costa-rica" type="number" min="0" max="99" value="2"' in page
+    assert "qty-filter" not in page
+
+
+def test_order_again_without_items_goes_to_catalogue(client):
+    response = client.get("/order/again")
+    assert response.status_code == 302
+    assert response.headers["Location"].endswith("/products")
+
+
+def test_repeat_customer_sees_last_order_and_saved_details(client):
+    client.post("/cart/add", data={"slug": "costa-rica", "qty": "3"})
+    client.post(
+        "/order",
+        data={
+            "name": "Koxar",
+            "business_name": "Harbour Bar",
+            "phone": "99123456",
+            "email": "koxar@example.com",
+            "town": "Larnaca",
+        },
+    )
+    done = client.get("/order/received").get_data(as_text=True)
+    assert "A copy is on its way to koxar@example.com" in done
+    page = client.get("/order").get_data(as_text=True)
+    assert "Your last order" in page
+    assert "Order the same again" in page
+    assert 'value="99123456"' not in page  # checkout form is hidden until the cart has items
+    client.get("/order/again")
+    refilled = client.get("/order").get_data(as_text=True)
+    assert 'name="qty-costa-rica" type="number" min="0" max="99" value="3"' in refilled
+    assert 'value="99123456"' in refilled

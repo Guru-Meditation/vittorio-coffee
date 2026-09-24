@@ -55,7 +55,14 @@ def format_order_mail(placed):
     for line in placed.get("lines") or []:
         pack = (line.get("pack") or "").strip() or "—"
         lines.append(f"{line['qty']}\t{pack}\t{line['name']}\t{line['line_total']}")
+    lines.extend(_totals_block(placed))
+    subject = f"Vittorio order {placed['ref']}"
+    return subject, "\n".join(lines)
+
+
+def _totals_block(placed):
     totals = placed.get("totals")
+    lines = []
     if totals:
         lines.extend(
             [
@@ -69,8 +76,40 @@ def format_order_mail(placed):
     elif placed.get("subtotal"):
         lines.append(f"Subtotal (ex VAT): {placed['subtotal']}")
     lines.append("Payment: cash on delivery only.")
-    subject = f"Vittorio order {placed['ref']}"
-    return subject, "\n".join(lines)
+    return lines
+
+
+def format_customer_copy(placed, reorder_url):
+    """Receipt emailed to the customer, with a link that refills the same order."""
+    lines = [
+        f"Dear {placed.get('name', '')},",
+        "",
+        f"Thank you for your order with {BUSINESS['name']}. We will confirm it before delivery.",
+        "",
+        f"Order reference: {placed['ref']}",
+        f"Delivery to: {placed.get('town', '')}, Cyprus",
+    ]
+    if placed.get("business_name"):
+        lines.append(f"Business: {placed['business_name']}")
+    lines.append("")
+    for line in placed.get("lines") or []:
+        pack = (line.get("pack") or "").strip()
+        pack_text = f" ({pack})" if pack else ""
+        lines.append(f"{line['qty']} x {line['name']}{pack_text}: {line['line_total']}")
+    lines.extend(_totals_block(placed))
+    lines.extend(
+        [
+            "",
+            "Order the same again:",
+            reorder_url,
+            "",
+            "Questions about your order? Reply to this email.",
+            "",
+            BUSINESS["name"],
+            f"{BUSINESS['locality']}, {BUSINESS['region']}, {BUSINESS['country']}",
+        ]
+    )
+    return f"Your Vittorio order {placed['ref']}", "\n".join(lines)
 
 
 def _normalize_app_password(raw):
@@ -225,6 +264,21 @@ def _send_formsubmit(subject, body, *, reply_to=None):
         log.warning("FormSubmit rejected mail: %s", result)
         return False
     return True
+
+
+def send_customer_copy(subject, body, to, *, suppress=False):
+    """Email the customer from the depot Gmail. Only SMTP can reach arbitrary addresses."""
+    if suppress:
+        return True
+    if not _read_smtp_password():
+        return False
+    try:
+        if _send_smtp(subject, body, reply_to=DEFAULT_TO, to=to):
+            log.info("Customer copy sent for %s", subject)
+            return True
+    except (OSError, smtplib.SMTPException, ValueError) as err:
+        log.warning("Customer copy failed for %s: %s", subject, err)
+    return False
 
 
 def send_mail(subject, body, *, reply_to=None, to=None, suppress=False):

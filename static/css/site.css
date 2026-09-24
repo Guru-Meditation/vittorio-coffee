@@ -540,6 +540,11 @@ body.nav-open #site-nav { display: block; }
 .order-line h3 { font-size: 1.15rem; margin: 0; }
 .order-line h3 a { color: inherit; text-decoration: none; }
 .order-empty { text-align: center; padding: 2rem 1.4rem; }
+.order-again { margin-bottom: 1.25rem; }
+.order-again-list { list-style: none; margin: 0 0 1.1rem; padding: 0; }
+.order-again-list li { padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
+.order-again-list li:last-child { border-bottom: 0; }
+.order-again-qty { font-weight: 600; }
 .text-link { font-weight: 500; }
 .optional {
   color: var(--muted);
