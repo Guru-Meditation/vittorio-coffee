@@ -398,6 +398,7 @@ EL = {
         "Προτείνετε ένα καφέ, μπαρ ή ξενοδοχείο στη Vittorio και λάβετε 1 kg espresso με την πρώτη τους παραγγελία.",
     "Review us on Google": "Αξιολογήστε μας στο Google",
     "Review us on Trustpilot": "Αξιολογήστε μας στο Trustpilot",
+    "Review us on Google:": "Αξιολογήστε μας στο Google:",
     "Recommend a café, receive 1 kg of espresso:": "Προτείνετε ένα καφέ και λάβετε 1 kg espresso:",
     # Customer copy email
     "Dear {name},": "Γεια σας {name},",

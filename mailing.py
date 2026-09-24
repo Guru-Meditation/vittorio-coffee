@@ -117,6 +117,8 @@ def format_customer_copy(placed, reorder_url, lang="en", refer_url=None):
     )
     if refer_url:
         lines.extend([t("Recommend a café, receive 1 kg of espresso:"), refer_url, ""])
+    if BUSINESS.get("reviews"):
+        lines.extend([t("Review us on Google:"), BUSINESS["reviews"], ""])
     lines.extend(
         [
             t("Questions about your order? Reply to this email."),

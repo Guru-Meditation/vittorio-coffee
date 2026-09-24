@@ -370,6 +370,7 @@ def test_customer_copy_carries_referral_link():
     placed = {"ref": "V1", "name": "K", "town": "Larnaca", "lines": []}
     _subject, body = format_customer_copy(placed, "https://x/order/again", refer_url="https://x/refer")
     assert "https://x/refer" in body
+    assert "g.page/r/" in body
 
 
 def test_review_and_verification_slots_render_only_when_set(client, monkeypatch):
@@ -378,6 +379,8 @@ def test_review_and_verification_slots_render_only_when_set(client, monkeypatch)
     page = client.get("/").get_data(as_text=True)
     assert "google-site-verification" not in page
     assert "Trustpilot" not in page
+    monkeypatch.setitem(BUSINESS, "reviews", "")
+    assert "Review us on Google" not in client.get("/").get_data(as_text=True)
     monkeypatch.setitem(BUSINESS, "search_console", "abc123")
     monkeypatch.setitem(BUSINESS, "trustpilot", "https://www.trustpilot.com/review/example")
     monkeypatch.setitem(BUSINESS, "reviews", "https://g.page/r/example/review")

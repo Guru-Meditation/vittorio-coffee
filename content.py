@@ -111,7 +111,7 @@ BUSINESS = {
     "viber": "viber://chat?number=%2B35799766848",
     "phone": "+35799766848",
     # Google Business Profile "Ask for reviews" link; the footer shows it once set.
-    "reviews": "",
+    "reviews": "https://g.page/r/CRkhDH0foV3FEBM/review",
     "trustpilot": "",
     # Google Search Console "HTML tag" verification code (the content="..." value only).
     "search_console": "",
