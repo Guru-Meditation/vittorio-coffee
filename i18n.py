@@ -22,6 +22,7 @@ EL = {
     "Language": "Γλώσσα",
     "Primary": "Κύριο μενού",
     "Menu": "Μενού",
+    "Home": "Αρχική",
     "Catalogue": "Κατάλογος",
     "Order": "Παραγγελία",
     "B2B Services": "Υπηρεσίες B2B",

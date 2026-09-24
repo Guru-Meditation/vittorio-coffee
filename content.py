@@ -128,6 +128,7 @@ BUSINESS = {
 }
 
 NAV = [
+    {"label": "Home", "endpoint": "home"},
     {"label": "Catalogue", "endpoint": "products"},
     {"label": "Order", "endpoint": "order"},
     {"label": "B2B Services", "endpoint": "cyprus"},
