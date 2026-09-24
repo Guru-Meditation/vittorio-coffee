@@ -64,7 +64,7 @@ BRANDS = [
         "short": "Vittorio",
         "logo": {"file": "brand/logo-footer.png", "width": 678, "height": 275},
         "line": "Italian-style espresso since 2000",
-        "body": "Espresso blends, single origins, Greek and filter coffee, and La Vittoria chocolate, roasted in Athens from Arabica and Robusta beans sourced worldwide.",
+        "body": "Espresso blends, single origins, Greek and filter coffee, and chocolate.",
         "site": "https://www.vittorio.gr/",
         "showcase": ["espresso-grande", "costa-rica", "chocolate-powder-la-vittoria-classic"],
     },
@@ -74,7 +74,7 @@ BRANDS = [
         "short": "Jean Paul Lab",
         "logo": {"file": "brand/jean-paul.png", "width": 294, "height": 156},
         "line": "Premium beverages and dessert mixes",
-        "body": "Teas, smoothies, milkshakes, granitas, syrups, aromatic chocolates, soft ice cream and waffle, pancake and crepe mixes, made in Athens under ISO 22000.",
+        "body": "Teas, smoothies, milkshakes, granitas, syrups and dessert mixes.",
         "site": "https://www.jeanpaul.gr/index.php/en",
         "showcase": ["smoothies-syrups-mango", "blue-night", "chocolate-with-bueno-biscuit-no-3"],
     },
@@ -91,12 +91,6 @@ for brand in BRANDS:
     brand["products"] = [PRODUCTS_BY_SLUG[slug] for slug in brand["showcase"]]
 
 ANNOUNCEMENT = "Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab"
-
-ORDER_STEPS = [
-    {"title": "Choose", "body": "Every product shows its trade price plus VAT."},
-    {"title": "Order", "body": "Place the order online, or send it on Viber."},
-    {"title": "Receive", "body": "Delivered by car anywhere in Cyprus. Pay cash on delivery."},
-]
 
 ORDER = {
     "vat_rate": "0.05",
@@ -115,7 +109,7 @@ BUSINESS = {
     "country": "Cyprus",
     "maps": "https://www.google.com/maps/search/?api=1&query=Kalo+Xorio%2C+Larnaca%2C+Cyprus",
     "viber": "viber://chat?number=%2B35799766848",
-    "delivery": "Car delivery to cafés and bars across Cyprus. Nothing leaves the island.",
+    "delivery": "Delivery to cafés, bars and hotels across Cyprus.",
     "machines": ["Apia Life", "Sanremo", "Expobar"],
     "social": [
         {"label": "Facebook", "href": "https://www.facebook.com/profile.php?id=100095007198368"},
@@ -215,11 +209,11 @@ ARTICLES = [
 FAQ = [
     {
         "question": "Where do you deliver from?",
-        "answer": "From the depot in Kalo Xorio, Larnaca. A car takes orders to cafés and bars anywhere in Cyprus. We do not ship abroad.",
+        "answer": "From Kalo Xorio, Larnaca, to anywhere in Cyprus. We do not ship abroad.",
     },
     {
         "question": "How does an order get confirmed?",
-        "answer": "Build the list on this site and place the order. It is emailed to the depot. Payment is cash on delivery only — no card on this site. Prices are plus VAT. We may confirm details on Contact before the car leaves Kalo Xorio.",
+        "answer": "Order on this site or on Viber. We confirm every order before delivery. Prices exclude VAT; payment is cash on delivery.",
     },
     {
         "question": "How do returns work?",
@@ -231,11 +225,11 @@ FAQ = [
     },
     {
         "question": "Who do you supply?",
-        "answer": "Cafés and bars across Cyprus. The delivery is by car, from the Kalo Xorio depot, and it stays on the island.",
+        "answer": "Cafés, bars, hotels and retail customers across Cyprus.",
     },
     {
         "question": "Which machines do you place?",
-        "answer": "Apia Life, Sanremo, and Expobar. The machine is offered with no charge for as long as the partnership continues. Setup guidance is free once we start working together.",
+        "answer": "Apia Life, Sanremo and Expobar, at no charge for partners, with free setup and training.",
     },
     {
         "question": "Do you mark dietary claims?",
@@ -258,3 +252,12 @@ HERO = {
         {"slug": "smoothies-syrups-mango", "kind": "bottle", "width": 262, "height": 808},
     ],
 }
+# Each pack on the counter explains itself in a hover card and opens its catalogue category.
+for pack in HERO["packs"]:
+    product = PRODUCTS_BY_SLUG[pack["slug"]]
+    pack["name"] = product["name"]
+    pack["group"] = product["group"]
+    pack["description"] = product.get("description", "")
+    pack["price_label"] = product["price_label"]
+    pack["size"] = catalog_pack_label(product)
+    pack["brand"] = BRAND_LABELS.get(product.get("brand"), "")

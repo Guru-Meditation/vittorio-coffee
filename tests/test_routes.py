@@ -188,7 +188,7 @@ def test_order_flow_and_cyprus_delivery(client):
     body = done.get_data(as_text=True)
     assert "Harbour Bar" in body
     assert "99123456" in body
-    assert "payment on delivery" in body.lower()
+    assert "cash on delivery" in body.lower()
     assert "Order confirmation" in body
     assert "Reference" in body
     assert "0.5 kg" in body
@@ -318,3 +318,20 @@ def test_home_hero_uses_real_packshots(client):
     assert "images/hero/espresso-grande.webp" in home
     assert "images/hero/smoothies-syrups-mango.webp" in home
     assert "brand/share.jpg" in home  # link preview image
+
+
+def test_home_copy_stays_short(client):
+    home = client.get("/").get_data(as_text=True)
+    assert "by car" not in home.lower()
+    assert "Choose" not in home
+    assert "steps" not in home
+
+
+def test_hero_packs_explain_and_open_their_category(client):
+    home = client.get("/").get_data(as_text=True)
+    assert 'href="/products?category=Coffee"' in home
+    assert 'href="/products?category=Teas"' in home
+    assert 'role="tooltip"' in home
+    assert "Jean Paul Lab tea: Blue Night fruit tea." in home
+    assert "All teas" in home
+    assert 'href="/products?brand=jean-paul-lab&amp;category=Smoothies"' in home

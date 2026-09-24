@@ -7,25 +7,43 @@
       <h1>{{ hero.headline }}</h1>
       <p class="hero-sub">Official representative in Cyprus of <strong>Vittorio Gourmet Espresso</strong> and <strong>Jean Paul Lab</strong>.</p>
     </div>
-    <div class="hero-counter" role="img" aria-label="{{ hero.alt }}">
+    <div class="hero-counter" role="list" aria-label="Featured products">
       {% for pack in hero.packs %}
-      <img class="pack pack-{{ pack.kind }}{% if pack.wide_only %} wide-only{% endif %}" src="{{ url_for('static', filename='images/hero/' ~ pack.slug ~ '.webp') }}" alt="" width="{{ pack.width }}" height="{{ pack.height }}" {% if loop.index <= 3 %}fetchpriority="high"{% endif %} decoding="async" style="--i: {{ loop.index0 }}">
+      {% set align = "start" if loop.index <= 2 else ("end" if loop.revindex <= 2 else "center") %}
+      <div class="pack-wrap pack-{{ pack.kind }} align-{{ align }}{% if pack.wide_only %} wide-only{% endif %}" role="listitem" style="--i: {{ loop.index0 }}">
+        <a class="pack" href="{{ url_for('products', category=pack.group) }}" aria-describedby="card-{{ pack.slug }}">
+          <img src="{{ url_for('static', filename='images/hero/' ~ pack.slug ~ '.webp') }}" alt="{{ pack.name }}" width="{{ pack.width }}" height="{{ pack.height }}" {% if loop.index <= 3 %}fetchpriority="high"{% endif %} decoding="async">
+        </a>
+        <div class="pack-card" id="card-{{ pack.slug }}" role="tooltip">
+          <p class="eyebrow">{{ pack.brand }} · {{ pack.group }}</p>
+          <p class="pack-card-name">{{ pack.name }}</p>
+          {% if pack.description %}<p class="pack-card-desc">{{ pack.description }}</p>{% endif %}
+          <p class="pack-card-price">{% if pack.size %}{{ pack.size }} · {% endif %}{{ pack.price_label }}</p>
+          <div class="pack-card-actions">
+            <a class="text-link" href="{{ url_for('products', category=pack.group) }}">All {{ pack.group | lower }}</a>
+            <form method="post" action="{{ url_for('cart_add') }}">
+              <input type="hidden" name="slug" value="{{ pack.slug }}">
+              <input type="hidden" name="next" value="{{ url_for('order') }}">
+              <button class="button button-small" type="submit">Add to order</button>
+            </form>
+          </div>
+        </div>
+      </div>
       {% endfor %}
     </div>
   </div>
 </section>
 
 <ul class="trust-strip" aria-label="How we work">
-  <li>Trade prices shown</li>
-  <li>Order online or on Viber</li>
-  <li>Car delivery across Cyprus</li>
+  <li>Wholesale &amp; retail</li>
+  <li>Delivery across Cyprus</li>
   <li>Cash on delivery</li>
+  <li>Apia Life · Sanremo · Expobar</li>
 </ul>
 
 <section class="section brands" aria-labelledby="brands-title">
   <header class="section-head" data-reveal>
-    <p class="eyebrow">Our brands</p>
-    <h2 id="brands-title">Two houses. One supplier.</h2>
+    <h2 id="brands-title">Our brands</h2>
   </header>
   <div class="brand-panels">
     {% for brand in brands %}
@@ -36,31 +54,14 @@
         <p>{{ brand.body }}</p>
         <a class="button button-light" href="{{ url_for('products', brand=brand.slug) }}">Browse {{ brand.short }} <span class="count">{{ brand.count }}</span></a>
       </div>
-      <div class="brand-panel-stage" aria-hidden="true">
+      <div class="brand-panel-stage">
         {% for item in brand.products %}
-        <div class="float float-{{ loop.index }}">{{ product_image(item, sizes="(min-width: 1040px) 12rem, 30vw") }}</div>
+        <a class="float float-{{ loop.index }}" href="{{ url_for('products', brand=brand.slug, category=item.group) }}" aria-label="{{ brand.short }}: {{ item.group }}">{{ product_image(item, sizes="(min-width: 1040px) 12rem, 30vw") }}<span class="float-label">{{ item.group }} →</span></a>
         {% endfor %}
       </div>
     </article>
     {% endfor %}
   </div>
-</section>
-
-<section class="section steps-band" aria-labelledby="steps-title">
-  <header class="section-head" data-reveal>
-    <p class="eyebrow">Ordering</p>
-    <h2 id="steps-title">Simple, and honest about price.</h2>
-  </header>
-  <ol class="steps">
-    {% for step in order_steps %}
-    <li data-reveal>
-      <span class="step-num" aria-hidden="true">{{ loop.index }}</span>
-      <h3>{{ step.title }}</h3>
-      <p>{{ step.body }}</p>
-    </li>
-    {% endfor %}
-  </ol>
-  <p class="steps-note" data-reveal>Free delivery on orders over €40 (ex VAT). Regular customers can repeat their last order in one tap.</p>
 </section>
 
 <section class="section shelf" aria-labelledby="coffee-title">
@@ -93,8 +94,8 @@
   <div class="partner-inner" data-reveal>
     <div>
       <p class="eyebrow">For cafés, bars and hotels</p>
-      <h2 id="partner-title">A machine on loan, and help to run it.</h2>
-      <p>Apia Life, Sanremo and Expobar machines are offered at no charge for as long as we work together. Setup guidance and machine training are free.</p>
+      <h2 id="partner-title">Espresso machines for partners</h2>
+      <p>Apia Life, Sanremo and Expobar, at no charge, with free setup and training.</p>
     </div>
     <p class="partner-actions">
       <a class="button button-light" href="{{ url_for('cyprus') }}">B2B Services</a>

@@ -22,7 +22,6 @@ from content import (
     HERO,
     MACHINE_PROGRAMMES,
     NAV,
-    ORDER_STEPS,
     PRODUCTS,
     PRODUCTS_BY_SLUG,
     CYPRUS_B2B,
@@ -207,7 +206,6 @@ def create_app():
             "Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes with published trade prices, delivered across Cyprus.",
             featured=featured,
             jean_paul=jean_paul,
-            order_steps=ORDER_STEPS,
             articles=ARTICLES,
             json_ld=store_json(),
         )
@@ -286,7 +284,7 @@ def create_app():
         return page(
             "supply.html",
             "Coffee supply — Vittorio Gourmet Espresso",
-            "Depot in Kalo Xorio. Car delivery of coffee and café supplies to cafés and bars across Cyprus.",
+            "Coffee and café supplies delivered to cafés and bars across Cyprus.",
         )
 
     @app.get("/cyprus")
@@ -364,7 +362,7 @@ def create_app():
                 body = page(
                     "order.html",
                     "Your order — Vittorio Gourmet Espresso",
-                    "Place a coffee and café-supply order for delivery by car in Cyprus.",
+                    "Place a coffee and café-supply order for delivery in Cyprus.",
                     errors=errors,
                     values=values,
                     **checkout,
@@ -405,7 +403,7 @@ def create_app():
         return page(
             "order.html",
             "Your order — Vittorio Gourmet Espresso",
-            "Place a coffee and café-supply order for delivery by car in Cyprus.",
+            "Place a coffee and café-supply order for delivery in Cyprus.",
             errors=errors,
             values=values,
             reorder_items=reorder_items,

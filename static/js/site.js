@@ -28,6 +28,36 @@
 })();
 
 (function () {
+  // Touch screens cannot hover: the first tap on a hero pack opens its card, the second follows the link.
+  var wraps = document.querySelectorAll(".pack-wrap");
+  if (!wraps.length) return;
+  var noHover = window.matchMedia("(hover: none)");
+
+  function closeAll(except) {
+    wraps.forEach(function (wrap) {
+      if (wrap !== except) wrap.classList.remove("is-open");
+    });
+  }
+
+  wraps.forEach(function (wrap) {
+    var link = wrap.querySelector(".pack");
+    link.addEventListener("click", function (event) {
+      if (!noHover.matches || wrap.classList.contains("is-open")) return;
+      event.preventDefault();
+      closeAll(wrap);
+      wrap.classList.add("is-open");
+    });
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest(".pack-wrap")) closeAll(null);
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closeAll(null);
+  });
+})();
+
+(function () {
   var header = document.querySelector(".site-header");
   if (header) {
     var onScroll = function () {
