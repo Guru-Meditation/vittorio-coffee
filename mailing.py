@@ -15,10 +15,11 @@ from i18n import localize_pack, translate
 log = logging.getLogger(__name__)
 
 DEFAULT_TO = BUSINESS["email_service"]
+SITE_URL = os.environ.get("SITE_URL", "https://vittoriocyprus.com").rstrip("/")
 # FormSubmit only delivers requests that name the site they came from, and its
-# one-time activation is tied to that page, so keep this URL stable.
-SITE_URL = os.environ.get("SITE_URL", "https://vittorio-coffee.onrender.com").rstrip("/")
-FORMSUBMIT_REFERER = f"{SITE_URL}/order"
+# one-time activation is tied to that page, so it stays on the original Render address.
+FORMSUBMIT_ORIGIN = "https://vittorio-coffee.onrender.com"
+FORMSUBMIT_REFERER = f"{FORMSUBMIT_ORIGIN}/order"
 # Keep every attempt short so a blocked port cannot outlast gunicorn's 30s worker timeout.
 SMTP_TIMEOUT = 8
 HTTP_TIMEOUT = 12
@@ -270,7 +271,7 @@ def _send_formsubmit(subject, body, *, reply_to=None):
             "Content-Type": "application/json",
             "Accept": "application/json",
             "User-Agent": "Vittorio-Coffee/1.0",
-            "Origin": SITE_URL,
+            "Origin": FORMSUBMIT_ORIGIN,
             "Referer": FORMSUBMIT_REFERER,
         },
         method="POST",

@@ -390,3 +390,11 @@ def test_review_and_verification_slots_render_only_when_set(client, monkeypatch)
     assert '<meta name="google-site-verification" content="abc123">' in page
     assert "Review us on Trustpilot" in page
     assert "Review us on Google" in page
+
+
+def test_old_render_address_redirects_to_own_domain(client):
+    response = client.get("/el/products?q=espresso", headers={"Host": "vittorio-coffee.onrender.com"})
+    assert response.status_code == 301
+    assert response.headers["Location"] == "https://vittoriocyprus.com/el/products?q=espresso"
+    assert client.get("/health/mail", headers={"Host": "vittorio-coffee.onrender.com"}).status_code == 200
+    assert client.get("/", headers={"Host": "vittoriocyprus.com"}).status_code == 200

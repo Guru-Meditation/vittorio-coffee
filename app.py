@@ -42,6 +42,7 @@ from order_pricing import compute_order_totals, totals_for_session
 # INFO so the Render logs show which route delivered each email.
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
+OLD_HOST = "vittorio-coffee.onrender.com"
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 CUSTOMER_FIELDS = ("name", "business_name", "email", "phone", "town")
 
@@ -191,6 +192,13 @@ def create_app():
         # Links on a Greek page stay on the Greek site unless a language is named.
         if endpoint in localized_endpoints and "lang" not in values and current_lang() != DEFAULT_LANG:
             values["lang"] = current_lang()
+
+    @app.before_request
+    def move_to_own_domain():
+        # Old links to the Render address land on the same page at vittoriocyprus.com,
+        # so search engines keep one address per page.
+        if request.host == OLD_HOST and not request.path.startswith("/health"):
+            return redirect(SITE_URL + request.full_path.rstrip("?"), code=301)
 
     def suppress_mail():
         return bool(app.config.get("TESTING") or app.config.get("MAIL_SUPPRESS_SEND"))

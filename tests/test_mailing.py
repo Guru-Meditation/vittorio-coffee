@@ -54,7 +54,7 @@ def test_formsubmit_string_false_is_a_failure(monkeypatch):
     monkeypatch.setattr(mailing.urllib.request, "urlopen", fake_urlopen)
     assert mailing._send_formsubmit("Vittorio order X", "body") is False
     assert sent["headers"]["Referer"] == mailing.FORMSUBMIT_REFERER
-    assert sent["headers"]["Origin"] == mailing.SITE_URL
+    assert sent["headers"]["Origin"] == mailing.FORMSUBMIT_ORIGIN
 
 
 def test_formsubmit_string_true_is_a_success(monkeypatch):
