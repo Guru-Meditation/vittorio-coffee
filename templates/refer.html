@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-intro section">
+  <p class="eyebrow">{{ _("Partners") }}</p>
+  <h1>{{ _("Recommend a café.") }}</h1>
+  <p class="lede-short">{{ _("When a venue you recommend places its first order, your next order includes 1 kg of Vittorio espresso, free.") }}</p>
+  {% if sent %}
+  <p role="status">{{ _("Thank you. We will contact them and let you know.") }}</p>
+  {% else %}
+  <form method="post" action="{{ url_for('refer') }}" novalidate>
+    <div class="hp" aria-hidden="true">
+      <label for="company_website">{{ _("Website") }}</label>
+      <input id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+    </div>
+    <label for="name">{{ _("Your name") }}
+      <input id="name" name="name" type="text" autocomplete="name" required value="{{ values.name }}">
+    </label>
+    {% if errors.name %}<p class="error" id="name-error">{{ errors.name }}</p>{% endif %}
+    <label for="business">{{ _("Your business") }}
+      <input id="business" name="business" type="text" autocomplete="organization" value="{{ values.business }}">
+    </label>
+    <label for="email">{{ _("Email") }}
+      <input id="email" name="email" type="email" autocomplete="email" required value="{{ values.email }}">
+    </label>
+    {% if errors.email %}<p class="error" id="email-error">{{ errors.email }}</p>{% endif %}
+    <label for="venue">{{ _("Venue you recommend") }}
+      <input id="venue" name="venue" type="text" required value="{{ values.venue }}">
+    </label>
+    {% if errors.venue %}<p class="error" id="venue-error">{{ errors.venue }}</p>{% endif %}
+    <label for="venue_town">{{ _("Town") }}
+      <input id="venue_town" name="venue_town" type="text" required value="{{ values.venue_town }}">
+    </label>
+    {% if errors.venue_town %}<p class="error" id="venue_town-error">{{ errors.venue_town }}</p>{% endif %}
+    <label for="venue_contact">{{ _("Their phone or contact person (optional)") }}
+      <input id="venue_contact" name="venue_contact" type="text" value="{{ values.venue_contact }}">
+    </label>
+    {% if errors.send %}<p class="error" id="send-error">{{ errors.send }}</p>{% endif %}
+    <button class="button" type="submit">{{ _("Send recommendation") }}</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

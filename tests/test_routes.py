@@ -346,3 +346,27 @@ def test_b2b_story_builds_the_counter(client):
     assert "Nuova Simonelli Appia Life" in page
     assert 'class="scene-map"' in page
     assert "Private Label" not in page
+
+
+def test_refer_page_validation_and_success(client):
+    page = client.get("/refer")
+    assert page.status_code == 200
+    assert b"1 kg of Vittorio espresso" in page.data
+    bad = client.post("/refer", data={"name": "K", "email": "nope", "venue": "", "venue_town": ""})
+    assert bad.status_code == 400
+    assert b"Enter the venue you recommend." in bad.data
+    ok = client.post(
+        "/refer",
+        data={"name": "Koxar", "email": "k@example.com", "venue": "Cafe Marina", "venue_town": "Larnaca"},
+    )
+    assert ok.status_code == 200
+    assert b"We will contact them" in ok.data
+    assert b'href="/refer"' in client.get("/").data
+
+
+def test_customer_copy_carries_referral_link():
+    from mailing import format_customer_copy
+
+    placed = {"ref": "V1", "name": "K", "town": "Larnaca", "lines": []}
+    _subject, body = format_customer_copy(placed, "https://x/order/again", refer_url="https://x/refer")
+    assert "https://x/refer" in body

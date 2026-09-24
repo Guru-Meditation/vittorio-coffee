@@ -85,7 +85,7 @@ def _totals_block(placed, lang="en"):
     return lines
 
 
-def format_customer_copy(placed, reorder_url, lang="en"):
+def format_customer_copy(placed, reorder_url, lang="en", refer_url=None):
     """Receipt emailed to the customer in the site's language, with a link that refills the same order."""
 
     def t(text, **values):
@@ -113,6 +113,12 @@ def format_customer_copy(placed, reorder_url, lang="en"):
             t("Order the same again:"),
             reorder_url,
             "",
+        ]
+    )
+    if refer_url:
+        lines.extend([t("Recommend a café, receive 1 kg of espresso:"), refer_url, ""])
+    lines.extend(
+        [
             t("Questions about your order? Reply to this email."),
             "",
             BUSINESS["name"],

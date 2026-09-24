@@ -84,6 +84,8 @@
           {{ _(business.country) }}
         </address>
         <p><a href="{{ business.viber }}">{{ _("Contact") }}</a></p>
+        <p><a href="{{ url_for('refer') }}">{{ _("Recommend a café") }}</a></p>
+        {% if business.reviews %}<p><a href="{{ business.reviews }}" rel="noopener">{{ _("Review us on Google") }}</a></p>{% endif %}
       </div>
       <div>
         <p class="footer-label">{{ _("Social") }}</p>

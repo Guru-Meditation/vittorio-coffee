@@ -109,6 +109,9 @@ BUSINESS = {
     "country": "Cyprus",
     "maps": "https://www.google.com/maps/search/?api=1&query=Kalo+Xorio%2C+Larnaca%2C+Cyprus",
     "viber": "viber://chat?number=%2B35799766848",
+    "phone": "+35799766848",
+    # Google Business Profile "Ask for reviews" link; the footer shows it once set.
+    "reviews": "",
     "delivery": "Delivery to cafés, bars and hotels across Cyprus.",
     "machines": ["Appia Life", "Sanremo", "Expobar"],
     "social": [

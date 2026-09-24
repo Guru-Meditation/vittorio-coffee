@@ -379,6 +379,25 @@ EL = {
         "Κλειστά προϊόντα επιστρέφονται εντός 30 ημερών. Πληρωμή με αντικαταβολή.",
     "Page not found — Vittorio Gourmet Espresso": "Η σελίδα δεν βρέθηκε — Vittorio Gourmet Espresso",
     "That page is not part of Vittorio Gourmet Espresso.": "Αυτή η σελίδα δεν υπάρχει στον ιστότοπο της Vittorio Gourmet Espresso.",
+    # Referral page
+    "Partners": "Συνεργάτες",
+    "Recommend a café": "Προτείνετε ένα καφέ",
+    "Recommend a café.": "Προτείνετε ένα καφέ.",
+    "When a venue you recommend places its first order, your next order includes 1 kg of Vittorio espresso, free.":
+        "Όταν η επιχείρηση που προτείνετε κάνει την πρώτη της παραγγελία, η επόμενη παραγγελία σας περιλαμβάνει 1 kg espresso Vittorio δωρεάν.",
+    "Thank you. We will contact them and let you know.": "Σας ευχαριστούμε. Θα επικοινωνήσουμε μαζί τους και θα σας ενημερώσουμε.",
+    "Your name": "Το όνομά σας",
+    "Your business": "Η επιχείρησή σας",
+    "Venue you recommend": "Επιχείρηση που προτείνετε",
+    "Their phone or contact person (optional)": "Τηλέφωνο ή υπεύθυνος επικοινωνίας (προαιρετικό)",
+    "Send recommendation": "Αποστολή πρότασης",
+    "Enter the venue you recommend.": "Συμπληρώστε την επιχείρηση που προτείνετε.",
+    "Enter the venue's town.": "Συμπληρώστε την πόλη της επιχείρησης.",
+    "Recommend a café — Vittorio Gourmet Espresso": "Προτείνετε ένα καφέ — Vittorio Gourmet Espresso",
+    "Recommend a café, bar or hotel to Vittorio and receive 1 kg of espresso on their first order.":
+        "Προτείνετε ένα καφέ, μπαρ ή ξενοδοχείο στη Vittorio και λάβετε 1 kg espresso με την πρώτη τους παραγγελία.",
+    "Review us on Google": "Αξιολογήστε μας στο Google",
+    "Recommend a café, receive 1 kg of espresso:": "Προτείνετε ένα καφέ και λάβετε 1 kg espresso:",
     # Customer copy email
     "Dear {name},": "Γεια σας {name},",
     "Thank you for your order with {business}. We will confirm it before delivery.":

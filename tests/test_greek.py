@@ -37,6 +37,7 @@ GREEK_PAGES = [
     "/el/machines",
     "/el/order",
     "/el/contact",
+    "/el/refer",
     "/el/faq",
     "/el/privacy",
     "/el/returns",

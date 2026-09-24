@@ -255,7 +255,9 @@ def create_app():
                 "addressCountry": "CY",
             },
             "url": urljoin(request.url_root, "visit"),
+            "telephone": BUSINESS["phone"],
             "areaServed": {"@type": "Country", "name": "Cyprus"},
+            "sameAs": [link["href"] for link in BUSINESS["social"]],
         }
         return json.dumps(payload, ensure_ascii=False)
 
@@ -486,7 +488,8 @@ def create_app():
 
     def email_customer_copy(placed):
         reorder_url = SITE_URL + url_for("order_again", items=reorder_param(placed["lines"]))
-        subject, body = format_customer_copy(placed, reorder_url, lang=placed.get("lang", DEFAULT_LANG))
+        refer_url = SITE_URL + url_for("refer")
+        subject, body = format_customer_copy(placed, reorder_url, lang=placed.get("lang", DEFAULT_LANG), refer_url=refer_url)
         return send_customer_copy(subject, body, placed["email"], suppress=suppress_mail())
 
     def deliver_order_to_depot(placed):
@@ -615,6 +618,62 @@ def create_app():
         )
         return body, status
 
+    @localized("/refer", methods=["GET", "POST"])
+    def refer():
+        """Partners recommend a venue; the depot follows up and rewards the partner on its first order."""
+        fields = ("name", "business", "email", "venue", "venue_town", "venue_contact")
+        values = {field: "" for field in fields}
+        errors = {}
+        sent = False
+        status = 200
+        if request.method == "POST":
+            values = {field: request.form.get(field, "").strip() for field in fields}
+            if request.form.get("company_website", "").strip():
+                sent = True
+            else:
+                if len(values["name"]) < 2:
+                    errors["name"] = tr("Enter your name.")
+                if not EMAIL_RE.match(values["email"]):
+                    errors["email"] = tr("Enter a valid email address.")
+                if len(values["venue"]) < 2:
+                    errors["venue"] = tr("Enter the venue you recommend.")
+                if len(values["venue_town"]) < 2:
+                    errors["venue_town"] = tr("Enter the venue's town.")
+                if errors:
+                    status = 400
+                else:
+                    mail_body = (
+                        f"Recommended venue: {values['venue']}\n"
+                        f"Town: {values['venue_town']}\n"
+                        f"Venue contact: {values['venue_contact'] or '-'}\n\n"
+                        f"Recommended by: {values['name']}\n"
+                        f"Their business: {values['business'] or '-'}\n"
+                        f"Email: {values['email']}\n"
+                        f"Language: {'Greek' if current_lang() == 'el' else 'English'}\n\n"
+                        "Reward on the venue's first order: 1 kg of Vittorio espresso with the partner's next order."
+                    )
+                    if send_mail(
+                        f"Vittorio referral — {values['venue']} ({values['venue_town']})",
+                        mail_body,
+                        reply_to=values["email"],
+                        suppress=suppress_mail(),
+                    ):
+                        sent = True
+                    else:
+                        errors["send"] = tr(
+                            "We could not send your message right now. Use Contact on Viber, or try again later."
+                        )
+                        status = 503
+        body = page(
+            "refer.html",
+            tr("Recommend a café — Vittorio Gourmet Espresso"),
+            tr("Recommend a café, bar or hotel to Vittorio and receive 1 kg of espresso on their first order."),
+            errors=errors,
+            values=values,
+            sent=sent,
+        )
+        return body, status
+
     @localized("/faq")
     def faq():
         return page(
@@ -654,6 +713,7 @@ def create_app():
             "/visit",
             "/journal",
             "/contact",
+            "/refer",
             "/faq",
             "/privacy",
             "/returns",
