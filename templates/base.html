@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ seo.title }}</title>
   <meta name="description" content="{{ seo.description }}">
+  {% if business.search_console %}<meta name="google-site-verification" content="{{ business.search_console }}">{% endif %}
   <link rel="canonical" href="{{ seo.canonical }}">
   {% if seo.alternates %}
   {% for code, href in seo.alternates.items() %}
@@ -86,6 +87,7 @@
         <p><a href="{{ business.viber }}">{{ _("Contact") }}</a></p>
         <p><a href="{{ url_for('refer') }}">{{ _("Recommend a café") }}</a></p>
         {% if business.reviews %}<p><a href="{{ business.reviews }}" rel="noopener">{{ _("Review us on Google") }}</a></p>{% endif %}
+        {% if business.trustpilot %}<p><a href="{{ business.trustpilot }}" rel="noopener">{{ _("Review us on Trustpilot") }}</a></p>{% endif %}
       </div>
       <div>
         <p class="footer-label">{{ _("Social") }}</p>

@@ -112,6 +112,9 @@ BUSINESS = {
     "phone": "+35799766848",
     # Google Business Profile "Ask for reviews" link; the footer shows it once set.
     "reviews": "",
+    "trustpilot": "",
+    # Google Search Console "HTML tag" verification code (the content="..." value only).
+    "search_console": "",
     "delivery": "Delivery to cafés, bars and hotels across Cyprus.",
     "machines": ["Appia Life", "Sanremo", "Expobar"],
     "social": [
