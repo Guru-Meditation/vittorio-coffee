@@ -424,6 +424,11 @@ body.nav-open #site-nav { display: block; }
   background: rgba(36, 63, 52, 0.08);
   color: var(--green);
 }
+.order-banner-warning {
+  border-color: rgba(122, 36, 24, 0.35);
+  background: rgba(122, 36, 24, 0.08);
+  color: #7a2418;
+}
 .order-totals {
   width: 100%;
   max-width: 22rem;

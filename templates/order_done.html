@@ -8,6 +8,12 @@
     <p class="order-ref">Reference <span>{{ placed.ref }}</span></p>
   </header>
 
+  {% if placed.email_sent %}
+  <p class="order-banner order-banner-success">Your order has been sent to Vittorio.</p>
+  {% else %}
+  <p class="order-banner order-banner-warning">Your order has not reached Vittorio yet. Tap Contact on Viber below and send the message. It already contains your order.</p>
+  {% endif %}
+
   {% if placed.totals %}{{ order_delivery_banner(placed.totals) }}{% endif %}
 
   <div class="order-sheet">

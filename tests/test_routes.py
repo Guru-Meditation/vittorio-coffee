@@ -232,3 +232,21 @@ def test_does_not_invent_claims(client):
     home = client.get("/").get_data(as_text=True).casefold()
     for phrase in ("yirgacheffe", "italian roast", "signature blend", "award", "organic certified", "100% growth"):
         assert phrase not in home
+
+
+def test_order_confirmation_warns_when_depot_email_fails(monkeypatch):
+    import app as app_module
+
+    monkeypatch.setattr(app_module, "send_mail", lambda *args, **kwargs: False)
+    flask_app = app_module.create_app()
+    flask_app.config.update(TESTING=True)
+    client = flask_app.test_client()
+    client.post("/cart/add", data={"slug": "costa-rica", "qty": "1"})
+    placed = client.post(
+        "/order",
+        data={"name": "Koxar", "phone": "99123456", "email": "koxar@example.com", "town": "Larnaca"},
+    )
+    assert placed.status_code == 302
+    body = client.get("/order/received").get_data(as_text=True)
+    assert "has not reached Vittorio yet" in body
+    assert "viber://chat" in body

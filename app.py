@@ -322,12 +322,16 @@ def create_app():
 
     def deliver_order_to_depot(placed):
         subject, order_body = format_order_mail(placed)
-        return send_mail(
+        sent = send_mail(
             subject,
             order_body,
             reply_to=placed.get("email"),
             suppress=suppress_mail(),
         )
+        if not sent:
+            # Keep the order recoverable from the Render logs when every mail route fails.
+            app.logger.error("Order %s was not emailed to the depot:\n%s", placed["ref"], order_body)
+        return sent
 
     def _order_done_context(placed):
         _, order_body = format_order_mail(placed)

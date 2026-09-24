@@ -14,6 +14,13 @@ from content import BUSINESS
 log = logging.getLogger(__name__)
 
 DEFAULT_TO = BUSINESS["email_service"]
+# FormSubmit only delivers requests that name the site they came from, and its
+# one-time activation is tied to that page, so keep this URL stable.
+SITE_URL = os.environ.get("SITE_URL", "https://vittorio-coffee.onrender.com").rstrip("/")
+FORMSUBMIT_REFERER = f"{SITE_URL}/order"
+# Keep every attempt short so a blocked port cannot outlast gunicorn's 30s worker timeout.
+SMTP_TIMEOUT = 8
+HTTP_TIMEOUT = 12
 
 _SECRET_FILE_NAMES = (
     "smtp_password",
@@ -117,14 +124,14 @@ def _smtp_settings():
 
 
 def _send_smtp_starttls(cfg, msg):
-    with smtplib.SMTP(cfg["host"], cfg["port"], timeout=30) as smtp:
+    with smtplib.SMTP(cfg["host"], cfg["port"], timeout=SMTP_TIMEOUT) as smtp:
         smtp.starttls()
         smtp.login(cfg["user"], cfg["password"])
         smtp.send_message(msg)
 
 
 def _send_smtp_ssl(cfg, msg):
-    with smtplib.SMTP_SSL(cfg["host"], 465, timeout=30) as smtp:
+    with smtplib.SMTP_SSL(cfg["host"], 465, timeout=SMTP_TIMEOUT) as smtp:
         smtp.login(cfg["user"], cfg["password"])
         smtp.send_message(msg)
 
@@ -177,7 +184,7 @@ def _send_web3forms(subject, body, *, reply_to=None):
         headers={"Content-Type": "application/json", "Accept": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=30) as response:
+    with urllib.request.urlopen(request, timeout=HTTP_TIMEOUT) as response:
         result = json.loads(response.read().decode("utf-8"))
     if not result.get("success"):
         log.warning("Web3Forms rejected mail: %s", result)
@@ -186,7 +193,10 @@ def _send_web3forms(subject, body, *, reply_to=None):
 
 
 def _send_formsubmit(subject, body, *, reply_to=None):
-    """Backup relay; first use requires confirming FormSubmit in the inbox once."""
+    """Relay that works on Render's free plan, which blocks outbound SMTP ports.
+
+    First use needs the 'Activate Form' link that FormSubmit emails to the inbox.
+    """
     payload = {
         "_subject": subject,
         "_replyto": reply_to or "",
@@ -203,12 +213,15 @@ def _send_formsubmit(subject, body, *, reply_to=None):
             "Content-Type": "application/json",
             "Accept": "application/json",
             "User-Agent": "Vittorio-Coffee/1.0",
+            "Origin": SITE_URL,
+            "Referer": FORMSUBMIT_REFERER,
         },
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=30) as response:
+    with urllib.request.urlopen(request, timeout=HTTP_TIMEOUT) as response:
         result = json.loads(response.read().decode("utf-8"))
-    if not result.get("success"):
+    # FormSubmit answers {"success": "false"} as a string, which is truthy.
+    if str(result.get("success")).lower() != "true":
         log.warning("FormSubmit rejected mail: %s", result)
         return False
     return True
