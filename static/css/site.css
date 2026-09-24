@@ -33,6 +33,25 @@
   font-style: normal;
   font-display: swap;
 }
+/* Fraunces and Outfit have no Greek letters. Greek characters come from Literata and Manrope
+   (variable, Greek subset only); unicode-range keeps them off English pages, apart from the
+   small sans file for the ΕΛ label in the language switch. */
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/literata-greek.woff2") format("woff2");
+  font-weight: 500 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: "Outfit";
+  src: url("../fonts/manrope-greek.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
 
 :root {
   --ink: #24160f;
@@ -1346,8 +1365,7 @@ input, textarea {
   to { transform: scale(2.2); opacity: 0; }
 }
 
-/* Language switch (English at /, Greek under /el/). Outfit and Fraunces carry no Greek
-   glyphs, so Greek text falls back to Segoe UI / system sans and Georgia. */
+/* Language switch (English at /, Greek under /el/). */
 .lang-switch {
   display: flex;
   margin-left: auto;
