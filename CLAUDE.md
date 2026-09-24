@@ -9,7 +9,7 @@ teas, dessert mixes); each product has a `brand` field. Deployed on Render (Star
 ## Run and test (Windows, from the repo root)
 - Virtualenv already set up: `.venv\Scripts\python -m pip install -r requirements.txt` after a fresh clone
   (`python -m venv .venv` first).
-- Tests: `.venv\Scripts\python -m pytest -q` (77 at 2026-09-24, all green).
+- Tests: `.venv\Scripts\python -m pytest -q` (86 at 2026-09-24, all green).
 - Local server: `.venv\Scripts\python -m flask --app app run --debug`, then open http://127.0.0.1:5000.
 - Mail needs `.env` (copy `.env.example`; SMTP_PASSWORD is a Gmail app password). Never commit `.env`.
   Without it, a local test order falls back to FormSubmit and lands in the real depot inbox.
@@ -21,7 +21,8 @@ teas, dessert mixes); each product has a `brand` field. Deployed on Render (Star
   preview `brand/share.jpg`, and the B2B counter pieces (`static/images/scene/`), including the Vittorio
   decals on the three brand machines (official photos in `static/images/machines/brand/`).
 - Page map: home = product-counter hero with hover cards + brand panels + shelves; `/cyprus` = B2B
-  scroll story (chapters fill a counter, zooms on the machine first, machines rotate). Visit, supply,
+  scroll story (chapters fill a counter, zooms on the machine first, machines rotate). `/refer` = partner
+  referral form (1 kg espresso reward). Menu starts with a bold Home link. Visit, supply,
   machines, philosophy, story and journal pages still exist but are not in the nav.
 - Greek site: every page is served in English at `/...` and in Greek at `/el/...` (`localized()` in app.py).
   UI and content strings are wrapped in `_("English text")` in templates (`tr()` in Python). The Greek
@@ -48,3 +49,17 @@ SMTP_PASSWORD lives on the Render service's Environment tab or as a Secret File 
 
 ## Separate from the FightCamp game
 This project has nothing to do with the FightCamp repo. Its rules (agent_comms, HANDOFF, Godot) do not apply here.
+
+## Domains, Google and site behaviour (2026-09-24)
+- Live at https://vittoriocyprus.com (Render custom domain). `www` and the old onrender host 301 to it
+  (`move_to_own_domain` in app.py; /health is exempt). `SITE_URL` in mailing.py builds email links;
+  FormSubmit stays pinned to the onrender origin because its activation is tied to it.
+- Planned next: make vittoriocoffee.com (the old WordPress shop, DNS at Hostinger) the main domain and 301 its
+  old WordPress paths. Keep its Hostinger MX/SPF records, because info@vittoriocoffee.com mail runs there.
+- `BUSINESS` in content.py: `reviews` (Google review link, footer + customer email), `trustpilot` (empty),
+  `search_console` (list of verification codes, one per Search Console property).
+- Order form: `address` is required (cash on delivery). Google Places suggestions (static/js/address.js)
+  load only when the `GOOGLE_MAPS_KEY` env var is set on Render.
+- Add to order posts via fetch (`X-Requested-With: fetch` returns JSON) and shows a toast; without JS it
+  returns to the referring page. Never send shoppers to /order after adding an item.
+- Never write or post reviews for the business; Google treats owner reviews as fake.
