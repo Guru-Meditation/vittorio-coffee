@@ -407,6 +407,20 @@ body.nav-open #site-nav { display: block; }
   color: var(--muted);
   font-size: 0.95rem;
 }
+.order-banner-nudge {
+  border-color: rgba(201, 150, 43, 0.7);
+  background: linear-gradient(90deg, rgba(232, 190, 92, 0.18), rgba(232, 190, 92, 0.06));
+  color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(232, 190, 92, 0.18), 0 0 22px rgba(232, 190, 92, 0.45);
+  animation: nudge-glow 2.6s ease-in-out infinite;
+}
+.order-banner-nudge strong { color: var(--espresso); }
+@keyframes nudge-glow {
+  50% { box-shadow: 0 0 0 4px rgba(232, 190, 92, 0.28), 0 0 34px rgba(232, 190, 92, 0.7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .order-banner-nudge { animation: none; }
+}
 .order-banner-success {
   border-color: rgba(36, 63, 52, 0.35);
   background: rgba(36, 63, 52, 0.08);
@@ -686,14 +700,25 @@ input, textarea {
 }
 @media (min-width: 800px) {
   .offer-row { grid-template-columns: repeat(3, 1fr); }
+  /* Fixed widths so the header row and every item row share the same columns. */
   .order-line {
-    grid-template-columns: 5.25rem 1fr 5rem auto auto;
+    grid-template-columns: 5.25rem 1fr 6rem 5.5rem 5.5rem;
     grid-template-areas: "media details pack qty price";
   }
   .order-line-head {
     display: grid;
-    grid-template-columns: 5.25rem 1fr 5rem auto auto;
+    grid-template-columns: 5.25rem 1fr 6rem 5.5rem 5.5rem;
     grid-template-areas: "media details pack qty price";
+  }
+  .order-line-pack, .order-line-head .order-line-pack { text-align: center; }
+  .order-line label, .order-line-head span:nth-child(4) { justify-self: center; text-align: center; }
+  .order-line .qty-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
   .order-line-head span:nth-child(1) { grid-area: media; }
   .order-line-head span:nth-child(2) { grid-area: details; }
@@ -1405,3 +1430,19 @@ input, textarea {
   #site-nav { margin-left: auto; }
   .lang-switch { order: 3; margin-left: 0; }
 }
+
+.cart-toast {
+  position: fixed;
+  z-index: 50;
+  left: 50%;
+  bottom: 1.2rem;
+  transform: translateX(-50%);
+  margin: 0;
+  max-width: calc(100% - 2rem);
+  padding: 0.75rem 1.1rem;
+  background: var(--espresso);
+  color: var(--cream);
+  box-shadow: 0 10px 28px rgba(26, 16, 12, 0.25);
+  font-size: 0.95rem;
+}
+.cart-toast a { color: var(--cream); font-weight: 600; }

@@ -140,6 +140,8 @@ EL = {
     "Delivery address": "Διεύθυνση παράδοσης",
     "Address": "Διεύθυνση",
     "Address suggestions": "Προτάσεις διεύθυνσης",
+    "Added to order": "Προστέθηκε στην παραγγελία",
+    "View order": "Προβολή παραγγελίας",
     "Street, number, building, floor": "Οδός, αριθμός, κτίριο, όροφος",
     "Enter the full delivery address: street, number and building.":
         "Συμπληρώστε την πλήρη διεύθυνση παράδοσης: οδό, αριθμό και κτίριο.",

@@ -5,7 +5,7 @@ import re
 import secrets
 from datetime import timedelta
 from decimal import Decimal, InvalidOperation
-from urllib.parse import quote, urljoin
+from urllib.parse import quote, urljoin, urlsplit
 
 from flask import Flask, abort, g, redirect, render_template, request, session, url_for
 from markupsafe import escape
@@ -68,6 +68,18 @@ def parse_reorder(raw):
         if quantity > 0:
             items[slug] = min(quantity, 99)
     return items
+
+
+def _same_site(url):
+    """A redirect target on this site only, as a path; None for anything external."""
+    if not url:
+        return None
+    parts = urlsplit(url)
+    if parts.netloc and parts.netloc != request.host:
+        return None
+    if not parts.path.startswith("/") or parts.path.startswith("//"):
+        return None
+    return parts.path + (f"?{parts.query}" if parts.query else "")
 
 
 def _phone_ok(raw):
@@ -395,7 +407,11 @@ def create_app():
         cart = dict(session.get("cart") or {})
         cart[slug] = min(int(cart.get(slug, 0)) + qty, 99)
         session["cart"] = cart
-        return redirect(request.form.get("next") or url_for("order"))
+        count = sum(int(q) for q in cart.values())
+        if request.headers.get("X-Requested-With") == "fetch":
+            return {"count": count, "order_url": url_for("order")}
+        # Without JavaScript, return shoppers to the page they were browsing, not the order form.
+        return redirect(_same_site(request.form.get("next")) or _same_site(request.referrer) or url_for("products"))
 
     @localized("/cart/update", methods=["POST"])
     def cart_update():

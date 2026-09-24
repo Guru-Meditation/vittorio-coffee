@@ -157,9 +157,9 @@ def test_menu_alias_and_navigation(client):
 
 
 def test_order_flow_and_cyprus_delivery(client):
-    added = client.post("/cart/add", data={"slug": "costa-rica", "qty": "2"})
+    added = client.post("/cart/add", data={"slug": "costa-rica", "qty": "2"}, headers={"Referer": "http://localhost/products?category=Coffee"})
     assert added.status_code == 302
-    assert added.headers["Location"].endswith("/order")
+    assert added.headers["Location"] == "/products?category=Coffee"
     page = client.get("/order").get_data(as_text=True)
     assert "Costa Rica" in page
     assert "0.5 kg" in page
@@ -424,3 +424,13 @@ def test_address_suggestions_load_only_with_a_maps_key(client, monkeypatch):
     page = client.get("/el/order").get_data(as_text=True)
     assert 'data-key="test-key"' in page and 'data-lang="el"' in page
     assert 'id="address-suggest"' in page
+
+
+def test_add_to_order_stays_on_the_page(client):
+    ajax = client.post("/cart/add", data={"slug": "costa-rica", "qty": "2"}, headers={"X-Requested-With": "fetch"})
+    assert ajax.get_json() == {"count": 2, "order_url": "/order"}
+    back = client.post("/el/cart/add", data={"slug": "costa-rica"}, headers={"Referer": "http://localhost/el/products"})
+    assert back.headers["Location"] == "/el/products"
+    outside = client.post("/cart/add", data={"slug": "costa-rica", "next": "https://evil.example/x"})
+    assert outside.headers["Location"] == "/products"
+    assert 'data-view="View order"' in client.get("/").get_data(as_text=True)

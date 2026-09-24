@@ -146,3 +146,51 @@
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
   items.forEach(function (el) { observer.observe(el); });
 })();
+
+// Add to order without leaving the page: update the header count and confirm with a short note.
+(function () {
+  var toast = document.querySelector(".cart-toast");
+  var link = document.querySelector("[data-cart-link]");
+  var timer = null;
+
+  function confirm(data) {
+    if (link) link.textContent = link.dataset.label + " (" + data.count + ")";
+    if (!toast) return;
+    toast.innerHTML = "";
+    toast.appendChild(document.createTextNode(toast.dataset.added + " · "));
+    var view = document.createElement("a");
+    view.href = data.order_url;
+    view.textContent = toast.dataset.view + " (" + data.count + ")";
+    toast.appendChild(view);
+    toast.hidden = false;
+    clearTimeout(timer);
+    timer = setTimeout(function () { toast.hidden = true; }, 4000);
+  }
+
+  document.addEventListener("submit", function (event) {
+    var form = event.target;
+    if (!/\/cart\/add$/.test(form.getAttribute("action") || "")) return;
+    if (!window.fetch || !window.FormData) return;
+    event.preventDefault();
+    var button = form.querySelector("button[type=submit]");
+    var label = button ? button.textContent : "";
+    if (button) button.disabled = true;
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { "X-Requested-With": "fetch" },
+      credentials: "same-origin"
+    }).then(function (response) {
+      if (!response.ok) throw new Error(response.status);
+      return response.json();
+    }).then(function (data) {
+      confirm(data);
+      if (button) {
+        button.textContent = "✓";
+        setTimeout(function () { button.textContent = label; button.disabled = false; }, 1200);
+      }
+    }).catch(function () {
+      form.submit();
+    });
+  });
+})();

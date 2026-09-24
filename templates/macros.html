@@ -45,7 +45,6 @@
       </div>
       <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
         <input type="hidden" name="slug" value="{{ item.slug }}">
-        <input type="hidden" name="next" value="{{ url_for('order') }}">
         <button class="button button-small" type="submit">{{ _("Add to order") }}</button>
       </form>
     </div>
@@ -82,7 +81,7 @@
 {% if totals and totals.free_delivery %}
 <p class="order-banner order-banner-success">{{ _("Free Cyprus delivery — this order is over €40 (ex VAT).") }}</p>
 {% elif totals and totals.amount_to_free_delivery %}
-<p class="order-banner">{{ _("Free delivery on orders over €40 (ex VAT).") }} {{ _("Add {amount} more to qualify.", amount=totals.amount_to_free_delivery) }}</p>
+<p class="order-banner order-banner-nudge">{{ _("Free delivery on orders over €40 (ex VAT).") }} {{ _("Add {amount} more to qualify.", amount=("<strong>" ~ totals.amount_to_free_delivery ~ "</strong>") | safe) }}</p>
 {% else %}
 <p class="order-banner">{{ _("Free delivery on orders over €40 (ex VAT).") }}</p>
 {% endif %}

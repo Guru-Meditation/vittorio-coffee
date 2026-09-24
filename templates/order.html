@@ -44,7 +44,7 @@
         <p class="muted">{{ line.product.price_label }}</p>
       </div>
       <p class="order-line-pack">{% if line.pack %}<span class="pack-chip">{{ line.pack | units }}</span>{% else %}—{% endif %}</p>
-      <label class="qty-label">{{ _("Qty") }}
+      <label class="qty-label"><span class="qty-text">{{ _("Qty") }}</span>
         <input name="qty-{{ line.product.slug }}" type="number" min="0" max="99" value="{{ line.qty }}">
       </label>
       <p class="price">{{ _(line.line_total) }}</p>

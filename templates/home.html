@@ -25,7 +25,6 @@
             <a class="text-link" href="{{ url_for('products', category=pack.group) }}">{{ _("All {group}", group=pack.group | lower) }}</a>
             <form method="post" action="{{ url_for('cart_add') }}">
               <input type="hidden" name="slug" value="{{ pack.slug }}">
-              <input type="hidden" name="next" value="{{ url_for('order') }}">
               <button class="button button-small" type="submit">{{ _("Add to order") }}</button>
             </form>
           </div>
