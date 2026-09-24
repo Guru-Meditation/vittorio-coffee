@@ -6,21 +6,21 @@
     {{ product_image(item, sizes="(min-width: 720px) 45vw, 92vw", eager=true) }}
   </div>
   <div class="product-info" data-reveal>
-    <p class="eyebrow">{% if brand %}{{ brand.name }} · {% endif %}{{ item.group }}</p>
+    <p class="eyebrow">{% if brand %}{{ brand.name }} · {% endif %}{{ _(item.group) }}</p>
     <h1>{{ item.name }}</h1>
     {% if item.description %}<p class="product-lede">{{ item.description }}</p>{% endif %}
     <div class="product-buy">
       <p class="price">{{ item.price_label }}</p>
       {% set pack = catalog_pack_label(item) %}
-      {% if pack %}<p class="card-pack"><span class="pack-chip pack-chip-lg" title="Pack size">{{ pack }}</span></p>{% endif %}
+      {% if pack %}<p class="card-pack"><span class="pack-chip pack-chip-lg" title="{{ _('Pack size') }}">{{ pack }}</span></p>{% endif %}
       <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
         <input type="hidden" name="slug" value="{{ item.slug }}">
-        <label class="qty-label">Qty
+        <label class="qty-label">{{ _("Qty") }}
           <input name="qty" type="number" min="1" max="99" value="1">
         </label>
-        <button class="button" type="submit">Add to order</button>
+        <button class="button" type="submit">{{ _("Add to order") }}</button>
       </form>
-      <p class="product-terms">Free delivery over €40 · Cash on delivery</p>
+      <p class="product-terms">{{ _("Free delivery over €40 · Cash on delivery") }}</p>
     </div>
     {% if item.profile %}
     <dl class="profile">
@@ -30,15 +30,15 @@
     </dl>
     {% endif %}
     {% if item.dietary %}
-    <p class="dietary"><span>Dietary note</span> {{ item.dietary }}</p>
+    <p class="dietary"><span>{{ _("Dietary note") }}</span> {{ item.dietary }}</p>
     {% endif %}
     {% if brand %}
     <aside class="product-brand">
-      <p><strong>{{ brand.name }}</strong>. {{ brand.line }}.</p>
-      <a class="text-link" href="{{ url_for('products', brand=brand.slug) }}">More from {{ brand.short }}</a>
+      <p><strong>{{ brand.name }}</strong>. {{ _(brand.line) }}.</p>
+      <a class="text-link" href="{{ url_for('products', brand=brand.slug) }}">{{ _("More from {brand}", brand=brand.short) }}</a>
     </aside>
     {% endif %}
-    <p class="product-back"><a class="text-link" href="{{ url_for('products', category=item.group) }}">Back to {{ item.group }}</a></p>
+    <p class="product-back"><a class="text-link" href="{{ url_for('products', category=item.group) }}">{{ _("Back to {group}", group=_(item.group)) }}</a></p>
   </div>
 </article>
 {% endblock %}

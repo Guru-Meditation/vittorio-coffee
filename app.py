@@ -7,14 +7,14 @@ from datetime import timedelta
 from decimal import Decimal, InvalidOperation
 from urllib.parse import quote, urljoin
 
-from flask import Flask, abort, redirect, render_template, request, session, url_for
+from flask import Flask, abort, g, redirect, render_template, request, session, url_for
+from markupsafe import escape
 
 from content import (
     ANNOUNCEMENT,
     ARTICLES,
     BRAND_FILTERS,
     BRAND_LABELS,
-    BRANDS,
     BRANDS_BY_SLUG,
     BUSINESS,
     FAQ,
@@ -27,6 +27,7 @@ from content import (
     CYPRUS_B2B,
     catalog_pack_label,
 )
+from i18n import CATALOGS, DEFAULT_LANG, LANG_LABELS, LANGS, OG_LOCALES, fold, lang_for_path, localize_pack, translate
 from mailing import (
     SITE_URL,
     format_customer_copy,
@@ -81,9 +82,23 @@ HOME_JEAN_PAUL = [
 ]
 
 
+def current_lang():
+    return getattr(g, "lang", None) or lang_for_path(request.path)
+
+
+def tr(text, **values):
+    return translate(text, current_lang(), **values)
+
+
+def catalog():
+    """Products, brands and hero packs with product copy in the page's language."""
+    return CATALOGS[current_lang()]
+
+
 def _search_text(item):
-    parts = (item["name"], item["summary"], item.get("description", ""), BRAND_LABELS.get(item.get("brand"), ""))
-    return " ".join(parts).casefold()
+    brand = BRAND_LABELS.get(item.get("brand"), "")
+    parts = (item["name"], item["summary"], item.get("description", ""), brand, tr(brand), tr(item["group"]))
+    return fold(" ".join(parts))
 
 
 def _price(product):
@@ -105,7 +120,7 @@ def cart_lines():
     priced = Decimal("0")
     missing = False
     for slug, qty in raw.items():
-        product = PRODUCTS_BY_SLUG.get(slug)
+        product = catalog()["by_slug"].get(slug)
         try:
             quantity = int(qty)
         except (TypeError, ValueError):
@@ -141,8 +156,41 @@ def create_app():
     app.secret_key = os.environ.get("SECRET_KEY", "vittorio-order-session")
     # Regular cafés reorder weekly; remember their details and last order for a year.
     app.permanent_session_lifetime = timedelta(days=365)
-    app.jinja_env.globals["catalog_pack_label"] = catalog_pack_label
+    app.jinja_env.globals["catalog_pack_label"] = lambda item: localize_pack(catalog_pack_label(item), current_lang())
     app.jinja_env.globals["brand_labels"] = BRAND_LABELS
+    app.jinja_env.filters["units"] = lambda label: localize_pack(label, current_lang())
+
+    def template_translate(text, **values):
+        text = tr(text)
+        # Placeholders may carry markup (links, <strong>); plain values are escaped.
+        return escape(text).format(**values) if values else text
+
+    app.jinja_env.globals["_"] = template_translate
+
+    localized_endpoints = set()
+
+    def localized(rule, **options):
+        """Serve a view at its English path and again under /el/ for the Greek site."""
+
+        def register(view):
+            greek_rule = "/el/" if rule == "/" else f"/el{rule}"
+            app.add_url_rule(rule, view_func=view, defaults={"lang": "en"}, **options)
+            app.add_url_rule(greek_rule, view_func=view, defaults={"lang": "el"}, **options)
+            localized_endpoints.add(view.__name__)
+            return view
+
+        return register
+
+    @app.url_value_preprocessor
+    def pull_language(_endpoint, values):
+        if values and "lang" in values:
+            g.lang = values.pop("lang")
+
+    @app.url_defaults
+    def keep_language(endpoint, values):
+        # Links on a Greek page stay on the Greek site unless a language is named.
+        if endpoint in localized_endpoints and "lang" not in values and current_lang() != DEFAULT_LANG:
+            values["lang"] = current_lang()
 
     def suppress_mail():
         return bool(app.config.get("TESTING") or app.config.get("MAIL_SUPPRESS_SEND"))
@@ -159,24 +207,39 @@ def create_app():
         return {
             "business": BUSINESS,
             "nav": NAV,
-            "hero": HERO,
+            "hero": catalog()["hero"],
             "cart_count": count,
             "announcement": ANNOUNCEMENT,
-            "brands": BRANDS,
+            "brands": catalog()["brands"],
             "brand_labels": BRAND_LABELS,
+            "lang": current_lang(),
+            "lang_labels": LANG_LABELS,
+            "og_locales": OG_LOCALES,
         }
 
-    def page(template, title, description, **context):
+    def language_links(error):
+        """Where the EN/ΕΛ switch points, and the hreflang alternates for search engines."""
+        if error or request.endpoint not in localized_endpoints:
+            return {code: url_for("home", lang=code) for code in LANGS}, None
+        args = dict(request.view_args or {})
+        switch = {code: url_for(request.endpoint, **{**request.args.to_dict(), **args, "lang": code}) for code in LANGS}
+        alternates = {code: url_for(request.endpoint, **{**args, "lang": code}, _external=True) for code in LANGS}
+        return switch, alternates
+
+    def page(template, title, description, error=False, **context):
         canonical = urljoin(request.url_root, request.path.lstrip("/"))
         if request.query_string and template == "products.html":
-            canonical = urljoin(request.url_root, "products")
+            canonical = url_for("products", _external=True)
         image = url_for("static", filename=f"images/{HERO['file']}", _external=True)
+        switch, alternates = language_links(error)
         seo = {
             "title": title,
             "description": description,
             "canonical": canonical,
             "image": image,
             "json_ld": context.pop("json_ld", None),
+            "lang_switch": switch,
+            "alternates": alternates,
         }
         return render_template(template, seo=seo, **context)
 
@@ -196,26 +259,27 @@ def create_app():
         }
         return json.dumps(payload, ensure_ascii=False)
 
-    @app.get("/")
+    @localized("/")
     def home():
-        featured = [item for item in PRODUCTS if item["featured"]]
-        jean_paul = [PRODUCTS_BY_SLUG[slug] for slug in HOME_JEAN_PAUL]
+        products = catalog()["by_slug"]
+        featured = [item for item in catalog()["products"] if item["featured"]]
+        jean_paul = [products[slug] for slug in HOME_JEAN_PAUL]
         return page(
             "home.html",
-            "Vittorio Gourmet Espresso — wholesale & retail coffee in Cyprus",
-            "Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes with published trade prices, delivered across Cyprus.",
+            tr("Vittorio Gourmet Espresso — wholesale & retail coffee in Cyprus"),
+            tr("Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes with published trade prices, delivered across Cyprus."),
             featured=featured,
             jean_paul=jean_paul,
             articles=ARTICLES,
             json_ld=store_json(),
         )
 
-    @app.get("/products")
+    @localized("/products")
     def products():
         group = request.args.get("category", "").strip()
         brand = request.args.get("brand", "").strip()
         query = request.args.get("q", "").strip()
-        items = PRODUCTS
+        items = catalog()["products"]
         if brand:
             if brand not in BRAND_LABELS:
                 abort(404)
@@ -226,21 +290,21 @@ def create_app():
                 abort(404)
             items = [item for item in items if item["group"] == group]
         if query:
-            needle = query.casefold()
+            needle = fold(query)
             items = [
                 item
                 for item in items
                 if needle in _search_text(item)
             ]
-        title = "Catalogue — Vittorio Gourmet Espresso"
+        title = tr("Catalogue — Vittorio Gourmet Espresso")
         if group:
-            title = f"{group} — Vittorio Gourmet Espresso"
+            title = f"{tr(group)} — Vittorio Gourmet Espresso"
         elif brand:
-            title = f"{BRAND_LABELS[brand]} — Vittorio Gourmet Espresso"
+            title = f"{tr(BRAND_LABELS[brand])} — Vittorio Gourmet Espresso"
         return page(
             "products.html",
             title,
-            "Vittorio coffee and Jean Paul Lab beverages, teas, mixes and café supplies, with published trade prices plus VAT and delivery across Cyprus.",
+            tr("Vittorio coffee and Jean Paul Lab beverages, teas, mixes and café supplies, with published trade prices plus VAT and delivery across Cyprus."),
             items=items,
             groups=groups,
             active_group=group,
@@ -249,9 +313,9 @@ def create_app():
             query=query,
         )
 
-    @app.get("/products/<slug>")
+    @localized("/products/<slug>")
     def product(slug):
-        item = PRODUCTS_BY_SLUG.get(slug)
+        item = catalog()["by_slug"].get(slug)
         if item is None:
             abort(404)
         return page(
@@ -262,50 +326,50 @@ def create_app():
             brand=BRANDS_BY_SLUG.get(item.get("brand")),
         )
 
-    @app.get("/philosophy")
+    @localized("/philosophy")
     def philosophy():
         return page(
             "philosophy.html",
-            "Coffee philosophy — Vittorio Gourmet Espresso",
-            "How Vittorio thinks about coffee for the bar, and the coffees in the Cyprus catalogue.",
-            coffees=[item for item in PRODUCTS if item["group"] == "Coffee"],
+            tr("Coffee philosophy — Vittorio Gourmet Espresso"),
+            tr("How Vittorio thinks about coffee for the bar, and the coffees in the Cyprus catalogue."),
+            coffees=[item for item in catalog()["products"] if item["group"] == "Coffee"],
         )
 
-    @app.get("/story")
+    @localized("/story")
     def story():
         return page(
             "story.html",
-            "Our story — Vittorio Gourmet Espresso",
-            "Vittorio supplies the Cypriot bar from a depot in Kalo Xorio, and met the trade at HO.RE.CA. 2019.",
+            tr("Our story — Vittorio Gourmet Espresso"),
+            tr("Vittorio supplies the Cypriot bar from a depot in Kalo Xorio, and met the trade at HO.RE.CA. 2019."),
         )
 
-    @app.get("/supply")
+    @localized("/supply")
     def supply():
         return page(
             "supply.html",
-            "Coffee supply — Vittorio Gourmet Espresso",
-            "Coffee and café supplies delivered to cafés and bars across Cyprus.",
+            tr("Coffee supply — Vittorio Gourmet Espresso"),
+            tr("Coffee and café supplies delivered to cafés and bars across Cyprus."),
         )
 
-    @app.get("/cyprus")
+    @localized("/cyprus")
     def cyprus():
         return page(
             "cyprus.html",
-            "B2B Services — Vittorio Gourmet Espresso Cyprus",
-            "Wholesale coffee, machines, training, and partner supply for cafés and bars across Cyprus.",
+            tr("B2B Services — Vittorio Gourmet Espresso Cyprus"),
+            tr("Wholesale coffee, machines, training, and partner supply for cafés and bars across Cyprus."),
             b2b=CYPRUS_B2B,
         )
 
-    @app.get("/machines")
+    @localized("/machines")
     def machines():
         return page(
             "machines.html",
-            "Coffee machines — Vittorio Gourmet Espresso",
-            "Appia Life, Sanremo, and Expobar machines are offered with no charge during a partnership. Setup guidance is free once cooperation starts.",
+            tr("Coffee machines — Vittorio Gourmet Espresso"),
+            tr("Appia Life, Sanremo, and Expobar machines are offered with no charge during a partnership. Setup guidance is free once cooperation starts."),
             machine_programmes=MACHINE_PROGRAMMES,
         )
 
-    @app.post("/cart/add")
+    @localized("/cart/add", methods=["POST"])
     def cart_add():
         slug = request.form.get("slug", "").strip()
         if slug not in PRODUCTS_BY_SLUG:
@@ -320,7 +384,7 @@ def create_app():
         session["cart"] = cart
         return redirect(request.form.get("next") or url_for("order"))
 
-    @app.post("/cart/update")
+    @localized("/cart/update", methods=["POST"])
     def cart_update():
         cart = {}
         for slug in PRODUCTS_BY_SLUG:
@@ -336,7 +400,7 @@ def create_app():
         session["cart"] = cart
         return redirect(url_for("order"))
 
-    @app.route("/order", methods=["GET", "POST"])
+    @localized("/order", methods=["GET", "POST"])
     def order():
         lines, _subtotal, missing = cart_lines()
         checkout = order_checkout_context(lines, missing)
@@ -349,20 +413,20 @@ def create_app():
             if request.form.get("company_website", "").strip():
                 return redirect(url_for("order_done"))
             if not lines:
-                errors["cart"] = "Add at least one product before placing the order."
+                errors["cart"] = tr("Add at least one product before placing the order.")
             if len(values["name"]) < 2:
-                errors["name"] = "Enter your name."
+                errors["name"] = tr("Enter your name.")
             if not EMAIL_RE.match(values["email"]):
-                errors["email"] = "Enter a valid email address."
+                errors["email"] = tr("Enter a valid email address.")
             if not _phone_ok(values["phone"]):
-                errors["phone"] = "Enter a phone number we can reach you on."
+                errors["phone"] = tr("Enter a phone number we can reach you on.")
             if len(values["town"]) < 2:
-                errors["town"] = "Enter the town in Cyprus for delivery."
+                errors["town"] = tr("Enter the town in Cyprus for delivery.")
             if errors:
                 body = page(
                     "order.html",
-                    "Your order — Vittorio Gourmet Espresso",
-                    "Place a coffee and café-supply order for delivery in Cyprus.",
+                    tr("Your order — Vittorio Gourmet Espresso"),
+                    tr("Place a coffee and café-supply order for delivery in Cyprus."),
                     errors=errors,
                     values=values,
                     **checkout,
@@ -382,6 +446,7 @@ def create_app():
                 ],
                 "missing_price": missing,
                 "totals": totals_for_session(checkout["totals"]),
+                "lang": current_lang(),
                 **values,
             }
             if checkout["totals"]:
@@ -397,20 +462,20 @@ def create_app():
         reorder_items = []
         if not lines:
             reorder_items = [
-                {"product": PRODUCTS_BY_SLUG[slug], "qty": qty}
+                {"product": catalog()["by_slug"][slug], "qty": qty}
                 for slug, qty in parse_reorder(session.get("reorder")).items()
             ]
         return page(
             "order.html",
-            "Your order — Vittorio Gourmet Espresso",
-            "Place a coffee and café-supply order for delivery in Cyprus.",
+            tr("Your order — Vittorio Gourmet Espresso"),
+            tr("Place a coffee and café-supply order for delivery in Cyprus."),
             errors=errors,
             values=values,
             reorder_items=reorder_items,
             **checkout,
         )
 
-    @app.get("/order/again")
+    @localized("/order/again")
     def order_again():
         """Refill the order list from an emailed link, or from this browser's last order."""
         items = parse_reorder(request.args.get("items") or session.get("reorder"))
@@ -421,7 +486,7 @@ def create_app():
 
     def email_customer_copy(placed):
         reorder_url = SITE_URL + url_for("order_again", items=reorder_param(placed["lines"]))
-        subject, body = format_customer_copy(placed, reorder_url)
+        subject, body = format_customer_copy(placed, reorder_url, lang=placed.get("lang", DEFAULT_LANG))
         return send_customer_copy(subject, body, placed["email"], suppress=suppress_mail())
 
     def deliver_order_to_depot(placed):
@@ -444,7 +509,7 @@ def create_app():
             "viber_href": viber_order_href(order_body),
         }
 
-    @app.get("/order/received")
+    @localized("/order/received")
     def order_done():
         placed = session.get("last_order")
         if not placed:
@@ -454,12 +519,12 @@ def create_app():
             session["last_order"] = placed
         return page(
             "order_done.html",
-            "Order received — Vittorio Gourmet Espresso",
-            "Your Cyprus delivery order is emailed to the depot. Payment is cash on delivery only.",
+            tr("Order received — Vittorio Gourmet Espresso"),
+            tr("Your Cyprus delivery order is emailed to the depot. Payment is cash on delivery only."),
             **_order_done_context(placed),
         )
 
-    @app.post("/order/email-depot")
+    @localized("/order/email-depot", methods=["POST"])
     def order_email_depot():
         placed = session.get("last_order")
         if not placed:
@@ -468,37 +533,37 @@ def create_app():
         session["last_order"] = placed
         return redirect(url_for("order_done"))
 
-    @app.get("/visit")
+    @localized("/visit")
     def visit():
         return page(
             "visit.html",
-            "Visit us — Vittorio Gourmet Espresso, Kalo Xorio",
-            "The Vittorio depot in Kalo Xorio, Larnaca, Cyprus.",
+            tr("Visit us — Vittorio Gourmet Espresso, Kalo Xorio"),
+            tr("The Vittorio depot in Kalo Xorio, Larnaca, Cyprus."),
             json_ld=store_json(),
         )
 
-    @app.get("/journal")
+    @localized("/journal")
     def journal():
         return page(
             "journal.html",
-            "Journal — Vittorio Gourmet Espresso",
-            "Notes from Vittorio at HO.RE.CA. 2019 in Athens.",
+            tr("Journal — Vittorio Gourmet Espresso"),
+            tr("Notes from Vittorio at HO.RE.CA. 2019 in Athens."),
             articles=ARTICLES,
         )
 
-    @app.get("/journal/<slug>")
+    @localized("/journal/<slug>")
     def article(slug):
         item = ARTICLES_BY_SLUG.get(slug)
         if item is None:
             abort(404)
         return page(
             "article.html",
-            f"{item['title']} — Vittorio Gourmet Espresso",
-            item["summary"],
+            f"{tr(item['title'])} — Vittorio Gourmet Espresso",
+            tr(item["summary"]),
             article=item,
         )
 
-    @app.route("/contact", methods=["GET", "POST"])
+    @localized("/contact", methods=["GET", "POST"])
     def contact():
         errors = {}
         values = {"name": "", "email": "", "message": ""}
@@ -515,11 +580,11 @@ def create_app():
                 sent = True
             else:
                 if len(values["name"]) < 2:
-                    errors["name"] = "Enter your name."
+                    errors["name"] = tr("Enter your name.")
                 if not EMAIL_RE.match(values["email"]):
-                    errors["email"] = "Enter a valid email address."
+                    errors["email"] = tr("Enter a valid email address.")
                 if len(values["message"]) < 10:
-                    errors["message"] = "Write a message of at least 10 characters."
+                    errors["message"] = tr("Write a message of at least 10 characters.")
                 if errors:
                     status = 400
                 else:
@@ -536,43 +601,43 @@ def create_app():
                     ):
                         sent = True
                     else:
-                        errors["send"] = (
+                        errors["send"] = tr(
                             "We could not send your message right now. Use Contact on Viber, or try again later."
                         )
                         status = 503
         body = page(
             "contact.html",
-            "Contact — Vittorio Gourmet Espresso",
-            "Reach the Vittorio depot in Kalo Xorio on Viber.",
+            tr("Contact — Vittorio Gourmet Espresso"),
+            tr("Reach the Vittorio depot in Kalo Xorio on Viber."),
             errors=errors,
             values=values,
             sent=sent,
         )
         return body, status
 
-    @app.get("/faq")
+    @localized("/faq")
     def faq():
         return page(
             "faq.html",
-            "Questions — Vittorio Gourmet Espresso",
-            "Delivery, machines, returns, and how an order is confirmed.",
+            tr("Questions — Vittorio Gourmet Espresso"),
+            tr("Delivery, machines, returns, and how an order is confirmed."),
             faq=FAQ,
         )
 
-    @app.get("/privacy")
+    @localized("/privacy")
     def privacy():
         return page(
             "privacy.html",
-            "Privacy — Vittorio Gourmet Espresso",
-            "What Vittorio keeps from an order or a message on this site.",
+            tr("Privacy — Vittorio Gourmet Espresso"),
+            tr("What Vittorio keeps from an order or a message on this site."),
         )
 
-    @app.get("/returns")
+    @localized("/returns")
     def returns():
         return page(
             "returns.html",
-            "Returns — Vittorio Gourmet Espresso",
-            "Unopened goods can be returned within 30 days. Orders are cash on delivery.",
+            tr("Returns — Vittorio Gourmet Espresso"),
+            tr("Unopened goods can be returned within 30 days. Orders are cash on delivery."),
         )
 
     @app.get("/sitemap.xml")
@@ -595,6 +660,7 @@ def create_app():
         ]
         paths += [f"/products/{item['slug']}" for item in PRODUCTS]
         paths += [f"/journal/{item['slug']}" for item in ARTICLES]
+        paths += ["/el/" if path == "/" else f"/el{path}" for path in paths]
         urls = [urljoin(request.url_root, path.lstrip("/")) for path in paths]
         xml = ["<?xml version=\"1.0\" encoding=\"UTF-8\"?>", '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
         xml += [f"<url><loc>{loc}</loc></url>" for loc in urls]
@@ -623,8 +689,9 @@ def create_app():
         return (
             page(
                 "404.html",
-                "Page not found — Vittorio Gourmet Espresso",
-                "That page is not part of Vittorio Gourmet Espresso.",
+                tr("Page not found — Vittorio Gourmet Espresso"),
+                tr("That page is not part of Vittorio Gourmet Espresso."),
+                error=True,
             ),
             404,
         )

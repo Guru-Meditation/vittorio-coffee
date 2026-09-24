@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="page-intro section prose">
-  <p class="eyebrow">Story</p>
-  <h1>Built for the counter.</h1>
-  <p>Vittorio grew up around quality and service, first in Greece, then as a supplier for people who serve coffee every day. In Cyprus the work is based in Kalo Xorio, Larnaca.</p>
-  <p>The brief is simple: good goods, people who know the range, and support after the delivery, for professionals and for home drinkers.</p>
-  <p>In February 2019 the team exhibited at HO.RE.CA. in Athens, then thanked everyone who came to the 14th edition. Those notes are in the journal.</p>
-  <p><a class="button" href="{{ url_for('journal') }}">Read the notes</a></p>
+  <p class="eyebrow">{{ _("Story") }}</p>
+  <h1>{{ _("Built for the counter.") }}</h1>
+  <p>{{ _("Vittorio grew up around quality and service, first in Greece, then as a supplier for people who serve coffee every day. In Cyprus the work is based in Kalo Xorio, Larnaca.") }}</p>
+  <p>{{ _("The brief is simple: good goods, people who know the range, and support after the delivery, for professionals and for home drinkers.") }}</p>
+  <p>{{ _("In February 2019 the team exhibited at HO.RE.CA. in Athens, then thanked everyone who came to the 14th edition. Those notes are in the journal.") }}</p>
+  <p><a class="button" href="{{ url_for('journal') }}">{{ _("Read the notes") }}</a></p>
 </section>
 {% endblock %}

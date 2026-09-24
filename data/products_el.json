@@ -1,0 +1,188 @@
+{
+  "costa-rica": {
+    "description": "Φρεσκοκαβουρδισμένη μονοποικιλιακή Arabica από την Κόστα Ρίκα, με πολύ καθαρή, γλυκιά επίγευση.",
+    "profile": [
+      [
+        "Υψόμετρο",
+        "1.200–1.800 m"
+      ],
+      [
+        "Ποικιλία",
+        "Caturra, Catuai"
+      ],
+      [
+        "Επεξεργασία",
+        "Πλυμένη (washed)"
+      ],
+      [
+        "Οξύτητα",
+        "Υψηλή και έντονη"
+      ],
+      [
+        "Σώμα",
+        "Πλούσιο και γεμάτο"
+      ],
+      [
+        "Άρωμα",
+        "Βερίκοκο και νεκταρίνι"
+      ],
+      [
+        "Γεύση",
+        "Εκλεκτή σοκολάτα, σύνθετη"
+      ]
+    ]
+  },
+  "filter": {
+    "description": "Φρεσκοαλεσμένος καφές για φίλτρο, με έντονο άρωμα και γεμάτη γεύση από την πρώτη γουλιά."
+  },
+  "espresso-decafeine": {
+    "description": "Χαρμάνι 100% Arabica, χωρίς καφεΐνη με σύγχρονες μεθόδους. Όλη η γεύση του καφέ, χωρίς την καφεΐνη.",
+    "dietary": "Χωρίς καφεΐνη, όπως αναγράφεται στη σελίδα του προϊόντος."
+  },
+  "espresso-grande": {
+    "description": "Χαρμάνι espresso της Vittorio από κόκκους Arabica και Robusta."
+  },
+  "greek": {
+    "description": "Προσεκτικά επιλεγμένο χαρμάνι, σωστά καβουρδισμένο, για γεμάτο και πλούσιο ελληνικό καφέ."
+  },
+  "espresso-100-arabica": {
+    "description": "Χαρμάνι από 100% Arabica κόκκους specialty, γνωστό ως gourmet καφές."
+  },
+  "single-origin-guatemala": {
+    "description": "Μονοποικιλιακή Arabica από τη Γουατεμάλα, με ξεχωριστή γεύση και άρωμα."
+  },
+  "chocolate-with-black-forest-passion-fruit-no-2": {
+    "description": "Αρωματικό ρόφημα σοκολάτας: black forest με φρούτα του πάθους."
+  },
+  "chocolate-with-bueno-biscuit-no-3": {
+    "description": "Αρωματικό ρόφημα σοκολάτας: bueno με μπισκότο."
+  },
+  "chocolate-with-lemon-biscuit-no-5": {
+    "description": "Αρωματικό ρόφημα σοκολάτας: λεμόνι με μπισκότο."
+  },
+  "chocolate-powder-la-vittoria-classic": {
+    "description": "Σοκολάτα σε σκόνη La Vittoria με βελούδινη υφή. Σερβίρεται ζεστή ή κρύα."
+  },
+  "chocolate-powder-paolo-chocolate": {
+    "description": "Σοκολάτα σε σκόνη Paolo της La Vittoria, για γεμάτη σοκολάτα. Σερβίρεται ζεστή ή κρύα."
+  },
+  "freddoccino": {
+    "description": "Σοκολάτα σε σκόνη Freddoccino της La Vittoria. Σερβίρεται κρύα ή ζεστή."
+  },
+  "soft-ice-cream-1kg": {
+    "description": "Μείγμα για βελούδινο, κρεμώδες παγωτό soft σε μηχανή soft serve. Βανίλια, σοκολάτα, φράουλα και Bueno."
+  },
+  "coffee-syrup-vanillia": {
+    "description": "Συμπυκνωμένα σιρόπια για ζεστά ή κρύα ροφήματα καφέ. Επτά γεύσεις, ανάμεσά τους καραμέλα, φουντούκι και βανίλια."
+  },
+  "smoothies-syrups-peach": {
+    "description": "Πουρές φρούτων για smoothies. Χτυπήστε με πάγο και νερό ή γάλα."
+  },
+  "smoothies-syrups-raspberry": {
+    "description": "Πουρές φρούτων για smoothies. Χτυπήστε με πάγο και νερό ή γάλα."
+  },
+  "smoothies-syrups-mango": {
+    "description": "Πουρές φρούτων για smoothies. Χτυπήστε με πάγο και νερό ή γάλα."
+  },
+  "smoothies-syrups-banana": {
+    "description": "Πουρές φρούτων για smoothies. Χτυπήστε με πάγο και νερό ή γάλα."
+  },
+  "smoothies-syrups-pomegranate": {
+    "description": "Πουρές φρούτων για smoothies. Χτυπήστε με πάγο και νερό ή γάλα."
+  },
+  "smoothies-syrups-strawberry": {
+    "description": "Πουρές φρούτων για smoothies. Χτυπήστε με πάγο και νερό ή γάλα."
+  },
+  "milkshake-vanillia": {
+    "description": "Σκόνη για milkshake βανίλια, με αληθινό γιαούρτι σε σκόνη.",
+    "dietary": "Περιέχει ξινή κρέμα, φρούτα και γιαούρτι σε σκόνη, όπως αναγράφεται. Δεν δημοσιεύεται πίνακας αλλεργιογόνων."
+  },
+  "milkshake-strawberry": {
+    "description": "Σκόνη για milkshake φράουλα, με αληθινό γιαούρτι σε σκόνη.",
+    "dietary": "Περιέχει ξινή κρέμα, φρούτα και γιαούρτι σε σκόνη, όπως αναγράφεται. Δεν δημοσιεύεται πίνακας αλλεργιογόνων."
+  },
+  "milkshake-chocolate": {
+    "description": "Σκόνη για milkshake σοκολάτα, με αληθινό γιαούρτι σε σκόνη.",
+    "dietary": "Περιέχει ξινή κρέμα, φρούτα και γιαούρτι σε σκόνη, όπως αναγράφεται. Δεν δημοσιεύεται πίνακας αλλεργιογόνων."
+  },
+  "mon-cheri-ginger-and-citrus": {
+    "description": "Τσάι Jean Paul Lab: τζίντζερ και εσπεριδοειδή."
+  },
+  "ginger-and-lemon": {
+    "description": "Τσάι Jean Paul Lab: τζίντζερ και λεμόνι."
+  },
+  "fit-slim-hibiscus": {
+    "description": "Τσάι Jean Paul Lab: ιβίσκος."
+  },
+  "english-breakfast-black-tea": {
+    "description": "Τσάι Jean Paul Lab: μαύρο τσάι English Breakfast."
+  },
+  "blue-night": {
+    "description": "Τσάι Jean Paul Lab: φρουτοτσάι Blue Night."
+  },
+  "red-passion-square-fruit-tea-with-cranberry": {
+    "description": "Τσάι Jean Paul Lab: φρουτοτσάι με κράνμπερι."
+  },
+  "purple-diamond-fruits": {
+    "description": "Τσάι Jean Paul Lab: φρουτοτσάι Purple Diamond."
+  },
+  "white-life-chamomile": {
+    "description": "Τσάι Jean Paul Lab: χαμομήλι."
+  },
+  "bienneziko-bals": {
+    "description": "Τσάι Jean Paul Lab: καφές και αμύγδαλο."
+  },
+  "9th-symphony-herbal-tea": {
+    "description": "Τσάι Jean Paul Lab: μείγμα βοτάνων."
+  },
+  "matcha-mix": {
+    "description": "Τσάι Jean Paul Lab: μείγμα matcha."
+  },
+  "green-tea": {
+    "description": "Τσάι Jean Paul Lab: πράσινο τσάι."
+  },
+  "waffle-mix": {
+    "description": "Μείγμα για βάφλες, για την κουζίνα του καταστήματος."
+  },
+  "pancake-mix": {
+    "description": "Μείγμα για pancakes, για αμέτρητους συνδυασμούς."
+  },
+  "crepe-mix": {
+    "description": "Μείγμα για κρέπες, ισορροπημένο για γλυκές ή αλμυρές κρέπες."
+  },
+  "strawberry-granita": {
+    "description": "Σκόνη για γρανίτα, εύκολη στην παρασκευή σε μηχανή γρανίτας. Γεύση φράουλα, χωρίς συντηρητικά.",
+    "dietary": "Χωρίς συντηρητικά, όπως αναγράφεται. Οι χρωστικές περιγράφονται ως επιτρεπόμενες. Δεν δημοσιεύεται πληρέστερος διατροφικός πίνακας."
+  },
+  "lemon-granita-powder": {
+    "description": "Σκόνη για γρανίτα, εύκολη στην παρασκευή σε μηχανή γρανίτας. Γεύση λεμόνι, χωρίς συντηρητικά.",
+    "dietary": "Χωρίς συντηρητικά, όπως αναγράφεται. Οι χρωστικές περιγράφονται ως επιτρεπόμενες. Δεν δημοσιεύεται πληρέστερος διατροφικός πίνακας."
+  },
+  "granite-straws-x-1000-pcs": {
+    "description": "Καλαμάκια για γρανίτα, συσκευασία 1000 τεμαχίων. Τιμή κατόπιν ζήτησης."
+  },
+  "frappe-straws-x-500": {
+    "description": "Καλαμάκια για φραπέ, συσκευασία 500 τεμαχίων. Τιμή κατόπιν ζήτησης."
+  },
+  "fredo-straws-x-1000": {
+    "description": "Καλαμάκια για freddo, συσκευασία 1000 τεμαχίων. Τιμή κατόπιν ζήτησης."
+  },
+  "quadruple-paper-bases": {
+    "description": "Χάρτινες θήκες μεταφοράς για τέσσερα ροφήματα. Τιμή κατόπιν ζήτησης."
+  },
+  "double-paper-bases": {
+    "description": "Χάρτινες θήκες μεταφοράς για δύο ροφήματα. Τιμή κατόπιν ζήτησης."
+  },
+  "transparent-lids-x-50": {
+    "description": "Διάφανα καπάκια, συσκευασία 50 τεμαχίων. Τιμή κατόπιν ζήτησης."
+  },
+  "black-lids-12-16oz": {
+    "description": "Μαύρα καπάκια για ποτήρια 12–16 oz. Τιμή κατόπιν ζήτησης."
+  },
+  "glasses-4-oz-8-oz-12-oz-16-oz": {
+    "description": "Ποτήρια 4, 8, 12 και 16 oz. Τιμή κατόπιν ζήτησης."
+  },
+  "plastic-glasses-300ml-400ml": {
+    "description": "Πλαστικά ποτήρια 300 ml και 400 ml. Τιμή κατόπιν ζήτησης."
+  }
+}

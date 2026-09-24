@@ -2,37 +2,37 @@
 {% from "macros.html" import product_card %}
 {% block content %}
 <section class="page-intro section catalogue">
-  <p class="eyebrow">Catalogue</p>
-  <h1>{% if active_brand %}{{ brand_labels[active_brand] }}{% else %}Wholesale &amp; retail range{% endif %}</h1>
-  <p class="lede-short">Trade prices plus VAT · Delivery across Cyprus · Cash on delivery</p>
+  <p class="eyebrow">{{ _("Catalogue") }}</p>
+  <h1>{% if active_brand %}{{ _(brand_labels[active_brand]) }}{% else %}{{ _("Wholesale & retail range") }}{% endif %}</h1>
+  <p class="lede-short">{{ _("Trade prices plus VAT · Delivery across Cyprus · Cash on delivery") }}</p>
   <form class="search" method="get" action="{{ url_for('products') }}" role="search">
     {% if active_brand %}<input type="hidden" name="brand" value="{{ active_brand }}">{% endif %}
     {% if active_group %}<input type="hidden" name="category" value="{{ active_group }}">{% endif %}
-    <label class="sr" for="q">Search the catalogue</label>
-    <input id="q" name="q" type="search" value="{{ query }}" placeholder="Search coffees, teas, mixes">
-    <button class="button" type="submit">Search</button>
+    <label class="sr" for="q">{{ _("Search the catalogue") }}</label>
+    <input id="q" name="q" type="search" value="{{ query }}" placeholder="{{ _('Search coffees, teas, mixes') }}">
+    <button class="button" type="submit">{{ _("Search") }}</button>
   </form>
-  <nav class="filters filters-brand" aria-label="Brands">
-    <a href="{{ url_for('products') }}" {% if not active_brand %}aria-current="true"{% endif %}>All brands</a>
+  <nav class="filters filters-brand" aria-label="{{ _('Brands') }}">
+    <a href="{{ url_for('products') }}" {% if not active_brand %}aria-current="true"{% endif %}>{{ _("All brands") }}</a>
     {% for entry in brand_filters %}
-    <a href="{{ url_for('products', brand=entry.slug) }}" {% if active_brand == entry.slug %}aria-current="true"{% endif %}>{{ entry.label }}</a>
+    <a href="{{ url_for('products', brand=entry.slug) }}" {% if active_brand == entry.slug %}aria-current="true"{% endif %}>{{ _(entry.label) }}</a>
     {% endfor %}
   </nav>
-  <nav class="filters" aria-label="Categories">
-    <a href="{{ url_for('products', brand=active_brand or None) }}" {% if not active_group %}aria-current="true"{% endif %}>All</a>
+  <nav class="filters" aria-label="{{ _('Categories') }}">
+    <a href="{{ url_for('products', brand=active_brand or None) }}" {% if not active_group %}aria-current="true"{% endif %}>{{ _("All") }}</a>
     {% for group in groups %}
-    <a href="{{ url_for('products', brand=active_brand or None, category=group) }}" {% if active_group == group %}aria-current="true"{% endif %}>{{ group }}</a>
+    <a href="{{ url_for('products', brand=active_brand or None, category=group) }}" {% if active_group == group %}aria-current="true"{% endif %}>{{ _(group) }}</a>
     {% endfor %}
   </nav>
   {% if items %}
-  <p class="result-count">{{ items | length }} product{% if items | length != 1 %}s{% endif %}</p>
+  <p class="result-count">{% if items | length == 1 %}{{ _("1 product") }}{% else %}{{ _("{count} products", count=items | length) }}{% endif %}</p>
   <div class="card-grid three">
     {% for item in items %}
       {{ product_card(item) }}
     {% endfor %}
   </div>
   {% else %}
-  <p>Nothing in the catalogue matches that search.</p>
+  <p>{{ _("Nothing in the catalogue matches that search.") }}</p>
   {% endif %}
 </section>
 {% endblock %}

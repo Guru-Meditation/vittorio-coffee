@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="page-intro section">
-  <p class="eyebrow">Equipment</p>
-  <h1>Espresso machine programmes.</h1>
-  <p class="lede-short">No charge for the machine while the partnership continues · free setup guidance</p>
+  <p class="eyebrow">{{ _("Equipment") }}</p>
+  <h1>{{ _("Espresso machine programmes.") }}</h1>
+  <p class="lede-short">{{ _("No charge for the machine while the partnership continues · free setup guidance") }}</p>
 </section>
 {% for programme in machine_programmes %}
 <section class="section section-tight">
@@ -14,7 +14,7 @@
   <figure class="machine-brand-photo">
     <img
       src="{{ url_for('static', filename='images/' ~ programme.image) }}"
-      alt="{{ programme.alt }}"
+      alt="{{ _(programme.alt) }}"
       width="1200"
       height="900"
       loading="lazy"

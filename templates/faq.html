@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="page-intro section">
-  <p class="eyebrow">Questions</p>
-  <h1>Before you order.</h1>
+  <p class="eyebrow">{{ _("Questions") }}</p>
+  <h1>{{ _("Before you order.") }}</h1>
   <div class="card-grid">
     {% for item in faq %}
     <article class="faq-item">
-      <h2>{{ item.question }}</h2>
-      <p>{{ item.answer }}</p>
+      <h2>{{ _(item.question) }}</h2>
+      <p>{{ _(item.answer) }}</p>
     </article>
     {% endfor %}
   </div>

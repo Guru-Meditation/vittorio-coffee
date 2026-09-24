@@ -9,7 +9,7 @@ teas, dessert mixes); each product has a `brand` field. Deployed on Render (Star
 ## Run and test (Windows, from the repo root)
 - Virtualenv already set up: `.venv\Scripts\python -m pip install -r requirements.txt` after a fresh clone
   (`python -m venv .venv` first).
-- Tests: `.venv\Scripts\python -m pytest -q` (49 at 2026-09-24, all green).
+- Tests: `.venv\Scripts\python -m pytest -q` (77 at 2026-09-24, all green).
 - Local server: `.venv\Scripts\python -m flask --app app run --debug`, then open http://127.0.0.1:5000.
 - Mail needs `.env` (copy `.env.example`; SMTP_PASSWORD is a Gmail app password). Never commit `.env`.
   Without it, a local test order falls back to FormSubmit and lands in the real depot inbox.
@@ -23,6 +23,12 @@ teas, dessert mixes); each product has a `brand` field. Deployed on Render (Star
 - Page map: home = product-counter hero with hover cards + brand panels + shelves; `/cyprus` = B2B
   scroll story (chapters fill a counter, zooms on the machine first, machines rotate). Visit, supply,
   machines, philosophy, story and journal pages still exist but are not in the nav.
+- Greek site: every page is served in English at `/...` and in Greek at `/el/...` (`localized()` in app.py).
+  UI and content strings are wrapped in `_("English text")` in templates (`tr()` in Python). The Greek
+  text lives in `EL` in `i18n.py`, keyed by the English. Greek product copy is in `data/products_el.json`
+  (keyed by slug, kept apart because `tools/build_catalog.py` rewrites products.json). When you add or
+  change English copy, add the Greek too: `tests/test_greek.py` fails on any string without a translation.
+  Brand and product names stay in English.
 
 ## Copy and design rules from the owner
 - Terse, professional distributor tone. No how-it-works steps, no "delivered by car", no long blurbs.

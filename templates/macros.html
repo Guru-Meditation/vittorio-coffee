@@ -34,7 +34,7 @@
     {{ brand_badge(item) }}
   </a>
   <div class="card-body">
-    <p class="eyebrow">{{ item.group }}</p>
+    <p class="eyebrow">{{ _(item.group) }}</p>
     <h3><a href="{{ url_for('product', slug=item.slug) }}">{{ item.name }}</a></h3>
     {% if not compact and item.description %}<p class="card-desc">{{ item.description }}</p>{% endif %}
     <div class="card-foot">
@@ -46,7 +46,7 @@
       <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
         <input type="hidden" name="slug" value="{{ item.slug }}">
         <input type="hidden" name="next" value="{{ url_for('order') }}">
-        <button class="button button-small" type="submit">Add to order</button>
+        <button class="button button-small" type="submit">{{ _("Add to order") }}</button>
       </form>
     </div>
   </div>
@@ -55,36 +55,36 @@
 
 {% macro location_card(business) -%}
 <article class="location-card">
-  <p class="eyebrow">Larnaca district</p>
+  <p class="eyebrow">{{ _("Larnaca district") }}</p>
   <h2>{{ business.name }}</h2>
   <address>
-    {{ business.locality }}, {{ business.region }}<br>
-    {{ business.country }}
+    {{ _(business.locality) }}, {{ _(business.region) }}<br>
+    {{ _(business.country) }}
   </address>
   <dl>
     <div>
-      <dt>Contact</dt>
-      <dd><a href="{{ business.viber }}">Contact</a></dd>
+      <dt>{{ _("Contact") }}</dt>
+      <dd><a href="{{ business.viber }}">{{ _("Contact") }}</a></dd>
     </div>
     <div>
-      <dt>Orders</dt>
+      <dt>{{ _("Orders") }}</dt>
       <dd><a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a></dd>
     </div>
   </dl>
   <p class="card-actions">
-    <a class="button" href="{{ business.viber }}">Contact</a>
-    <a class="button button-ghost" href="{{ business.maps }}">Directions</a>
+    <a class="button" href="{{ business.viber }}">{{ _("Contact") }}</a>
+    <a class="button button-ghost" href="{{ business.maps }}">{{ _("Directions") }}</a>
   </p>
 </article>
 {%- endmacro %}
 
 {% macro order_delivery_banner(totals) -%}
 {% if totals and totals.free_delivery %}
-<p class="order-banner order-banner-success">Free Cyprus delivery — this order is over €40 (ex VAT).</p>
+<p class="order-banner order-banner-success">{{ _("Free Cyprus delivery — this order is over €40 (ex VAT).") }}</p>
 {% elif totals and totals.amount_to_free_delivery %}
-<p class="order-banner">Free delivery on orders over €40 (ex VAT). Add {{ totals.amount_to_free_delivery }} more to qualify.</p>
+<p class="order-banner">{{ _("Free delivery on orders over €40 (ex VAT).") }} {{ _("Add {amount} more to qualify.", amount=totals.amount_to_free_delivery) }}</p>
 {% else %}
-<p class="order-banner">Free delivery on orders over €40 (ex VAT).</p>
+<p class="order-banner">{{ _("Free delivery on orders over €40 (ex VAT).") }}</p>
 {% endif %}
 {%- endmacro %}
 
@@ -92,10 +92,10 @@
 {% if totals %}
 <table class="order-totals">
   <tbody>
-    <tr><th scope="row">Subtotal (ex VAT)</th><td class="num">{{ totals.subtotal }}</td></tr>
-    <tr><th scope="row">VAT ({{ totals.vat_label }})</th><td class="num">{{ totals.vat }}</td></tr>
-    <tr><th scope="row">Delivery</th><td class="num">{{ totals.delivery }}</td></tr>
-    <tr class="order-total-row"><th scope="row">Total to pay on delivery</th><td class="num">{{ totals.total }}</td></tr>
+    <tr><th scope="row">{{ _("Subtotal (ex VAT)") }}</th><td class="num">{{ totals.subtotal }}</td></tr>
+    <tr><th scope="row">{{ _("VAT") }} ({{ totals.vat_label }})</th><td class="num">{{ totals.vat }}</td></tr>
+    <tr><th scope="row">{{ _("Delivery") }}</th><td class="num">{{ _(totals.delivery) }}</td></tr>
+    <tr class="order-total-row"><th scope="row">{{ _("Total to pay on delivery") }}</th><td class="num">{{ totals.total }}</td></tr>
   </tbody>
 </table>
 {% endif %}

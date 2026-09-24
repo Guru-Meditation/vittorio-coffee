@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="b2b-intro section">
-  <p class="eyebrow">{{ b2b.eyebrow }}</p>
-  <h1>{{ b2b.title }}</h1>
-  <p class="lede-short">{{ b2b.lede }}</p>
+  <p class="eyebrow">{{ _(b2b.eyebrow) }}</p>
+  <h1>{{ _(b2b.title) }}</h1>
+  <p class="lede-short">{{ _(b2b.lede) }}</p>
 </section>
 
-<section class="story" aria-label="What a partnership includes">
+<section class="story" aria-label="{{ _('What a partnership includes') }}">
   <div class="story-stage">
     <div class="scene" data-step="{{ b2b.chapters | length - 1 }}">
       <div class="scene-camera">
@@ -17,29 +17,29 @@
       <img class="scene-item scene-machine{% if loop.first %} is-current{% endif %}" src="{{ url_for('static', filename='images/' ~ machine.src) }}" alt="{{ machine.name }}" width="{{ machine.w }}" height="{{ machine.h }}" decoding="async" data-step="0" data-name="{{ machine.name }}" style="--x: {{ slot.x }}%; --b: {{ slot.b }}%; --size: {{ slot.size }}%; --z: 2">
       {% endfor %}
       {% for piece in b2b.scene %}
-      <img class="scene-item" src="{{ url_for('static', filename='images/' ~ piece.src) }}" alt="{{ piece.alt }}" width="{{ piece.w }}" height="{{ piece.h }}" loading="lazy" decoding="async" data-step="{{ piece.step }}" style="--x: {{ piece.x }}%; --b: {{ piece.b }}%; --size: {{ piece.size }}%; --z: {{ piece.z }}">
+      <img class="scene-item" src="{{ url_for('static', filename='images/' ~ piece.src) }}" alt="{{ _(piece.alt) }}" width="{{ piece.w }}" height="{{ piece.h }}" loading="lazy" decoding="async" data-step="{{ piece.step }}" style="--x: {{ piece.x }}%; --b: {{ piece.b }}%; --size: {{ piece.size }}%; --z: {{ piece.z }}">
       {% endfor %}
       </div>
       <p class="scene-machine-tag" data-step="0" aria-live="polite">{{ b2b.machines[0].name }}</p>
-      <p class="scene-chip scene-chip-setup" data-step="1">Free setup &amp; training</p>
-      <p class="scene-chip scene-chip-service" data-step="6">Machine service</p>
+      <p class="scene-chip scene-chip-setup" data-step="1">{{ _("Free setup & training") }}</p>
+      <p class="scene-chip scene-chip-service" data-step="6">{{ _("Machine service") }}</p>
       <figure class="scene-map" data-step="5">
-        <svg viewBox="0 0 380 240" role="img" aria-label="Deliveries from Kalo Xorio to Nicosia, Limassol, Paphos, Larnaca and Ayia Napa">
+        <svg viewBox="0 0 380 240" role="img" aria-label="{{ _('Deliveries from Kalo Xorio to Nicosia, Limassol, Paphos, Larnaca and Ayia Napa') }}">
           <path class="island" d="{{ b2b.island }}"/>
           {% for town in b2b.towns %}
           <path class="route" d="M{{ b2b.base.x }} {{ b2b.base.y }} Q{{ (b2b.base.x + town.x) / 2 }} {{ [b2b.base.y, town.y] | min - 30 }} {{ town.x }} {{ town.y }}" pathLength="1" style="--d: {{ loop.index0 }}"/>
           <circle class="town" cx="{{ town.x }}" cy="{{ town.y }}" r="3.4"/>
-          <text class="town-name" x="{{ town.x }}" y="{{ town.y + 15 }}">{{ town.name }}</text>
+          <text class="town-name" x="{{ town.x }}" y="{{ town.y + 15 }}">{{ _(town.name) }}</text>
           {% endfor %}
           <circle class="base-ring" cx="{{ b2b.base.x }}" cy="{{ b2b.base.y }}" r="9"/>
           <circle class="base" cx="{{ b2b.base.x }}" cy="{{ b2b.base.y }}" r="4.6"/>
         </svg>
-        <figcaption>From Kalo Xorio, across Cyprus</figcaption>
+        <figcaption>{{ _("From Kalo Xorio, across Cyprus") }}</figcaption>
       </figure>
     </div>
-    <ol class="story-rail" aria-label="Chapters">
+    <ol class="story-rail" aria-label="{{ _('Chapters') }}">
       {% for chapter in b2b.chapters %}
-      <li><a href="#chapter-{{ chapter.key }}" data-step="{{ loop.index0 }}">{{ chapter.label }}</a></li>
+      <li><a href="#chapter-{{ chapter.key }}" data-step="{{ loop.index0 }}">{{ _(chapter.label) }}</a></li>
       {% endfor %}
     </ol>
   </div>
@@ -47,9 +47,9 @@
   <div class="story-chapters">
     {% for chapter in b2b.chapters %}
     <article class="chapter" id="chapter-{{ chapter.key }}" data-step="{{ loop.index0 }}">
-      <p class="eyebrow">{{ chapter.label }}</p>
-      <h2>{{ chapter.title }}</h2>
-      <p>{{ chapter.body }}</p>
+      <p class="eyebrow">{{ _(chapter.label) }}</p>
+      <h2>{{ _(chapter.title) }}</h2>
+      <p>{{ _(chapter.body) }}</p>
     </article>
     {% endfor %}
   </div>
@@ -58,12 +58,12 @@
 <section class="partner-band" aria-labelledby="partner-title">
   <div class="partner-inner">
     <div>
-      <p class="eyebrow">Become a partner</p>
-      <h2 id="partner-title">Tell us about your café.</h2>
+      <p class="eyebrow">{{ _("Become a partner") }}</p>
+      <h2 id="partner-title">{{ _("Tell us about your café.") }}</h2>
     </div>
     <p class="partner-actions">
-      <a class="button button-light" href="{{ business.viber }}">Contact on Viber</a>
-      <a class="button button-ghost light" href="{{ url_for('contact') }}">Send a message</a>
+      <a class="button button-light" href="{{ business.viber }}">{{ _("Contact on Viber") }}</a>
+      <a class="button button-ghost light" href="{{ url_for('contact') }}">{{ _("Send a message") }}</a>
     </p>
   </div>
 </section>

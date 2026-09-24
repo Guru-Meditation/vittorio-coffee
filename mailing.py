@@ -10,6 +10,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 from content import BUSINESS
+from i18n import localize_pack, translate
 
 log = logging.getLogger(__name__)
 
@@ -51,6 +52,8 @@ def format_order_mail(placed):
         lines.append(f"Café or bar: {placed['business_name']}")
     if placed.get("notes"):
         lines.append(f"Notes: {placed['notes']}")
+    if placed.get("lang") == "el":
+        lines.append("Language: Greek (ordered on the Greek site)")
     lines.extend(["", "Order", "Qty\tPack\tProduct\tLine"])
     for line in placed.get("lines") or []:
         pack = (line.get("pack") or "").strip() or "—"
@@ -60,56 +63,63 @@ def format_order_mail(placed):
     return subject, "\n".join(lines)
 
 
-def _totals_block(placed):
+def _totals_block(placed, lang="en"):
+    def t(text):
+        return translate(text, lang)
+
     totals = placed.get("totals")
     lines = []
     if totals:
         lines.extend(
             [
                 "",
-                f"Subtotal (ex VAT): {totals['subtotal']}",
-                f"VAT ({totals['vat_label']}): {totals['vat']}",
-                f"Delivery: {totals['delivery']}",
-                f"Total to pay on delivery: {totals['total']}",
+                f"{t('Subtotal (ex VAT)')}: {totals['subtotal']}",
+                f"{t('VAT')} ({totals['vat_label']}): {totals['vat']}",
+                f"{t('Delivery')}: {t(totals['delivery'])}",
+                f"{t('Total to pay on delivery')}: {totals['total']}",
             ]
         )
     elif placed.get("subtotal"):
-        lines.append(f"Subtotal (ex VAT): {placed['subtotal']}")
-    lines.append("Payment: cash on delivery only.")
+        lines.append(f"{t('Subtotal (ex VAT)')}: {placed['subtotal']}")
+    lines.append(t("Payment: cash on delivery only."))
     return lines
 
 
-def format_customer_copy(placed, reorder_url):
-    """Receipt emailed to the customer, with a link that refills the same order."""
+def format_customer_copy(placed, reorder_url, lang="en"):
+    """Receipt emailed to the customer in the site's language, with a link that refills the same order."""
+
+    def t(text, **values):
+        return translate(text, lang, **values)
+
     lines = [
-        f"Dear {placed.get('name', '')},",
+        t("Dear {name},", name=placed.get("name", "")),
         "",
-        f"Thank you for your order with {BUSINESS['name']}. We will confirm it before delivery.",
+        t("Thank you for your order with {business}. We will confirm it before delivery.", business=BUSINESS["name"]),
         "",
-        f"Order reference: {placed['ref']}",
-        f"Delivery to: {placed.get('town', '')}, Cyprus",
+        t("Order reference: {ref}", ref=placed["ref"]),
+        t("Delivery to: {town}, Cyprus", town=placed.get("town", "")),
     ]
     if placed.get("business_name"):
-        lines.append(f"Business: {placed['business_name']}")
+        lines.append(t("Business: {name}", name=placed["business_name"]))
     lines.append("")
     for line in placed.get("lines") or []:
-        pack = (line.get("pack") or "").strip()
+        pack = localize_pack((line.get("pack") or "").strip(), lang)
         pack_text = f" ({pack})" if pack else ""
-        lines.append(f"{line['qty']} x {line['name']}{pack_text}: {line['line_total']}")
-    lines.extend(_totals_block(placed))
+        lines.append(f"{line['qty']} x {line['name']}{pack_text}: {t(line['line_total'])}")
+    lines.extend(_totals_block(placed, lang))
     lines.extend(
         [
             "",
-            "Order the same again:",
+            t("Order the same again:"),
             reorder_url,
             "",
-            "Questions about your order? Reply to this email.",
+            t("Questions about your order? Reply to this email."),
             "",
             BUSINESS["name"],
-            f"{BUSINESS['locality']}, {BUSINESS['region']}, {BUSINESS['country']}",
+            ", ".join(t(part) for part in (BUSINESS["locality"], BUSINESS["region"], BUSINESS["country"])),
         ]
     )
-    return f"Your Vittorio order {placed['ref']}", "\n".join(lines)
+    return t("Your Vittorio order {ref}", ref=placed["ref"]), "\n".join(lines)
 
 
 def _normalize_app_password(raw):

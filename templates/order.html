@@ -3,9 +3,9 @@
 {% block content %}
 <section class="section order-page">
   <header class="order-page-head">
-    <p class="eyebrow">Order</p>
-    <h1>Delivery order</h1>
-    <p class="lede-short">Cyprus trade delivery · catalogue prices ex VAT · payment on delivery</p>
+    <p class="eyebrow">{{ _("Order") }}</p>
+    <h1>{{ _("Delivery order") }}</h1>
+    <p class="lede-short">{{ _("Cyprus trade delivery · catalogue prices ex VAT · payment on delivery") }}</p>
   </header>
 
   {{ order_delivery_banner(totals) }}
@@ -14,13 +14,13 @@
 
   {% if lines %}
   <form method="post" action="{{ url_for('cart_update') }}" class="order-list order-sheet">
-    <h2 class="order-sheet-title">Order summary</h2>
+    <h2 class="order-sheet-title">{{ _("Order summary") }}</h2>
     <div class="order-line order-line-head" aria-hidden="true">
       <span></span>
-      <span>Product</span>
-      <span class="order-line-pack">Pack</span>
-      <span>Qty</span>
-      <span class="num">Line</span>
+      <span>{{ _("Product") }}</span>
+      <span class="order-line-pack">{{ _("Pack") }}</span>
+      <span>{{ _("Qty") }}</span>
+      <span class="num">{{ _("Line") }}</span>
     </div>
     {% for line in lines %}
     <div class="order-line">
@@ -35,83 +35,83 @@
           decoding="async"
         >
         {% else %}
-        <span class="no-photo">No photo</span>
+        <span class="no-photo">{{ _("No photo") }}</span>
         {% endif %}
       </a>
       <div class="order-line-details">
-        <p class="eyebrow">{{ line.product.group }}</p>
+        <p class="eyebrow">{{ _(line.product.group) }}</p>
         <h3><a href="{{ url_for('product', slug=line.product.slug) }}">{{ line.product.name }}</a></h3>
         <p class="muted">{{ line.product.price_label }}</p>
       </div>
-      <p class="order-line-pack">{% if line.pack %}<span class="pack-chip">{{ line.pack }}</span>{% else %}—{% endif %}</p>
-      <label class="qty-label">Qty
+      <p class="order-line-pack">{% if line.pack %}<span class="pack-chip">{{ line.pack | units }}</span>{% else %}—{% endif %}</p>
+      <label class="qty-label">{{ _("Qty") }}
         <input name="qty-{{ line.product.slug }}" type="number" min="0" max="99" value="{{ line.qty }}">
       </label>
-      <p class="price">{{ line.line_total }}</p>
+      <p class="price">{{ _(line.line_total) }}</p>
     </div>
     {% endfor %}
     {{ order_totals_table(totals) }}
-    {% if missing_price %}<p class="order-list-total">Lines without a published price are confirmed before delivery.</p>{% endif %}
-    <button class="button button-ghost button-small" type="submit">Update quantities</button>
+    {% if missing_price %}<p class="order-list-total">{{ _("Lines without a published price are confirmed before delivery.") }}</p>{% endif %}
+    <button class="button button-ghost button-small" type="submit">{{ _("Update quantities") }}</button>
   </form>
 
   <form method="post" action="{{ url_for('order') }}" class="order-checkout order-sheet">
     <div class="hp" aria-hidden="true">
-      <label for="company_website">Website</label>
+      <label for="company_website">{{ _("Website") }}</label>
       <input id="company_website" name="company_website" tabindex="-1" autocomplete="off">
     </div>
 
-    <h2 class="order-sheet-title">Delivery details</h2>
+    <h2 class="order-sheet-title">{{ _("Delivery details") }}</h2>
     <div class="form-grid">
-      <label for="name">Contact name
+      <label for="name">{{ _("Contact name") }}
         <input id="name" name="name" type="text" autocomplete="name" required value="{{ values.name }}">
       </label>
       {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
 
-      <label for="business_name">Business name <span class="optional">(optional)</span>
+      <label for="business_name">{{ _("Business name") }} <span class="optional">{{ _("(optional)") }}</span>
         <input id="business_name" name="business_name" type="text" autocomplete="organization" value="{{ values.business_name }}">
       </label>
 
-      <label for="email">Email
+      <label for="email">{{ _("Email") }}
         <input id="email" name="email" type="email" autocomplete="email" required value="{{ values.email }}">
       </label>
       {% if errors.email %}<p class="error">{{ errors.email }}</p>{% endif %}
 
-      <label for="phone">Phone
+      <label for="phone">{{ _("Phone") }}
         <input id="phone" name="phone" type="tel" autocomplete="tel" required value="{{ values.phone }}">
       </label>
       {% if errors.phone %}<p class="error">{{ errors.phone }}</p>{% endif %}
 
-      <label for="town" class="span-2">Delivery town (Cyprus)
+      <label for="town" class="span-2">{{ _("Delivery town (Cyprus)") }}
         <input id="town" name="town" type="text" autocomplete="address-level2" required value="{{ values.town }}">
       </label>
       {% if errors.town %}<p class="error span-2">{{ errors.town }}</p>{% endif %}
 
-      <label for="notes" class="span-2">Notes for the depot
+      <label for="notes" class="span-2">{{ _("Notes for the depot") }}
         <textarea id="notes" name="notes" rows="3">{{ values.notes }}</textarea>
       </label>
     </div>
 
     {{ order_totals_table(totals) }}
-    <p class="order-terms">Submitting sends this order to {{ business.name }} for confirmation. Payment is collected on delivery.</p>
-    <button class="button" type="submit">Submit order</button>
+    <p class="order-terms">{{ _("Submitting sends this order to {name} for confirmation. Payment is collected on delivery.", name=business.name) }}</p>
+    <button class="button" type="submit">{{ _("Submit order") }}</button>
   </form>
   {% else %}
   {% if reorder_items %}
   <div class="order-sheet order-again">
-    <h2 class="order-sheet-title">Your last order</h2>
+    <h2 class="order-sheet-title">{{ _("Your last order") }}</h2>
     <ul class="order-again-list">
       {% for item in reorder_items %}
       {% set pack = catalog_pack_label(item.product) %}
       <li><span class="order-again-qty">{{ item.qty }} ×</span> {{ item.product.name }}{% if pack %} <span class="pack-chip">{{ pack }}</span>{% endif %}</li>
       {% endfor %}
     </ul>
-    <a class="button" href="{{ url_for('order_again') }}">Order the same again</a>
+    <a class="button" href="{{ url_for('order_again') }}">{{ _("Order the same again") }}</a>
   </div>
   {% endif %}
   <div class="order-sheet order-empty">
-    <p>Your order list is empty.</p>
-    <p><a class="button" href="{{ url_for('products') }}">Browse the catalogue</a></p>
+    <p>{{ _("Your order list is empty.") }}</p>
+    <p><a class="button" href="{{ url_for('products') }}">{{ _("Browse the catalogue") }}</a></p>
   </div>
   {% endif %}
 </section>

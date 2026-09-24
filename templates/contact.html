@@ -1,31 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="page-intro section">
-  <p class="eyebrow">Contact</p>
-  <h1>Contact.</h1>
-  <p class="lede-short"><a href="{{ business.viber }}">Contact</a></p>
+  <p class="eyebrow">{{ _("Contact") }}</p>
+  <h1>{{ _("Contact.") }}</h1>
+  <p class="lede-short"><a href="{{ business.viber }}">{{ _("Contact") }}</a></p>
   {% if sent %}
-  <p role="status">Thank you. Use Contact if you need a reply today.</p>
+  <p role="status">{{ _("Thank you. Use Contact if you need a reply today.") }}</p>
   {% else %}
   <form method="post" action="{{ url_for('contact') }}" novalidate>
     <div class="hp" aria-hidden="true">
-      <label for="company_website">Website</label>
+      <label for="company_website">{{ _("Website") }}</label>
       <input id="company_website" name="company_website" tabindex="-1" autocomplete="off">
     </div>
-    <label for="name">Name
+    <label for="name">{{ _("Name") }}
       <input id="name" name="name" type="text" autocomplete="name" required value="{{ values.name }}">
     </label>
     {% if errors.name %}<p class="error" id="name-error">{{ errors.name }}</p>{% endif %}
-    <label for="email">Email
+    <label for="email">{{ _("Email") }}
       <input id="email" name="email" type="email" autocomplete="email" required value="{{ values.email }}">
     </label>
     {% if errors.email %}<p class="error" id="email-error">{{ errors.email }}</p>{% endif %}
-    <label for="message">Message
+    <label for="message">{{ _("Message") }}
       <textarea id="message" name="message" rows="6" required>{{ values.message }}</textarea>
     </label>
     {% if errors.message %}<p class="error" id="message-error">{{ errors.message }}</p>{% endif %}
     {% if errors.send %}<p class="error" id="send-error">{{ errors.send }}</p>{% endif %}
-    <button class="button" type="submit">Send</button>
+    <button class="button" type="submit">{{ _("Send") }}</button>
   </form>
   {% endif %}
 </section>

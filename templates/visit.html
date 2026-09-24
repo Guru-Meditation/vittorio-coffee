@@ -2,9 +2,9 @@
 {% from "macros.html" import location_card %}
 {% block content %}
 <section class="page-intro section">
-  <p class="eyebrow">Visit</p>
-  <h1>The depot in Kalo Xorio.</h1>
-  <p>We deliver across Cyprus from Kalo Xorio.</p>
+  <p class="eyebrow">{{ _("Visit") }}</p>
+  <h1>{{ _("The depot in Kalo Xorio.") }}</h1>
+  <p>{{ _("We deliver across Cyprus from Kalo Xorio.") }}</p>
   {{ location_card(business) }}
 </section>
 {% endblock %}

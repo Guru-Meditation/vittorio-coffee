@@ -181,7 +181,7 @@ body.nav-open #site-nav { display: block; }
   border: 1px solid var(--espresso);
   border-radius: 999px;
   padding: 0.85rem 1.25rem;
-  font: 500 0.92rem/1 "Outfit", sans-serif;
+  font: 500 0.92rem/1 "Outfit", "Segoe UI", sans-serif;
   letter-spacing: 0.04em;
   cursor: pointer;
 }
@@ -438,7 +438,7 @@ body.nav-open #site-nav { display: block; }
   text-transform: uppercase;
   color: var(--copper);
   margin: 0 0 0.85rem;
-  font-family: "Outfit", sans-serif;
+  font-family: "Outfit", "Segoe UI", sans-serif;
   font-weight: 600;
 }
 .order-sheet-cols {
@@ -1277,7 +1277,7 @@ input, textarea {
 .scene-map .island { fill: #3b271b; stroke: rgba(255, 228, 196, 0.35); stroke-width: 1; }
 .scene-map .route { fill: none; stroke: #e0a36e; stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
 .scene-map .town { fill: #f3e3cf; }
-.scene-map .town-name { display: none; fill: #e9d8c4; font: 500 14px "Outfit", sans-serif; text-anchor: middle; }
+.scene-map .town-name { display: none; fill: #e9d8c4; font: 500 14px "Outfit", "Segoe UI", sans-serif; text-anchor: middle; }
 .scene-map .base { fill: #e0a36e; }
 .scene-map .base-ring { fill: none; stroke: #e0a36e; stroke-width: 1.4; transform-origin: center; transform-box: fill-box; }
 
@@ -1344,4 +1344,30 @@ input, textarea {
 @keyframes pulse {
   from { transform: scale(0.6); opacity: 1; }
   to { transform: scale(2.2); opacity: 0; }
+}
+
+/* Language switch (English at /, Greek under /el/). Outfit and Fraunces carry no Greek
+   glyphs, so Greek text falls back to Segoe UI / system sans and Georgia. */
+.lang-switch {
+  display: flex;
+  margin-left: auto;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+.lang-switch a {
+  padding: 0.38rem 0.55rem;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.lang-switch a:hover { color: var(--copper); }
+.lang-switch a[aria-current] { background: var(--espresso); color: var(--cream); }
+@media (min-width: 1040px) {
+  #site-nav { margin-left: auto; }
+  .lang-switch { order: 3; margin-left: 0; }
 }

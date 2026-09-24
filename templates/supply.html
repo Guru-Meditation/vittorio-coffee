@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="page-intro section prose">
-  <p class="eyebrow">Supply</p>
-  <h1>Cyprus-wide delivery.</h1>
-  <p class="lede-short">Wholesale and retail · delivery across Cyprus</p>
+  <p class="eyebrow">{{ _("Supply") }}</p>
+  <h1>{{ _("Cyprus-wide delivery.") }}</h1>
+  <p class="lede-short">{{ _("Wholesale and retail · delivery across Cyprus") }}</p>
   <ul class="list-tight">
-    <li>Coffee, chocolate, teas, syrups, mixes, serviceware</li>
-    <li>Cafés, bars, and retail customers</li>
-    <li>Prices plus VAT</li>
+    <li>{{ _("Coffee, chocolate, teas, syrups, mixes, serviceware") }}</li>
+    <li>{{ _("Cafés, bars, and retail customers") }}</li>
+    <li>{{ _("Prices plus VAT") }}</li>
   </ul>
-  <p><a class="button" href="{{ url_for('products') }}">Catalogue</a> <a class="button button-ghost" href="{{ business.viber }}">Viber</a></p>
+  <p><a class="button" href="{{ url_for('products') }}">{{ _("Catalogue") }}</a> <a class="button button-ghost" href="{{ business.viber }}">Viber</a></p>
 </section>
 {% endblock %}

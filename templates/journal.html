@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="page-intro section">
-  <p class="eyebrow">Journal</p>
-  <h1>From the trade floor.</h1>
-  <p>Two notes from HO.RE.CA. 2019, when Vittorio met the hospitality trade in Athens.</p>
+  <p class="eyebrow">{{ _("Journal") }}</p>
+  <h1>{{ _("From the trade floor.") }}</h1>
+  <p>{{ _("Two notes from HO.RE.CA. 2019, when Vittorio met the hospitality trade in Athens.") }}</p>
   <div class="card-grid">
     {% for article in articles %}
     <article class="note">
-      <p class="eyebrow">{{ article.date_label }}</p>
-      <h2><a href="{{ url_for('article', slug=article.slug) }}">{{ article.title }}</a></h2>
-      <p>{{ article.summary }}</p>
+      <p class="eyebrow">{{ _(article.date_label) }}</p>
+      <h2><a href="{{ url_for('article', slug=article.slug) }}">{{ _(article.title) }}</a></h2>
+      <p>{{ _(article.summary) }}</p>
     </article>
     {% endfor %}
   </div>

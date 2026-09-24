@@ -2,15 +2,15 @@
 {% from "macros.html" import product_card %}
 {% block content %}
 <section class="page-intro section prose">
-  <p class="eyebrow">Philosophy</p>
-  <h1>The cup is the work.</h1>
-  <p>Specialty coffee is a meeting point: the people who grow it, the people who roast it, and the barista who serves it. Vittorio exists so that meeting can happen every day behind a Cypriot bar.</p>
-  <p>We supply carefully chosen goods, stay with the sale, and stay after it. The same standard holds for a professional counter and for someone making coffee at home.</p>
-  <p>The catalogue is the proof. What we list is what we deliver.</p>
+  <p class="eyebrow">{{ _("Philosophy") }}</p>
+  <h1>{{ _("The cup is the work.") }}</h1>
+  <p>{{ _("Specialty coffee is a meeting point: the people who grow it, the people who roast it, and the barista who serves it. Vittorio exists so that meeting can happen every day behind a Cypriot bar.") }}</p>
+  <p>{{ _("We supply carefully chosen goods, stay with the sale, and stay after it. The same standard holds for a professional counter and for someone making coffee at home.") }}</p>
+  <p>{{ _("The catalogue is the proof. What we list is what we deliver.") }}</p>
 </section>
 <section class="section">
   <div class="section-head">
-    <h2>Coffees in the catalogue</h2>
+    <h2>{{ _("Coffees in the catalogue") }}</h2>
   </div>
   <div class="card-grid">
     {% for item in coffees %}{{ product_card(item) }}{% endfor %}
