@@ -9,7 +9,7 @@ teas, dessert mixes); each product has a `brand` field. Deployed on Render (Star
 ## Run and test (Windows, from the repo root)
 - Virtualenv already set up: `.venv\Scripts\python -m pip install -r requirements.txt` after a fresh clone
   (`python -m venv .venv` first).
-- Tests: `.venv\Scripts\python -m pytest -q` (45 at 2026-09-24, all green).
+- Tests: `.venv\Scripts\python -m pytest -q` (49 at 2026-09-24, all green).
 - Local server: `.venv\Scripts\python -m flask --app app run --debug`, then open http://127.0.0.1:5000.
 - Mail needs `.env` (copy `.env.example`; SMTP_PASSWORD is a Gmail app password). Never commit `.env`.
   Without it, a local test order falls back to FormSubmit and lands in the real depot inbox.
@@ -17,6 +17,17 @@ teas, dessert mixes); each product has a `brand` field. Deployed on Render (Star
   rebuild the WebP versions in `static/images/products/web/` and the `image.web` entries in products.json.
 - `summary` in products.json is the shop's original text (refreshed by `tools/sync_descriptions.py`);
   `description` is the short edited copy shown on the site.
+- `tools/optimize_images.py` also builds the homepage hero cut-outs (`static/images/hero/`), the link
+  preview `brand/share.jpg`, and the B2B counter pieces (`static/images/scene/`), including the Vittorio
+  decals on the three brand machines (official photos in `static/images/machines/brand/`).
+- Page map: home = product-counter hero with hover cards + brand panels + shelves; `/cyprus` = B2B
+  scroll story (chapters fill a counter, zooms on the machine first, machines rotate). Visit, supply,
+  machines, philosophy, story and journal pages still exist but are not in the nav.
+
+## Copy and design rules from the owner
+- Terse, professional distributor tone. No how-it-works steps, no "delivered by car", no long blurbs.
+- No AI-generated people or machines (they came out illogical); use real product and brand photos.
+- The machine brand is "Appia Life" (Nuova Simonelli), never "Apia".
 
 ## Shipping (carried over from `.cursor/rules/auto-ship.mdc`)
 - After a substantive change: run the tests, fix failures, then commit and `git push origin main`
