@@ -28,6 +28,23 @@
 })();
 
 (function () {
+  // B2B page: the brand machines take turns on the counter while the scene is on screen.
+  var machines = document.querySelectorAll(".scene-machine");
+  if (machines.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var scene = document.querySelector(".scene");
+  var tag = document.querySelector(".scene-machine-tag");
+  var index = 0;
+  window.setInterval(function () {
+    var box = scene.getBoundingClientRect();
+    if (document.hidden || box.bottom < 0 || box.top > window.innerHeight) return;
+    machines[index].classList.remove("is-current");
+    index = (index + 1) % machines.length;
+    machines[index].classList.add("is-current");
+    if (tag) tag.textContent = machines[index].dataset.name;
+  }, 3200);
+})();
+
+(function () {
   // B2B page: each chapter scrolled into view adds its pieces to the counter scene.
   var story = document.querySelector(".story");
   if (!story) return;

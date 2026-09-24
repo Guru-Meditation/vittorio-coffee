@@ -216,7 +216,7 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "Larnaca, Cyprus" in retail_done
     assert "viber://chat?number=" in client.get("/").get_data(as_text=True)
     machines = client.get("/machines").get_data(as_text=True)
-    assert "Apia Life" in machines
+    assert "Appia Life" in machines
     assert "Sanremo" in machines
     assert "Expobar" in machines
     assert "no charge" in machines
@@ -341,6 +341,8 @@ def test_b2b_story_builds_the_counter(client):
     page = client.get("/cyprus").get_data(as_text=True)
     for title in ("Your espresso machine", "Vittorio coffee", "Beyond coffee", "Delivered across Cyprus", "Machine service"):
         assert title in page
-    assert "images/scene/machine.webp" in page
+    for machine in ("machine-appia-life.webp", "machine-sanremo.webp", "machine-expobar.webp"):
+        assert f"images/scene/{machine}" in page
+    assert "Nuova Simonelli Appia Life" in page
     assert 'class="scene-map"' in page
     assert "Private Label" not in page

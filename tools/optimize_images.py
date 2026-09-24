@@ -85,7 +85,9 @@ def cutout(path, tolerance=26):
     The background colour is sampled from the corners, so white and cream sweeps both work.
     """
     source = Image.open(path)
-    if source.mode == "RGBA" and source.getchannel("A").getextrema()[0] < 255:
+    if source.mode in ("P", "LA") or (source.mode == "RGB" and "transparency" in source.info):
+        source = source.convert("RGBA")
+    if source.mode == "RGBA" and source.getpixel((0, 0))[3] == 0:
         return source.crop(source.getchannel("A").getbbox())
     image = source.convert("RGB")
     corners = [image.getpixel(point) for point in ((2, 2), (image.width - 3, 2), (2, image.height - 3), (image.width - 3, image.height - 3))]
@@ -119,7 +121,10 @@ def build_hero():
 
 # Pieces for the B2B "build your counter" scene: (output name, source image, tolerance).
 SCENE_PIECES = [
-    ("machine", "machines/sanremo-cube.jpg", 72),
+    # Official manufacturer photos (downloaded with the owner's OK on 2026-09-24), cycled on the counter.
+    ("machine-appia-life", "machines/brand/appia-life.png", 26),
+    ("machine-sanremo", "machines/brand/sanremo-cafe-racer.png", 12),
+    ("machine-expobar", "machines/brand/expobar-onyx-pro.jpg", 30),
     ("waffle-mix", "products/waffle-mix.jpg", 26),
     ("soft-ice-cream", "products/soft-ice-cream-1kg.png", 26),
     ("cups", "products/glasses-4-oz-8-oz-12-oz-16-oz.png", 22),

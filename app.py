@@ -301,7 +301,7 @@ def create_app():
         return page(
             "machines.html",
             "Coffee machines — Vittorio Gourmet Espresso",
-            "Apia Life, Sanremo, and Expobar machines are offered with no charge during a partnership. Setup guidance is free once cooperation starts.",
+            "Appia Life, Sanremo, and Expobar machines are offered with no charge during a partnership. Setup guidance is free once cooperation starts.",
             machine_programmes=MACHINE_PROGRAMMES,
         )
 

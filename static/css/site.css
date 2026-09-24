@@ -1210,6 +1210,24 @@ input, textarea {
   white-space: nowrap;
   box-shadow: 0 10px 24px rgba(26, 16, 12, 0.3);
 }
+/* Brand machines share one spot; only the current one shows, crossfading as they cycle. */
+.scene .scene-item.scene-machine { transition: opacity 0.9s var(--ease), translate 0.9s var(--ease); }
+.scene .scene-item.scene-machine:not(.is-current) { opacity: 0; translate: 0 10px; }
+.scene-machine-tag {
+  position: absolute;
+  z-index: 5;
+  left: 33.5%;
+  bottom: 23%;
+  margin: 0;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(251, 247, 241, 0.94);
+  color: var(--espresso);
+  font-size: clamp(0.56rem, 1.25vw, 0.78rem);
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(70, 40, 18, 0.18);
+}
 .scene-chip-setup { left: 3%; bottom: 86%; }
 .scene-chip-service { left: 3%; bottom: 76%; background: var(--green); }
 .scene-map {
@@ -1272,9 +1290,11 @@ input, textarea {
 /* Motion is only switched on by JS, so without it the full counter is simply shown. */
 .story-live .scene-item,
 .story-live .scene-chip,
+.story-live .scene-machine-tag,
 .story-live .scene-map { opacity: 0; translate: 0 -26px; transition: opacity 0.6s var(--ease), translate 0.7s var(--ease); }
 .story-live .scene-item.on,
 .story-live .scene-chip.on,
+.story-live .scene-machine-tag.on,
 .story-live .scene-map.on { opacity: 1; translate: none; }
 .story-live .scene-map .route { stroke-dashoffset: 1; }
 .story-live .scene-map.on .route { animation: draw 1.3s var(--ease) forwards; animation-delay: calc(0.35s + var(--d) * 0.16s); }

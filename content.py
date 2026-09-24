@@ -110,7 +110,7 @@ BUSINESS = {
     "maps": "https://www.google.com/maps/search/?api=1&query=Kalo+Xorio%2C+Larnaca%2C+Cyprus",
     "viber": "viber://chat?number=%2B35799766848",
     "delivery": "Delivery to cafés, bars and hotels across Cyprus.",
-    "machines": ["Apia Life", "Sanremo", "Expobar"],
+    "machines": ["Appia Life", "Sanremo", "Expobar"],
     "social": [
         {"label": "Facebook", "href": "https://www.facebook.com/profile.php?id=100095007198368"},
         {"label": "Instagram", "href": "https://www.instagram.com/vittoriogourmetespresso.cy/"},
@@ -132,7 +132,7 @@ CYPRUS_B2B = {
     # Scrolling through the chapters fills the counter scene, piece by piece.
     "chapters": [
         {"key": "machine", "label": "Machines", "title": "Your espresso machine",
-         "body": "Apia Life, Sanremo or Expobar, on loan at no charge while we work together."},
+         "body": "Appia Life, Sanremo or Expobar, on loan at no charge while we work together."},
         {"key": "setup", "label": "Setup", "title": "Installed and explained",
          "body": "Free setup guidance and machine training for your staff."},
         {"key": "coffee", "label": "Coffee", "title": "Vittorio coffee",
@@ -151,7 +151,6 @@ CYPRUS_B2B = {
         {"src": "hero/espresso-grande.webp", "w": 371, "h": 900, "step": 2, "x": 2, "b": 30, "size": 11, "z": 2, "alt": "Vittorio Espresso Grande"},
         {"src": "hero/costa-rica.webp", "w": 329, "h": 707, "step": 2, "x": 12.5, "b": 30, "size": 11, "z": 2, "alt": "Vittorio Costa Rica"},
         {"src": "hero/espresso-100-arabica.webp", "w": 381, "h": 900, "step": 2, "x": 23, "b": 30, "size": 11, "z": 2, "alt": "Vittorio Espresso 100% Arabica"},
-        {"src": "scene/machine.webp", "w": 589, "h": 635, "step": 0, "x": 34, "b": 29, "size": 29, "z": 2, "alt": "Espresso machine"},
         {"src": "hero/blue-night.webp", "w": 478, "h": 519, "step": 3, "x": 64.5, "b": 30, "size": 12, "z": 2, "alt": "Jean Paul Lab Blue Night tea"},
         {"src": "hero/chocolate-with-bueno-biscuit-no-3.webp", "w": 825, "h": 900, "step": 3, "x": 76, "b": 30, "size": 12, "z": 2, "alt": "Jean Paul Lab aromatic chocolate"},
         {"src": "hero/smoothies-syrups-mango.webp", "w": 262, "h": 808, "step": 3, "x": 88.5, "b": 30, "size": 6, "z": 2, "alt": "Jean Paul Lab mango smoothie"},
@@ -162,6 +161,13 @@ CYPRUS_B2B = {
         {"src": "hero/milkshake-chocolate.webp", "w": 438, "h": 470, "step": 3, "x": 74, "b": 4, "size": 13, "z": 4, "alt": "Jean Paul Lab chocolate milkshake"},
         {"src": "scene/soft-ice-cream.webp", "w": 280, "h": 463, "step": 3, "x": 87.5, "b": 4, "size": 10, "z": 4, "alt": "Soft ice cream"},
     ],
+    # Official manufacturer photos, shown one at a time in the same spot and cycled while in view.
+    "machines": [
+        {"src": "scene/machine-appia-life.webp", "w": 900, "h": 559, "name": "Nuova Simonelli Appia Life"},
+        {"src": "scene/machine-sanremo.webp", "w": 774, "h": 512, "name": "Sanremo Café Racer"},
+        {"src": "scene/machine-expobar.webp", "w": 465, "h": 332, "name": "Expobar Onyx Pro"},
+    ],
+    "machine_slot": {"x": 33.5, "b": 29, "size": 31},
     "towns": [
         {"name": "Nicosia", "x": 183.8, "y": 119.8},
         {"name": "Limassol", "x": 136.6, "y": 206.2},
@@ -176,9 +182,9 @@ CYPRUS_B2B = {
 
 MACHINE_PROGRAMMES = [
     {
-        "brand": "Apia Life",
+        "brand": "Appia Life",
         "image": "machines/apia-vittoria-ii.jpg",
-        "alt": "Apia Life three-group commercial espresso machine in black and stainless steel.",
+        "alt": "Appia Life three-group commercial espresso machine in black and stainless steel.",
         "models": ["Vittoria II", "Compact", "Bar"],
     },
     {
@@ -244,7 +250,7 @@ FAQ = [
     },
     {
         "question": "Which machines do you place?",
-        "answer": "Apia Life, Sanremo and Expobar, at no charge for partners, with free setup and training.",
+        "answer": "Appia Life, Sanremo and Expobar, at no charge for partners, with free setup and training.",
     },
     {
         "question": "Do you mark dietary claims?",
