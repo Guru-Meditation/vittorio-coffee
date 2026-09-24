@@ -10,7 +10,7 @@ Originals are left untouched. Run after adding or replacing a product photo:
 import json
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageFilter
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGES = ROOT / "static" / "images"
@@ -67,15 +67,86 @@ def build_products():
     return len(products)
 
 
+# Real packshots for the homepage hero, cut out of their white backgrounds.
+HERO_PRODUCTS = [
+    "espresso-grande",
+    "costa-rica",
+    "espresso-100-arabica",
+    "blue-night",
+    "chocolate-with-bueno-biscuit-no-3",
+    "milkshake-chocolate",
+    "smoothies-syrups-mango",
+]
+
+
+def cutout(path):
+    """Make the white studio background transparent, keeping white inside the product."""
+    source = Image.open(path)
+    if source.mode == "RGBA" and source.getchannel("A").getextrema()[0] < 255:
+        return source.crop(source.getchannel("A").getbbox())
+    image = source.convert("RGB")
+    near_white = ImageChops.darker(
+        ImageChops.darker(image.getchannel("R").point(lambda v: 255 if v > 229 else 0),
+                          image.getchannel("G").point(lambda v: 255 if v > 229 else 0)),
+        image.getchannel("B").point(lambda v: 255 if v > 229 else 0),
+    )
+    mask = near_white.copy()
+    width, height = mask.size
+    edges = [(x, y) for x in range(0, width, 6) for y in (0, height - 1)]
+    edges += [(x, y) for y in range(0, height, 6) for x in (0, width - 1)]
+    for point in edges:
+        if mask.getpixel(point) == 255:
+            ImageDraw.floodfill(mask, point, 128)
+    alpha = mask.point(lambda value: 0 if value == 128 else 255)
+    alpha = alpha.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.8))
+    rgba = image.copy()
+    rgba.putalpha(alpha)
+    return rgba.crop(alpha.getbbox())
+
+
 def build_hero():
-    source = Image.open(IMAGES / "brand" / "hero-bar.jpg").convert("RGB")
-    for width in (960, 1280):
-        height = round(source.height * width / source.width)
-        resized = source if width == source.width else source.resize((width, height), Image.LANCZOS)
-        resized.save(IMAGES / "brand" / f"hero-bar-{width}.webp", "WEBP", quality=86, method=6)
+    products = {item["slug"]: item for item in json.loads(PRODUCTS_PATH.read_text(encoding="utf-8"))}
+    target = IMAGES / "hero"
+    target.mkdir(parents=True, exist_ok=True)
+    for slug in HERO_PRODUCTS:
+        piece = cutout(IMAGES / products[slug]["image"]["file"])
+        piece.thumbnail((900, 900), Image.LANCZOS)
+        piece.save(target / f"{slug}.webp", "WEBP", quality=88, method=6)
+    build_share_image(target)
+
+
+def build_share_image(folder):
+    """1200x630 link-preview image: the same packshots on the site's espresso background."""
+    canvas = Image.new("RGB", (1200, 630), (20, 12, 8))
+    glow = Image.new("L", (1200, 630), 0)
+    ImageDraw.Draw(glow).ellipse((500, 120, 1500, 900), fill=120)
+    glow = glow.filter(ImageFilter.GaussianBlur(120))
+    canvas = Image.composite(Image.new("RGB", canvas.size, (120, 70, 38)), canvas, glow)
+    heights = {"espresso-grande": 470, "costa-rica": 500, "espresso-100-arabica": 470, "blue-night": 270,
+               "chocolate-with-bueno-biscuit-no-3": 290, "milkshake-chocolate": 260, "smoothies-syrups-mango": 380}
+    pieces = []
+    for slug in HERO_PRODUCTS:
+        piece = Image.open(folder / f"{slug}.webp").convert("RGBA")
+        height = heights[slug]
+        pieces.append(piece.resize((round(piece.width * height / piece.height), height), Image.LANCZOS))
+    gap = 18
+    room = 1200 - 2 * 50 - gap * (len(pieces) - 1)
+    scale = min(1.0, room / sum(piece.width for piece in pieces))
+    pieces = [piece.resize((round(piece.width * scale), round(piece.height * scale)), Image.LANCZOS) for piece in pieces]
+    left = (1200 - sum(piece.width for piece in pieces) - gap * (len(pieces) - 1)) // 2
+    for piece in pieces:
+        canvas.paste(piece, (left, 590 - piece.height), piece)
+        left += piece.width + gap
+    logo_left = 60
+    for name in ("logo-footer.png", "jean-paul.png"):
+        logo = Image.open(IMAGES / "brand" / name).convert("RGBA")
+        logo = logo.resize((round(logo.width * 96 / logo.height), 96), Image.LANCZOS)
+        canvas.paste(logo, (logo_left, 56), logo)
+        logo_left += logo.width + 48
+    canvas.save(IMAGES / "brand" / "share.jpg", "JPEG", quality=86, optimize=True)
 
 
 if __name__ == "__main__":
     count = build_products()
     build_hero()
-    print(f"optimised {count} product photos and the hero")
+    print(f"optimised {count} product photos and the hero packshots")

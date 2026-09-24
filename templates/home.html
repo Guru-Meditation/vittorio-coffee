@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% from "macros.html" import product_card, product_image %}
 {% block content %}
-<section class="hero-stage">
-  <picture>
-    <source type="image/webp" srcset="{{ url_for('static', filename='images/brand/hero-bar-960.webp') }} 960w, {{ url_for('static', filename='images/brand/hero-bar-1280.webp') }} 1280w" sizes="100vw">
-    <img class="hero-photo" src="{{ url_for('static', filename='images/' ~ hero.file) }}" alt="{{ hero.alt }}" width="{{ hero.width }}" height="{{ hero.height }}" fetchpriority="high" decoding="async">
-  </picture>
-  <div class="hero-veil" aria-hidden="true"></div>
-  <div class="hero-copy">
-    <h1>{{ hero.headline }}</h1>
-    <p class="hero-sub">Official representative in Cyprus of <strong>Vittorio Gourmet Espresso</strong> and <strong>Jean Paul Lab</strong>.</p>
+<section class="hero-shop">
+  <div class="hero-shop-inner">
+    <div class="hero-copy">
+      <h1>{{ hero.headline }}</h1>
+      <p class="hero-sub">Official representative in Cyprus of <strong>Vittorio Gourmet Espresso</strong> and <strong>Jean Paul Lab</strong>.</p>
+    </div>
+    <div class="hero-counter" role="img" aria-label="{{ hero.alt }}">
+      {% for pack in hero.packs %}
+      <img class="pack pack-{{ pack.kind }}{% if pack.wide_only %} wide-only{% endif %}" src="{{ url_for('static', filename='images/hero/' ~ pack.slug ~ '.webp') }}" alt="" width="{{ pack.width }}" height="{{ pack.height }}" {% if loop.index <= 3 %}fetchpriority="high"{% endif %} decoding="async" style="--i: {{ loop.index0 }}">
+      {% endfor %}
+    </div>
   </div>
 </section>
 

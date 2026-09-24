@@ -310,3 +310,11 @@ def test_catalogue_brand_filter(client):
     assert "Fruit Smoothies" not in vittorio
     assert client.get("/products?brand=nope").status_code == 404
     assert b"Blue Night" in client.get("/products?q=jean+paul").data
+
+
+def test_home_hero_uses_real_packshots(client):
+    home = client.get("/").get_data(as_text=True)
+    assert "hero-bar" not in home
+    assert "images/hero/espresso-grande.webp" in home
+    assert "images/hero/smoothies-syrups-mango.webp" in home
+    assert "brand/share.jpg" in home  # link preview image

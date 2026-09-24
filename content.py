@@ -243,10 +243,18 @@ FAQ = [
     },
 ]
 
+# Real packshots on the counter (built by tools/optimize_images.py); share.jpg is the link preview.
 HERO = {
-    "file": "brand/hero-bar.jpg",
-    "width": 1280,
-    "height": 720,
-    "alt": "Espresso pours into a black Vittorio cup on a white Sanremo machine while a barista in a black Vittorio shirt holds the cup steady.",
+    "file": "brand/share.jpg",
+    "alt": "Vittorio coffee bags beside Jean Paul Lab tea, aromatic chocolate, milkshake and fruit smoothie packs.",
     "headline": "Vittorio Gourmet Espresso Deliveries all over Cyprus",
+    "packs": [
+        {"slug": "espresso-grande", "kind": "bag", "width": 371, "height": 900},
+        {"slug": "costa-rica", "kind": "bag", "width": 329, "height": 707},
+        {"slug": "espresso-100-arabica", "kind": "bag", "width": 381, "height": 900, "wide_only": True},
+        {"slug": "blue-night", "kind": "tin", "width": 478, "height": 519},
+        {"slug": "chocolate-with-bueno-biscuit-no-3", "kind": "tin", "width": 825, "height": 900},
+        {"slug": "milkshake-chocolate", "kind": "tin", "width": 438, "height": 470, "wide_only": True},
+        {"slug": "smoothies-syrups-mango", "kind": "bottle", "width": 262, "height": 808},
+    ],
 }
