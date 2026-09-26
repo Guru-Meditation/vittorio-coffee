@@ -1476,3 +1476,29 @@ input, textarea {
   font-weight: 600;
   text-decoration: none;
 }
+
+.consent {
+  position: fixed;
+  z-index: 40;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: 34rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--cream);
+  color: var(--espresso);
+  box-shadow: 0 10px 30px rgba(26, 16, 12, 0.18);
+}
+.consent[hidden] { display: none; }
+.consent p { flex: 1 1 16rem; margin: 0; font-size: 0.95rem; }
+.consent-actions { display: flex; gap: 0.6rem; }
+.link-button { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+.consent .button-ghost { background: transparent; color: var(--espresso); }
+.consent .button-ghost:hover { background: var(--espresso); color: var(--cream); }

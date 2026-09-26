@@ -424,6 +424,14 @@ EL = {
     "Order the same again:": "Ίδια παραγγελία ξανά:",
     "Questions about your order? Reply to this email.": "Ερωτήσεις για την παραγγελία σας; Απαντήστε σε αυτό το email.",
     "Your Vittorio order {ref}": "Η παραγγελία σας Vittorio {ref}",
+    # Cookie banner (only when the Google Ads tag is on)
+    "Cookies": "Cookies",
+    "We use Google cookies to measure our ads.": "Χρησιμοποιούμε cookies της Google για τη μέτρηση των διαφημίσεών μας.",
+    "Accept": "Αποδοχή",
+    "Decline": "Απόρριψη",
+    "Cookie settings": "Ρυθμίσεις cookies",
+    "If you accept cookies, Google Ads measures which ads bring visits and orders. If you decline, no advertising cookies are set. Change your choice under Cookie settings at the foot of each page.":
+        "Αν αποδεχτείτε τα cookies, το Google Ads μετρά ποιες διαφημίσεις φέρνουν επισκέψεις και παραγγελίες. Αν τα απορρίψετε, δεν ορίζονται διαφημιστικά cookies. Αλλάξτε την επιλογή σας από τις Ρυθμίσεις cookies στο κάτω μέρος κάθε σελίδας.",
 }
 
 STRINGS = {"el": EL}

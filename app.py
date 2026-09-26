@@ -47,6 +47,12 @@ OLD_HOSTS = {"vittorio-coffee.onrender.com", "vittoriocyprus.com", "www.vittorio
 # Browser key for Google Places address suggestions on the order form. It is public in the page by
 # design; restrict it to vittoriocoffee.com and the Places API in Google Cloud. Empty = plain field.
 MAPS_KEY = os.environ.get("GOOGLE_MAPS_KEY", "").strip()
+# Google Ads tag ("AW-123456789") and conversion labels ("order:AbC1,contact:DeF2,refer:GhI3").
+# Empty ID = no Google tag and no cookie banner.
+ADS_ID = os.environ.get("GOOGLE_ADS_ID", "").strip()
+ADS_LABELS = dict(
+    part.split(":", 1) for part in os.environ.get("GOOGLE_ADS_LABELS", "").replace(" ", "").split(",") if ":" in part
+)
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 CUSTOMER_FIELDS = ("name", "business_name", "email", "phone", "address", "town")
 
@@ -286,6 +292,7 @@ def create_app():
             "lang": current_lang(),
             "lang_labels": LANG_LABELS,
             "og_locales": OG_LOCALES,
+            "ads_id": ADS_ID,
         }
 
     def language_links(error):
@@ -313,6 +320,18 @@ def create_app():
             "alternates": alternates,
         }
         return render_template(template, seo=seo, **context)
+
+    def ads_conversion(kind, value=None, ref=None):
+        """gtag conversion event for the success pages; None until the Ads tag and label exist."""
+        label = ADS_LABELS.get(kind)
+        if not ADS_ID or not label:
+            return None
+        event = {"send_to": f"{ADS_ID}/{label}", "currency": "EUR"}
+        if value:
+            event["value"] = round(float(value), 2)
+        if ref:
+            event["transaction_id"] = ref
+        return event
 
     def store_json():
         payload = {
@@ -607,6 +626,7 @@ def create_app():
             "order_done.html",
             tr("Order received — Vittorio Gourmet Espresso"),
             tr("Your Cyprus delivery order is emailed to the depot. Payment is cash on delivery only."),
+            conversion=ads_conversion("order", placed.get("subtotal"), placed.get("ref")),
             **_order_done_context(placed),
         )
 
@@ -698,6 +718,7 @@ def create_app():
             errors=errors,
             values=values,
             sent=sent,
+            conversion=ads_conversion("contact") if sent and request.method == "POST" else None,
         )
         return body, status
 
@@ -754,6 +775,7 @@ def create_app():
             errors=errors,
             values=values,
             sent=sent,
+            conversion=ads_conversion("refer") if sent and request.method == "POST" else None,
         )
         return body, status
 

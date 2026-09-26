@@ -27,6 +27,22 @@
   <link rel="preload" href="{{ url_for('static', filename='fonts/fraunces-600.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
   <script>document.documentElement.classList.add("js")</script>
+  {% if ads_id %}
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied", wait_for_update: 500 });
+    try {
+      if (localStorage.getItem("consent") === "granted") {
+        gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted", analytics_storage: "granted" });
+      }
+    } catch (e) {}
+    gtag("js", new Date());
+    gtag("config", {{ ads_id | tojson }});
+    {% if conversion %}gtag("event", "conversion", {{ conversion | tojson }});{% endif %}
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ ads_id | urlencode }}"></script>
+  {% endif %}
   {% if seo.json_ld %}
   <script type="application/ld+json">{{ seo.json_ld | safe }}</script>
   {% endif %}
@@ -101,12 +117,22 @@
           <li><a href="{{ url_for('privacy') }}">{{ _("Privacy") }}</a></li>
           <li><a href="{{ url_for('returns') }}">{{ _("Returns") }}</a></li>
           <li><a href="{{ url_for('faq') }}">{{ _("Questions") }}</a></li>
+          {% if ads_id %}<li><button class="link-button" type="button" data-consent-open>{{ _("Cookie settings") }}</button></li>{% endif %}
         </ul>
       </div>
     </div>
     <p class="legal-note">{{ _("Prices exclude VAT. Payment is cash on delivery.") }}</p>
   </footer>
   <p class="cart-toast" role="status" aria-live="polite" hidden data-added="{{ _('Added to order') }}" data-view="{{ _('View order') }}"></p>
+  {% if ads_id %}
+  <div class="consent" role="region" aria-label="{{ _('Cookies') }}" hidden data-consent>
+    <p>{{ _("We use Google cookies to measure our ads.") }} <a href="{{ url_for('privacy') }}">{{ _("Privacy") }}</a></p>
+    <div class="consent-actions">
+      <button class="button button-small" type="button" data-consent-choice="granted">{{ _("Accept") }}</button>
+      <button class="button button-small button-ghost" type="button" data-consent-choice="denied">{{ _("Decline") }}</button>
+    </div>
+  </div>
+  {% endif %}
   <script src="{{ url_for('static', filename='js/site.js') }}" defer></script>
 </body>
 </html>

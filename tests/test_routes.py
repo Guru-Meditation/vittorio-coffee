@@ -476,3 +476,20 @@ def test_old_wordpress_addresses_redirect_permanently(client):
         assert response.headers["Location"] == new, old
     assert client.get("/no-such-page").status_code == 404
     assert client.get("/products").status_code == 200
+
+
+def test_google_ads_tag_and_banner_only_with_an_ads_id(client, monkeypatch):
+    import app as app_module
+
+    page = client.get("/").get_data(as_text=True)
+    assert "googletagmanager" not in page and "data-consent" not in page
+    monkeypatch.setattr(app_module, "ADS_ID", "AW-123")
+    monkeypatch.setattr(app_module, "ADS_LABELS", {"contact": "cLbl"})
+    page = client.get("/el/").get_data(as_text=True)
+    assert "gtag/js?id=AW-123" in page and '"ad_storage": "denied"' not in page
+    assert 'ad_storage: "denied"' in page and "data-consent-choice" in page and "Αποδοχή" in page
+    assert '"conversion"' not in page
+    sent = client.post(
+        "/contact", data={"name": "Maria", "email": "m@example.com", "message": "Please call me back today."}
+    ).get_data(as_text=True)
+    assert '"send_to": "AW-123/cLbl"' in sent

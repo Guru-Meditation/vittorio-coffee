@@ -6,6 +6,7 @@
   <p>{{ _("An order list stays in your browser until you place it. Submitting the order emails it to the depot and sends you a copy. Payment is cash on delivery only; we do not take card details on this site.") }}</p>
   <p>{{ _("After an order, this browser remembers your delivery details and last order for a year. Clearing cookies removes them.") }}</p>
   <p>{{ _("The contact form asks for a name, an email, and a message. Submitting it sends that note to the depot inbox. Use Contact when you need a reply the same day.") }}</p>
+  {% if ads_id %}<p>{{ _("If you accept cookies, Google Ads measures which ads bring visits and orders. If you decline, no advertising cookies are set. Change your choice under Cookie settings at the foot of each page.") }}</p>{% endif %}
   {% set email %}<a href="mailto:{{ business.email_service }}">{{ business.email_service }}</a>{% endset %}
   {% set contact %}<a href="{{ business.viber }}">{{ _("Contact") }}</a>{% endset %}
   <p>{{ _("Questions about an order go to {email} or {contact}.", email=email, contact=contact) }}</p>

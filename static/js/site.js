@@ -194,3 +194,23 @@
     });
   });
 })();
+
+(function () {
+  // Cookie choice for Google Ads (Consent Mode v2). Nothing is stored until the visitor picks.
+  var banner = document.querySelector("[data-consent]");
+  if (!banner) return;
+  var stored = null;
+  try { stored = localStorage.getItem("consent"); } catch (e) {}
+  if (!stored) banner.hidden = false;
+  document.addEventListener("click", function (event) {
+    if (event.target.closest("[data-consent-open]")) { banner.hidden = false; return; }
+    var button = event.target.closest("[data-consent-choice]");
+    if (!button) return;
+    var choice = button.getAttribute("data-consent-choice");
+    try { localStorage.setItem("consent", choice); } catch (e) {}
+    if (window.gtag) {
+      gtag("consent", "update", { ad_storage: choice, ad_user_data: choice, ad_personalization: choice, analytics_storage: choice });
+    }
+    banner.hidden = true;
+  });
+})();
