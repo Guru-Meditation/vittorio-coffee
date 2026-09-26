@@ -465,7 +465,7 @@
   },
   {
     "slug": "freddoccino",
-    "name": "Freddoccino",
+    "name": "Freddoccione – La Vittoria",
     "price": "10.90",
     "price_label": "€10.90 + VAT",
     "group": "Chocolate powders",
@@ -482,7 +482,7 @@
       "file": "products/freddoccino.jpg",
       "width": 1080,
       "height": 1080,
-      "alt": "Freddoccino",
+      "alt": "La Vittoria Freddoccione 1 kg bag",
       "web": {
         "sm": {
           "file": "products/web/freddoccino-sm.webp",
@@ -497,7 +497,7 @@
     "featured": false,
     "pack": "1 kg",
     "brand": "vittorio",
-    "description": "Freddoccino chocolate powder by La Vittoria. Serve cold or hot."
+    "description": "La Vittoria Freddoccione, a powder mix for iced drinks with cocoa and a touch of coffee."
   },
   {
     "slug": "soft-ice-cream-1kg",
