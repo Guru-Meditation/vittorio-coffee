@@ -15,6 +15,8 @@
   {% if lines %}
   <form method="post" action="{{ url_for('cart_update') }}" class="order-list order-sheet">
     <h2 class="order-sheet-title">{{ _("Order summary") }}</h2>
+    {# First submit button in the form, so pressing Enter in a quantity box updates instead of removing a line. #}
+    <button class="hp" type="submit" tabindex="-1" aria-hidden="true">{{ _("Update quantities") }}</button>
     <div class="order-line order-line-head" aria-hidden="true">
       <span></span>
       <span>{{ _("Product") }}</span>
@@ -48,6 +50,7 @@
         <input name="qty-{{ line.product.slug }}" type="number" min="0" max="99" value="{{ line.qty }}">
       </label>
       <p class="price">{{ _(line.line_total) }}</p>
+      <button class="order-line-remove" type="submit" name="remove" value="{{ line.product.slug }}">{{ _("Remove") }}</button>
     </div>
     {% endfor %}
     {{ order_totals_table(totals) }}

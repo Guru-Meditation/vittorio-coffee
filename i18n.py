@@ -142,6 +142,7 @@ EL = {
     "Address": "Διεύθυνση",
     "Address suggestions": "Προτάσεις διεύθυνσης",
     "Added to order": "Προστέθηκε στην παραγγελία",
+    "Remove": "Αφαίρεση",
     "View order": "Προβολή παραγγελίας",
     "Street, number, building, floor": "Οδός, αριθμός, κτίριο, όροφος",
     "Enter the full delivery address: street, number and building.":

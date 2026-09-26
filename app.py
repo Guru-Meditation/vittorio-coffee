@@ -416,7 +416,10 @@ def create_app():
     @localized("/cart/update", methods=["POST"])
     def cart_update():
         cart = {}
+        removed = request.form.get("remove", "")
         for slug in PRODUCTS_BY_SLUG:
+            if slug == removed:
+                continue
             raw = request.form.get(f"qty-{slug}")
             if raw is None:
                 continue

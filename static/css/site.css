@@ -347,8 +347,22 @@ body.nav-open #site-nav { display: block; }
   grid-template-columns: 4.75rem 1fr auto auto;
   grid-template-areas:
     "media details details details"
-    "media pack qty price";
+    "media pack qty price"
+    "media remove remove remove";
 }
+.order-line-remove {
+  grid-area: remove;
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.order-line-remove:hover { color: #7a2418; }
 .order-line-head {
   display: none;
   padding-top: 0;
@@ -704,7 +718,9 @@ input, textarea {
   /* Fixed widths so the header row and every item row share the same columns. */
   .order-line {
     grid-template-columns: 5.25rem 1fr 6rem 5.5rem 5.5rem;
-    grid-template-areas: "media details pack qty price";
+    grid-template-areas:
+      "media details pack qty price"
+      "media remove . . .";
   }
   .order-line-head {
     display: grid;

@@ -442,3 +442,13 @@ def test_menu_has_a_home_link(client):
     home = client.get("/").get_data(as_text=True)
     assert 'href="/" class="nav-home" aria-current="page"' in home
     assert '<a href="/el/" class="nav-home" >Αρχική</a>' in client.get("/el/products").get_data(as_text=True)
+
+
+def test_remove_button_drops_one_line(client):
+    client.post("/cart/add", data={"slug": "costa-rica", "qty": "2"})
+    client.post("/cart/add", data={"slug": "greek", "qty": "1"})
+    page = client.get("/order").get_data(as_text=True)
+    assert 'name="remove" value="costa-rica"' in page
+    client.post("/cart/update", data={"qty-costa-rica": "2", "qty-greek": "1", "remove": "costa-rica"})
+    with client.session_transaction() as saved:
+        assert saved["cart"] == {"greek": 1}
