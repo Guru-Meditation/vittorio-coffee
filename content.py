@@ -120,6 +120,7 @@ BUSINESS = {
     "search_console": [
         "WmBAxmaZormtC7pr3mufzgV5-ozEobNwUEvtuKtnXAI",  # vittorio-coffee.onrender.com
         "MPQErzrMwgPCQpFPoQi6eGpg-k3ub2vmR3FZBdH916g",  # vittoriocyprus.com
+        "zDJ-4nREAaJ6o7_c-8llc01DUM-R12NQrTvk0q5277I",  # vittoriocoffee.com
     ],
     "delivery": "Delivery to cafés, bars and hotels across Cyprus.",
     "machines": ["Appia Life", "Sanremo", "Expobar"],
