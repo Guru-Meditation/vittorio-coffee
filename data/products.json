@@ -1831,5 +1831,269 @@
     "featured": false,
     "brand": "essentials",
     "description": "Plastic cups, 300 ml and 400 ml. Price on request."
+  },
+  {
+    "slug": "vittorio-cappuccino-freddo-glass",
+    "name": "Cappuccino Freddo Glass",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serving line",
+    "categories": [
+      "Serving line"
+    ],
+    "summary": "Cappuccino Freddo Glass. Glass for freddo cappuccino with the Vittorio logo.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/vittorio-cappuccino-freddo-glass.jpg",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Vittorio Cappuccino Freddo Glass",
+      "web": {
+        "sm": {
+          "file": "products/web/vittorio-cappuccino-freddo-glass-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/vittorio-cappuccino-freddo-glass-lg.webp",
+          "width": 1022
+        }
+      }
+    },
+    "featured": false,
+    "pack": null,
+    "brand": "vittorio",
+    "description": "Glass for freddo cappuccino with the Vittorio logo."
+  },
+  {
+    "slug": "vittorio-freddo-espresso-glass",
+    "name": "Freddo Espresso Glass",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serving line",
+    "categories": [
+      "Serving line"
+    ],
+    "summary": "Freddo Espresso Glass. Glass for freddo espresso with the Vittorio logo.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/vittorio-freddo-espresso-glass.jpg",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Vittorio Freddo Espresso Glass",
+      "web": {
+        "sm": {
+          "file": "products/web/vittorio-freddo-espresso-glass-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/vittorio-freddo-espresso-glass-lg.webp",
+          "width": 1000
+        }
+      }
+    },
+    "featured": false,
+    "pack": null,
+    "brand": "vittorio",
+    "description": "Glass for freddo espresso with the Vittorio logo."
+  },
+  {
+    "slug": "vittorio-white-espresso-cup",
+    "name": "White Espresso Cup",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serving line",
+    "categories": [
+      "Serving line"
+    ],
+    "summary": "White Espresso Cup. White porcelain espresso cup and saucer with the Vittorio logo.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/vittorio-white-espresso-cup.jpg",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Vittorio White Espresso Cup",
+      "web": {
+        "sm": {
+          "file": "products/web/vittorio-white-espresso-cup-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/vittorio-white-espresso-cup-lg.webp",
+          "width": 1077
+        }
+      }
+    },
+    "featured": false,
+    "pack": null,
+    "brand": "vittorio",
+    "description": "White porcelain espresso cup and saucer with the Vittorio logo."
+  },
+  {
+    "slug": "vittorio-black-espresso-cup",
+    "name": "Black Espresso Cup",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Serving line",
+    "categories": [
+      "Serving line"
+    ],
+    "summary": "Black Espresso Cup. Matte black espresso cup and saucer with the Vittorio logo.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/vittorio-black-espresso-cup.jpg",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Vittorio Black Espresso Cup",
+      "web": {
+        "sm": {
+          "file": "products/web/vittorio-black-espresso-cup-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/vittorio-black-espresso-cup-lg.webp",
+          "width": 1040
+        }
+      }
+    },
+    "featured": false,
+    "pack": null,
+    "brand": "vittorio",
+    "description": "Matte black espresso cup and saucer with the Vittorio logo."
+  },
+  {
+    "slug": "vittorio-tamper",
+    "name": "Tamper",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Barista tools",
+    "categories": [
+      "Barista tools"
+    ],
+    "summary": "Tamper. Stainless steel tamper with the Vittorio crown.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/vittorio-tamper.jpg",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Vittorio Tamper",
+      "web": {
+        "sm": {
+          "file": "products/web/vittorio-tamper-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/vittorio-tamper-lg.webp",
+          "width": 1140
+        }
+      }
+    },
+    "featured": false,
+    "pack": null,
+    "brand": "vittorio",
+    "description": "Stainless steel tamper with the Vittorio crown."
+  },
+  {
+    "slug": "vittorio-barista-apron",
+    "name": "Barista Apron",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Barista tools",
+    "categories": [
+      "Barista tools"
+    ],
+    "summary": "Barista Apron. Black apron with tan straps and the Vittorio logo.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/vittorio-barista-apron.jpg",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Vittorio Barista Apron",
+      "web": {
+        "sm": {
+          "file": "products/web/vittorio-barista-apron-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/vittorio-barista-apron-lg.webp",
+          "width": 1140
+        }
+      }
+    },
+    "featured": false,
+    "pack": null,
+    "brand": "vittorio",
+    "description": "Black apron with tan straps and the Vittorio logo."
+  },
+  {
+    "slug": "vittorio-wall-crown",
+    "name": "Wall Crown",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Signage",
+    "categories": [
+      "Signage"
+    ],
+    "summary": "Wall Crown. Gold Vittorio crown for the wall behind the bar.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/vittorio-wall-crown.jpg",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Vittorio Wall Crown",
+      "web": {
+        "sm": {
+          "file": "products/web/vittorio-wall-crown-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/vittorio-wall-crown-lg.webp",
+          "width": 1000
+        }
+      }
+    },
+    "featured": false,
+    "pack": null,
+    "brand": "vittorio",
+    "description": "Gold Vittorio crown for the wall behind the bar."
+  },
+  {
+    "slug": "vittorio-luminous-sign",
+    "name": "Luminous Sign 30×30",
+    "price": null,
+    "price_label": "Price not published",
+    "group": "Signage",
+    "categories": [
+      "Signage"
+    ],
+    "summary": "Luminous Sign 30×30. Illuminated Vittorio crown sign, 30 × 30 cm.",
+    "facts": [],
+    "dietary": null,
+    "image": {
+      "file": "products/vittorio-luminous-sign.jpg",
+      "width": 1000,
+      "height": 1000,
+      "alt": "Vittorio Luminous Sign 30×30",
+      "web": {
+        "sm": {
+          "file": "products/web/vittorio-luminous-sign-sm.webp",
+          "width": 600
+        },
+        "lg": {
+          "file": "products/web/vittorio-luminous-sign-lg.webp",
+          "width": 1140
+        }
+      }
+    },
+    "featured": false,
+    "pack": null,
+    "brand": "vittorio",
+    "description": "Illuminated Vittorio crown sign, 30 × 30 cm."
   }
 ]

@@ -47,6 +47,9 @@ GROUP_ORDER = [
     "Café mixes",
     "Granitas",
     "Serviceware",
+    "Serving line",
+    "Barista tools",
+    "Signage",
 ]
 PRODUCTS.sort(key=lambda item: GROUP_ORDER.index(item["group"]) if item["group"] in GROUP_ORDER else len(GROUP_ORDER))
 PRODUCTS_BY_SLUG = {item["slug"]: item for item in PRODUCTS}

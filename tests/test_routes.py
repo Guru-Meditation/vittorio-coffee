@@ -452,3 +452,24 @@ def test_remove_button_drops_one_line(client):
     client.post("/cart/update", data={"qty-costa-rica": "2", "qty-greek": "1", "remove": "costa-rica"})
     with client.session_transaction() as saved:
         assert saved["cart"] == {"greek": 1}
+
+
+def test_old_wordpress_addresses_redirect_permanently(client):
+    cases = {
+        "/product/greek/": "/products/greek",
+        "/product/not-sold-anymore/": "/products",
+        "/product-category/coffees/": "/products?category=Coffee",
+        "/product-category/jean-paul-lab/": "/products?brand=jean-paul-lab",
+        "/contact-us/": "/contact",
+        "/refund-returns-policy/": "/returns",
+        "/we-participate-in-horeca-2019/": "/journal/horeca-2019",
+        "/home-2/": "/",
+        "/story/": "/story",
+        "/faq/": "/faq",
+    }
+    for old, new in cases.items():
+        response = client.get(old)
+        assert response.status_code == 301, old
+        assert response.headers["Location"] == new, old
+    assert client.get("/no-such-page").status_code == 404
+    assert client.get("/products").status_code == 200

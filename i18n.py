@@ -71,6 +71,9 @@ EL = {
     "Café mixes": "Μείγματα γλυκών",
     "Granitas": "Γρανίτες",
     "Serviceware": "Αναλώσιμα",
+    "Serving line": "Σειρά σερβιρίσματος",
+    "Barista tools": "Εργαλεία barista",
+    "Signage": "Επιγραφές",
     "Café essentials": "Αναλώσιμα καφέ",
     # Brands
     "Italian-style espresso since 2000": "Espresso ιταλικού τύπου από το 2000",

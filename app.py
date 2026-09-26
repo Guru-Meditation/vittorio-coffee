@@ -5,7 +5,7 @@ import re
 import secrets
 from datetime import timedelta
 from decimal import Decimal, InvalidOperation
-from urllib.parse import quote, urljoin, urlsplit
+from urllib.parse import quote, urlencode, urljoin, urlsplit
 
 from flask import Flask, abort, g, redirect, render_template, request, session, url_for
 from markupsafe import escape
@@ -68,6 +68,53 @@ def parse_reorder(raw):
         if quantity > 0:
             items[slug] = min(quantity, 99)
     return items
+
+
+# Addresses from the old WordPress shop on vittoriocoffee.com, so its Google ranking and old links carry over.
+LEGACY_PAGES = {
+    "": "/",
+    "home": "/", "home-2": "/", "home-02": "/", "home-03": "/", "sample-page": "/", "reservation": "/",
+    "chefs": "/", "gallery": "/", "shop": "/products", "menu": "/products",
+    "about": "/story", "story": "/story", "contact-us": "/contact", "faq": "/faq",
+    "refund-returns-policy": "/returns", "privacy-policy": "/privacy",
+    "cart": "/order", "checkout": "/order", "my-account": "/order", "wishlist": "/order",
+    "blog": "/journal",
+    "we-participate-in-horeca-2019": "/journal/horeca-2019",
+    "14th-horeca-2019": "/journal/horeca-2019-thanks",
+}
+LEGACY_CATEGORIES = {
+    "coffees": {"category": "Coffee"},
+    "aromatic-chocolates": {"category": "Aromatic chocolates"},
+    "chocolates-powders": {"category": "Chocolate powders"},
+    "la-vittoria-chocolaterie": {"category": "Chocolate powders"},
+    "coffee-syrups": {"category": "Coffee syrups"},
+    "syrups": {"category": "Coffee syrups"},
+    "crepes-pancakes-waffles": {"category": "Café mixes"},
+    "mixtures-powders": {"category": "Café mixes"},
+    "granitas": {"category": "Granitas"},
+    "milkshakes-powders": {"category": "Milkshakes"},
+    "smoothies-syrups": {"category": "Smoothies"},
+    "soft-ice-cream": {"category": "Soft ice cream"},
+    "teas": {"category": "Teas"},
+    "uncategorized": {"category": "Serviceware"},
+    "beverages": {"brand": "jean-paul-lab"},
+    "jean-paul-lab": {"brand": "jean-paul-lab"},
+}
+
+
+def legacy_target(path):
+    """New address for an old WordPress URL, or None when the path was never part of the old shop."""
+    parts = [part for part in path.strip("/").split("/") if part]
+    if len(parts) == 2 and parts[0] == "product":
+        return f"/products/{parts[1]}" if parts[1] in PRODUCTS_BY_SLUG else "/products"
+    if len(parts) == 2 and parts[0] == "product-category":
+        query = LEGACY_CATEGORIES.get(parts[1])
+        return "/products" + ("?" + urlencode(query) if query else "")
+    if len(parts) == 2 and parts[0] == "product-tag":
+        return "/products"
+    if len(parts) <= 1:
+        return LEGACY_PAGES.get(parts[0] if parts else "")
+    return None
 
 
 def _same_site(url):
@@ -781,6 +828,9 @@ def create_app():
 
     @app.errorhandler(404)
     def not_found(_error):
+        target = legacy_target(request.path)
+        if target and target.split("?")[0] != request.path:
+            return redirect(target, code=301)
         return (
             page(
                 "404.html",

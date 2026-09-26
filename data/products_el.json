@@ -184,5 +184,29 @@
   },
   "plastic-glasses-300ml-400ml": {
     "description": "Πλαστικά ποτήρια 300 ml και 400 ml. Τιμή κατόπιν ζήτησης."
+  },
+  "vittorio-cappuccino-freddo-glass": {
+    "description": "Ποτήρι για freddo cappuccino με το λογότυπο Vittorio."
+  },
+  "vittorio-freddo-espresso-glass": {
+    "description": "Ποτήρι για freddo espresso με το λογότυπο Vittorio."
+  },
+  "vittorio-white-espresso-cup": {
+    "description": "Λευκό πορσελάνινο φλιτζάνι espresso με πιατάκι και λογότυπο Vittorio."
+  },
+  "vittorio-black-espresso-cup": {
+    "description": "Μαύρο ματ φλιτζάνι espresso με πιατάκι και λογότυπο Vittorio."
+  },
+  "vittorio-tamper": {
+    "description": "Tamper από ανοξείδωτο ατσάλι με την κορώνα Vittorio."
+  },
+  "vittorio-barista-apron": {
+    "description": "Μαύρη ποδιά με μπεζ λουριά και λογότυπο Vittorio."
+  },
+  "vittorio-wall-crown": {
+    "description": "Χρυσή κορώνα Vittorio για τον τοίχο πίσω από το μπαρ."
+  },
+  "vittorio-luminous-sign": {
+    "description": "Φωτιζόμενη επιγραφή με την κορώνα Vittorio, 30 × 30 cm."
   }
 }
