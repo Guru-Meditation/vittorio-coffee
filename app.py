@@ -82,6 +82,7 @@ LEGACY_PAGES = {
     "blog": "/journal",
     "we-participate-in-horeca-2019": "/journal/horeca-2019",
     "14th-horeca-2019": "/journal/horeca-2019-thanks",
+    "sitemap_index.xml": "/sitemap.xml",
 }
 LEGACY_CATEGORIES = {
     "coffees": {"category": "Coffee"},

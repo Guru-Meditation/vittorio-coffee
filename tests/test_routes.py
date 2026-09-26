@@ -466,6 +466,7 @@ def test_old_wordpress_addresses_redirect_permanently(client):
         "/refund-returns-policy/": "/returns",
         "/we-participate-in-horeca-2019/": "/journal/horeca-2019",
         "/home-2/": "/",
+        "/sitemap_index.xml": "/sitemap.xml",
         "/story/": "/story",
         "/faq/": "/faq",
     }

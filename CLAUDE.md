@@ -9,7 +9,7 @@ teas, dessert mixes); each product has a `brand` field. Deployed on Render (Star
 ## Run and test (Windows, from the repo root)
 - Virtualenv already set up: `.venv\Scripts\python -m pip install -r requirements.txt` after a fresh clone
   (`python -m venv .venv` first).
-- Tests: `.venv\Scripts\python -m pytest -q` (86 at 2026-09-24, all green).
+- Tests: `.venv\Scripts\python -m pytest -q` (88 at 2026-09-26, all green).
 - Local server: `.venv\Scripts\python -m flask --app app run --debug`, then open http://127.0.0.1:5000.
 - Mail needs `.env` (copy `.env.example`; SMTP_PASSWORD is a Gmail app password). Never commit `.env`.
   Without it, a local test order falls back to FormSubmit and lands in the real depot inbox.
@@ -51,11 +51,13 @@ SMTP_PASSWORD lives on the Render service's Environment tab or as a Secret File 
 This project has nothing to do with the FightCamp repo. Its rules (agent_comms, HANDOFF, Godot) do not apply here.
 
 ## Domains, Google and site behaviour (2026-09-24)
-- Live at https://vittoriocyprus.com (Render custom domain). `www` and the old onrender host 301 to it
-  (`move_to_own_domain` in app.py; /health is exempt). `SITE_URL` in mailing.py builds email links;
-  FormSubmit stays pinned to the onrender origin because its activation is tied to it.
-- Planned next: make vittoriocoffee.com (the old WordPress shop, DNS at Hostinger) the main domain and 301 its
-  old WordPress paths. Keep its Hostinger MX/SPF records, because info@vittoriocoffee.com mail runs there.
+- Live at https://vittoriocoffee.com since 2026-09-26 (Render custom domain; DNS at Hostinger, where the old
+  WordPress shop was). The onrender host and vittoriocyprus.com 301 to it (`OLD_HOSTS` / `move_to_own_domain`
+  in app.py; /health is exempt). Old WordPress URLs 301 to new pages via `legacy_target()` in the 404 handler.
+  `SITE_URL` in mailing.py builds email links; FormSubmit stays pinned to the onrender origin.
+- Keep the Hostinger MX/SPF records for vittoriocoffee.com: info@vittoriocoffee.com mail runs there.
+  Domain and DNS changes (Render custom domains, Hostinger, Namecheap) are blocked for Claude by the
+  auto-mode classifier; the owner does those clicks.
 - `BUSINESS` in content.py: `reviews` (Google review link, footer + customer email), `trustpilot` (empty),
   `search_console` (list of verification codes, one per Search Console property).
 - Order form: `address` is required (cash on delivery). Google Places suggestions (static/js/address.js)
