@@ -42,9 +42,10 @@ from order_pricing import compute_order_totals, totals_for_session
 # INFO so the Render logs show which route delivered each email.
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
-OLD_HOST = "vittorio-coffee.onrender.com"
+# Other addresses of this site; they answer with a 301 to the same page on the main domain.
+OLD_HOSTS = {"vittorio-coffee.onrender.com", "vittoriocyprus.com", "www.vittoriocyprus.com"}
 # Browser key for Google Places address suggestions on the order form. It is public in the page by
-# design; restrict it to vittoriocyprus.com and the Places API in Google Cloud. Empty = plain field.
+# design; restrict it to vittoriocoffee.com and the Places API in Google Cloud. Empty = plain field.
 MAPS_KEY = os.environ.get("GOOGLE_MAPS_KEY", "").strip()
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 CUSTOMER_FIELDS = ("name", "business_name", "email", "phone", "address", "town")
@@ -257,9 +258,8 @@ def create_app():
 
     @app.before_request
     def move_to_own_domain():
-        # Old links to the Render address land on the same page at vittoriocyprus.com,
-        # so search engines keep one address per page.
-        if request.host == OLD_HOST and not request.path.startswith("/health"):
+        # Old links land on the same page at vittoriocoffee.com, so search engines keep one address per page.
+        if request.host in OLD_HOSTS and not request.path.startswith("/health"):
             return redirect(SITE_URL + request.full_path.rstrip("?"), code=301)
 
     def suppress_mail():

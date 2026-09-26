@@ -15,7 +15,7 @@ from i18n import localize_pack, translate
 log = logging.getLogger(__name__)
 
 DEFAULT_TO = BUSINESS["email_service"]
-SITE_URL = os.environ.get("SITE_URL", "https://vittoriocyprus.com").rstrip("/")
+SITE_URL = os.environ.get("SITE_URL", "https://vittoriocoffee.com").rstrip("/")
 # FormSubmit only delivers requests that name the site they came from, and its
 # one-time activation is tied to that page, so it stays on the original Render address.
 FORMSUBMIT_ORIGIN = "https://vittorio-coffee.onrender.com"

@@ -395,9 +395,11 @@ def test_review_and_verification_slots_render_only_when_set(client, monkeypatch)
 def test_old_render_address_redirects_to_own_domain(client):
     response = client.get("/el/products?q=espresso", headers={"Host": "vittorio-coffee.onrender.com"})
     assert response.status_code == 301
-    assert response.headers["Location"] == "https://vittoriocyprus.com/el/products?q=espresso"
+    assert response.headers["Location"] == "https://vittoriocoffee.com/el/products?q=espresso"
+    moved = client.get("/order", headers={"Host": "vittoriocyprus.com"})
+    assert moved.headers["Location"] == "https://vittoriocoffee.com/order"
     assert client.get("/health/mail", headers={"Host": "vittorio-coffee.onrender.com"}).status_code == 200
-    assert client.get("/", headers={"Host": "vittoriocyprus.com"}).status_code == 200
+    assert client.get("/", headers={"Host": "vittoriocoffee.com"}).status_code == 200
 
 
 def test_order_requires_full_delivery_address(client):
