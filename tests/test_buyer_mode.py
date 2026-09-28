@@ -22,8 +22,6 @@ def test_home_prices_include_vat_by_default(client):
     assert "€26.88 incl. VAT" in page  # €25.60 trade + 5%
     assert "€25.60 + VAT" not in page
     assert 'value="home" aria-pressed="true"' in page
-    assert "Prices include VAT." in page
-    assert "do not include VAT" not in page
 
 
 def test_business_switch_shows_trade_prices_and_vat_notice(client):
@@ -34,7 +32,6 @@ def test_business_switch_shows_trade_prices_and_vat_notice(client):
     assert "€25.60 + VAT" in page
     assert "incl. VAT" not in page
     assert 'value="business" aria-pressed="true"' in page
-    assert "Business prices do not include VAT. VAT (5%) is added at checkout." in page
     assert "Prices exclude VAT." in page
     # And back again.
     client.post("/prices", data={"buyer": "home"})
@@ -50,7 +47,6 @@ def test_greek_business_notice(client):
     business(client, "/el")
     page = client.get("/el/products/espresso-grande").get_data(as_text=True)
     assert "€25.60 + ΦΠΑ" in page
-    assert "Οι τιμές για επιχειρήσεις δεν περιλαμβάνουν ΦΠΑ." in page
     client.post("/el/prices", data={"buyer": "home"})
     assert "€26.88 με ΦΠΑ" in client.get("/el/products/espresso-grande").get_data(as_text=True)
 

@@ -22,7 +22,6 @@ from content import (
     HERO,
     MACHINE_PROGRAMMES,
     NAV,
-    ORDER,
     PRODUCTS,
     PRODUCTS_BY_SLUG,
     CYPRUS_B2B,
@@ -313,7 +312,6 @@ def create_app():
             "og_locales": OG_LOCALES,
             "ads_id": ADS_ID,
             "business_prices": is_business(),
-            "vat_label": ORDER["vat_label"],
         }
 
     def language_links(error):

@@ -49,9 +49,6 @@ EL = {
     "Prices for": "Τιμές για",
     "For home": "Για το σπίτι",
     "For business": "Για επιχειρήσεις",
-    "Prices include VAT.": "Οι τιμές περιλαμβάνουν ΦΠΑ.",
-    "Business prices do not include VAT. VAT ({rate}) is added at checkout.":
-        "Οι τιμές για επιχειρήσεις δεν περιλαμβάνουν ΦΠΑ. Ο ΦΠΑ ({rate}) προστίθεται στην ολοκλήρωση της παραγγελίας.",
     "{price} incl. VAT": "{price} με ΦΠΑ",
     "Prices include VAT · Delivery across Cyprus · Cash on delivery":
         "Τιμές με ΦΠΑ · Παράδοση σε όλη την Κύπρο · Αντικαταβολή",
