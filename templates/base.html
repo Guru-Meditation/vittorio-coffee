@@ -72,6 +72,19 @@
       <a class="button button-small" href="{{ url_for('order') }}" data-cart-link data-label="{{ _('Order') }}">{{ _("Order") }}{% if cart_count %} ({{ cart_count }}){% endif %}</a>
     </nav>
   </header>
+  <form class="buyer-bar{% if business_prices %} is-business{% endif %}" method="post" action="{{ url_for('set_buyer') }}">
+    <input type="hidden" name="next" value="{{ request.full_path.rstrip('?') }}">
+    <span class="buyer-bar-label">{{ _("Prices for") }}</span>
+    <span class="buyer-switch">
+      <button type="submit" name="buyer" value="home" aria-pressed="{{ 'false' if business_prices else 'true' }}">{{ _("For home") }}</button>
+      <button type="submit" name="buyer" value="business" aria-pressed="{{ 'true' if business_prices else 'false' }}">{{ _("For business") }}</button>
+    </span>
+    {% if business_prices %}
+    <strong class="buyer-bar-note">{{ _("Business prices do not include VAT. VAT ({rate}) is added at checkout.", rate=vat_label) }}</strong>
+    {% else %}
+    <span class="buyer-bar-note">{{ _("Prices include VAT.") }}</span>
+    {% endif %}
+  </form>
   <main id="content">
     {% block content %}{% endblock %}
   </main>
@@ -121,7 +134,7 @@
         </ul>
       </div>
     </div>
-    <p class="legal-note">{{ _("Prices exclude VAT. Payment is cash on delivery.") }}</p>
+    <p class="legal-note">{% if business_prices %}{{ _("Prices exclude VAT. Payment is cash on delivery.") }}{% else %}{{ _("Prices include VAT. Payment is cash on delivery.") }}{% endif %}</p>
   </footer>
   <p class="cart-toast" role="status" aria-live="polite" hidden data-added="{{ _('Added to order') }}" data-view="{{ _('View order') }}"></p>
   {% if ads_id %}

@@ -59,7 +59,7 @@ def test_greek_pages_render_in_greek(client, path):
     assert '<html lang="el">' in page
     assert '<meta property="og:locale" content="el_GR">' in page
     assert "Κατάλογος" in page  # nav
-    assert "Οι τιμές δεν περιλαμβάνουν ΦΠΑ." in page  # footer
+    assert "Οι τιμές περιλαμβάνουν ΦΠΑ." in page  # footer, home prices by default
 
 
 def test_bare_el_redirects_to_greek_home(client):
@@ -104,7 +104,7 @@ def test_greek_home_copy(client):
     assert "Επίσημος αντιπρόσωπος στην Κύπρο της <strong>Vittorio Gourmet Espresso</strong>" in home
     assert "Τσάι Jean Paul Lab: φρουτοτσάι Blue Night." in home
     assert "Προϊόντα Jean Paul Lab" in home
-    assert "€14.60 + ΦΠΑ" in home
+    assert "€15.33 με ΦΠΑ" in home
     assert "Αντικαταβολή" in home
 
 

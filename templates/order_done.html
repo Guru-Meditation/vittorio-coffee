@@ -28,6 +28,9 @@
           {% if placed.business_name %}
           <div><dt>{{ _("Business") }}</dt><dd>{{ placed.business_name }}</dd></div>
           {% endif %}
+          {% if placed.vat_number %}
+          <div><dt>{{ _("VAT number") }}</dt><dd>{{ placed.vat_number }}</dd></div>
+          {% endif %}
         </dl>
       </div>
       <div>

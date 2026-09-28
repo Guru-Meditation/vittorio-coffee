@@ -40,8 +40,12 @@ def viber_order_href(order_body):
 
 def format_order_mail(placed):
     """Build subject and plain-text body for a placed order."""
+    # Orders placed before the home/business switch were all at trade prices.
+    trade = placed.get("buyer", "business") == "business"
+    kind = "TRADE order (business prices ex VAT)" if trade else "RETAIL order (home prices incl. VAT)"
     lines = [
         f"Vittorio order {placed['ref']}",
+        kind,
         "",
         "Customer details",
         f"Name: {placed.get('name', '')}",
@@ -52,6 +56,8 @@ def format_order_mail(placed):
     ]
     if placed.get("business_name"):
         lines.append(f"Café or bar: {placed['business_name']}")
+    if placed.get("vat_number"):
+        lines.append(f"VAT number: {placed['vat_number']}")
     if placed.get("notes"):
         lines.append(f"Notes: {placed['notes']}")
     if placed.get("lang") == "el":
@@ -61,7 +67,7 @@ def format_order_mail(placed):
         pack = (line.get("pack") or "").strip() or "—"
         lines.append(f"{line['qty']}\t{pack}\t{line['name']}\t{line['line_total']}")
     lines.extend(_totals_block(placed))
-    subject = f"Vittorio order {placed['ref']}"
+    subject = f"Vittorio {'TRADE' if trade else 'RETAIL'} order {placed['ref']}"
     return subject, "\n".join(lines)
 
 
@@ -71,7 +77,17 @@ def _totals_block(placed, lang="en"):
 
     totals = placed.get("totals")
     lines = []
-    if totals:
+    if totals and totals.get("incl_vat"):
+        lines.extend(
+            [
+                "",
+                f"{t('Subtotal (incl. VAT)')}: {totals['subtotal']}",
+                f"{t('Delivery')}: {t(totals['delivery'])}",
+                f"{t('Total to pay on delivery')}: {totals['total']}",
+                f"{t('Includes VAT')} ({totals['vat_label']}): {totals['vat']}",
+            ]
+        )
+    elif totals:
         lines.extend(
             [
                 "",
@@ -103,6 +119,8 @@ def format_customer_copy(placed, reorder_url, lang="en", refer_url=None):
     ]
     if placed.get("business_name"):
         lines.append(t("Business: {name}", name=placed["business_name"]))
+    if placed.get("vat_number"):
+        lines.append(t("VAT number: {number}", number=placed["vat_number"]))
     lines.append("")
     for line in placed.get("lines") or []:
         pack = localize_pack((line.get("pack") or "").strip(), lang)

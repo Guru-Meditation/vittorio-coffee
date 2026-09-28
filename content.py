@@ -248,7 +248,7 @@ FAQ = [
     },
     {
         "question": "How does an order get confirmed?",
-        "answer": "Order on this site or on Viber. We confirm every order before delivery. Prices exclude VAT; payment is cash on delivery.",
+        "answer": "Order on this site or on Viber. We confirm every order before delivery. Payment is cash on delivery.",
     },
     {
         "question": "How do returns work?",
@@ -256,7 +256,7 @@ FAQ = [
     },
     {
         "question": "Are the prices final?",
-        "answer": "Catalogue prices are the published trade prices, shown plus VAT. A line marked “Price not published” is confirmed before delivery.",
+        "answer": "Choose “For home” or “For business” at the top of the page. Home prices include VAT. Business prices are the published trade prices without VAT; VAT is added at checkout. A line marked “Price not published” is confirmed before delivery.",
     },
     {
         "question": "Who do you supply?",

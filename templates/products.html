@@ -4,7 +4,7 @@
 <section class="page-intro section catalogue">
   <p class="eyebrow">{{ _("Catalogue") }}</p>
   <h1>{% if active_brand %}{{ _(brand_labels[active_brand]) }}{% else %}{{ _("Wholesale & retail range") }}{% endif %}</h1>
-  <p class="lede-short">{{ _("Trade prices plus VAT · Delivery across Cyprus · Cash on delivery") }}</p>
+  <p class="lede-short">{% if business_prices %}{{ _("Trade prices plus VAT · Delivery across Cyprus · Cash on delivery") }}{% else %}{{ _("Prices include VAT · Delivery across Cyprus · Cash on delivery") }}{% endif %}</p>
   <form class="search" method="get" action="{{ url_for('products') }}" role="search">
     {% if active_brand %}<input type="hidden" name="brand" value="{{ active_brand }}">{% endif %}
     {% if active_group %}<input type="hidden" name="category" value="{{ active_group }}">{% endif %}

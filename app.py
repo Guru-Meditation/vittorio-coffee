@@ -22,6 +22,7 @@ from content import (
     HERO,
     MACHINE_PROGRAMMES,
     NAV,
+    ORDER,
     PRODUCTS,
     PRODUCTS_BY_SLUG,
     CYPRUS_B2B,
@@ -37,7 +38,7 @@ from mailing import (
     send_mail,
     viber_order_href,
 )
-from order_pricing import compute_order_totals, totals_for_session
+from order_pricing import compute_order_totals, totals_for_session, with_vat
 
 # INFO so the Render logs show which route delivered each email.
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -54,7 +55,7 @@ ADS_LABELS = dict(
     part.split(":", 1) for part in os.environ.get("GOOGLE_ADS_LABELS", "").replace(" ", "").split(",") if ":" in part
 )
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
-CUSTOMER_FIELDS = ("name", "business_name", "email", "phone", "address", "town")
+CUSTOMER_FIELDS = ("name", "business_name", "vat_number", "email", "phone", "address", "town")
 
 
 def reorder_param(lines):
@@ -185,6 +186,20 @@ def _price(product):
     return amount
 
 
+def is_business():
+    """Shoppers pick "For home" (prices incl. VAT, the default) or "For business" (trade prices ex VAT)."""
+    return session.get("buyer") == "business"
+
+
+def price_of(item):
+    """Price label in the shopper's mode: '€25.60 + VAT' for businesses, '€26.88 incl. VAT' for home."""
+    product = catalog()["by_slug"].get(item.get("slug"), item)
+    amount = _price(product)
+    if amount is None or is_business():
+        return product["price_label"]
+    return tr("{price} incl. VAT", price=f"€{with_vat(amount):.2f}")
+
+
 def cart_lines():
     raw = session.get("cart") or {}
     lines = []
@@ -200,6 +215,8 @@ def cart_lines():
             continue
         amount = _price(product)
         line_total = amount * quantity if amount is not None else None
+        line_gross = with_vat(amount) * quantity if amount is not None else None
+        shown = line_total if is_business() else line_gross
         if line_total is None:
             missing = True
         else:
@@ -211,14 +228,15 @@ def cart_lines():
                 "qty": quantity,
                 "pack": pack,
                 "line_amount": line_total,
-                "line_total": f"€{line_total:.2f}" if line_total is not None else "Price on request",
+                "line_gross": line_gross,
+                "line_total": f"€{shown:.2f}" if shown is not None else "Price on request",
             }
         )
     return lines, (f"€{priced:.2f}" if lines else None), missing
 
 
 def order_checkout_context(lines, missing):
-    totals = compute_order_totals(lines, missing)
+    totals = compute_order_totals(lines, missing, business=is_business())
     return {"lines": lines, "subtotal": totals["subtotal"] if totals else None, "missing_price": missing, "totals": totals}
 
 
@@ -229,6 +247,7 @@ def create_app():
     app.permanent_session_lifetime = timedelta(days=365)
     app.jinja_env.globals["catalog_pack_label"] = lambda item: localize_pack(catalog_pack_label(item), current_lang())
     app.jinja_env.globals["brand_labels"] = BRAND_LABELS
+    app.jinja_env.globals["price_of"] = price_of
     app.jinja_env.filters["units"] = lambda label: localize_pack(label, current_lang())
 
     def template_translate(text, **values):
@@ -293,6 +312,8 @@ def create_app():
             "lang_labels": LANG_LABELS,
             "og_locales": OG_LOCALES,
             "ads_id": ADS_ID,
+            "business_prices": is_business(),
+            "vat_label": ORDER["vat_label"],
         }
 
     def language_links(error):
@@ -359,7 +380,7 @@ def create_app():
         return page(
             "home.html",
             tr("Vittorio Gourmet Espresso — wholesale & retail coffee in Cyprus"),
-            tr("Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes with published trade prices, delivered across Cyprus."),
+            tr("Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes for home and business, delivered across Cyprus."),
             featured=featured,
             jean_paul=jean_paul,
             articles=ARTICLES,
@@ -396,7 +417,7 @@ def create_app():
         return page(
             "products.html",
             title,
-            tr("Vittorio coffee and Jean Paul Lab beverages, teas, mixes and café supplies, with published trade prices plus VAT and delivery across Cyprus."),
+            tr("Vittorio coffee and Jean Paul Lab beverages, teas, mixes and café supplies, with home and trade prices and delivery across Cyprus."),
             items=items,
             groups=groups,
             active_group=group,
@@ -461,6 +482,13 @@ def create_app():
             machine_programmes=MACHINE_PROGRAMMES,
         )
 
+    @localized("/prices", methods=["POST"])
+    def set_buyer():
+        """The "For home / For business" switch; the choice sticks for a year like the order details."""
+        session.permanent = True
+        session["buyer"] = "business" if request.form.get("buyer") == "business" else "home"
+        return redirect(_same_site(request.form.get("next")) or _same_site(request.referrer) or url_for("home"))
+
     @localized("/cart/add", methods=["POST"])
     def cart_add():
         slug = request.form.get("slug", "").strip()
@@ -504,7 +532,7 @@ def create_app():
         lines, _subtotal, missing = cart_lines()
         checkout = order_checkout_context(lines, missing)
         errors = {}
-        values = {"name": "", "business_name": "", "email": "", "phone": "", "address": "", "town": "", "notes": ""}
+        values = {"name": "", "business_name": "", "vat_number": "", "email": "", "phone": "", "address": "", "town": "", "notes": ""}
         saved = session.get("customer") or {}
         values.update({key: saved.get(key, "") for key in CUSTOMER_FIELDS})
         if request.method == "POST":
@@ -515,6 +543,8 @@ def create_app():
                 errors["cart"] = tr("Add at least one product before placing the order.")
             if len(values["name"]) < 2:
                 errors["name"] = tr("Enter your name.")
+            if is_business() and len(values["business_name"]) < 2:
+                errors["business_name"] = tr("Enter the business name for a trade order.")
             if not EMAIL_RE.match(values["email"]):
                 errors["email"] = tr("Enter a valid email address.")
             if not _phone_ok(values["phone"]):
@@ -550,6 +580,7 @@ def create_app():
                 "missing_price": missing,
                 "totals": totals_for_session(checkout["totals"]),
                 "lang": current_lang(),
+                "buyer": "business" if is_business() else "home",
                 **values,
             }
             if checkout["totals"]:

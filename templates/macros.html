@@ -41,7 +41,7 @@
       <div>
         {% set pack = catalog_pack_label(item) %}
         {% if pack %}<p class="card-pack"><span class="pack-chip">{{ pack }}</span></p>{% endif %}
-        <p class="price">{{ item.price_label }}</p>
+        <p class="price">{{ price_of(item) }}</p>
       </div>
       <form method="post" action="{{ url_for('cart_add') }}" class="add-row">
         <input type="hidden" name="slug" value="{{ item.slug }}">
@@ -77,13 +77,12 @@
 </article>
 {%- endmacro %}
 
-{% macro order_delivery_banner(totals) -%}
+{% macro order_delivery_banner(totals, incl_vat=false) -%}
+{% set incl_vat = totals.incl_vat if totals else incl_vat %}
 {% if totals and totals.free_delivery %}
-<p class="order-banner order-banner-success">{{ _("Free Cyprus delivery — this order is over €40 (ex VAT).") }}</p>
-{% elif totals and totals.amount_to_free_delivery %}
-<p class="order-banner order-banner-nudge">{{ _("Free delivery on orders over €40 (ex VAT).") }} {{ _("Add {amount} more to qualify.", amount=("<strong>" ~ totals.amount_to_free_delivery ~ "</strong>") | safe) }}</p>
+<p class="order-banner order-banner-success">{% if incl_vat %}{{ _("Free Cyprus delivery — this order is over €40.") }}{% else %}{{ _("Free Cyprus delivery — this order is over €40 (ex VAT).") }}{% endif %}</p>
 {% else %}
-<p class="order-banner">{{ _("Free delivery on orders over €40 (ex VAT).") }}</p>
+<p class="order-banner{% if totals and totals.amount_to_free_delivery %} order-banner-nudge{% endif %}">{% if incl_vat %}{{ _("Free delivery on orders over €40.") }}{% else %}{{ _("Free delivery on orders over €40 (ex VAT).") }}{% endif %}{% if totals and totals.amount_to_free_delivery %} {{ _("Add {amount} more to qualify.", amount=("<strong>" ~ totals.amount_to_free_delivery ~ "</strong>") | safe) }}{% endif %}</p>
 {% endif %}
 {%- endmacro %}
 
@@ -91,10 +90,17 @@
 {% if totals %}
 <table class="order-totals">
   <tbody>
+    {% if totals.incl_vat %}
+    <tr><th scope="row">{{ _("Subtotal (incl. VAT)") }}</th><td class="num">{{ totals.subtotal }}</td></tr>
+    <tr><th scope="row">{{ _("Delivery") }}</th><td class="num">{{ _(totals.delivery) }}</td></tr>
+    <tr class="order-total-row"><th scope="row">{{ _("Total to pay on delivery") }}</th><td class="num">{{ totals.total }}</td></tr>
+    <tr class="order-vat-note"><th scope="row">{{ _("Includes VAT") }} ({{ totals.vat_label }})</th><td class="num">{{ totals.vat }}</td></tr>
+    {% else %}
     <tr><th scope="row">{{ _("Subtotal (ex VAT)") }}</th><td class="num">{{ totals.subtotal }}</td></tr>
     <tr><th scope="row">{{ _("VAT") }} ({{ totals.vat_label }})</th><td class="num">{{ totals.vat }}</td></tr>
     <tr><th scope="row">{{ _("Delivery") }}</th><td class="num">{{ _(totals.delivery) }}</td></tr>
     <tr class="order-total-row"><th scope="row">{{ _("Total to pay on delivery") }}</th><td class="num">{{ totals.total }}</td></tr>
+    {% endif %}
   </tbody>
 </table>
 {% endif %}

@@ -5,10 +5,10 @@
   <header class="order-page-head">
     <p class="eyebrow">{{ _("Order") }}</p>
     <h1>{{ _("Delivery order") }}</h1>
-    <p class="lede-short">{{ _("Cyprus trade delivery · catalogue prices ex VAT · payment on delivery") }}</p>
+    <p class="lede-short">{% if business_prices %}{{ _("Cyprus trade delivery · catalogue prices ex VAT · payment on delivery") }}{% else %}{{ _("Cyprus delivery · prices include VAT · payment on delivery") }}{% endif %}</p>
   </header>
 
-  {{ order_delivery_banner(totals) }}
+  {{ order_delivery_banner(totals, incl_vat=not business_prices) }}
 
   {% if errors.cart %}<p class="error">{{ errors.cart }}</p>{% endif %}
 
@@ -43,7 +43,7 @@
       <div class="order-line-details">
         <p class="eyebrow">{{ _(line.product.group) }}</p>
         <h3><a href="{{ url_for('product', slug=line.product.slug) }}">{{ line.product.name }}</a></h3>
-        <p class="muted">{{ line.product.price_label }}</p>
+        <p class="muted">{{ price_of(line.product) }}</p>
       </div>
       <p class="order-line-pack">{% if line.pack %}<span class="pack-chip">{{ line.pack | units }}</span>{% else %}—{% endif %}</p>
       <label class="qty-label"><span class="qty-text">{{ _("Qty") }}</span>
@@ -71,9 +71,20 @@
       </label>
       {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
 
+      {% if business_prices %}
+      <label for="business_name">{{ _("Business name") }}
+        <input id="business_name" name="business_name" type="text" autocomplete="organization" required value="{{ values.business_name }}">
+      </label>
+      {% if errors.business_name %}<p class="error">{{ errors.business_name }}</p>{% endif %}
+
+      <label for="vat_number">{{ _("VAT number") }} <span class="optional">{{ _("(if registered)") }}</span>
+        <input id="vat_number" name="vat_number" type="text" autocomplete="off" value="{{ values.vat_number }}">
+      </label>
+      {% else %}
       <label for="business_name">{{ _("Business name") }} <span class="optional">{{ _("(optional)") }}</span>
         <input id="business_name" name="business_name" type="text" autocomplete="organization" value="{{ values.business_name }}">
       </label>
+      {% endif %}
 
       <label for="email">{{ _("Email") }}
         <input id="email" name="email" type="email" autocomplete="email" required value="{{ values.email }}">

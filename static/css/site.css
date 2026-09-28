@@ -1502,3 +1502,43 @@ input, textarea {
 .link-button { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
 .consent .button-ghost { background: transparent; color: var(--espresso); }
 .consent .button-ghost:hover { background: var(--espresso); color: var(--cream); }
+
+/* Home / business price switch, under the header on every page. */
+.buyer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem 0.8rem;
+  max-width: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.buyer-bar-label { color: var(--muted); font-weight: 500; }
+.buyer-switch {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+}
+.buyer-switch button {
+  padding: 0.35rem 0.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.buyer-switch button:hover { color: var(--copper); }
+.buyer-switch button[aria-pressed="true"] { background: var(--espresso); color: var(--cream); }
+.buyer-bar-note { color: var(--muted); }
+.buyer-bar.is-business { background: #fdf1d8; border-bottom-color: #e7c98a; }
+.buyer-bar.is-business .buyer-bar-note { color: #7a4a12; font-weight: 700; }
+.order-vat-note th, .order-vat-note td { color: var(--muted); font-weight: 400; font-size: 0.9rem; }

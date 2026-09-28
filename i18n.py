@@ -43,6 +43,28 @@ EL = {
     "Questions": "Ερωτήσεις",
     "Prices exclude VAT. Payment is cash on delivery.":
         "Οι τιμές δεν περιλαμβάνουν ΦΠΑ. Πληρωμή με μετρητά κατά την παράδοση.",
+    "Prices include VAT. Payment is cash on delivery.":
+        "Οι τιμές περιλαμβάνουν ΦΠΑ. Πληρωμή με μετρητά κατά την παράδοση.",
+    # Home / business price switch
+    "Prices for": "Τιμές για",
+    "For home": "Για το σπίτι",
+    "For business": "Για επιχειρήσεις",
+    "Prices include VAT.": "Οι τιμές περιλαμβάνουν ΦΠΑ.",
+    "Business prices do not include VAT. VAT ({rate}) is added at checkout.":
+        "Οι τιμές για επιχειρήσεις δεν περιλαμβάνουν ΦΠΑ. Ο ΦΠΑ ({rate}) προστίθεται στην ολοκλήρωση της παραγγελίας.",
+    "{price} incl. VAT": "{price} με ΦΠΑ",
+    "Prices include VAT · Delivery across Cyprus · Cash on delivery":
+        "Τιμές με ΦΠΑ · Παράδοση σε όλη την Κύπρο · Αντικαταβολή",
+    "Cyprus delivery · prices include VAT · payment on delivery":
+        "Παράδοση σε όλη την Κύπρο · τιμές με ΦΠΑ · πληρωμή κατά την παράδοση",
+    "Free Cyprus delivery — this order is over €40.": "Δωρεάν παράδοση — η παραγγελία ξεπερνά τα €40.",
+    "Free delivery on orders over €40.": "Δωρεάν παράδοση για παραγγελίες άνω των €40.",
+    "Subtotal (incl. VAT)": "Υποσύνολο (με ΦΠΑ)",
+    "Includes VAT": "Περιλαμβάνει ΦΠΑ",
+    "VAT number": "Αριθμός ΦΠΑ",
+    "(if registered)": "(αν υπάρχει)",
+    "VAT number: {number}": "Αριθμός ΦΠΑ: {number}",
+    "Enter the business name for a trade order.": "Συμπληρώστε την επωνυμία της επιχείρησης για παραγγελία χονδρικής.",
     "Kalo Xorio": "Καλό Χωριό",
     "Larnaca": "Λάρνακα",
     "Cyprus": "Κύπρος",
@@ -242,14 +264,14 @@ EL = {
     "From Kalo Xorio, Larnaca, to anywhere in Cyprus. We do not ship abroad.":
         "Από το Καλό Χωριό Λάρνακας, σε όλη την Κύπρο. Δεν αποστέλλουμε στο εξωτερικό.",
     "How does an order get confirmed?": "Πώς επιβεβαιώνεται μια παραγγελία;",
-    "Order on this site or on Viber. We confirm every order before delivery. Prices exclude VAT; payment is cash on delivery.":
-        "Παραγγείλετε από τον ιστότοπο ή στο Viber. Επιβεβαιώνουμε κάθε παραγγελία πριν από την παράδοση. Οι τιμές δεν περιλαμβάνουν ΦΠΑ· η πληρωμή γίνεται με μετρητά κατά την παράδοση.",
+    "Order on this site or on Viber. We confirm every order before delivery. Payment is cash on delivery.":
+        "Παραγγείλετε από τον ιστότοπο ή στο Viber. Επιβεβαιώνουμε κάθε παραγγελία πριν από την παράδοση. Η πληρωμή γίνεται με μετρητά κατά την παράδοση.",
     "How do returns work?": "Πώς γίνονται οι επιστροφές;",
     "Unopened, unused goods can be returned within 30 days for a refund. You pay return shipping unless the error was ours. Send the order number by email to pantzosantonis@gmail.com, or open Viber.":
         "Κλειστά, αχρησιμοποίητα προϊόντα επιστρέφονται εντός 30 ημερών με επιστροφή χρημάτων. Τα έξοδα επιστροφής βαρύνουν εσάς, εκτός αν το λάθος ήταν δικό μας. Στείλτε τον αριθμό παραγγελίας στο pantzosantonis@gmail.com ή στο Viber.",
     "Are the prices final?": "Είναι οι τιμές τελικές;",
-    "Catalogue prices are the published trade prices, shown plus VAT. A line marked “Price not published” is confirmed before delivery.":
-        "Οι τιμές του καταλόγου είναι οι δημοσιευμένες τιμές χονδρικής, πλέον ΦΠΑ. Όπου αναγράφεται «Τιμή κατόπιν ζήτησης», η τιμή επιβεβαιώνεται πριν από την παράδοση.",
+    "Choose “For home” or “For business” at the top of the page. Home prices include VAT. Business prices are the published trade prices without VAT; VAT is added at checkout. A line marked “Price not published” is confirmed before delivery.":
+        "Επιλέξτε «Για το σπίτι» ή «Για επιχειρήσεις» στο πάνω μέρος της σελίδας. Οι τιμές για το σπίτι περιλαμβάνουν ΦΠΑ. Οι τιμές για επιχειρήσεις είναι οι δημοσιευμένες τιμές χονδρικής χωρίς ΦΠΑ· ο ΦΠΑ προστίθεται στην ολοκλήρωση της παραγγελίας. Όπου αναγράφεται «Τιμή κατόπιν ζήτησης», η τιμή επιβεβαιώνεται πριν από την παράδοση.",
     "Who do you supply?": "Σε ποιους απευθύνεστε;",
     "Cafés, bars, hotels and retail customers across Cyprus.":
         "Σε καφετέριες, μπαρ, ξενοδοχεία και πελάτες λιανικής σε όλη την Κύπρο.",
@@ -349,11 +371,11 @@ EL = {
     # Page titles and meta descriptions
     "Vittorio Gourmet Espresso — wholesale & retail coffee in Cyprus":
         "Vittorio Gourmet Espresso — καφές χονδρικής & λιανικής στην Κύπρο",
-    "Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes with published trade prices, delivered across Cyprus.":
-        "Επίσημος αντιπρόσωπος στην Κύπρο της Vittorio Gourmet Espresso και της Jean Paul Lab. Καφές, ροφήματα και μείγματα με δημοσιευμένες τιμές χονδρικής και παράδοση σε όλη την Κύπρο.",
+    "Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes for home and business, delivered across Cyprus.":
+        "Επίσημος αντιπρόσωπος στην Κύπρο της Vittorio Gourmet Espresso και της Jean Paul Lab. Καφές, ροφήματα και μείγματα για το σπίτι και την επιχείρηση, με παράδοση σε όλη την Κύπρο.",
     "Catalogue — Vittorio Gourmet Espresso": "Κατάλογος — Vittorio Gourmet Espresso",
-    "Vittorio coffee and Jean Paul Lab beverages, teas, mixes and café supplies, with published trade prices plus VAT and delivery across Cyprus.":
-        "Καφές Vittorio και ροφήματα, τσάγια και μείγματα Jean Paul Lab, με δημοσιευμένες τιμές χονδρικής πλέον ΦΠΑ και παράδοση σε όλη την Κύπρο.",
+    "Vittorio coffee and Jean Paul Lab beverages, teas, mixes and café supplies, with home and trade prices and delivery across Cyprus.":
+        "Καφές Vittorio και ροφήματα, τσάγια και μείγματα Jean Paul Lab, με τιμές λιανικής και χονδρικής και παράδοση σε όλη την Κύπρο.",
     "Coffee philosophy — Vittorio Gourmet Espresso": "Φιλοσοφία — Vittorio Gourmet Espresso",
     "How Vittorio thinks about coffee for the bar, and the coffees in the Cyprus catalogue.":
         "Πώς βλέπει η Vittorio τον καφέ για το μπαρ, και οι καφέδες του καταλόγου στην Κύπρο.",
