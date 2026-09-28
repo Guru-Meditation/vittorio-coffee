@@ -81,6 +81,9 @@ def test_business_order_needs_business_name_and_shows_vat_added(client):
     page = client.get("/order").get_data(as_text=True)
     assert "Subtotal (ex VAT)" in page
     assert "€51.20" in page and "€2.56" in page and "€53.76" in page
+    totals = page.split('class="order-totals"', 1)[1].split("</table>", 1)[0]
+    assert "Delivery" not in totals
+    assert "Free delivery on orders over" not in page
     assert 'id="vat_number"' in page
     assert "ACS" not in page
     missing = client.post("/order", data=ORDER_FORM)

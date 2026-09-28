@@ -93,10 +93,11 @@ def _totals_block(placed, lang="en"):
                 "",
                 f"{t('Subtotal (ex VAT)')}: {totals['subtotal']}",
                 f"{t('VAT')} ({totals['vat_label']}): {totals['vat']}",
-                f"{t('Delivery')}: {t(totals['delivery'])}",
-                f"{t('Total to pay on delivery')}: {totals['total']}",
             ]
         )
+        if totals.get("delivery"):
+            lines.append(f"{t('Delivery')}: {t(totals['delivery'])}")
+        lines.append(f"{t('Total to pay on delivery')}: {totals['total']}")
     elif placed.get("subtotal"):
         lines.append(f"{t('Subtotal (ex VAT)')}: {placed['subtotal']}")
     lines.append(t("Payment: cash on delivery only."))

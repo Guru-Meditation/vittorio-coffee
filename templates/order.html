@@ -8,7 +8,7 @@
     <p class="lede-short">{% if business_prices %}{{ _("Cyprus trade delivery · catalogue prices ex VAT · payment on delivery") }}{% else %}{{ _("Cyprus delivery · prices include VAT · payment on delivery") }}{% endif %}</p>
   </header>
 
-  {{ order_delivery_banner(totals, incl_vat=not business_prices) }}
+  {% if not business_prices %}{{ order_delivery_banner(totals, incl_vat=true) }}{% endif %}
   {% if not business_prices %}<p class="order-courier">{{ _("Deliveries are done by ACS.") }}</p>{% endif %}
 
   {% if errors.cart %}<p class="error">{{ errors.cart }}</p>{% endif %}

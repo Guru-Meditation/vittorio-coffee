@@ -21,7 +21,8 @@ def compute_order_totals(lines, missing_price=False, business=True):
     """Businesses see trade prices ex VAT with VAT added; home buyers see VAT-inclusive prices.
 
     Each line carries `line_amount` (ex VAT) and, for home orders, `line_gross` (incl. VAT).
-    Free delivery starts at €40 of goods, counted the way the buyer sees prices.
+    Home orders get free delivery from €40 of goods (VAT included), otherwise a flat fee.
+    Business orders carry no delivery charge; the depot arranges trade delivery.
     Returns None if any line lacks a price.
     """
     if missing_price or not lines:
@@ -39,15 +40,18 @@ def compute_order_totals(lines, missing_price=False, business=True):
     else:
         vat = (subtotal - subtotal / (1 + VAT_RATE)).quantize(CENT, rounding=ROUND_HALF_UP)
         goods = subtotal
-    delivery_amount = Decimal("0") if subtotal >= FREE_DELIVERY_MIN else DELIVERY_FEE
-    to_free = max(FREE_DELIVERY_MIN - subtotal, Decimal("0"))
+    if business:
+        delivery_amount, to_free = Decimal("0"), Decimal("0")
+    else:
+        delivery_amount = Decimal("0") if subtotal >= FREE_DELIVERY_MIN else DELIVERY_FEE
+        to_free = max(FREE_DELIVERY_MIN - subtotal, Decimal("0"))
     return {
         "subtotal": _money(subtotal),
         "vat": _money(vat),
         "vat_label": ORDER["vat_label"],
         "incl_vat": not business,
-        "delivery": "Free" if delivery_amount == 0 else _money(delivery_amount),
-        "free_delivery": subtotal >= FREE_DELIVERY_MIN,
+        "delivery": None if business else ("Free" if delivery_amount == 0 else _money(delivery_amount)),
+        "free_delivery": not business and subtotal >= FREE_DELIVERY_MIN,
         "amount_to_free_delivery": _money(to_free) if to_free > 0 else None,
         "total": _money(goods + delivery_amount),
     }

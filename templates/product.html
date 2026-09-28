@@ -20,7 +20,7 @@
         </label>
         <button class="button" type="submit">{{ _("Add to order") }}</button>
       </form>
-      <p class="product-terms">{{ _("Free delivery over €40 · Cash on delivery") }}</p>
+      <p class="product-terms">{% if business_prices %}{{ _("Cash on delivery") }}{% else %}{{ _("Free delivery over €40 · Cash on delivery") }}{% endif %}</p>
     </div>
     {% if item.profile %}
     <dl class="profile">

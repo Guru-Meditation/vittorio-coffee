@@ -98,7 +98,7 @@
     {% else %}
     <tr><th scope="row">{{ _("Subtotal (ex VAT)") }}</th><td class="num">{{ totals.subtotal }}</td></tr>
     <tr><th scope="row">{{ _("VAT") }} ({{ totals.vat_label }})</th><td class="num">{{ totals.vat }}</td></tr>
-    <tr><th scope="row">{{ _("Delivery") }}</th><td class="num">{{ _(totals.delivery) }}</td></tr>
+    {% if totals.delivery %}<tr><th scope="row">{{ _("Delivery") }}</th><td class="num">{{ _(totals.delivery) }}</td></tr>{% endif %}
     <tr class="order-total-row"><th scope="row">{{ _("Total to pay on delivery") }}</th><td class="num">{{ totals.total }}</td></tr>
     {% endif %}
   </tbody>
