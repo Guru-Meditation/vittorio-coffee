@@ -127,6 +127,8 @@ def format_customer_copy(placed, reorder_url, lang="en", refer_url=None):
         pack_text = f" ({pack})" if pack else ""
         lines.append(f"{line['qty']} x {line['name']}{pack_text}: {t(line['line_total'])}")
     lines.extend(_totals_block(placed, lang))
+    if placed.get("buyer") == "home":
+        lines.append(t("Deliveries are done by ACS."))
     lines.extend(
         [
             "",

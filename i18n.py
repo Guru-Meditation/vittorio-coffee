@@ -62,6 +62,7 @@ EL = {
     "Subtotal (incl. VAT)": "Υποσύνολο (με ΦΠΑ)",
     "Includes VAT": "Περιλαμβάνει ΦΠΑ",
     "VAT number": "Αριθμός ΦΠΑ",
+    "Deliveries are done by ACS.": "Οι παραδόσεις γίνονται μέσω ACS.",
     "(if registered)": "(αν υπάρχει)",
     "VAT number: {number}": "Αριθμός ΦΠΑ: {number}",
     "Enter the business name for a trade order.": "Συμπληρώστε την επωνυμία της επιχείρησης για παραγγελία χονδρικής.",

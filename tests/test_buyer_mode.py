@@ -72,9 +72,11 @@ def test_home_order_totals_include_vat(client):
     assert "€26.88" in page
     assert "€31.88" in page  # plus €5 delivery under €40
     assert 'id="vat_number"' not in page
+    assert "Deliveries are done by ACS." in page
     client.post("/order", data=ORDER_FORM)
     placed = client.get("/order/received").get_data(as_text=True)
     assert "€31.88" in placed
+    assert "Deliveries are done by ACS." in placed
 
 
 def test_business_order_needs_business_name_and_shows_vat_added(client):
@@ -84,6 +86,7 @@ def test_business_order_needs_business_name_and_shows_vat_added(client):
     assert "Subtotal (ex VAT)" in page
     assert "€51.20" in page and "€2.56" in page and "€53.76" in page
     assert 'id="vat_number"' in page
+    assert "ACS" not in page
     missing = client.post("/order", data=ORDER_FORM)
     assert missing.status_code == 400
     assert "Enter the business name for a trade order." in missing.get_data(as_text=True)
@@ -102,3 +105,12 @@ def test_depot_email_says_trade_or_retail():
     retail_subject, retail_body = format_order_mail({"ref": "B2", "buyer": "home", "lines": []})
     assert retail_subject == "Vittorio RETAIL order B2"
     assert "RETAIL order (home prices incl. VAT)" in retail_body
+
+
+def test_customer_email_names_acs_for_home_orders_only():
+    from mailing import format_customer_copy
+
+    _s, home = format_customer_copy({"ref": "C3", "buyer": "home", "lines": []}, "http://x/again", lang="el")
+    assert "Οι παραδόσεις γίνονται μέσω ACS." in home
+    _s, trade = format_customer_copy({"ref": "D4", "buyer": "business", "lines": []}, "http://x/again")
+    assert "ACS" not in trade

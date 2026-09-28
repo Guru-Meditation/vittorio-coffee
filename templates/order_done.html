@@ -15,6 +15,7 @@
   {% endif %}
 
   {% if placed.totals %}{{ order_delivery_banner(placed.totals) }}{% endif %}
+  {% if placed.buyer == "home" %}<p class="order-courier">{{ _("Deliveries are done by ACS.") }}</p>{% endif %}
 
   <div class="order-sheet">
     <div class="order-sheet-cols">

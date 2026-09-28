@@ -1542,3 +1542,4 @@ input, textarea {
 .buyer-bar.is-business { background: #fdf1d8; border-bottom-color: #e7c98a; }
 .buyer-bar.is-business .buyer-bar-note { color: #7a4a12; font-weight: 700; }
 .order-vat-note th, .order-vat-note td { color: var(--muted); font-weight: 400; font-size: 0.9rem; }
+.order-courier { margin: -0.4rem 0 1rem; color: var(--muted); font-weight: 600; }

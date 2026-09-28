@@ -9,6 +9,7 @@
   </header>
 
   {{ order_delivery_banner(totals, incl_vat=not business_prices) }}
+  {% if not business_prices %}<p class="order-courier">{{ _("Deliveries are done by ACS.") }}</p>{% endif %}
 
   {% if errors.cart %}<p class="error">{{ errors.cart }}</p>{% endif %}
 
