@@ -121,9 +121,11 @@ GLASS = "vittorio-freddo-espresso-glass"
 def test_serving_line_is_free_from_sixty(client):
     home = client.get("/").get_data(as_text=True)
     assert "Vittorio cups and glasses" in home
-    assert "Free with orders over €60" in home
+    assert "Free with orders over €60 · 1 per order" in home
     client.post("/cart/add", data={"slug": GLASS, "qty": "2"})
     client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})  # €26.88 incl. VAT
+    with client.session_transaction() as session:
+        assert session["cart"][GLASS] == 1  # one free piece per order
     page = client.get("/order").get_data(as_text=True)
     assert "Add <strong>€33.12</strong> more, or remove them." in page
     short = client.post("/order", data=ORDER_FORM)
@@ -148,4 +150,16 @@ def test_serving_line_threshold_is_ex_vat_for_business(client):
 def test_greek_serving_line(client):
     home = client.get("/el/").get_data(as_text=True)
     assert "Φλιτζάνια και ποτήρια Vittorio" in home
-    assert "Δωρεάν με παραγγελίες άνω των €60" in home
+    assert "Δωρεάν με παραγγελίες άνω των €60 · 1 ανά παραγγελία" in home
+
+
+def test_only_one_free_piece_per_order(client):
+    client.post("/cart/add", data={"slug": GLASS, "qty": "3"})
+    client.post("/cart/add", data={"slug": "vittorio-white-espresso-cup", "qty": "1"})
+    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})
+    with client.session_transaction() as session:
+        assert session["cart"] == {"vittorio-white-espresso-cup": 1, "espresso-grande": 1}
+    # Raising the quantity on the order page is capped too.
+    client.post("/cart/update", data={"qty-vittorio-white-espresso-cup": "5", "qty-espresso-grande": "1"})
+    with client.session_transaction() as session:
+        assert session["cart"]["vittorio-white-espresso-cup"] == 1

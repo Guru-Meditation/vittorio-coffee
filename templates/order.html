@@ -49,7 +49,7 @@
       </div>
       <p class="order-line-pack">{% if line.pack %}<span class="pack-chip">{{ line.pack | units }}</span>{% else %}—{% endif %}</p>
       <label class="qty-label"><span class="qty-text">{{ _("Qty") }}</span>
-        <input name="qty-{{ line.product.slug }}" type="number" min="0" max="99" value="{{ line.qty }}">
+        <input name="qty-{{ line.product.slug }}" type="number" min="0" max="{{ 1 if line.gift else 99 }}" value="{{ line.qty }}">
       </label>
       <p class="price">{{ _(line.line_total) }}</p>
       <button class="order-line-remove" type="submit" name="remove" value="{{ line.product.slug }}">{{ _("Remove") }}</button>

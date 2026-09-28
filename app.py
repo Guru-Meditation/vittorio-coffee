@@ -197,7 +197,7 @@ def price_of(item):
     """Price label in the shopper's mode: '€25.60 + VAT' for businesses, '€26.88 incl. VAT' for home."""
     product = catalog()["by_slug"].get(item.get("slug"), item)
     if product.get("group") == SERVING_GROUP:
-        return tr("Free with orders over €60")
+        return tr("Free with orders over €60 · 1 per order")
     amount = _price(product)
     if amount is None or is_business():
         return product["price_label"]
@@ -239,6 +239,16 @@ def cart_lines():
             }
         )
     return lines, (f"€{priced:.2f}" if lines else None), missing
+
+
+def limit_serving(cart, keep=None):
+    """One free cup or glass per order: keep only `keep` (or the first one found), at quantity 1."""
+    chosen = keep or next((slug for slug in cart if PRODUCTS_BY_SLUG[slug]["group"] == SERVING_GROUP), None)
+    return {
+        slug: (1 if slug == chosen else qty)
+        for slug, qty in cart.items()
+        if PRODUCTS_BY_SLUG[slug]["group"] != SERVING_GROUP or slug == chosen
+    }
 
 
 def serving_shortfall(lines):
@@ -523,6 +533,8 @@ def create_app():
         qty = min(max(qty, 1), 99)
         cart = dict(session.get("cart") or {})
         cart[slug] = min(int(cart.get(slug, 0)) + qty, 99)
+        if PRODUCTS_BY_SLUG[slug]["group"] == SERVING_GROUP:
+            cart = limit_serving(cart, keep=slug)
         session["cart"] = cart
         count = sum(int(q) for q in cart.values())
         if request.headers.get("X-Requested-With") == "fetch":
@@ -546,7 +558,7 @@ def create_app():
                 continue
             if qty > 0:
                 cart[slug] = min(qty, 99)
-        session["cart"] = cart
+        session["cart"] = limit_serving(cart)
         return redirect(url_for("order"))
 
     @localized("/order", methods=["GET", "POST"])
