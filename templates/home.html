@@ -91,6 +91,21 @@
   </div>
 </section>
 
+{% if serving %}
+<section class="section shelf" aria-labelledby="serving-title">
+  <header class="shelf-head" data-reveal>
+    <div>
+      <p class="eyebrow">{{ _("Free with orders over €60") }}</p>
+      <h2 id="serving-title">{{ _("Vittorio cups and glasses") }}</h2>
+    </div>
+    <a class="text-link" href="{{ url_for('products', category='Serving line') }}">{{ _("All {group}", group=_("Serving line") | lower) }}</a>
+  </header>
+  <div class="shelf-row">
+    {% for item in serving %}{{ product_card(item, compact=true) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
 <section class="partner-band" aria-labelledby="partner-title">
   <div class="partner-inner" data-reveal>
     <div>

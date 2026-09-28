@@ -22,9 +22,11 @@ from content import (
     HERO,
     MACHINE_PROGRAMMES,
     NAV,
+    ORDER,
     PRODUCTS,
     PRODUCTS_BY_SLUG,
     CYPRUS_B2B,
+    SERVING_GROUP,
     catalog_pack_label,
 )
 from i18n import CATALOGS, DEFAULT_LANG, LANG_LABELS, LANGS, OG_LOCALES, fold, lang_for_path, localize_pack, translate
@@ -53,6 +55,7 @@ ADS_ID = os.environ.get("GOOGLE_ADS_ID", "").strip()
 ADS_LABELS = dict(
     part.split(":", 1) for part in os.environ.get("GOOGLE_ADS_LABELS", "").replace(" ", "").split(",") if ":" in part
 )
+SERVING_FREE_MIN = Decimal(ORDER["serving_free_min"])
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 CUSTOMER_FIELDS = ("name", "business_name", "vat_number", "email", "phone", "address", "town")
 
@@ -193,6 +196,8 @@ def is_business():
 def price_of(item):
     """Price label in the shopper's mode: '€25.60 + VAT' for businesses, '€26.88 incl. VAT' for home."""
     product = catalog()["by_slug"].get(item.get("slug"), item)
+    if product.get("group") == SERVING_GROUP:
+        return tr("Free with orders over €60")
     amount = _price(product)
     if amount is None or is_business():
         return product["price_label"]
@@ -212,7 +217,8 @@ def cart_lines():
             continue
         if product is None or quantity < 1:
             continue
-        amount = _price(product)
+        gift = product.get("group") == SERVING_GROUP
+        amount = Decimal("0") if gift else _price(product)
         line_total = amount * quantity if amount is not None else None
         line_gross = with_vat(amount) * quantity if amount is not None else None
         shown = line_total if is_business() else line_gross
@@ -228,15 +234,31 @@ def cart_lines():
                 "pack": pack,
                 "line_amount": line_total,
                 "line_gross": line_gross,
-                "line_total": f"€{shown:.2f}" if shown is not None else "Price on request",
+                "gift": gift,
+                "line_total": "Free" if gift else (f"€{shown:.2f}" if shown is not None else "Price on request"),
             }
         )
     return lines, (f"€{priced:.2f}" if lines else None), missing
 
 
+def serving_shortfall(lines):
+    """How much more the order needs before its free cups and glasses qualify; None when it qualifies."""
+    if not any(line["gift"] for line in lines):
+        return None
+    key = "line_amount" if is_business() else "line_gross"
+    paid = sum((line[key] or Decimal("0")) for line in lines if not line["gift"])
+    return f"€{SERVING_FREE_MIN - paid:.2f}" if paid < SERVING_FREE_MIN else None
+
+
 def order_checkout_context(lines, missing):
     totals = compute_order_totals(lines, missing, business=is_business())
-    return {"lines": lines, "subtotal": totals["subtotal"] if totals else None, "missing_price": missing, "totals": totals}
+    return {
+        "lines": lines,
+        "subtotal": totals["subtotal"] if totals else None,
+        "missing_price": missing,
+        "totals": totals,
+        "serving_short": serving_shortfall(lines),
+    }
 
 
 def create_app():
@@ -374,6 +396,7 @@ def create_app():
     def home():
         products = catalog()["by_slug"]
         featured = [item for item in catalog()["products"] if item["featured"]]
+        serving = [item for item in catalog()["products"] if item["group"] == SERVING_GROUP]
         jean_paul = [products[slug] for slug in HOME_JEAN_PAUL]
         return page(
             "home.html",
@@ -381,6 +404,7 @@ def create_app():
             tr("Official Cyprus representative of Vittorio Gourmet Espresso and Jean Paul Lab. Coffee, beverages and café mixes for home and business, delivered across Cyprus."),
             featured=featured,
             jean_paul=jean_paul,
+            serving=serving,
             articles=ARTICLES,
             json_ld=store_json(),
         )
@@ -539,6 +563,11 @@ def create_app():
                 return redirect(url_for("order_done"))
             if not lines:
                 errors["cart"] = tr("Add at least one product before placing the order.")
+            elif checkout["serving_short"]:
+                errors["cart"] = tr(
+                    "Vittorio cups and glasses are free with orders over €60. Add {amount} more, or remove them.",
+                    amount=checkout["serving_short"],
+                )
             if len(values["name"]) < 2:
                 errors["name"] = tr("Enter your name.")
             if is_business() and len(values["business_name"]) < 2:

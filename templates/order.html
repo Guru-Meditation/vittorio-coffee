@@ -11,7 +11,8 @@
   {% if not business_prices %}{{ order_delivery_banner(totals, incl_vat=true) }}{% endif %}
   {% if not business_prices %}<p class="order-courier">{{ _("Deliveries are done by ACS.") }}</p>{% endif %}
 
-  {% if errors.cart %}<p class="error">{{ errors.cart }}</p>{% endif %}
+  {% if errors.cart %}<p class="error">{{ errors.cart }}</p>
+  {% elif serving_short %}<p class="order-banner order-banner-nudge">{{ _("Vittorio cups and glasses are free with orders over €60. Add {amount} more, or remove them.", amount=("<strong>" ~ serving_short ~ "</strong>") | safe) }}</p>{% endif %}
 
   {% if lines %}
   <form method="post" action="{{ url_for('cart_update') }}" class="order-list order-sheet">

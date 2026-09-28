@@ -113,3 +113,39 @@ def test_customer_email_names_acs_for_home_orders_only():
     assert "Οι παραδόσεις γίνονται μέσω ACS." in home
     _s, trade = format_customer_copy({"ref": "D4", "buyer": "business", "lines": []}, "http://x/again")
     assert "ACS" not in trade
+
+
+GLASS = "vittorio-freddo-espresso-glass"
+
+
+def test_serving_line_is_free_from_sixty(client):
+    home = client.get("/").get_data(as_text=True)
+    assert "Vittorio cups and glasses" in home
+    assert "Free with orders over €60" in home
+    client.post("/cart/add", data={"slug": GLASS, "qty": "2"})
+    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})  # €26.88 incl. VAT
+    page = client.get("/order").get_data(as_text=True)
+    assert "Add <strong>€33.12</strong> more, or remove them." in page
+    short = client.post("/order", data=ORDER_FORM)
+    assert short.status_code == 400
+    assert "Vittorio cups and glasses are free with orders over €60. Add €33.12 more" in short.get_data(as_text=True)
+    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})  # 3 × €26.88 = €80.64
+    page = client.get("/order").get_data(as_text=True)
+    assert "more, or remove them" not in page
+    assert "€80.64" in page  # the glasses add nothing to the total
+    assert client.post("/order", data=ORDER_FORM).status_code == 302
+    placed = client.get("/order/received").get_data(as_text=True)
+    assert "Freddo Espresso Glass" in placed and ">Free<" in placed
+
+
+def test_serving_line_threshold_is_ex_vat_for_business(client):
+    business(client)
+    client.post("/cart/add", data={"slug": GLASS, "qty": "1"})
+    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})  # €51.20 ex VAT
+    assert "Add <strong>€8.80</strong> more" in client.get("/order").get_data(as_text=True)
+
+
+def test_greek_serving_line(client):
+    home = client.get("/el/").get_data(as_text=True)
+    assert "Φλιτζάνια και ποτήρια Vittorio" in home
+    assert "Δωρεάν με παραγγελίες άνω των €60" in home

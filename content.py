@@ -100,7 +100,11 @@ ORDER = {
     "vat_label": "5%",
     "free_delivery_min": "40",
     "delivery_fee": "5.00",
+    # Vittorio cups and glasses (the "Serving line" group) are given free with orders from this amount,
+    # counted the way the buyer sees prices (incl. VAT for home, ex VAT for business).
+    "serving_free_min": "60",
 }
+SERVING_GROUP = "Serving line"
 
 BUSINESS = {
     "name": "Vittorio Gourmet Espresso",

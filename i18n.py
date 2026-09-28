@@ -60,6 +60,10 @@ EL = {
     "Includes VAT": "Περιλαμβάνει ΦΠΑ",
     "VAT number": "Αριθμός ΦΠΑ",
     "Deliveries are done by ACS.": "Οι παραδόσεις γίνονται μέσω ACS.",
+    "Free with orders over €60": "Δωρεάν με παραγγελίες άνω των €60",
+    "Vittorio cups and glasses": "Φλιτζάνια και ποτήρια Vittorio",
+    "Vittorio cups and glasses are free with orders over €60. Add {amount} more, or remove them.":
+        "Τα φλιτζάνια και τα ποτήρια Vittorio δίνονται δωρεάν με παραγγελίες άνω των €60. Προσθέστε ακόμη {amount} ή αφαιρέστε τα.",
     "(if registered)": "(αν υπάρχει)",
     "VAT number: {number}": "Αριθμός ΦΠΑ: {number}",
     "Enter the business name for a trade order.": "Συμπληρώστε την επωνυμία της επιχείρησης για παραγγελία χονδρικής.",

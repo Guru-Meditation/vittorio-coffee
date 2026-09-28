@@ -46,7 +46,10 @@ def test_every_product_and_article(client):
         page = response.get_data(as_text=True)
         assert html.escape(item["name"]) in page
         # Home prices (incl. VAT) by default; unpriced lines keep their label.
-        assert ("incl. VAT" in page) if item.get("price") else (item["price_label"] in page)
+        if item["group"] == "Serving line":
+            assert "Free with orders over €60" in page
+        else:
+            assert ("incl. VAT" in page) if item.get("price") else (item["price_label"] in page)
         if item["image"]:
             assert item["image"]["web"]["lg"]["file"] in page
     for item in ARTICLES:
