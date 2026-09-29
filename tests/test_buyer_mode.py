@@ -128,12 +128,15 @@ def test_serving_line_is_free_from_sixty(client):
         assert session["cart"][GLASS] == 1  # one free piece per order
     page = client.get("/order").get_data(as_text=True)
     assert "Add <strong>€33.12</strong> more, or remove them." in page
-    short = client.post("/order", data=ORDER_FORM)
+    assert ">From €60<" in page and ">Free<" not in page  # not labelled free until the order qualifies
+    assert ">Από €60<" in client.get("/el/order").get_data(as_text=True)
+    short =client.post("/order", data=ORDER_FORM)
     assert short.status_code == 400
     assert "Vittorio cups and glasses are free with orders over €60. Add €33.12 more" in short.get_data(as_text=True)
     client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})  # 3 × €26.88 = €80.64
     page = client.get("/order").get_data(as_text=True)
     assert "more, or remove them" not in page
+    assert ">From €60<" not in page
     assert "€80.64" in page  # the glasses add nothing to the total
     assert client.post("/order", data=ORDER_FORM).status_code == 302
     placed = client.get("/order/received").get_data(as_text=True)

@@ -262,12 +262,16 @@ def serving_shortfall(lines):
 
 def order_checkout_context(lines, missing):
     totals = compute_order_totals(lines, missing, business=is_business())
+    short = serving_shortfall(lines)
+    if short:
+        # The cup or glass is not free yet, so don't label it "Free" until the order reaches the minimum.
+        lines = [dict(line, line_total=f"From €{SERVING_FREE_MIN:.0f}") if line["gift"] else line for line in lines]
     return {
         "lines": lines,
         "subtotal": totals["subtotal"] if totals else None,
         "missing_price": missing,
         "totals": totals,
-        "serving_short": serving_shortfall(lines),
+        "serving_short": short,
     }
 
 
