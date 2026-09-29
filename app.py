@@ -411,6 +411,8 @@ def create_app():
             "name": BUSINESS["name"],
             "address": {
                 "@type": "PostalAddress",
+                "streetAddress": BUSINESS["street"],
+                "postalCode": BUSINESS["postal_code"],
                 "addressLocality": BUSINESS["locality"],
                 "addressRegion": BUSINESS["region"],
                 "addressCountry": "CY",

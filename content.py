@@ -110,11 +110,12 @@ BUSINESS = {
     "name": "Vittorio Gourmet Espresso",
     "short_name": "Vittorio",
     "email_service": "pantzosantonis@gmail.com",
+    "street": "Grigori Afxentiou 1",
     "locality": "Kalo Xorio",
     "postal_code": "7550",
     "region": "Larnaca",
     "country": "Cyprus",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Kalo+Xorio%2C+Larnaca%2C+Cyprus",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Grigori+Afxentiou+1%2C+Kalo+Xorio%2C+Larnaca%2C+Cyprus",
     "viber": "viber://chat?number=%2B35799766848",
     "phone": "+35799766848",
     # Google Business Profile "Ask for reviews" link; the footer shows it once set.

@@ -105,7 +105,8 @@
       <div>
         <p class="footer-label">{{ _("Based in") }}</p>
         <address>
-          {{ _(business.locality) }}, {{ _(business.region) }}<br>
+          {{ _(business.street) }}<br>
+          {{ business.postal_code }} {{ _(business.locality) }}, {{ _(business.region) }}<br>
           {{ _(business.country) }}
         </address>
         <p><a href="{{ business.viber }}">{{ _("Contact") }}</a></p>

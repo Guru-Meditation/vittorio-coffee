@@ -58,7 +58,8 @@
   <p class="eyebrow">{{ _("Larnaca district") }}</p>
   <h2>{{ business.name }}</h2>
   <address>
-    {{ _(business.locality) }}, {{ _(business.region) }}<br>
+    {{ _(business.street) }}<br>
+    {{ business.postal_code }} {{ _(business.locality) }}, {{ _(business.region) }}<br>
     {{ _(business.country) }}
   </address>
   <dl>

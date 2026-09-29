@@ -68,6 +68,7 @@ EL = {
     "VAT number: {number}": "Αριθμός ΦΠΑ: {number}",
     "Enter the business name for a trade order.": "Συμπληρώστε την επωνυμία της επιχείρησης για παραγγελία χονδρικής.",
     "Kalo Xorio": "Καλό Χωριό",
+    "Grigori Afxentiou 1": "Γρηγόρη Αυξεντίου 1",
     "Larnaca": "Λάρνακα",
     "Cyprus": "Κύπρος",
     "Contact on Viber": "Επικοινωνία στο Viber",
