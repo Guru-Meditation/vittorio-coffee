@@ -75,6 +75,15 @@ def test_home_order_totals_include_vat(client):
     assert "Deliveries are done by ACS." in placed
 
 
+def test_product_cards_have_a_quantity_box(client):
+    listing = client.get("/products").get_data(as_text=True)
+    assert 'class="qty-input" name="qty"' in listing
+    assert 'class="qty-input" name="qty"' in client.get("/").get_data(as_text=True)
+    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "3"})
+    with client.session_transaction() as session:
+        assert session["cart"]["espresso-grande"] == 3
+
+
 def test_order_conversion_carries_the_order_value(client, monkeypatch):
     monkeypatch.setattr(app_module, "ADS_ID", "AW-123")
     monkeypatch.setattr(app_module, "ADS_LABELS", {"order": "oLbl"})
