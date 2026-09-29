@@ -75,6 +75,17 @@ def test_home_order_totals_include_vat(client):
     assert "Deliveries are done by ACS." in placed
 
 
+def test_order_conversion_carries_the_order_value(client, monkeypatch):
+    monkeypatch.setattr(app_module, "ADS_ID", "AW-123")
+    monkeypatch.setattr(app_module, "ADS_LABELS", {"order": "oLbl"})
+    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})
+    client.post("/order", data=ORDER_FORM)
+    done = client.get("/order/received")
+    assert done.status_code == 200
+    page = done.get_data(as_text=True)
+    assert '"send_to": "AW-123/oLbl"' in page and '"value": 26.88' in page and '"transaction_id"' in page
+
+
 def test_business_order_needs_business_name_and_shows_vat_added(client):
     business(client)
     client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})

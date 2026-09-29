@@ -383,7 +383,11 @@ def create_app():
             return None
         event = {"send_to": f"{ADS_ID}/{label}", "currency": "EUR"}
         if value:
-            event["value"] = round(float(value), 2)
+            # Order subtotals are stored as display text ("€48.41"); a bad value must never break the page.
+            try:
+                event["value"] = round(float(str(value).replace("€", "").replace(",", "").strip()), 2)
+            except ValueError:
+                pass
         if ref:
             event["transaction_id"] = ref
         return event
