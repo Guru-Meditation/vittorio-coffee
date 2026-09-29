@@ -170,6 +170,7 @@
   document.addEventListener("submit", function (event) {
     var form = event.target;
     if (!/\/cart\/add$/.test(form.getAttribute("action") || "")) return;
+    if (form.hasAttribute("data-full-post")) return;
     if (!window.fetch || !window.FormData) return;
     event.preventDefault();
     var button = form.querySelector("button[type=submit]");

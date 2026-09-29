@@ -340,6 +340,18 @@ body.nav-open #site-nav { display: block; }
 /* Quantity box beside "Add to order" on product cards and the home counter. */
 .qty-input { width: 3.6rem; padding: 0.45rem 0.4rem; text-align: center; }
 .pack-card-actions form { display: flex; align-items: center; gap: 0.4rem; }
+/* Free cup or glass picker on the order page, once the order passes €60. */
+.serving-offer { margin-bottom: 1.5rem; }
+.serving-offer-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+.serving-offer-list form { margin: 0; }
+.serving-pick {
+  display: flex; flex-direction: column; align-items: center; gap: 0.35rem; width: 100%; height: 100%;
+  padding: 0.75rem 0.5rem; border: 1px solid #dcbc98; border-radius: 0.75rem; background: #fff;
+  font: inherit; color: inherit; text-align: center; cursor: pointer;
+}
+.serving-pick:hover, .serving-pick:focus-visible { border-color: currentColor; }
+.serving-pick img { width: 4.5rem; height: 4.5rem; object-fit: contain; }
+.serving-pick-add { font-size: 0.85rem; font-weight: 600; text-decoration: underline; }
 .order-list { max-width: none; margin-bottom: 1.5rem; }
 .order-line {
   display: grid;

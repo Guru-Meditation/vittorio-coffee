@@ -163,6 +163,19 @@ def test_serving_line_is_free_from_sixty(client):
     assert "Freddo Espresso Glass" in placed and ">Free<" in placed
 
 
+def test_order_page_offers_a_free_piece_once_over_sixty(client):
+    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})  # €53.76, not yet
+    assert "Choose your free Vittorio cup or glass" not in client.get("/order").get_data(as_text=True)
+    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})  # €80.64
+    page = client.get("/order").get_data(as_text=True)
+    assert "Choose your free Vittorio cup or glass" in page and f'value="{GLASS}"' in page
+    added = client.post("/cart/add", data={"slug": GLASS, "next": "/order"})
+    assert added.headers["Location"] == "/order"
+    page = client.get("/order").get_data(as_text=True)
+    assert "Choose your free Vittorio cup or glass" not in page and ">Free<" in page
+    assert "Επιλέξτε το δωρεάν φλιτζάνι" not in client.get("/el/order").get_data(as_text=True)
+
+
 def test_serving_line_threshold_is_ex_vat_for_business(client):
     business(client)
     client.post("/cart/add", data={"slug": GLASS, "qty": "1"})

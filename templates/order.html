@@ -60,6 +60,27 @@
     <button class="button button-ghost button-small" type="submit">{{ _("Update quantities") }}</button>
   </form>
 
+  {% if serving_offer %}
+  <section class="serving-offer order-sheet" aria-labelledby="serving-offer-title">
+    <h2 class="order-sheet-title" id="serving-offer-title">{{ _("Choose your free Vittorio cup or glass") }}</h2>
+    <p class="muted">{{ _("Your order is over €60. One piece is included free.") }}</p>
+    <div class="serving-offer-list">
+      {% for item in serving_offer %}
+      {# A full post, not the fetch toast, so the order list reloads with the new line. #}
+      <form method="post" action="{{ url_for('cart_add') }}" data-full-post>
+        <input type="hidden" name="slug" value="{{ item.slug }}">
+        <input type="hidden" name="next" value="{{ url_for('order') }}">
+        <button type="submit" class="serving-pick">
+          {% if item.image %}<img src="{{ url_for('static', filename='images/' ~ item.image.file) }}" alt="" width="{{ item.image.width }}" height="{{ item.image.height }}" loading="lazy" decoding="async">{% endif %}
+          <span>{{ item.name }}</span>
+          <span class="serving-pick-add">{{ _("Add free") }}</span>
+        </button>
+      </form>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
   <form method="post" action="{{ url_for('order') }}" class="order-checkout order-sheet">
     <div class="hp" aria-hidden="true">
       <label for="company_website">{{ _("Website") }}</label>

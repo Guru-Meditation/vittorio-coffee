@@ -260,6 +260,17 @@ def serving_shortfall(lines):
     return f"€{SERVING_FREE_MIN - paid:.2f}" if paid < SERVING_FREE_MIN else None
 
 
+def serving_offer(lines):
+    """The cups and glasses to offer on the order page once an order qualifies and has none yet."""
+    if not lines or any(line["gift"] for line in lines):
+        return []
+    key = "line_amount" if is_business() else "line_gross"
+    paid = sum((line[key] or Decimal("0")) for line in lines)
+    if paid < SERVING_FREE_MIN:
+        return []
+    return [item for item in catalog()["products"] if item["group"] == SERVING_GROUP]
+
+
 def order_checkout_context(lines, missing):
     totals = compute_order_totals(lines, missing, business=is_business())
     short = serving_shortfall(lines)
@@ -272,6 +283,7 @@ def order_checkout_context(lines, missing):
         "missing_price": missing,
         "totals": totals,
         "serving_short": short,
+        "serving_offer": serving_offer(lines),
     }
 
 
