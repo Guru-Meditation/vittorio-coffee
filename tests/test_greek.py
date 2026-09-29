@@ -133,7 +133,7 @@ def test_greek_404(client):
 def test_greek_order_flow_and_customer_copy(monkeypatch):
     sent = []
     monkeypatch.setattr(
-        app_module, "send_customer_copy", lambda subject, body, to, suppress=False: sent.append((subject, body)) or True
+        app_module, "send_customer_copy", lambda subject, body, to, ref=None, suppress=False: sent.append((subject, body)) or True
     )
     flask_app = app_module.create_app()
     flask_app.config["TESTING"] = True

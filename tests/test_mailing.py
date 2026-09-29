@@ -86,14 +86,23 @@ def test_customer_copy_goes_to_customer_via_smtp(monkeypatch):
     calls = {}
     monkeypatch.setenv("SMTP_PASSWORD", "abcdefghijklmnop")
 
-    def fake_send_smtp(subject, body, *, reply_to=None, to=None):
-        calls.update(subject=subject, reply_to=reply_to, to=to)
+    def fake_send_smtp(subject, body, *, reply_to=None, to=None, from_name=None):
+        calls.update(subject=subject, reply_to=reply_to, to=to, from_name=from_name)
         return True
 
     monkeypatch.setattr(mailing, "_send_smtp", fake_send_smtp)
-    assert mailing.send_customer_copy("Your Vittorio order X", "body", "cafe@example.com") is True
+    assert mailing.send_customer_copy("Your Vittorio order X", "body", "cafe@example.com", ref="C362B4") is True
     assert calls["to"] == "cafe@example.com"
     assert calls["reply_to"] == mailing.DEFAULT_TO
+    assert calls["from_name"] == "Order #C362B4 - Vittorio Gourmet Espresso"
+
+
+def test_smtp_from_header_carries_the_display_name(monkeypatch):
+    monkeypatch.setenv("SMTP_PASSWORD", "abcdefghijklmnop")
+    sent = []
+    monkeypatch.setattr(mailing, "_send_smtp_starttls", lambda cfg, msg: sent.append(msg))
+    mailing._send_smtp("S", "B", to="cafe@example.com", from_name="Order #C362B4 - Vittorio Gourmet Espresso")
+    assert sent[0]["From"].addresses[0].display_name == "Order #C362B4 - Vittorio Gourmet Espresso"
 
 
 def test_customer_copy_skipped_without_smtp(monkeypatch):

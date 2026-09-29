@@ -682,7 +682,7 @@ def create_app():
         reorder_url = SITE_URL + url_for("order_again", items=reorder_param(placed["lines"]))
         refer_url = SITE_URL + url_for("refer")
         subject, body = format_customer_copy(placed, reorder_url, lang=placed.get("lang", DEFAULT_LANG), refer_url=refer_url)
-        return send_customer_copy(subject, body, placed["email"], suppress=suppress_mail())
+        return send_customer_copy(subject, body, placed["email"], ref=placed["ref"], suppress=suppress_mail())
 
     def deliver_order_to_depot(placed):
         subject, order_body = format_order_mail(placed)

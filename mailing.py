@@ -5,6 +5,7 @@ import smtplib
 import urllib.error
 import urllib.request
 from email.message import EmailMessage
+from email.utils import formataddr
 from pathlib import Path
 
 from urllib.parse import quote
@@ -216,7 +217,7 @@ def _send_smtp_ssl(cfg, msg):
         smtp.send_message(msg)
 
 
-def _send_smtp(subject, body, *, reply_to=None, to=None):
+def _send_smtp(subject, body, *, reply_to=None, to=None, from_name=None):
     cfg = _smtp_settings()
     if not cfg["password"]:
         log.warning(
@@ -227,7 +228,9 @@ def _send_smtp(subject, body, *, reply_to=None, to=None):
     recipient = (to or cfg["to"] or DEFAULT_TO).strip()
     msg = EmailMessage()
     msg["Subject"] = subject
-    msg["From"] = cfg["from_addr"] or cfg["user"]
+    sender = cfg["from_addr"] or cfg["user"]
+    # A display name replaces the bare Gmail account name in the customer's inbox.
+    msg["From"] = formataddr((from_name, sender)) if from_name else sender
     msg["To"] = recipient
     if reply_to:
         msg["Reply-To"] = reply_to
@@ -307,14 +310,19 @@ def _send_formsubmit(subject, body, *, reply_to=None):
     return True
 
 
-def send_customer_copy(subject, body, to, *, suppress=False):
+def customer_sender_name(ref):
+    return f"Order #{ref} - Vittorio Gourmet Espresso"
+
+
+def send_customer_copy(subject, body, to, *, ref=None, suppress=False):
     """Email the customer from the depot Gmail. Only SMTP can reach arbitrary addresses."""
     if suppress:
         return True
     if not _read_smtp_password():
         return False
     try:
-        if _send_smtp(subject, body, reply_to=DEFAULT_TO, to=to):
+        from_name = customer_sender_name(ref) if ref else "Vittorio Gourmet Espresso"
+        if _send_smtp(subject, body, reply_to=DEFAULT_TO, to=to, from_name=from_name):
             log.info("Customer copy sent for %s", subject)
             return True
     except (OSError, smtplib.SMTPException, ValueError) as err:
