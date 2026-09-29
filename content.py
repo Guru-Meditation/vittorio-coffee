@@ -112,7 +112,7 @@ BUSINESS = {
     "email_service": "pantzosantonis@gmail.com",
     "street": "Grigori Afxentiou 1",
     "locality": "Kalo Xorio",
-    "postal_code": "7550",
+    "postal_code": "7643",
     "region": "Larnaca",
     "country": "Cyprus",
     "maps": "https://www.google.com/maps/search/?api=1&query=Grigori+Afxentiou+1%2C+Kalo+Xorio%2C+Larnaca%2C+Cyprus",
