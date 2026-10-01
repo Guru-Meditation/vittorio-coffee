@@ -3,7 +3,7 @@ import logging
 import os
 import re
 import secrets
-from datetime import timedelta
+from datetime import date, timedelta
 from decimal import Decimal, InvalidOperation
 from urllib.parse import quote, urlencode, urljoin, urlsplit
 
@@ -56,6 +56,7 @@ ADS_LABELS = dict(
     part.split(":", 1) for part in os.environ.get("GOOGLE_ADS_LABELS", "").replace(" ", "").split(",") if ":" in part
 )
 SERVING_FREE_MIN = Decimal(ORDER["serving_free_min"])
+PRICES_VALID_FROM = "2026-09-26"  # the day the current price list went live on vittoriocoffee.com
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 CUSTOMER_FIELDS = ("name", "business_name", "vat_number", "email", "phone", "address", "town")
 
@@ -480,6 +481,34 @@ def create_app():
             query=query,
         )
 
+    def product_json(item):
+        """schema.org Product for Google's merchant listings: brand, image and the home (incl. VAT) price."""
+        payload = {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": item["name"],
+            "sku": item["slug"],
+            "brand": {"@type": "Brand", "name": BRAND_LABELS.get(item.get("brand")) or BUSINESS["name"]},
+            "description": item.get("description") or item.get("summary") or item["name"],
+            "url": SITE_URL + url_for("product", slug=item["slug"]),
+        }
+        if item.get("image"):
+            payload["image"] = SITE_URL + url_for("static", filename="images/" + item["image"]["file"])
+        amount = _price(item)
+        if amount is not None and item.get("group") != SERVING_GROUP:
+            payload["offers"] = {
+                "@type": "Offer",
+                "price": f"{with_vat(amount):.2f}",
+                "priceCurrency": "EUR",
+                "availability": "https://schema.org/InStock",
+                "itemCondition": "https://schema.org/NewCondition",
+                "validFrom": PRICES_VALID_FROM,
+                "priceValidUntil": f"{date.today().year + 1}-12-31",
+                "url": payload["url"],
+                "seller": {"@type": "Organization", "name": BUSINESS["name"]},
+            }
+        return json.dumps(payload, ensure_ascii=False)
+
     @localized("/products/<slug>")
     def product(slug):
         item = catalog()["by_slug"].get(slug)
@@ -491,6 +520,7 @@ def create_app():
             f"{item['name']}. {item.get('description') or item['price_label']}",
             item=item,
             brand=BRANDS_BY_SLUG.get(item.get("brand")),
+            json_ld=product_json(item),
         )
 
     @localized("/philosophy")

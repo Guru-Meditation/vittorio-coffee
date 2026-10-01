@@ -75,6 +75,20 @@ def test_home_order_totals_include_vat(client):
     assert "Deliveries are done by ACS." in placed
 
 
+def test_product_page_has_merchant_listing_data(client):
+    import json
+    import re
+
+    page = client.get("/products/espresso-grande").get_data(as_text=True)
+    data = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', page, re.S).group(1))
+    assert data["@type"] == "Product" and data["brand"]["name"]
+    offer = data["offers"]
+    assert offer["price"] == "26.88" and offer["priceCurrency"] == "EUR"
+    assert offer["validFrom"] and offer["priceValidUntil"] and offer["availability"].endswith("InStock")
+    glass = client.get(f"/products/{GLASS}").get_data(as_text=True)
+    assert '"offers"' not in glass  # free pieces are not sold on their own
+
+
 def test_product_cards_have_a_quantity_box(client):
     listing = client.get("/products").get_data(as_text=True)
     assert 'class="qty-input" name="qty"' in listing
