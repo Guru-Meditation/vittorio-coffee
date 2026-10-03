@@ -75,6 +75,31 @@ def test_home_order_totals_include_vat(client):
     assert "Deliveries are done by ACS." in placed
 
 
+def test_contact_spam_is_dropped_silently(monkeypatch):
+    sent = []
+    monkeypatch.setattr(app_module, "send_mail", lambda *a, **k: sent.append(a) or True)
+    monkeypatch.setattr(app_module, "ADS_ID", "AW-123")
+    monkeypatch.setattr(app_module, "ADS_LABELS", {"contact": "cLbl", "refer": "rLbl"})
+    flask_app = create_app()
+    flask_app.config.update(TESTING=True, SPAM_CHECKS=True)
+    bot = flask_app.test_client()
+    form = {"name": "RobertFep", "email": "r@example.com", "message": "Ciao, volevo sapere il tuo prezzo."}
+    direct = bot.post("/contact", data=form)  # posted without ever opening the page
+    assert direct.status_code == 200 and '"send_to"' not in direct.get_data(as_text=True)
+    bot.get("/contact")
+    linked = dict(form, message="Proven strategy! Start Winning Here -> psee.io/8rjsft")
+    assert '"send_to"' not in bot.post("/contact", data=linked).get_data(as_text=True)
+    assert bot.post("/refer", data={"name": "Bot", "email": "b@x.com", "venue": "V", "venue_town": "T"}).status_code == 200
+    assert sent == []
+
+    person = flask_app.test_client()
+    person.get("/contact")
+    with person.session_transaction() as session:
+        session["form_shown"] -= 10  # a person takes a while to type
+    real = person.post("/contact", data={"name": "Maria", "email": "m@example.com", "message": "Do you deliver to Paphos?"})
+    assert '"send_to": "AW-123/cLbl"' in real.get_data(as_text=True) and len(sent) == 1
+
+
 def test_product_page_has_merchant_listing_data(client):
     import json
     import re

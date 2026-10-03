@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import re
+import time
 import secrets
 from datetime import date, timedelta
 from decimal import Decimal, InvalidOperation
@@ -58,6 +59,9 @@ ADS_LABELS = dict(
 SERVING_FREE_MIN = Decimal(ORDER["serving_free_min"])
 PRICES_VALID_FROM = "2026-09-26"  # the day the current price list went live on vittoriocoffee.com
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+# Web links in a contact message: real enquiries about coffee don't carry them, spam almost always does.
+LINK_RE = re.compile(r"https?://|www\.|\b[\w-]+\.(?:io|ly|xyz|ru|top|click|site|online|link)\b(?:/\S*)?", re.I)
+FORM_MIN_SECONDS = 3
 CUSTOMER_FIELDS = ("name", "business_name", "vat_number", "email", "phone", "address", "town")
 
 
@@ -791,11 +795,28 @@ def create_app():
             article=item,
         )
 
+    def mark_form_shown():
+        """Remember when this visitor opened a contact form; bots usually post without loading the page."""
+        if request.method == "GET":
+            session["form_shown"] = time.time()
+
+    def looks_like_spam(*texts):
+        """Honeypot, link-stuffed text, or a post with no prior page view (or one faster than a human types)."""
+        if request.form.get("company_website", "").strip():
+            return True
+        if any(LINK_RE.search(text or "") for text in texts):
+            return True
+        if app.testing and not app.config.get("SPAM_CHECKS"):
+            return False
+        shown = session.get("form_shown")
+        return not shown or time.time() - float(shown) < FORM_MIN_SECONDS
+
     @localized("/contact", methods=["GET", "POST"])
     def contact():
+        mark_form_shown()
         errors = {}
         values = {"name": "", "email": "", "message": ""}
-        sent = False
+        sent = spam = False
         status = 200
         if request.method == "POST":
             values = {
@@ -803,9 +824,9 @@ def create_app():
                 "email": request.form.get("email", "").strip(),
                 "message": request.form.get("message", "").strip(),
             }
-            honeypot = request.form.get("company_website", "").strip()
-            if honeypot:
-                sent = True
+            spam = looks_like_spam(values["name"], values["message"])
+            if spam:
+                sent = True  # Bots see the thank-you page; nothing is emailed or counted.
             else:
                 if len(values["name"]) < 2:
                     errors["name"] = tr("Enter your name.")
@@ -840,7 +861,7 @@ def create_app():
             errors=errors,
             values=values,
             sent=sent,
-            conversion=ads_conversion("contact") if sent and request.method == "POST" else None,
+            conversion=ads_conversion("contact") if sent and request.method == "POST" and not spam else None,
         )
         return body, status
 
@@ -848,14 +869,16 @@ def create_app():
     def refer():
         """Partners recommend a venue; the depot follows up and rewards the partner on its first order."""
         fields = ("name", "business", "email", "venue", "venue_town", "venue_contact")
+        mark_form_shown()
         values = {field: "" for field in fields}
         errors = {}
-        sent = False
+        sent = spam = False
         status = 200
         if request.method == "POST":
             values = {field: request.form.get(field, "").strip() for field in fields}
-            if request.form.get("company_website", "").strip():
-                sent = True
+            spam = looks_like_spam(*values.values())
+            if spam:
+                sent = True  # Bots see the thank-you page; nothing is emailed or counted.
             else:
                 if len(values["name"]) < 2:
                     errors["name"] = tr("Enter your name.")
@@ -897,7 +920,7 @@ def create_app():
             errors=errors,
             values=values,
             sent=sent,
-            conversion=ads_conversion("refer") if sent and request.method == "POST" else None,
+            conversion=ads_conversion("refer") if sent and request.method == "POST" and not spam else None,
         )
         return body, status
 
