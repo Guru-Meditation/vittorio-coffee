@@ -1194,6 +1194,16 @@ input, textarea {
 }
 .product-brand p { margin: 0 0 0.3rem; }
 
+/* Depot video */
+.depot-video { display: grid; gap: 1.2rem; justify-items: start; }
+.depot-video video {
+  width: min(22rem, 100%);
+  height: auto;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.9rem;
+  background: var(--espresso);
+}
+
 /* Partner band */
 .partner-band {
   margin-top: 2.5rem;

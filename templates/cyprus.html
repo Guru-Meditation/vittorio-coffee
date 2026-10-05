@@ -55,7 +55,17 @@
   </div>
 </section>
 
-<section class="partner-band" aria-labelledby="partner-title">
+<section class="section depot-video">
+  <div>
+    <p class="eyebrow">{{ _("Visit") }}</p>
+    <h2>{{ _("The depot in Kalo Xorio.") }}</h2>
+  </div>
+  <video controls playsinline preload="none" width="720" height="1280" poster="{{ url_for('static', filename='video/depot-poster.jpg') }}" aria-label="{{ _('The depot in Kalo Xorio.') }}">
+    <source src="{{ url_for('static', filename='video/depot.mp4') }}" type="video/mp4">
+  </video>
+</section>
+
+<section class="partner-band"aria-labelledby="partner-title">
   <div class="partner-inner">
     <div>
       <p class="eyebrow">{{ _("Become a partner") }}</p>
