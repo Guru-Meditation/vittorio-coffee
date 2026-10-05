@@ -126,6 +126,7 @@ BUSINESS = {
         "WmBAxmaZormtC7pr3mufzgV5-ozEobNwUEvtuKtnXAI",  # vittorio-coffee.onrender.com
         "MPQErzrMwgPCQpFPoQi6eGpg-k3ub2vmR3FZBdH916g",  # vittoriocyprus.com
         "zDJ-4nREAaJ6o7_c-8llc01DUM-R12NQrTvk0q5277I",  # vittoriocoffee.com
+        "WFM9rAICC7LD0K1mo034LvaJHPune5wYaV6bIvEa8sM",  # vittoriocoffee.com, Antonis (pantzosantonis)
     ],
     "delivery": "Delivery to cafés, bars and hotels across Cyprus.",
     "machines": ["Appia Life", "Sanremo", "Expobar"],
