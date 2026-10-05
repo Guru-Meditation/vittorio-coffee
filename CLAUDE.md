@@ -9,7 +9,7 @@ teas, dessert mixes); each product has a `brand` field. Deployed on Render (Star
 ## Run and test (Windows, from the repo root)
 - Virtualenv already set up: `.venv\Scripts\python -m pip install -r requirements.txt` after a fresh clone
   (`python -m venv .venv` first).
-- Tests: `.venv\Scripts\python -m pytest -q` (88 at 2026-09-26, all green).
+- Tests: `.venv\Scripts\python -m pytest -q` (108 at 2026-10-05, all green).
 - Local server: `.venv\Scripts\python -m flask --app app run --debug`, then open http://127.0.0.1:5000.
 - Mail needs `.env` (copy `.env.example`; SMTP_PASSWORD is a Gmail app password). Never commit `.env`.
   Without it, a local test order falls back to FormSubmit and lands in the real depot inbox.
