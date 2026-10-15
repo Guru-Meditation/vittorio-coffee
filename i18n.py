@@ -50,6 +50,7 @@ EL = {
     "For home": "Για το σπίτι",
     "For business": "Για επιχειρήσεις",
     "{price} incl. VAT": "{price} με ΦΠΑ",
+    "{price}, no VAT": "{price}, χωρίς ΦΠΑ",
     "Prices include VAT · Delivery across Cyprus · Cash on delivery":
         "Τιμές με ΦΠΑ · Παράδοση σε όλη την Κύπρο · Αντικαταβολή",
     "Cyprus delivery · prices include VAT · payment on delivery":

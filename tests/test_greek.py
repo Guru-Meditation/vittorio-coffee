@@ -104,7 +104,7 @@ def test_greek_home_copy(client):
     assert "Επίσημος αντιπρόσωπος στην Κύπρο της <strong>Vittorio Gourmet Espresso</strong>" in home
     assert "Τσάι Jean Paul Lab: φρουτοτσάι Blue Night." in home
     assert "Προϊόντα Jean Paul Lab" in home
-    assert "€15.33 με ΦΠΑ" in home
+    assert "€14.60, χωρίς ΦΠΑ" in home
     assert "Αντικαταβολή" in home
 
 

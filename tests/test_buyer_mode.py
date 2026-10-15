@@ -18,9 +18,9 @@ def business(client, lang=""):
 
 
 def test_home_prices_include_vat_by_default(client):
-    page = client.get("/products/espresso-grande").get_data(as_text=True)
-    assert "€26.88 incl. VAT" in page  # €25.60 trade + 5%
-    assert "€25.60 + VAT" not in page
+    page = client.get("/products/waffle-mix").get_data(as_text=True)
+    assert "€21.00 incl. VAT" in page  # €20.00 trade + 5%
+    assert "€20.00 + VAT" not in page
     assert 'value="home" aria-pressed="true"' in page
 
 
@@ -28,14 +28,14 @@ def test_business_switch_shows_trade_prices_and_vat_notice(client):
     switched = business(client)
     assert switched.status_code == 302
     assert switched.headers["Location"] == "/products"
-    page = client.get("/products/espresso-grande").get_data(as_text=True)
-    assert "€25.60 + VAT" in page
+    page = client.get("/products/waffle-mix").get_data(as_text=True)
+    assert "€20.00 + VAT" in page
     assert "incl. VAT" not in page
     assert 'value="business" aria-pressed="true"' in page
     assert "Prices exclude VAT." in page
     # And back again.
     client.post("/prices", data={"buyer": "home"})
-    assert "€26.88 incl. VAT" in client.get("/products/espresso-grande").get_data(as_text=True)
+    assert "€21.00 incl. VAT" in client.get("/products/waffle-mix").get_data(as_text=True)
 
 
 def test_switch_only_returns_to_this_site(client):
@@ -45,10 +45,10 @@ def test_switch_only_returns_to_this_site(client):
 
 def test_greek_business_notice(client):
     business(client, "/el")
-    page = client.get("/el/products/espresso-grande").get_data(as_text=True)
-    assert "€25.60 + ΦΠΑ" in page
+    page = client.get("/el/products/waffle-mix").get_data(as_text=True)
+    assert "€20.00 + ΦΠΑ" in page
     client.post("/el/prices", data={"buyer": "home"})
-    assert "€26.88 με ΦΠΑ" in client.get("/el/products/espresso-grande").get_data(as_text=True)
+    assert "€21.00 με ΦΠΑ" in client.get("/el/products/waffle-mix").get_data(as_text=True)
 
 
 ORDER_FORM = {
@@ -61,17 +61,17 @@ ORDER_FORM = {
 
 
 def test_home_order_totals_include_vat(client):
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})
     page = client.get("/order").get_data(as_text=True)
     assert "Subtotal (incl. VAT)" in page
     assert "Includes VAT (5%)" in page
-    assert "€26.88" in page
-    assert "€31.88" in page  # plus €5 delivery under €40
+    assert "€21.00" in page
+    assert "€26.00" in page  # plus €5 delivery under €40
     assert 'id="vat_number"' not in page
     assert "Deliveries are done by ACS." in page
     client.post("/order", data=ORDER_FORM)
     placed = client.get("/order/received").get_data(as_text=True)
-    assert "€31.88" in placed
+    assert "€26.00" in placed
     assert "Deliveries are done by ACS." in placed
 
 
@@ -104,11 +104,11 @@ def test_product_page_has_merchant_listing_data(client):
     import json
     import re
 
-    page = client.get("/products/espresso-grande").get_data(as_text=True)
+    page = client.get("/products/waffle-mix").get_data(as_text=True)
     data = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', page, re.S).group(1))
     assert data["@type"] == "Product" and data["brand"]["name"]
     offer = data["offers"]
-    assert offer["price"] == "26.88" and offer["priceCurrency"] == "EUR"
+    assert offer["price"] == "21.00" and offer["priceCurrency"] == "EUR"
     assert offer["validFrom"] and offer["priceValidUntil"] and offer["availability"].endswith("InStock")
     glass = client.get(f"/products/{GLASS}").get_data(as_text=True)
     assert '"offers"' not in glass  # free pieces are not sold on their own
@@ -118,28 +118,28 @@ def test_product_cards_have_a_quantity_box(client):
     listing = client.get("/products").get_data(as_text=True)
     assert 'class="qty-input" name="qty"' in listing
     assert 'class="qty-input" name="qty"' in client.get("/").get_data(as_text=True)
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "3"})
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "3"})
     with client.session_transaction() as session:
-        assert session["cart"]["espresso-grande"] == 3
+        assert session["cart"]["waffle-mix"] == 3
 
 
 def test_order_conversion_carries_the_order_value(client, monkeypatch):
     monkeypatch.setattr(app_module, "ADS_ID", "AW-123")
     monkeypatch.setattr(app_module, "ADS_LABELS", {"order": "oLbl"})
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})
     client.post("/order", data=ORDER_FORM)
     done = client.get("/order/received")
     assert done.status_code == 200
     page = done.get_data(as_text=True)
-    assert '"send_to": "AW-123/oLbl"' in page and '"value": 26.88' in page and '"transaction_id"' in page
+    assert '"send_to": "AW-123/oLbl"' in page and '"value": 21.0' in page and '"transaction_id"' in page
 
 
 def test_business_order_needs_business_name_and_shows_vat_added(client):
     business(client)
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "2"})
     page = client.get("/order").get_data(as_text=True)
     assert "Subtotal (ex VAT)" in page
-    assert "€51.20" in page and "€2.56" in page and "€53.76" in page
+    assert "€40.00" in page and "€2.00" in page and "€42.00" in page
     totals = page.split('class="order-totals"', 1)[1].split("</table>", 1)[0]
     assert "Delivery" not in totals
     assert "Free delivery on orders over" not in page
@@ -152,7 +152,7 @@ def test_business_order_needs_business_name_and_shows_vat_added(client):
     assert done.status_code == 302
     placed = client.get("/order/received").get_data(as_text=True)
     assert "CY10000000X" in placed
-    assert "€53.76" in placed
+    assert "€42.00" in placed
 
 
 def test_depot_email_says_trade_or_retail():
@@ -182,30 +182,30 @@ def test_serving_line_is_free_from_sixty(client):
     assert "Vittorio cups and glasses" in home
     assert "Free with orders over €60 · 1 per order" in home
     client.post("/cart/add", data={"slug": GLASS, "qty": "2"})
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})  # €26.88 incl. VAT
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})  # €21.00 incl. VAT
     with client.session_transaction() as session:
         assert session["cart"][GLASS] == 1  # one free piece per order
     page = client.get("/order").get_data(as_text=True)
-    assert "Add <strong>€33.12</strong> more, or remove them." in page
+    assert "Add <strong>€39.00</strong> more, or remove them." in page
     assert ">From €60<" in page and ">Free<" not in page  # not labelled free until the order qualifies
     assert ">Από €60<" in client.get("/el/order").get_data(as_text=True)
     short =client.post("/order", data=ORDER_FORM)
     assert short.status_code == 400
-    assert "Vittorio cups and glasses are free with orders over €60. Add €33.12 more" in short.get_data(as_text=True)
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})  # 3 × €26.88 = €80.64
+    assert "Vittorio cups and glasses are free with orders over €60. Add €39.00 more" in short.get_data(as_text=True)
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "2"})  # 3 × €21.00 = €63.00
     page = client.get("/order").get_data(as_text=True)
     assert "more, or remove them" not in page
     assert ">From €60<" not in page
-    assert "€80.64" in page  # the glasses add nothing to the total
+    assert "€63.00" in page  # the glasses add nothing to the total
     assert client.post("/order", data=ORDER_FORM).status_code == 302
     placed = client.get("/order/received").get_data(as_text=True)
     assert "Freddo Espresso Glass" in placed and ">Free<" in placed
 
 
 def test_order_page_offers_a_free_piece_once_over_sixty(client):
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})  # €53.76, not yet
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "2"})  # €42.00, not yet
     assert "Choose your free Vittorio cup or glass" not in client.get("/order").get_data(as_text=True)
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})  # €80.64
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})  # €63.00
     page = client.get("/order").get_data(as_text=True)
     assert "Choose your free Vittorio cup or glass" in page and f'value="{GLASS}"' in page
     added = client.post("/cart/add", data={"slug": GLASS, "next": "/order"})
@@ -218,8 +218,8 @@ def test_order_page_offers_a_free_piece_once_over_sixty(client):
 def test_serving_line_threshold_is_ex_vat_for_business(client):
     business(client)
     client.post("/cart/add", data={"slug": GLASS, "qty": "1"})
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "2"})  # €51.20 ex VAT
-    assert "Add <strong>€8.80</strong> more" in client.get("/order").get_data(as_text=True)
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "2"})  # €40.00 ex VAT
+    assert "Add <strong>€20.00</strong> more" in client.get("/order").get_data(as_text=True)
 
 
 def test_greek_serving_line(client):
@@ -231,10 +231,10 @@ def test_greek_serving_line(client):
 def test_only_one_free_piece_per_order(client):
     client.post("/cart/add", data={"slug": GLASS, "qty": "3"})
     client.post("/cart/add", data={"slug": "vittorio-white-espresso-cup", "qty": "1"})
-    client.post("/cart/add", data={"slug": "espresso-grande", "qty": "1"})
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})
     with client.session_transaction() as session:
-        assert session["cart"] == {"vittorio-white-espresso-cup": 1, "espresso-grande": 1}
+        assert session["cart"] == {"vittorio-white-espresso-cup": 1, "waffle-mix": 1}
     # Raising the quantity on the order page is capped too.
-    client.post("/cart/update", data={"qty-vittorio-white-espresso-cup": "5", "qty-espresso-grande": "1"})
+    client.post("/cart/update", data={"qty-vittorio-white-espresso-cup": "5", "qty-waffle-mix": "1"})
     with client.session_transaction() as session:
         assert session["cart"]["vittorio-white-espresso-cup"] == 1

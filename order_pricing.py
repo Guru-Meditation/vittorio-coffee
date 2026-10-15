@@ -6,14 +6,22 @@ VAT_RATE = Decimal(str(ORDER["vat_rate"]))
 FREE_DELIVERY_MIN = Decimal(str(ORDER["free_delivery_min"]))
 DELIVERY_FEE = Decimal(str(ORDER["delivery_fee"]))
 CENT = Decimal("0.01")
+VAT_FREE_GROUPS = set(ORDER["vat_free_groups"])
 
 
 def _money(amount):
     return f"€{amount:.2f}"
 
 
-def with_vat(amount):
-    """Home price of one pack: the trade price plus VAT, rounded to the cent shown on the site."""
+def is_vat_free(product):
+    """Coffee and sugar are sold without VAT."""
+    return product.get("group") in VAT_FREE_GROUPS
+
+
+def with_vat(amount, vat_free=False):
+    """Home price of one pack: the trade price plus VAT (none for VAT-free goods), rounded to the cent shown."""
+    if vat_free:
+        return amount
     return (amount * (1 + VAT_RATE)).quantize(CENT, rounding=ROUND_HALF_UP)
 
 
@@ -21,6 +29,7 @@ def compute_order_totals(lines, missing_price=False, business=True):
     """Businesses see trade prices ex VAT with VAT added; home buyers see VAT-inclusive prices.
 
     Each line carries `line_amount` (ex VAT) and, for home orders, `line_gross` (incl. VAT).
+    Lines with `vat_free` set (coffee, sugar) carry no VAT.
     Home orders get free delivery from €40 of goods (VAT included), otherwise a flat fee.
     Business orders carry no delivery charge; the depot arranges trade delivery.
     Returns None if any line lacks a price.
@@ -34,11 +43,12 @@ def compute_order_totals(lines, missing_price=False, business=True):
         if amount is None:
             return None
         subtotal += amount
+    taxable = sum((line[key] for line in lines if not line.get("vat_free")), Decimal("0"))
     if business:
-        vat = (subtotal * VAT_RATE).quantize(CENT, rounding=ROUND_HALF_UP)
+        vat = (taxable * VAT_RATE).quantize(CENT, rounding=ROUND_HALF_UP)
         goods = subtotal + vat
     else:
-        vat = (subtotal - subtotal / (1 + VAT_RATE)).quantize(CENT, rounding=ROUND_HALF_UP)
+        vat = (taxable - taxable / (1 + VAT_RATE)).quantize(CENT, rounding=ROUND_HALF_UP)
         goods = subtotal
     if business:
         delivery_amount, to_free = Decimal("0"), Decimal("0")

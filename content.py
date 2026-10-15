@@ -98,6 +98,8 @@ ANNOUNCEMENT = "Official Cyprus representative of Vittorio Gourmet Espresso and 
 ORDER = {
     "vat_rate": "0.05",
     "vat_label": "5%",
+    # Product groups sold without VAT (owner's instruction 2026-10-15): no VAT is added for home or business.
+    "vat_free_groups": ["Coffee", "Sugar"],
     "free_delivery_min": "40",
     "delivery_fee": "5.00",
     # Vittorio cups and glasses (the "Serving line" group) are given free with orders from this amount,

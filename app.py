@@ -40,7 +40,7 @@ from mailing import (
     send_mail,
     viber_order_href,
 )
-from order_pricing import compute_order_totals, totals_for_session, with_vat
+from order_pricing import compute_order_totals, is_vat_free, totals_for_session, with_vat
 
 # INFO so the Render logs show which route delivered each email.
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -204,6 +204,8 @@ def price_of(item):
     if product.get("group") == SERVING_GROUP:
         return tr("Free with orders over €60 · 1 per order")
     amount = _price(product)
+    if amount is not None and is_vat_free(product):
+        return tr("{price}, no VAT", price=f"€{amount:.2f}")
     if amount is None or is_business():
         return product["price_label"]
     return tr("{price} incl. VAT", price=f"€{with_vat(amount):.2f}")
@@ -225,7 +227,8 @@ def cart_lines():
         gift = product.get("group") == SERVING_GROUP
         amount = Decimal("0") if gift else _price(product)
         line_total = amount * quantity if amount is not None else None
-        line_gross = with_vat(amount) * quantity if amount is not None else None
+        vat_free = is_vat_free(product)
+        line_gross = with_vat(amount, vat_free) * quantity if amount is not None else None
         shown = line_total if is_business() else line_gross
         if line_total is None:
             missing = True
@@ -239,6 +242,7 @@ def cart_lines():
                 "pack": pack,
                 "line_amount": line_total,
                 "line_gross": line_gross,
+                "vat_free": vat_free,
                 "gift": gift,
                 "line_total": "Free" if gift else (f"€{shown:.2f}" if shown is not None else "Price on request"),
             }
@@ -502,7 +506,7 @@ def create_app():
         if amount is not None and item.get("group") != SERVING_GROUP:
             payload["offers"] = {
                 "@type": "Offer",
-                "price": f"{with_vat(amount):.2f}",
+                "price": f"{with_vat(amount, is_vat_free(item)):.2f}",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
                 "itemCondition": "https://schema.org/NewCondition",

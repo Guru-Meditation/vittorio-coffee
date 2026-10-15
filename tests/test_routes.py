@@ -48,6 +48,8 @@ def test_every_product_and_article(client):
         # Home prices (incl. VAT) by default; unpriced lines keep their label.
         if item["group"] == "Serving line":
             assert "Free with orders over €60 · 1 per order" in page
+        elif item["group"] == "Coffee" and item.get("price"):
+            assert "no VAT" in page  # coffee is sold without VAT
         else:
             assert ("incl. VAT" in page) if item.get("price") else (item["price_label"] in page)
         if item["image"]:
@@ -200,7 +202,7 @@ def test_order_flow_and_cyprus_delivery(client):
     assert "Email order" in body
     assert "viber://chat" in body
     assert "Total to pay on delivery" in body
-    assert "€35.66" in body
+    assert "€34.20" in body  # 2 × €14.60 coffee (no VAT) + €5 delivery
     retail = client.post("/cart/add", data={"slug": "costa-rica", "qty": "1"})
     assert retail.status_code == 302
     placed_retail = client.post(

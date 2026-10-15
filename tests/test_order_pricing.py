@@ -30,3 +30,31 @@ def test_home_free_delivery_over_forty():
     assert totals["delivery"] == "Free"
     assert totals["free_delivery"] is True
     assert totals["total"] == "€40.00"
+
+
+def test_vat_free_lines_carry_no_vat():
+    lines = [
+        {"line_amount": Decimal("14.60"), "line_gross": Decimal("14.60"), "vat_free": True},
+        {"line_amount": Decimal("10.00"), "line_gross": Decimal("10.50")},
+    ]
+    business = compute_order_totals(lines, missing_price=False)
+    assert business["vat"] == "€0.50"
+    assert business["total"] == "€25.10"
+    home = compute_order_totals(lines, missing_price=False, business=False)
+    assert home["vat"] == "€0.50"
+    assert home["subtotal"] == "€25.10"
+
+
+def test_coffee_price_label_has_no_vat():
+    from app import create_app
+
+    client = create_app().test_client()
+    page = client.get("/products/costa-rica").get_data(as_text=True)
+    assert "€14.60, no VAT" in page
+    assert "€15.33" not in page
+    with client.session_transaction() as sess:
+        sess["buyer"] = "business"
+    page = client.get("/products/costa-rica").get_data(as_text=True)
+    assert "€14.60, no VAT" in page
+    tea = client.get("/products/green-tea").get_data(as_text=True)
+    assert "€5.70 + VAT" in tea
