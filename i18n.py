@@ -51,6 +51,11 @@ EL = {
     "For business": "Για επιχειρήσεις",
     "{price} incl. VAT": "{price} με ΦΠΑ",
     "{price}, no VAT": "{price}, χωρίς ΦΠΑ",
+    "{price} + VAT": "{price} + ΦΠΑ",
+    "Prices plus VAT · Delivery across Cyprus · Cash on delivery":
+        "Τιμές πλέον ΦΠΑ · Παράδοση σε όλη την Κύπρο · Αντικαταβολή",
+    "Cyprus delivery · prices plus VAT · payment on delivery":
+        "Παράδοση σε όλη την Κύπρο · τιμές πλέον ΦΠΑ · πληρωμή κατά την παράδοση",
     "Prices include VAT · Delivery across Cyprus · Cash on delivery":
         "Τιμές με ΦΠΑ · Παράδοση σε όλη την Κύπρο · Αντικαταβολή",
     "Cyprus delivery · prices include VAT · payment on delivery":
@@ -278,8 +283,8 @@ EL = {
     "Unopened, unused goods can be returned within 30 days for a refund. You pay return shipping unless the error was ours. Send the order number by email to pantzosantonis@gmail.com, or open Viber.":
         "Κλειστά, αχρησιμοποίητα προϊόντα επιστρέφονται εντός 30 ημερών με επιστροφή χρημάτων. Τα έξοδα επιστροφής βαρύνουν εσάς, εκτός αν το λάθος ήταν δικό μας. Στείλτε τον αριθμό παραγγελίας στο pantzosantonis@gmail.com ή στο Viber.",
     "Are the prices final?": "Είναι οι τιμές τελικές;",
-    "Choose “For home” or “For business” at the top of the page. Home prices include VAT. Business prices are the published trade prices without VAT; VAT is added at checkout. A line marked “Price not published” is confirmed before delivery.":
-        "Επιλέξτε «Για το σπίτι» ή «Για επιχειρήσεις» στο πάνω μέρος της σελίδας. Οι τιμές για το σπίτι περιλαμβάνουν ΦΠΑ. Οι τιμές για επιχειρήσεις είναι οι δημοσιευμένες τιμές χονδρικής χωρίς ΦΠΑ· ο ΦΠΑ προστίθεται στην ολοκλήρωση της παραγγελίας. Όπου αναγράφεται «Τιμή κατόπιν ζήτησης», η τιμή επιβεβαιώνεται πριν από την παράδοση.",
+    "Prices are shown without VAT; 5% VAT is added at checkout. Coffee carries no VAT. A line marked “Price not published” is confirmed before delivery.":
+        "Οι τιμές εμφανίζονται χωρίς ΦΠΑ· ΦΠΑ 5% προστίθεται στην ολοκλήρωση της παραγγελίας. Ο καφές δεν έχει ΦΠΑ. Όπου αναγράφεται «Τιμή κατόπιν ζήτησης», η τιμή επιβεβαιώνεται πριν από την παράδοση.",
     "Who do you supply?": "Σε ποιους απευθύνεστε;",
     "Cafés, bars, hotels and retail customers across Cyprus.":
         "Σε καφετέριες, μπαρ, ξενοδοχεία και πελάτες λιανικής σε όλη την Κύπρο.",

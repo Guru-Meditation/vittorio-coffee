@@ -45,13 +45,13 @@ def test_every_product_and_article(client):
         assert response.status_code == 200
         page = response.get_data(as_text=True)
         assert html.escape(item["name"]) in page
-        # Home prices (incl. VAT) by default; unpriced lines keep their label.
+        # Prices ex VAT ("+ VAT"); coffee has no VAT; unpriced lines keep their label.
         if item["group"] == "Serving line":
             assert "Free with orders over €60 · 1 per order" in page
         elif item["group"] == "Coffee" and item.get("price"):
             assert "no VAT" in page  # coffee is sold without VAT
         else:
-            assert ("incl. VAT" in page) if item.get("price") else (item["price_label"] in page)
+            assert ("+ VAT" in page) if item.get("price") else (item["price_label"] in page)
         if item["image"]:
             assert item["image"]["web"]["lg"]["file"] in page
     for item in ARTICLES:

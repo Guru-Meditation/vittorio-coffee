@@ -130,7 +130,7 @@
         </ul>
       </div>
     </div>
-    <p class="legal-note">{% if business_prices %}{{ _("Prices exclude VAT. Payment is cash on delivery.") }}{% else %}{{ _("Prices include VAT. Payment is cash on delivery.") }}{% endif %}</p>
+    <p class="legal-note">{{ _("Prices exclude VAT. Payment is cash on delivery.") }}</p>
   </footer>
   <p class="cart-toast" role="status" aria-live="polite" hidden data-added="{{ _('Added to order') }}" data-view="{{ _('View order') }}"></p>
   {% if ads_id %}

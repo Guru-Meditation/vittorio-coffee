@@ -43,7 +43,7 @@ def format_order_mail(placed):
     """Build subject and plain-text body for a placed order."""
     # Orders placed before the home/business switch were all at trade prices.
     trade = placed.get("buyer", "business") == "business"
-    kind = "TRADE order (business prices ex VAT)" if trade else "RETAIL order (home prices incl. VAT)"
+    kind = "TRADE order (business prices ex VAT)" if trade else "RETAIL order (home prices plus VAT)"
     lines = [
         f"Vittorio order {placed['ref']}",
         kind,

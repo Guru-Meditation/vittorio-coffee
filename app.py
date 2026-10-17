@@ -206,9 +206,9 @@ def price_of(item):
     amount = _price(product)
     if amount is not None and is_vat_free(product):
         return tr("{price}, no VAT", price=f"€{amount:.2f}")
-    if amount is None or is_business():
+    if amount is None:
         return product["price_label"]
-    return tr("{price} incl. VAT", price=f"€{with_vat(amount):.2f}")
+    return tr("{price} + VAT", price=f"€{amount:.2f}")
 
 
 def cart_lines():
@@ -229,7 +229,7 @@ def cart_lines():
         line_total = amount * quantity if amount is not None else None
         vat_free = is_vat_free(product)
         line_gross = with_vat(amount, vat_free) * quantity if amount is not None else None
-        shown = line_total if is_business() else line_gross
+        shown = line_total
         if line_total is None:
             missing = True
         else:
@@ -264,7 +264,7 @@ def serving_shortfall(lines):
     """How much more the order needs before its free cups and glasses qualify; None when it qualifies."""
     if not any(line["gift"] for line in lines):
         return None
-    key = "line_amount" if is_business() else "line_gross"
+    key = "line_amount"
     paid = sum((line[key] or Decimal("0")) for line in lines if not line["gift"])
     return f"€{SERVING_FREE_MIN - paid:.2f}" if paid < SERVING_FREE_MIN else None
 
@@ -273,7 +273,7 @@ def serving_offer(lines):
     """The cups and glasses to offer on the order page once an order qualifies and has none yet."""
     if not lines or any(line["gift"] for line in lines):
         return []
-    key = "line_amount" if is_business() else "line_gross"
+    key = "line_amount"
     paid = sum((line[key] or Decimal("0")) for line in lines)
     if paid < SERVING_FREE_MIN:
         return []

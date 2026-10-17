@@ -17,10 +17,10 @@ def business(client, lang=""):
     return client.post(f"{lang}/prices", data={"buyer": "business", "next": f"{lang}/products"})
 
 
-def test_home_prices_include_vat_by_default(client):
+def test_home_prices_show_vat_on_top(client):
     page = client.get("/products/waffle-mix").get_data(as_text=True)
-    assert "€21.00 incl. VAT" in page  # €20.00 trade + 5%
-    assert "€20.00 + VAT" not in page
+    assert "€20.00 + VAT" in page  # owner wants every price shown ex VAT
+    assert "incl. VAT" not in page
     assert 'value="home" aria-pressed="true"' in page
 
 
@@ -35,7 +35,7 @@ def test_business_switch_shows_trade_prices_and_vat_notice(client):
     assert "Prices exclude VAT." in page
     # And back again.
     client.post("/prices", data={"buyer": "home"})
-    assert "€21.00 incl. VAT" in client.get("/products/waffle-mix").get_data(as_text=True)
+    assert "€20.00 + VAT" in client.get("/products/waffle-mix").get_data(as_text=True)
 
 
 def test_switch_only_returns_to_this_site(client):
@@ -48,7 +48,7 @@ def test_greek_business_notice(client):
     page = client.get("/el/products/waffle-mix").get_data(as_text=True)
     assert "€20.00 + ΦΠΑ" in page
     client.post("/el/prices", data={"buyer": "home"})
-    assert "€21.00 με ΦΠΑ" in client.get("/el/products/waffle-mix").get_data(as_text=True)
+    assert "€20.00 + ΦΠΑ" in client.get("/el/products/waffle-mix").get_data(as_text=True)
 
 
 ORDER_FORM = {
@@ -60,13 +60,13 @@ ORDER_FORM = {
 }
 
 
-def test_home_order_totals_include_vat(client):
+def test_home_order_totals_add_vat(client):
     client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})
     page = client.get("/order").get_data(as_text=True)
-    assert "Subtotal (incl. VAT)" in page
-    assert "Includes VAT (5%)" in page
-    assert "€21.00" in page
-    assert "€26.00" in page  # plus €5 delivery under €40
+    assert "Subtotal (ex VAT)" in page
+    assert "VAT (5%)" in page and "€1.00" in page
+    assert "€20.00" in page
+    assert "€26.00" in page  # €20 + €1 VAT + €5 delivery under €40
     assert 'id="vat_number"' not in page
     assert "Deliveries are done by ACS." in page
     client.post("/order", data=ORDER_FORM)
@@ -133,7 +133,7 @@ def test_order_conversion_carries_the_order_value(client, monkeypatch):
     done = client.get("/order/received")
     assert done.status_code == 200
     page = done.get_data(as_text=True)
-    assert '"send_to": "AW-123/oLbl"' in page and '"value": 21.0' in page and '"transaction_id"' in page
+    assert '"send_to": "AW-123/oLbl"' in page and '"value": 20.0' in page and '"transaction_id"' in page
 
 
 def test_business_order_needs_business_name_and_shows_vat_added(client):
@@ -164,7 +164,7 @@ def test_depot_email_says_trade_or_retail():
     assert "VAT number: CY1" in trade_body
     retail_subject, retail_body = format_order_mail({"ref": "B2", "buyer": "home", "lines": []})
     assert retail_subject == "Vittorio RETAIL order B2"
-    assert "RETAIL order (home prices incl. VAT)" in retail_body
+    assert "RETAIL order (home prices plus VAT)" in retail_body
 
 
 def test_customer_email_names_acs_for_home_orders_only():
@@ -184,17 +184,17 @@ def test_serving_line_is_free_from_sixty(client):
     assert "Vittorio cups and glasses" in home
     assert "Free with orders over €60 · 1 per order" in home
     client.post("/cart/add", data={"slug": GLASS, "qty": "2"})
-    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})  # €21.00 incl. VAT
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})  # €20.00 ex VAT
     with client.session_transaction() as session:
         assert session["cart"][GLASS] == 1  # one free piece per order
     page = client.get("/order").get_data(as_text=True)
-    assert "Add <strong>€39.00</strong> more, or remove them." in page
+    assert "Add <strong>€40.00</strong> more, or remove them." in page
     assert ">From €60<" in page and ">Free<" not in page  # not labelled free until the order qualifies
     assert ">Από €60<" in client.get("/el/order").get_data(as_text=True)
     short =client.post("/order", data=ORDER_FORM)
     assert short.status_code == 400
-    assert "Vittorio cups and glasses are free with orders over €60. Add €39.00 more" in short.get_data(as_text=True)
-    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "2"})  # 3 × €21.00 = €63.00
+    assert "Vittorio cups and glasses are free with orders over €60. Add €40.00 more" in short.get_data(as_text=True)
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "2"})  # 3 × €20.00 = €60 ex VAT, €63.00 with VAT
     page = client.get("/order").get_data(as_text=True)
     assert "more, or remove them" not in page
     assert ">From €60<" not in page
@@ -205,9 +205,9 @@ def test_serving_line_is_free_from_sixty(client):
 
 
 def test_order_page_offers_a_free_piece_once_over_sixty(client):
-    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "2"})  # €42.00, not yet
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "2"})  # €40.00 ex VAT, not yet
     assert "Choose your free Vittorio cup or glass" not in client.get("/order").get_data(as_text=True)
-    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})  # €63.00
+    client.post("/cart/add", data={"slug": "waffle-mix", "qty": "1"})  # €60.00 ex VAT
     page = client.get("/order").get_data(as_text=True)
     assert "Choose your free Vittorio cup or glass" in page and f'value="{GLASS}"' in page
     added = client.post("/cart/add", data={"slug": GLASS, "next": "/order"})

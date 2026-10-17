@@ -103,7 +103,7 @@ ORDER = {
     "free_delivery_min": "40",
     "delivery_fee": "5.00",
     # Vittorio cups and glasses (the "Serving line" group) are given free with orders from this amount,
-    # counted the way the buyer sees prices (incl. VAT for home, ex VAT for business).
+    # counted ex VAT, the way prices are shown.
     "serving_free_min": "60",
 }
 SERVING_GROUP = "Serving line"
@@ -264,7 +264,7 @@ FAQ = [
     },
     {
         "question": "Are the prices final?",
-        "answer": "Choose “For home” or “For business” at the top of the page. Home prices include VAT. Business prices are the published trade prices without VAT; VAT is added at checkout. A line marked “Price not published” is confirmed before delivery.",
+        "answer": "Prices are shown without VAT; 5% VAT is added at checkout. Coffee carries no VAT. A line marked “Price not published” is confirmed before delivery.",
     },
     {
         "question": "Who do you supply?",

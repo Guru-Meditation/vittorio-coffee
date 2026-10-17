@@ -59,7 +59,7 @@ def test_greek_pages_render_in_greek(client, path):
     assert '<html lang="el">' in page
     assert '<meta property="og:locale" content="el_GR">' in page
     assert "Κατάλογος" in page  # nav
-    assert "Οι τιμές περιλαμβάνουν ΦΠΑ." in page  # footer, home prices by default
+    assert "Οι τιμές δεν περιλαμβάνουν ΦΠΑ." in page  # footer: all prices ex VAT
 
 
 def test_bare_el_redirects_to_greek_home(client):
