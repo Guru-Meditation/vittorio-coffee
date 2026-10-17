@@ -490,7 +490,13 @@ def create_app():
         )
 
     def product_json(item):
-        """schema.org Product for Google's merchant listings: brand, image and the home (incl. VAT) price."""
+        """schema.org Product for Google's merchant listings: brand, image and the home (incl. VAT) price.
+
+        Unpriced and free items get none: Google rejects a Product without offers, review or rating.
+        """
+        amount = _price(item)
+        if amount is None or item.get("group") == SERVING_GROUP:
+            return None
         payload = {
             "@context": "https://schema.org",
             "@type": "Product",
@@ -502,19 +508,17 @@ def create_app():
         }
         if item.get("image"):
             payload["image"] = SITE_URL + url_for("static", filename="images/" + item["image"]["file"])
-        amount = _price(item)
-        if amount is not None and item.get("group") != SERVING_GROUP:
-            payload["offers"] = {
-                "@type": "Offer",
-                "price": f"{with_vat(amount, is_vat_free(item)):.2f}",
-                "priceCurrency": "EUR",
-                "availability": "https://schema.org/InStock",
-                "itemCondition": "https://schema.org/NewCondition",
-                "validFrom": PRICES_VALID_FROM,
-                "priceValidUntil": f"{date.today().year + 1}-12-31",
-                "url": payload["url"],
-                "seller": {"@type": "Organization", "name": BUSINESS["name"]},
-            }
+        payload["offers"] = {
+            "@type": "Offer",
+            "price": f"{with_vat(amount, is_vat_free(item)):.2f}",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "validFrom": PRICES_VALID_FROM,
+            "priceValidUntil": f"{date.today().year + 1}-12-31",
+            "url": payload["url"],
+            "seller": {"@type": "Organization", "name": BUSINESS["name"]},
+        }
         return json.dumps(payload, ensure_ascii=False)
 
     @localized("/products/<slug>")

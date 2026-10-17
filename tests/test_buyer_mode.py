@@ -111,7 +111,9 @@ def test_product_page_has_merchant_listing_data(client):
     assert offer["price"] == "21.00" and offer["priceCurrency"] == "EUR"
     assert offer["validFrom"] and offer["priceValidUntil"] and offer["availability"].endswith("InStock")
     glass = client.get(f"/products/{GLASS}").get_data(as_text=True)
-    assert '"offers"' not in glass  # free pieces are not sold on their own
+    assert "ld+json" not in glass  # free pieces are not sold on their own
+    # Unpriced items get no Product markup: Google rejects a Product without offers.
+    assert "ld+json" not in client.get("/products/frappe-straws-x-500").get_data(as_text=True)
 
 
 def test_product_cards_have_a_quantity_box(client):
